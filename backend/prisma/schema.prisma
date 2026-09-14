@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Meal {
+  id       Int     @id @default(autoincrement())
+  name     String
+  price    Decimal @db.Decimal(10, 2)
+  dietary  Json
+  category String
+  rating   Float
+
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  nutrition Nutrition?
+  location  Location?
+}
+
+model Restaurant {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  meals Meal[]
+}
+
+model Nutrition {
+  id       Int   @id @default(autoincrement())
+  calories Int
+  protein  Float
+  carbs    Float
+  fat      Float
+
+  mealId Int  @unique
+  meal   Meal @relation(fields: [mealId], references: [id])
+}
+
+model Location {
+  id             Int    @id @default(autoincrement())
+  address        String
+  lat            Float
+  lon            Float
+  distance_miles Float
+
+  mealId Int  @unique
+  meal   Meal @relation(fields: [mealId], references: [id])
+}
