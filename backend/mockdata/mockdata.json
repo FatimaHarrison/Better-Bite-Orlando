@@ -1,0 +1,27 @@
+{
+  "id": 1,
+  "name": "Grilled Chicken Bowl",
+  "restaurant": {
+    "id": 5,
+    "name": "Fresh Kitchen"
+  },
+  "price": 14.99,
+  "nutrition": {
+    "calories": 520,
+    "protein": 42.5,
+    "carbs": 48.2,
+    "fat": 16.1
+  },
+  "dietary": [
+    "gluten-free",
+    "high-protein"
+  ],
+  "category": "Bowl",
+  "location": {
+    "address": "123 Main Street",
+    "lat": 28.5383,
+    "lon": -81.3792,
+    "distance_miles": 4.2
+  },
+  "rating": 4.6
+}
