@@ -1,0 +1,223 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+/* Navigation bar*/
+
+
+header {
+    background-color: #e8d8c8;
+    padding: 20px 30px;
+
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo img {
+    width: 130px;
+    height: auto;
+    display:block;
+}
+
+.nav-links {
+    display: flex;
+    gap: 45px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #355f2e;
+}
+
+/* search result layout */
+
+.search-page {
+    display: flex;
+
+    max-width: 1200px;
+    margin: 0 auto;
+
+    background-color: white;
+}
+
+.filter-panel {
+    width: 300px;
+    padding: 25px;
+
+    background-color: #f3f3f3;
+    border-right: 1px solid #cccccc;
+}
+
+.result-area {
+    flex: 1;
+    padding: 25px;
+}
+
+.filter-group {
+    margin-bottom: 24px;
+}
+
+.filter-group h3 {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-header h2 {
+    margin: 0;
+}
+
+.filter-header button {
+    background:none;
+    border: none;
+    cursor: pointer;
+}
+
+
+.nutrition-options,
+.protein-options {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+}
+
+.nutrition-options label,
+.protein-options label {
+    margin-bottom: 0;
+}
+
+.apply-filters {
+    display: block;
+
+    margin-top: 20px;
+    margin-left: auto;
+
+    padding: 10px 14px;
+
+    background-color: #4b7b2b;
+    color: white;
+ 
+    border: none;
+    border-radius: 8px;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.apply-filters:hover {
+    background-color: #355f2e;
+}
+
+.meal-card {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    padding: 25px;
+    margin-top: 20px;
+
+    background-color: #f7f7f7;
+}
+
+.meal-image {
+    width: 170px;
+    height: 140px;
+
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.meal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+}
+
+
+
+
+.meal-info {
+    flex: 1;
+}
+
+.meal-info h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.restaurant-name {
+    margin: 4px 0;
+}
+
+.price {
+    margin: 4px 0;
+    color: #355f2e;
+    font-weight: bold;
+}
+
+.meal-stats {
+    display: flex;
+    gap: 35px;
+    margin-top: 10px;
+}
+
+.meal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.meal-actions button {
+    padding: 12px 25px;
+
+    background-color: #e4ebe1;
+    color: #355f2e;
+
+    border: none;
+    border-radius: 8px;
+
+    font-weight:100;
+    cursor: pointer;
+}
+
+.recommendation {
+    margin-top: 10px;
+    padding: 10px 15px;
+
+    background-color: #e4ebe1;
+    border-radius: 8px;
+}
+
+.recommendation strong {
+    color: #355f2e;
+}
+
+.recommendation p {
+    margin: 5px 0 0;
+    color: #355f2e;
+    font-size: 13px;
+}

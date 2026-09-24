@@ -7,12 +7,404 @@
 
     <title>Search Results | Better Bite Orlando </title>
 
-    <link rel="stylesheet" href="search-results.css">
+    <link rel="stylesheet" href="../css/search-results.css">
 </head>
 
 <body>
-   
-<h1> Search Results </h1>
+
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+
+            <div class="logo">
+                
+                <img 
+                src="../../Logos/better-bit-orlando-logo-trn-bg.png"
+                alt="Better Bite Orlando Logo">
+
+            </div>
+
+            <div class="nav-links">
+    
+                <a href="index.html">Home</a>
+
+                <a href="search-results.html">Find Food</a>
+
+                <a href="compare-options.html">Compare</a>
+
+                <a href="favorites.html">Favorites</a>
+
+                <a href="food-access.html">Food Access</a>
+
+                </div>
+
+                <div class="profile">
+                    Profile
+                </div>
+
+        </nav>
+
+    </header>
+
+    <main class="search-page">
+
+        <!-- Filter Section -->
+         <aside class="filter-panel">
+
+            <div class="filter-header">
+                <h2>Filter Results</h2>
+                <button type="button">Reset</button>
+            </div>
+
+            <!-- Budget Filter --> 
+             <div class="filter-group">
+
+                <h3>Budget</h3>
+
+                <label> 
+                    <input type="radio" name="budget">
+                    $10 or less
+                </label>
+        
+                <label> 
+                    <input type="radio" name="budget">
+                    $15 or less
+                </label>
+                <label> 
+                    <input type="radio" name="budget">
+                    $20 or less
+                </label>    
+
+                <label> 
+                    <input type="radio" name="budget">
+                    $30+
+                </label>
+
+            </div>
+
+            <!-- Distance Filter --> 
+             <div class="filter-group">
+
+                <h3>Distance</h3>
+
+                 <label>
+                    <input type="radio" name="distance">
+                    1 mile
+                </label>
+
+                 <label>
+                    <input type="radio" name="distance">
+                    3 miles
+                </label>
+
+
+                <label>
+                    <input type="radio" name="distance">
+                    5 miles
+                </label>
+
+                <label>
+                    <input type="radio" name="distance">
+                    10 miles
+                </label>
+            </div>
+        
+            <!-- Dietary Filter -->
+             <div class="filter-group">
+
+                <h3>Dietary</h3>
+
+                <label> 
+                    <input type="checkbox" name="dietary" value="vegetarian">
+                    Vegetarian
+                </label>
+
+                <label> 
+                    <input type="checkbox" name="dietary" value="vegan">
+                    Vegan
+                </label>
+
+                <label> 
+                    <input type="checkbox" name="dietary" value="high-protein">
+                    High Protein
+                    </label>
+                <label> 
+                    <input type="checkbox" name="dietary" value="low-carb">
+                    Low Carb
+                </label>
+            </div>
+
+            <!-- Meal Type Filter -->
+             <div class="filter-group">
+
+                <h3>Meal Type</h3>
+
+                <label>
+                    <input type="checkbox" name="meal-type" value="breakfast">
+                    Breakfast
+                </label>
+                <label>
+                    <input type="checkbox" name="meal-type" value="lunch">
+                    Lunch
+                </label>
+                
+                <label>
+                    <input type="checkbox" name="meal-type" value="dinner">
+                    Dinner
+                </label>
+                <label>
+                    <input type="checkbox" name="meal-type" value="snack">
+                    Snack
+                </label>
+
+             </div>
+
+
+             <!-- Nutrition Filter -->
+              <div class="filter-group">
+
+                <h3>Nutrition</h3>
+
+                <div class="nutrition-options">
+
+                <label>
+                    <input type="checkbox" name="nutrition" value="200">
+                    200 
+                </label>
+
+                <label>
+                    <input type="checkbox" name="nutrition" value="600">
+                    600 
+                </label>
+                <label>
+                    <input type="checkbox" name="nutrition" value="400">
+                    400 
+                </label>
+
+                <label>
+                    <input type="checkbox" name="nutrition" value="800">
+                    800 
+                </label>
+              </div>
+            </div>
+
+
+
+             <!-- Protein Filter -->
+              <div class="filter-group">
+
+                <h3>Protein</h3>
+
+                <div class="protein-options">
+
+                <label>
+                    <input type="checkbox" name="protein" value="10g">
+                    10g 
+                </label>
+
+                <label>
+                    <input type="checkbox" name="protein" value="30g">
+                    30g 
+                </label>
+                <label>
+                    <input type="checkbox" name="protein" value="20g">
+                    20g 
+                </label>
+
+                <label>
+                    <input type="checkbox" name="protein" value="40g-50g">
+                    40g - 50g
+                </label>
+              </div>
+            </div>
+
+            <button class="apply-filters" type="button">
+                Apply Filters
+            </button>
+
+
+         </aside>
+
+         <!-- Search Results Section -->
+         <section class="result-area">
+
+            <h1>Lunch & Dinner Options</h1>
+
+            <div class="results-list">
+
+                <div class="meal-card">
+
+                    <div class="meal-image">
+                        
+                        <img 
+                            src="../images/grill-chicken-bowl.png"
+                            alt="Grilled Rosemary Chicken Bowl">
+
+                    </div>
+
+                    <div class="meal-info">
+
+                        <h2>Grilled Rosemary Chicken Bowl</h2>
+
+                        <p class="restaurant-name">Fresh Kitchen</p>
+
+                        <p class="price">$14.05</p>
+
+                        <div class="meal-stats">
+                            <span>520 cal</span>
+                            <span>52g protein</span>
+                        </div>
+
+                        <div class="meal-stats">
+                            <span>⭐ 4.6</span>
+                            <span>📍 1.8 miles</span>
+                        </div>
+
+                        <div class="recommendation">
+
+                            <strong>Why we recommend:</strong>
+
+                            <p>
+                                ✓ Within budget &nbsp;
+                                ✓ High protein &nbsp;
+                                ✓ Nearby
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="meal-actions">
+
+                        <button type="button">View Details</button>
+
+                        <button type="button">Compare</button>
+
+                    </div>
+
+                </div>
+
+
+
+<div class="meal-card">
+
+                    <div class="meal-image">
+                        
+                        <img 
+                            src="../images/miso-tofu-bowl.png"
+                            alt="Miso Glazed Tofu Bowl">
+                            
+                    </div>
+
+                    <div class="meal-info">
+
+                        <h2>Miso Glazed Tofu Bowl</h2>
+
+                        <p class="restaurant-name">Bolay</p>
+
+                        <p class="price">$11.95</p>
+
+                        <div class="meal-stats">
+                            <span>410 cal</span>
+                            <span>19g protein</span>
+                        </div>
+
+                        <div class="meal-stats">
+                            <span>⭐ 4.7</span>
+                            <span>📍 2.4 miles</span>
+                        </div>
+
+                        <div class="recommendation">
+
+                            <strong>Why we recommend:</strong>
+
+                            <p>
+                                ✓ Within budget &nbsp;
+                                ✓ High protein &nbsp;
+                                ✓ Vegan option
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="meal-actions">
+
+                        <button type="button">View Details</button>
+
+                        <button type="button">Compare</button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="meal-card">
+
+                    <div class="meal-image">
+                        
+                        <img 
+                            src="../images/greek-salad-bowl.png"
+                            alt="Greek Salad Bowl">
+                            
+                    </div>
+
+                    <div class="meal-info">
+
+                        <h2>Greek Salad Bowl</h2>
+
+                        <p class="restaurant-name">CAVA</p>
+
+                        <p class="price">$13.45 - 14.45</p>
+
+                        <div class="meal-stats">
+                            <span>580 cal</span>
+                            <span>37g protein</span>
+                        </div>
+
+                        <div class="meal-stats">
+                            <span>⭐ 4.4</span>
+                            <span>📍 3.1 miles</span>
+                        </div>
+
+                        <div class="recommendation">
+
+                            <strong>Why we recommend:</strong>
+
+                            <p>
+                                ✓ Within budget &nbsp;
+                                ✓ High protein &nbsp;
+                                ✓ Nearby
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="meal-actions">
+
+                        <button type="button">View Details</button>
+
+                        <button type="button">Compare</button>
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+         </section>
+
+    </main>
+
 
     <script src='../js/search-results.js'></script>
     </body>
