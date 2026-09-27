@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5f5f5;
+}
+
+.navigation-flow {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.navigation-flow h1 {
+    margin-bottom: 10px;
+}
+
+.intro {
+    margin-bottom: 30px;
+}
+
+.flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flow-box {
+    background-color: white;
+    width: 280px;
+    padding: 18px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.arrow {
+    font-size: 28px;
+    margin: 8px 0;
+}
