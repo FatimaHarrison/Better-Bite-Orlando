@@ -1,0 +1,313 @@
+
+body {
+    margin: 0;
+}
+
+header {
+    background-color: #f4ece5;
+    display: flex;
+    align-items: center;
+    height: 82px;
+    padding: 0 20px;
+}
+
+
+ul {
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    margin: 0;
+    gap: 45px;
+}
+
+
+a {
+    text-decoration: none;
+    color: #3D622C;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+
+.logo {
+    width: 150px;
+    height: auto;
+}
+
+
+.btn.btn-primary {
+    background-color: transparent;
+    color: #3D622C;
+    border: 2px solid #3D622C;
+}
+
+
+.btn.btn-primary:hover {
+    background-color: rgba(61, 98, 44, 0.25);
+    color: #3D622C;
+    border: 2px solid #3D622C;
+}
+
+
+.bi-search-heart {
+    font-size: 20px;
+}
+
+
+.search {
+    margin-left: 40px;
+}
+
+
+.sign-in {
+    margin-left: -20px;
+}
+
+
+.img-container {
+    width: 100%;
+    height: 360px;
+    position: relative;
+    color: #3D622C;
+    font-family: "Inter", sans-serif;
+}
+
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 75%;
+}
+
+.text {
+    position: absolute;
+    top: 15px;
+    left: 65px;
+    background: none;
+    padding: 20px;
+    border-radius: 6px;
+    font-family: "Inter", sans-serif;
+}
+
+
+h1 {
+    margin-bottom: 2px;
+    margin-top: 5px;
+    font-weight: 700;
+    color: #559439;
+    font-size: 32px;
+}
+
+
+.text p {
+    font-weight: bold;
+    white-space: nowrap;
+    margin-top: 2px;
+    margin-bottom: 5px;
+    color: #3D622C;
+}
+
+
+.float-text {
+    top: 35px;
+    right: 60px;
+    color: #3D622C;
+    position: absolute;
+    transform: rotate(-25deg);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.food-finder {
+    position: absolute;
+    top: 200px;
+    left: 10%;
+    width: 85%;
+    background-color: #f4ece5;
+    border-radius: 15px;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+
+.food-finder h2 {
+    margin: 0 0 20px 0;
+    color: #3D622C;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.meal-options {
+    display: flex;
+    gap: 30px;
+}
+
+
+.meal-options button {
+    background-color: transparent;
+    border: 1.5px solid #3D622C;
+    border-radius: 6px;
+    color: #3D622C;
+    padding: 10px 20px;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+}
+
+
+.meal-options i {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+
+.meal-options button:hover {
+    background-color: rgba(61, 98, 44, 0.25);
+}
+
+
+.filter-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 20px;
+    flex-wrap: nowrap;
+}
+
+.filter-group {
+    border-right: 2px solid #cccccc;
+    padding-right: 8px;
+}
+
+
+.filter-group h3 {
+    font-size: 13px;
+    color: #3D622C;
+    margin-bottom: 12px;
+    white-space: nowrap;
+}
+
+
+/* Budget + Travel buttons */
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+
+.filter-group button {
+    background-color: #3D622C;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+
+.dietary-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+
+.dietary-buttons button {
+    margin: 0;
+}
+
+.search-btn {
+    align-self: center;
+    margin-left: auto;
+    
+}
+
+.bi-arrow-right-short{
+    font-size: 20px;
+}
+
+.search-btn button {
+    background: #3D622C;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+   padding: 160px 50px 60px;
+    text-align: center;
+}
+
+
+.feature-card {
+    max-width: 150px;
+}
+
+
+.feature-card i {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    background: #e8e8e8;
+    border-radius: 50%;
+    font-size: 28px;
+    color: #3D622C;
+}
+
+
+.feature-card h4 {
+    margin-top: 15px;
+    color: #3D622C;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.feature-card p {
+    font-size: 11px;
+    color: #555;
+}
+
+footer {
+background: #f4ece5;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 20px 40px;
+}
+ 
+footer img {
+width: 140px;
+}
+ 
+.footer-links {
+display: flex;
+gap: 25px;
+}
+ 
+.socials {
+display: flex;
+gap: 20px;
+font-size: 22px;
+color: #3D622C;
+}
+ 
+footer h3 {
+color: #3D622C;
+font-size: 24px;
+font-weight: 700;
+}
