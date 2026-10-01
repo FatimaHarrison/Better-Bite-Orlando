@@ -5,4 +5,4 @@ class Restaurant {
 	}
 }
 
-module.exports = Restaurant;
+export default Restaurant;

@@ -11,3 +11,4 @@ class Nutrition {
 		this.fat = fat;
 	}
 }
+export default Nutrition;

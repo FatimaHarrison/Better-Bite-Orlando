@@ -1,5 +1,5 @@
-const prisma = require("../lib/prisma");
-const Meal = require("../models/Meal");
+import prisma from "../lib/prisma.js";
+import Meal from "../models/Meal.js";
 
 class MealRepository {
 	mapToMeal(meal) {
@@ -13,20 +13,20 @@ class MealRepository {
 
 			restaurant: meal.restaurant
 				? {
-						id: meal.restaurant.id,
-						name: meal.restaurant.name,
-					}
+					id: meal.restaurant.id,
+					name: meal.restaurant.name,
+				}
 				: null,
 
 			price: meal.price !== null ? Number(meal.price) : null,
 
 			nutrition: meal.nutrition
 				? {
-						calories: meal.nutrition.calories,
-						protein: meal.nutrition.protein,
-						carbs: meal.nutrition.carbs,
-						fat: meal.nutrition.fat,
-					}
+					calories: meal.nutrition.calories,
+					protein: meal.nutrition.protein,
+					carbs: meal.nutrition.carbs,
+					fat: meal.nutrition.fat,
+				}
 				: null,
 
 			dietary: meal.dietary ?? [],
@@ -35,11 +35,11 @@ class MealRepository {
 
 			location: meal.location
 				? {
-						address: meal.location.address,
-						lat: meal.location.lat,
-						lon: meal.location.lon,
-						distance_miles: meal.location.distance_miles,
-					}
+					address: meal.location.address,
+					lat: meal.location.lat,
+					lon: meal.location.lon,
+					distanceMiles: meal.location.distance_miles,
+				}
 				: null,
 
 			rating: meal.rating,
@@ -102,6 +102,24 @@ class MealRepository {
 
 		return meals.map((meal) => this.mapToMeal(meal));
 	}
+	async findByDietary(dietary) {
+		const meals = await this.findAll();
+
+		return meals.filter((meal) => {
+			return meal.dietary.some(
+				(type) => type.toLowerCase() === dietary.toLowerCase()
+			);
+		});
+	}
+
+	async findByName(name) {
+		const meals = await this.findAll();
+
+		return meals.filter((meal) =>
+			meal.name.toLowerCase().includes(name.toLowerCase())
+		);
+	}
+
 }
 
-module.exports = new MealRepository();
+export default new MealRepository();
