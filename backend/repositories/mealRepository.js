@@ -1,5 +1,5 @@
-const prisma = require("../lib/prisma");
-const Meal = require("../models/Meal");
+import prisma from "../lib/prisma.js";
+import Meal from "../models/Meal.js";
 
 class MealRepository {
 	mapToMeal(meal) {
@@ -102,6 +102,24 @@ class MealRepository {
 
 		return meals.map((meal) => this.mapToMeal(meal));
 	}
+
+	async findByDietary(dietary) {
+		const meals = await this.findAll();
+
+		return meals.filter((meal) => {
+			return meal.dietary.some(
+				(type) => type.toLowerCase() === dietary.toLowerCase(),
+			);
+		});
+	}
+
+	async findByName(name) {
+		const meals = await this.findAll();
+
+		return meals.filter((meal) =>
+			meal.name.toLowerCase().includes(name.toLowerCase()),
+		);
+	}
 }
 
-module.exports = new MealRepository();
+export default new MealRepository();

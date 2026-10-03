@@ -1,27 +1,128 @@
-{
-  "id": 1,
-  "name": "Grilled Chicken Bowl",
-  "restaurant": {
+[
+  {
+    "id": 1,
+    "name": "Grilled Chicken Bowl",
+    "restaurant": {
+      "id": 5,
+      "name": "Fresh Kitchen"
+    },
+    "price": 14.99,
+    "nutrition": {
+      "calories": 520,
+      "protein": 42.5,
+      "carbs": 48.2,
+      "fat": 16.1
+    },
+    "dietary": [
+      "gluten-free",
+      "high-protein"
+    ],
+    "category": "Bowl",
+    "location": {
+      "address": "123 Main Street, Windermere, FL 34786",
+      "lat": 28.5383,
+      "lon": -81.3792,
+      "distance_miles": null
+    },
+    "rating": 4.6
+  },
+  {
+    "id": 2,
+    "name": "Vegan Buddha Bowl",
+    "restaurant": {
+      "id": 6,
+      "name": "Green Eats"
+    },
+    "price": 12.49,
+    "nutrition": {
+      "calories": 480,
+      "protein": 18.3,
+      "carbs": 65.4,
+      "fat": 14.7
+    },
+    "dietary": [
+      "vegan",
+      "gluten-free"
+    ],
+    "category": "Bowl",
+    "location": {
+      "address": "456 Elm Street, Fernandina Beach, FL 32034",
+      "lat": 28.54,
+      "lon": -81.38,
+      "distance_miles": null
+    },
+    "rating": 4.8
+  },
+  {
+    "id": 3,
+    "name": "Grilled Rosemary Chicken Bowl",
+    "restaurant": {
+      "id": 5,
+      "name": "Fresh Kitchen"
+    },
+    "price": 14.05,
+    "nutrition": {
+      "calories": 100,
+      "protein": 52,
+      "carbs": 2,
+      "fat": 20
+    },
+    "dietary": [],
+    "category": "Bowl",
+    "location": {
+      "address": "2855 S Orange Ave, Orlando, FL 32806",
+      "lat": 28.51,
+      "lon": -81.38,
+      "distance_miles": null
+    },
+    "rating": 4.6
+  },
+  {
+    "id": 4,
+    "name": "Miso Glazed Tofu Bowl",
+    "restaurant": {
+      "id": 7,
+      "name": "Bolay Fresh Bold Kitchen"
+    },
+    "price": 11.95,
+    "nutrition": {
+      "calories": 410,
+      "protein": 19,
+      "carbs": 50,
+      "fat": 10
+    },
+    "dietary": [],
+    "category": "Bowl",
+    "location": {
+      "address": "12711 Narcoossee Rd #120, Orlando, FL 32832",
+      "lat": 28.38,
+      "lon": -81.24,
+      "distance_miles": null
+    },
+    "rating": 4.7
+  },
+  {
     "id": 5,
-    "name": "Fresh Kitchen"
-  },
-  "price": 14.99,
-  "nutrition": {
-    "calories": 520,
-    "protein": 42.5,
-    "carbs": 48.2,
-    "fat": 16.1
-  },
-  "dietary": [
-    "gluten-free",
-    "high-protein"
-  ],
-  "category": "Bowl",
-  "location": {
-    "address": "123 Main Street",
-    "lat": 28.5383,
-    "lon": -81.3792,
-    "distance_miles": 4.2
-  },
-  "rating": 4.6
-}
+    "name": "Greek Salad Bowl",
+    "restaurant": {
+      "id": 8,
+      "name": "CAVA"
+    },
+    "price": 10.49,
+    "nutrition": {
+      "calories": 580,
+      "protein": 37,
+      "carbs": 22,
+      "fat": 40
+    },
+    "dietary": [],
+    "category": "Bowl",
+    "location": {
+      "address": "4724 Millenia Plaza Way, Orlando, FL 32839",
+      "lat": 28.49,
+      "lon": -81.43,
+      "distance_miles": null
+    },
+    "rating": 4.4
+  }
+]

@@ -1,6 +1,6 @@
-const Restaurant = require("./Restaurant");
-const Nutrition = require("./Nutrition");
-const Location = require("./Location");
+import Restaurant from "./Restaurant.js";
+import Nutrition from "./Nutrition.js";
+import Location from "./Location.js";
 
 class Meal {
 	constructor({
@@ -33,4 +33,4 @@ class Meal {
 	}
 }
 
-module.exports = Meal;
+export default Meal;
