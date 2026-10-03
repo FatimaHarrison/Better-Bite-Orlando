@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5f5f5;
+}
+
+.compare-options {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.compare-options h1 {
+    text-align: center;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.comparison {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+}
+
+.option-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+}
