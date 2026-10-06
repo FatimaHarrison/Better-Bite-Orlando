@@ -2,7 +2,10 @@
     box-sizing: border-box;
 }
 
-html,
+html {
+    overflow-y: scroll;
+}
+
 body {
     width: 100%;
     min-height: 100%;
@@ -89,7 +92,6 @@ header .logo {
 
 
 /* Search */
-
 .header-actions .search {
     display: flex;
     align-items: center;
@@ -97,32 +99,11 @@ header .logo {
     color: #3D622C;
     text-decoration: none;
 }
-
 .header-actions .search i {
     font-size: 16px;
     color: #3D622C;
 }
 
-
-/* Sign In */
-
-.header-actions .sign-in {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 15px;
-    border: 1.5px solid #3D622C;
-    border-radius: 6px;
-    color: #3D622C;
-    font-family: "Inter", sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    text-decoration: none;
-}
-
-.header-actions .sign-in:hover {
-    background-color: rgba(61, 98, 44, 0.12);
-}
 
 
 /* Home + Sign In buttons */
@@ -447,7 +428,7 @@ header .logo {
 .feature-card h4 {
     margin: 12px 0 0;
     color: #3D622C;
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.2;
     font-weight: 700;
 }
@@ -455,7 +436,7 @@ header .logo {
 .feature-card p {
     margin: 5px 0 0;
     color: #555555;
-    font-size: 8px;
+    font-size: 10px;
     line-height: 1.3;
 }
 

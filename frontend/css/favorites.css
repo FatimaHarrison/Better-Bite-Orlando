@@ -4,7 +4,12 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-y:scroll;
+}
+
 html,
+
 body {
     width: 100%;
     min-height: 100%;
@@ -24,10 +29,13 @@ body {
 header {
     width: 100%;
     height: 85px;
-    background-color: #eaded2;
+
+    background-color: #f4ece5;
+
     display: flex;
     align-items: center;
-    padding: 0 18px;
+
+    padding: 0 35px 0 25px;
 }
 
 
@@ -44,12 +52,11 @@ header .logo {
 
 .navbar {
     flex: 1;
-
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 55px;
-    margin-left: 50px;
+    margin-left: 40px;
 }
 
 .navbar a {
@@ -65,23 +72,22 @@ header .logo {
     color: #3D622C;
 }
 
+/* Search icon */
 
-/* Profile */
-
-.profile {
-    width: 45px;
-
+.header-actions .search {
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    align-items:center;
+    justify-content:center;
 
-.profile i {
-    font-size: 32px;
     color: #3D622C;
-
-    cursor: pointer;
+    text-decoration:none;
 }
+
+.header-actions .search i{
+    font-size: 16px;
+    color: #3D622C;
+}
+
 
 
 /* =========================
