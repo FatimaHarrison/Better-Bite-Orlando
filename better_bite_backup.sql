@@ -173,7 +173,6 @@ DROP TABLE IF EXISTS `User`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `User` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
   `isVegan` tinyint(1) NOT NULL DEFAULT '0',
   `isVegetarian` tinyint(1) NOT NULL DEFAULT '0',
   `isLowCarb` tinyint(1) NOT NULL DEFAULT '0',
@@ -200,4 +199,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-06 22:26:23
+-- Dump completed on 2026-10-09 18:27:19
