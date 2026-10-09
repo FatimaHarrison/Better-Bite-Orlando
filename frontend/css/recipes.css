@@ -100,8 +100,8 @@ header .logo {
 }
 
 .hero-image img {
-    width: 758px;
-    height: 380px;
+    width: 900px;
+    height: 300px;
     object-fit: cover;
     object-position: center;
 }
