@@ -189,6 +189,32 @@ LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `User_Favorite_Meal`
+--
+
+DROP TABLE IF EXISTS `User_Favorite_Meal`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `User_Favorite_Meal` (
+  `user_id` int NOT NULL,
+  `meal_id` int NOT NULL,
+  PRIMARY KEY (`user_id`,`meal_id`),
+  KEY `meal_id` (`meal_id`),
+  CONSTRAINT `user_favorite_meal_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_favorite_meal_ibfk_2` FOREIGN KEY (`meal_id`) REFERENCES `Meal` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `User_Favorite_Meal`
+--
+
+LOCK TABLES `User_Favorite_Meal` WRITE;
+/*!40000 ALTER TABLE `User_Favorite_Meal` DISABLE KEYS */;
+/*!40000 ALTER TABLE `User_Favorite_Meal` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -199,4 +225,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-09 18:27:19
+-- Dump completed on 2026-10-09 20:05:10
