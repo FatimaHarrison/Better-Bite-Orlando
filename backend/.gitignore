@@ -1,8 +1,9 @@
 node_modules/
-generated/
+backend/generated/
 .env
 .env.*
 *.log
 .DS_Store
 Thumbs.db
 
+.gitignore
