@@ -1,4 +1,6 @@
 import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
 
 //Route Imports
 import mealsRoutes from "./routes/mealsRoutes.js";
