@@ -1,5 +1,6 @@
 import express from "express";
 import mealRepository from "../repositories/mealRepository.js";
+import apiKeyAuth from "../middleware/apiKeyAuth.js";
 
 const router = express.Router();
 
@@ -64,6 +65,26 @@ router.get("/:id", async (req, res) => {
 			error: "Unable to retrieve meal",
 		});
 	}
+});
+// Protected test route for API key authentication
+router.post("/auth-test", apiKeyAuth, (req, res) => {
+	res.status(200).json({
+		message: "API key accepted"
+	});
+});
+// Protected route example
+router.post("/", apiKeyAuth, async (req, res) => {
+    try {
+        res.status(200).json({
+            message: "Protected POST meal route accessed successfully"
+        });
+    } catch (error) {
+        console.error("Error accessing protected meal route:", error);
+
+        res.status(500).json({
+            error: "Unable to process request"
+        });
+    }
 });
 
 export default router;

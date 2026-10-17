@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
 
 //Route Imports
 import mealsRoutes from "./routes/mealsRoutes.js";

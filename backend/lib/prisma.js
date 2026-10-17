@@ -10,10 +10,6 @@ const adapter = new PrismaMariaDb({
 	database: process.env.DB_NAME,
 
 	allowPublicKeyRetrieval: true,
-
-	connectionLimit: 10,
-	connectTimeout: 5000,
-	acquireTimeout: 10000,
 });
 
 const prisma = new PrismaClient({
