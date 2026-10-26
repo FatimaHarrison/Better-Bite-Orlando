@@ -6,6 +6,7 @@ dotenv.config();
 //Route Imports
 import mealsRoutes from "./routes/mealsRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import recipeRoutes from "./routes/recipeRoutes.js";
 
 const app = express();
 
@@ -31,6 +32,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // API Routes
 app.use("/meals", mealsRoutes);
+app.use("/auth", authRoutes);
+app.use("/recipes", recipeRoutes);
 
 // Temporarily disabled until authentication and database
 // schema are completed and tested.
