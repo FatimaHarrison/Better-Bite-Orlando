@@ -48,11 +48,11 @@ model Nutrition {
 }
 
 model Location {
-  id             Int    @id @default(autoincrement())
-  address        String
-  lat            Float
-  lon            Float
-  distance_miles Float
+  id            Int    @id @default(autoincrement())
+  address       String
+  lat           Float
+  lon           Float
+  distanceMiles Float
 
   mealId Int  @unique
   meal   Meal @relation(fields: [mealId], references: [id])
