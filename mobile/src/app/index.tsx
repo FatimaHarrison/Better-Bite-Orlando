@@ -1,6 +1,7 @@
 import {
   View,
   Text,
+  Image,
   ScrollView,
   Pressable,
   StyleSheet,
@@ -32,18 +33,30 @@ export default function HomeScreen() {
 
 
 
-  
+
+
   return (
     <SafeAreaView style={styles.container}>
 
       <ScrollView contentContainerStyle={styles.content}>
 
         {/* HEADER */}
-        <View style={styles.header}>
-          <Text style={styles.logo}>
-            🌿 Better Bite Orlando
-          </Text>
-        </View>
+      <View style={styles.header}>
+
+      <Image
+        source={require("../../assets/images/better-bite-logo.png")}
+        style={styles.brandLogo}
+        resizeMode="contain"
+        accessibilityLabel="Better Bite Orlando Logo"
+        />
+
+        <Text style={styles.headerTag}>
+          Orlando, FL
+        </Text>
+
+      </View>
+
+      
 
         {/* HERO SECTION */}
         <View style={styles.hero}>
@@ -113,6 +126,31 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
 
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 10,
+    marginBottom: 15,
+  },
+
+  brandLogo: {
+    width: 145,
+    height: 65,
+  },
+
+  headerTag: {
+    fontSize: 10,
+    fontWeight: "700",
+    letterSpacing: 1,
+    color: "#3D622C",
+    backgroundColor: "#F4ECE5",
+    paddingVertical: 9,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+  },
+
+
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
@@ -123,9 +161,6 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
 
-  header: {
-    paddingVertical: 20,
-  },
 
   logo: {
     fontSize: 21,
