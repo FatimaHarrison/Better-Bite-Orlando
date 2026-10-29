@@ -1,7 +1,7 @@
-import express from "express";
-import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
+import express from "express";
+import cors from "cors";
 
 //Route Imports
 import mealsRoutes from "./routes/mealsRoutes.js";
@@ -12,16 +12,18 @@ const app = express();
 
 // Frontend development origins
 const allowedOrigins = [
-    "https://dev.betterbiteorlando.com",
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://127.0.0.1:5173"
+	"https://dev.betterbiteorlando.com",
+	"http://localhost:3000",
+	"http://localhost:5173",
+	"http://127.0.0.1:5173",
 ];
 
-app.use(cors({
-    origin: allowedOrigins,
-    methods: ["GET", "HEAD", "OPTIONS"]
-}));
+app.use(
+	cors({
+		origin: allowedOrigins,
+		methods: ["GET", "HEAD", "OPTIONS"],
+	}),
+);
 
 const port = Number(process.env.PORT || 3001);
 const host = "127.0.0.1";
@@ -40,5 +42,5 @@ app.use("/recipes", recipeRoutes);
 //app.use("/auth", authRoutes);
 
 app.listen(port, host, () => {
-    console.log(`API listening at http://${host}:${port}`);
+	console.log(`API listening at http://${host}:${port}`);
 });
