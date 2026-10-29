@@ -9,7 +9,6 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
 }
 
 model Meal {
@@ -59,10 +58,12 @@ model Location {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String @unique
-  password String
+  id                   Int       @id @default(autoincrement())
+  name                 String
+  email                String    @unique
+  password             String
+  passwordResetToken   String?   @unique
+  passwordResetExpires DateTime?
 
   createdAt DateTime @default(now())
 
