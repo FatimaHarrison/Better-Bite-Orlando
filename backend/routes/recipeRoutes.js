@@ -7,6 +7,7 @@ import {
 	updateRecipe,
 	deleteRecipe,
 } from "../controllers/recipeController.js";
+import apiKeyAuth from "../middleware/apiKeyAuth.js";
 
 const router = express.Router();
 
@@ -20,12 +21,12 @@ router.get("/user/:userId", getRecipeById);
 router.get("/user/:userId", getRecipesByUser);
 
 // POST a new recipe
-router.post("/", createRecipe);
+router.post("/", apiKeyAuth, createRecipe);
 
 // PUT (update) a recipe by ID
-router.put("/:userId", updateRecipe);
+router.put("/:userId", apiKeyAuth, updateRecipe);
 
 // DELETE a recipe by ID
-router.delete("/user/:userId", deleteRecipe);
+router.delete("/user/:userId", apiKeyAuth, deleteRecipe);
 
 export default router;

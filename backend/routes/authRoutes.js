@@ -7,6 +7,8 @@ import {
 	resetPassword,
 } from "../controllers/authController.js";
 
+import apiKeyAuth from "../middleware/apiKeyAuth.js";
+
 const router = express.Router();
 
 // GET, POST, PUT, DELETE
@@ -14,22 +16,22 @@ const router = express.Router();
 
 // POST /register
 // Registers a new user with the provided information
-router.post("/register", registerUser);
+router.post("/register", apiKeyAuth, registerUser);
 
 // POST /login
 // Logs in a user with the provided email and password
-router.post("/login", loginUser);
+router.post("/login", apiKeyAuth, loginUser);
 
 // POST /logout
 // Logs out the current user(clears the cookie)
-router.post("/logout", logoutUser);
+router.post("/logout", apiKeyAuth, logoutUser);
 
 // POST /forgot-password
 //emails reset link
-router.post("/forgot-password", forgotPassword);
+router.post("/forgot-password", apiKeyAuth, forgotPassword);
 
 // POST /password-reset
 // Submits request to reset password
-router.post("/password-reset", resetPassword);
+router.post("/password-reset", apiKeyAuth, resetPassword);
 
 export default router;

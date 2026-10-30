@@ -37,10 +37,6 @@ app.use("/meals", mealsRoutes);
 app.use("/auth", authRoutes);
 app.use("/recipes", recipeRoutes);
 
-// Temporarily disabled until authentication and database
-// schema are completed and tested.
-//app.use("/auth", authRoutes);
-
 app.listen(port, host, () => {
 	console.log(`API listening at http://${host}:${port}`);
 });
