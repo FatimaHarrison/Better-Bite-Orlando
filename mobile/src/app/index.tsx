@@ -2,13 +2,14 @@ import {
   View,
   Text,
   Image,
+  ImageBackground,
   ScrollView,
   Pressable,
-  StyleSheet,
   Alert,
 } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
+import { styles } from "../styles/homeStyles";
 
 export default function HomeScreen() {
   const categories = [
@@ -29,10 +30,6 @@ export default function HomeScreen() {
     },
   ];
 
- 
-
-
-
 
 
   return (
@@ -40,7 +37,8 @@ export default function HomeScreen() {
 
       <ScrollView contentContainerStyle={styles.content}>
 
-        {/* HEADER */}
+        {/* == HEADER == */}
+
       <View style={styles.header}>
 
       <Image
@@ -58,43 +56,77 @@ export default function HomeScreen() {
 
       
 
-        {/* HERO SECTION */}
+        {/* === HERO SECTION === */}
         <View style={styles.hero}>
 
+          <ImageBackground
+            source={require("../../assets/images/orlando-hero.jpg")}
+            style={styles.heroBackground}
+            resizeMode="cover"
+          > 
+
+
+            {/* Background Overlay */}
+            <View style={styles.heroOverlay}> 
+          
           <Text style={styles.heroTitle}>
-            Better Choices.{"\n"}Healthier You.
+            Choose How You {"\n"}Want to Eat Healthy.
           </Text>
-
+          
           <Text style={styles.heroDescription}>
-            Find healthier food that fits your budget
-            and lifestyle, right here in Orlando.
+            Discover fresh groceries, healthier restaurants, 
+            and delicious recipes around Orlando.
           </Text>
 
-        </View>
+          </View>
+
+      </ImageBackground>
+     </View>
+
+
+
 
         {/* FOOD CATEGORIES */}
+
         <Text style={styles.sectionTitle}>
           What are you looking for?
         </Text>
 
-        {categories.map((category) => (
+
+        {categories.map((category, index) => (
 
           <Pressable
             key={category.title}
-            style={styles.card}
-            accessibilityRole="button"
-            onPress={() =>
-              Alert.alert(
-                category.title,
-                "This section is coming soon!"
+
+            style={[
+            styles.card,
+
+            index === 0 
+              ? styles.groceryCard
+              : index === 1
+              ? styles.restaurantCard
+            : styles.recipeCard,
+        ]}
+
+        accessibilityRole="button"
+
+        onPress={() =>
+          Alert.alert(
+            category.title,
+            "This section is coming soon!"
               )
             }
           >
 
+          {/* Category Icon */}
+          
             <Text style={styles.cardIcon}>
               {category.icon}
             </Text>
 
+
+            {/* Category Information */}
+            
             <View style={styles.cardContent}>
 
               <Text style={styles.cardTitle}>
@@ -105,15 +137,18 @@ export default function HomeScreen() {
                 {category.description}
               </Text>
 
-            </View>
+            <Text style={styles.cardLink}>
+              Explore Options →
+              </Text>
 
-            <Text style={styles.arrow}>›</Text>
+        </View>
 
-          </Pressable>
+       </Pressable>
 
         ))}
 
         {/* BOTTOM MESSAGE */}
+
         <Text style={styles.footerText}>
           Better Food. A Healthier Orlando.
         </Text>
@@ -123,120 +158,3 @@ export default function HomeScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 10,
-    marginBottom: 15,
-  },
-
-  brandLogo: {
-    width: 145,
-    height: 65,
-  },
-
-  headerTag: {
-    fontSize: 10,
-    fontWeight: "700",
-    letterSpacing: 1,
-    color: "#3D622C",
-    backgroundColor: "#F4ECE5",
-    paddingVertical: 9,
-    paddingHorizontal: 12,
-    borderRadius: 20,
-  },
-
-
-  container: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-  },
-
-  content: {
-    padding: 20,
-    paddingBottom: 40,
-  },
-
-
-  logo: {
-    fontSize: 21,
-    fontWeight: "bold",
-    color: "#3D622C",
-  },
-
-  hero: {
-    backgroundColor: "#F4ECE5",
-    padding: 25,
-    borderRadius: 18,
-    marginTop: 15,
-    marginBottom: 30,
-  },
-
-  heroTitle: {
-    fontSize: 29,
-    fontWeight: "bold",
-    color: "#559439",
-    marginBottom: 12,
-  },
-
-  heroDescription: {
-    fontSize: 14,
-    color: "#3D622C",
-    lineHeight: 22,
-  },
-
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#3D622C",
-    marginBottom: 18,
-  },
-
-  card: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#F4ECE5",
-    borderRadius: 14,
-    padding: 18,
-    marginBottom: 15,
-  },
-
-  cardIcon: {
-    fontSize: 30,
-    marginRight: 15,
-  },
-
-  cardContent: {
-    flex: 1,
-  },
-
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#3D622C",
-  },
-
-  cardDescription: {
-    fontSize: 12,
-    color: "#555555",
-    marginTop: 5,
-  },
-
-  arrow: {
-    fontSize: 28,
-    color: "#3D622C",
-  },
-
-  footerText: {
-    textAlign: "center",
-    marginTop: 30,
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#3D622C",
-  },
-
-});
