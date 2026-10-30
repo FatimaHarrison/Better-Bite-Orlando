@@ -62,6 +62,7 @@ model User {
   name                 String
   email                String    @unique
   password             String
+  zipcode              Int
   passwordResetToken   String?   @unique
   passwordResetExpires DateTime?
 

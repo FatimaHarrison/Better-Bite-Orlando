@@ -5,7 +5,7 @@ import crypto from "node:crypto";
 import nodemailer from "nodemailer";
 
 const registerUser = async (req, res) => {
-	const { username, email, password } = req.body;
+	const { username, email, password, zipcode } = req.body;
 
 	const userExists = await prisma.user.findUnique({
 		where: {
@@ -28,6 +28,7 @@ const registerUser = async (req, res) => {
 			name: username,
 			email,
 			password: hashedPassword,
+			zipcode,
 		},
 	});
 
@@ -40,6 +41,7 @@ const registerUser = async (req, res) => {
 				id: newUser.id,
 				name: username,
 				email: email,
+				zipcode: zipcode,
 			},
 			token,
 		},
