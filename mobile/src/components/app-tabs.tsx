@@ -6,32 +6,32 @@ export default function AppTabs() {
     <NativeTabs
 
       // Nav bar background
-      backgroundColor="FFFFFF"
+      backgroundColor="#3D622C"
 
       // selected tab color
-      tintColor="#3D622C"
+      tintColor="#FFFFFF"
 
       // Icon colors
       iconColor={{
-        default: "#777777",
-        selected: "#3D622C",
+        default: "#DCE8D6",
+        selected: "#FFFFFF",
       }}
 
       //Selected tab indicator 
-      indicatorColor="#DDF5DF"
+      indicatorColor="#559439"
 
       // color when pressing a tab
-      rippleColor="#EAF4E6"
+      rippleColor="#6E9439"
 
       // navigation styling
       labelStyle={{ 
         default:  {
-          color: "#777777",
+          color: "#DCE8D6",
           fontSize: 12,
         },
                 
         selected: {
-          color: "#3D622C",
+          color: "#FFFFFF",
           fontSize: 12,
           fontWeight: "700",
         },
@@ -55,22 +55,8 @@ export default function AppTabs() {
 
       </NativeTabs.Trigger>
 
-      {/*== Explore Tab ==*/}
 
-      <NativeTabs.Trigger name="explore">
-
-        <NativeTabs.Trigger.Label>
-          Explore
-          </NativeTabs.Trigger.Label>
-        
-        <NativeTabs.Trigger.Icon
-          sf="magnifyingglass"
-          md="search"
-        />
-
-      </NativeTabs.Trigger>
-
-
+      
    {/*== Favorite Tab ==*/}
 
       <NativeTabs.Trigger name="favorites">
@@ -85,6 +71,26 @@ export default function AppTabs() {
         />
 
       </NativeTabs.Trigger>
+
+
+
+
+      {/*== Resources Tab ==*/}
+
+      <NativeTabs.Trigger name="resources">
+
+        <NativeTabs.Trigger.Label>
+          Resources
+          </NativeTabs.Trigger.Label>
+        
+        <NativeTabs.Trigger.Icon
+          sf="books.vertical"
+          md="menu_book"
+        />
+
+      </NativeTabs.Trigger>
+
+
 
    {/*== Profile  Tab ==*/}
 

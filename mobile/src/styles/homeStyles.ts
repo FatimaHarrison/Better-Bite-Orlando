@@ -166,12 +166,12 @@ export const styles = StyleSheet.create({
     color: "#3D622C",
   },
 
-  footerText: {
-    textAlign: "center",
-    marginTop: 8,
-    fontSize: 11,
-    fontWeight: "600",
-    color: "#3D622C",
-  },
+ footerText: {
+  textAlign: "center",
+  marginTop: 8,
+  fontSize: 12,
+  fontWeight: "600",
+  color: "#3D622C",
+},
 
 });
