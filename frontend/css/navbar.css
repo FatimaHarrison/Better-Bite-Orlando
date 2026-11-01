@@ -1,0 +1,136 @@
+/* ==  navigation bar == */
+
+:root{
+    --navbar-green: #3D622C;
+    --navbar-hover: #559439;
+    --navbar-background: #FFFFFF;
+}
+
+/* main header */
+.site-header {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    display: block;
+    background-color: var(--navbar-background);
+}
+
+/* navigation */
+.site-header .navbar {
+    display: flex;
+    width:auto;
+    min-height: 85px;
+    margin: 0;
+    padding: 10px 25px;
+    gap: 0;
+}
+
+/* Logo */
+.site-header .site-logo {
+    width: 115px;
+    height: auto;
+    display: block;
+}
+
+/* Center navigation */
+.site-header .navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 1.8vw, 28px);
+}
+
+/* navigation links */ 
+.site-header .nav-link {
+    color: var(--navbar-green);
+    font-family: "Inter", sans-serif; /*Use this font! */
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+/* Hover Effect */
+.site-header .nav-link:hover {
+    color: var(--navbar-hover);
+}
+
+/*Active Page */ 
+.site-header .nav-link.active {
+    font-weight: 700;
+    color: var(--navbar-green);
+    text-decoration: underline;
+    text-underline-offset: 6px;
+}
+
+
+/* Search Icon */
+.site-header .header-search {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    padding: 8px;
+}
+
+/* Hexagonal profile icon   */
+.site-header .account-link {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: 22px;
+    color: #FFFFFF;
+    background-color: var(--navbar-green);
+
+    clip-path: polygon(
+        50% 0%,
+        100% 25%,
+        100% 75%,
+        50% 100%,
+        0% 75%,
+        0% 25%
+    );
+
+    transition: background-color 0.2s ease;
+}
+
+/* white person icon */
+.site-header .account-link i {
+    font-size: 19px;
+    color: #FFFFFF;
+    background: transparent
+}
+
+/* profile icon hover effect */
+.site-header .account-link:hover,
+.site-header .account-link:focus-visible {
+    background-color: var(--navbar-hover);
+}
+
+.site-header .account-link:hover i {
+    background-color: transparent;
+}
+
+
+/* responsive Navigation */
+@media (max-width: 991.98px) {
+
+    .site-header .navbar {
+    padding: 10px 20px;
+    }
+
+    .site-header .navbar-nav {
+        align-items: flex-start;
+        gap: 10px;
+        padding-top: 15px;
+    }
+
+    .site-header .account-link {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}

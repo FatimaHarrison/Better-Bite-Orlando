@@ -7,13 +7,7 @@ html { overflow-x: clip; }
 body { min-height: 100vh; display: flex; flex-direction: column; font-family: var(--bs-body-font-family); }
 main { flex: 1; }
 a { text-underline-offset: .2em; }
-.site-header, .site-footer { background: var(--bbo-surface); }
-.site-header .navbar { padding-block: .7rem; }
-.site-logo { display: block; width: 112px; height: auto; }
-.navbar-nav { gap: clamp(.25rem, 2vw, 2.5rem); }
-.navbar .nav-link { font-weight: 600; color: var(--bbo-green); }
-.navbar .nav-link:hover, .navbar .nav-link:focus-visible { text-decoration: underline; }
-.header-search { padding: .5rem; }
+.site-footer .site-logo { display: block; width: 112px; height: auto; }
 .hero { position: relative; min-height: 350px; isolation: isolate; }
 .hero-image { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
 .hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(255,255,255,.88), rgba(255,255,255,.48) 60%, rgba(255,255,255,.15)); }
