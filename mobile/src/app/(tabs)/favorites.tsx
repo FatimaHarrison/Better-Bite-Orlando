@@ -11,7 +11,7 @@ import { useRouter } from "expo-router";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { styles } from "../styles/favoritesStyles";
+import { styles } from "../../styles/favoritesStyles";
 
 
 export default function FavoritesScreen() {

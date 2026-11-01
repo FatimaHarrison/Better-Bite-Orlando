@@ -9,10 +9,16 @@ import {
 } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "../styles/homeStyles";
+import { styles } from "../../styles/homeStyles";
+
+import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
+
+  const router = useRouter();
+  
   const categories = [
+  // existing categories
     {
       icon: "🛒",
       title: "Find Groceries",
@@ -42,7 +48,7 @@ export default function HomeScreen() {
       <View style={styles.header}>
 
       <Image
-        source={require("../../assets/images/better-bite-logo.png")}
+        source={require("../../../assets/images/better-bite-logo.png")}
         style={styles.brandLogo}
         resizeMode="contain"
         accessibilityLabel="Better Bite Orlando Logo"
@@ -60,7 +66,7 @@ export default function HomeScreen() {
         <View style={styles.hero}>
 
           <ImageBackground
-            source={require("../../assets/images/orlando-hero.jpg")}
+            source={require("../../../assets/images/orlando-hero.jpg")}
             style={styles.heroBackground}
             resizeMode="cover"
           > 
@@ -110,12 +116,22 @@ export default function HomeScreen() {
 
         accessibilityRole="button"
 
-        onPress={() =>
-          Alert.alert(
-            category.title,
-            "This section is coming soon!"
-              )
-            }
+        onPress={() => {
+
+          if (category.title === "Healthy Restaurants") {
+
+            router.push("/healthy-restaurants");
+
+          } else {
+
+            Alert.alert(
+              category.title,
+              "This section is coming soon!"
+            );
+
+          }
+          
+        }}
           >
 
           {/* Category Icon */}

@@ -8,7 +8,7 @@ import {
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { styles } from "../styles/resourcesStyles";
+import { styles } from "../../styles/resourcesStyles";
 
 export default function ResourcesScreen() {
   
