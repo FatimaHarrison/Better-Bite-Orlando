@@ -12,7 +12,7 @@
     height: auto;
     padding: 0;
     display: block;
-    background-color: var(--navbar-background);
+    background-color: var(--bbo-white);
 }
 
 /* navigation */
@@ -41,8 +41,8 @@
 
 /* navigation links */ 
 .site-header .nav-link {
-    color: var(--navbar-green);
-    font-family: "Inter", sans-serif; /*Use this font! */
+    color: var(--bbo-primary);
+    font-family: var(--bbo-font);
     font-size: 12px;
     font-weight: 500;
     white-space: nowrap;
@@ -51,13 +51,13 @@
 
 /* Hover Effect */
 .site-header .nav-link:hover {
-    color: var(--navbar-hover);
+    color: var(--bbo-primary-hover);
 }
 
 /*Active Page */ 
 .site-header .nav-link.active {
     font-weight: 700;
-    color: var(--navbar-green);
+    color: var(--bbo-primary);
     text-decoration: underline;
     text-underline-offset: 6px;
 }
@@ -84,7 +84,7 @@
 
     margin-left: 22px;
     color: #FFFFFF;
-    background-color: var(--navbar-green);
+    background-color: var(--bbo-primary);
 
     clip-path: polygon(
         50% 0%,

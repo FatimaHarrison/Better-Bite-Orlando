@@ -1,7 +1,15 @@
 /* Better Bite Orlando homepage — load after the compiled Bootstrap theme. */
 :root {
+
+  
+  /* Better Bite Orlando Colors */
   --bbo-surface: #f4ece5;
   --bbo-green: var(--bs-primary, #38652b);
+  
+  /* Better Bite Orlando Font */
+  --bs-body-sans-family: "Inter", sans-serif;
+  --bs-body-font-family: 'Inter', sans-serif;
+  
 }
 html { overflow-x: clip; }
 body { min-height: 100vh; display: flex; flex-direction: column; font-family: var(--bs-body-font-family); }
