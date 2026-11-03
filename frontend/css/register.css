@@ -1,0 +1,115 @@
+
+/* ==================================
+   Better Bite Orlando - Registration
+   ================================== */
+
+body {
+    flex-direction: column;
+}
+
+/* Registration page layout */
+.register-page {
+    min-height: calc(100vh - 85px);
+}
+
+/* Registration card */
+.register-card {
+    max-width: 570px;
+    padding: 38px 40px;
+}
+
+/* First and Last Name */
+.register-name-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.register-name-row .form-group label {
+    padding-left: 0;
+}
+
+/* Form spacing */
+.register-card .form-group {
+    margin-bottom: 18px;
+}
+
+/* Password guidance */
+.password-hint {
+    margin: 8px 0 0 46px;
+    color: #555555;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* Terms and Privacy */
+.register-consent {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+
+    margin: 20px 0;
+    font-size: 11px;
+    color: #333333;
+}
+
+.register-consent input {
+    margin-top: 2px;
+    accent-color: var(--bbo-primary);
+}
+
+.register-consent label {
+    line-height: 1.5;
+}
+
+.register-consent a {
+    color: #F97316;
+    text-decoration: none;
+}
+
+.register-consent a:hover {
+    text-decoration: underline;
+}
+
+/* Create account button */
+.register-card .login-btn {
+    width: min(100%, 260px);
+    margin: 0 auto;
+}
+
+/* Bottom Sign In link */
+.register-card .register-link {
+    margin-top: 20px;
+}
+
+/* Registration status */
+#register-status {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 12px;
+}
+
+#register-status:empty {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .register-card {
+        padding: 28px 20px;
+    }
+
+    .register-name-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .register-name-row .form-group label {
+        padding-left: 0;
+    }
+
+    .password-hint {
+        margin-left: 38px;
+    }
+}

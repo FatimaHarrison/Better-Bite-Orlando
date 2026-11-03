@@ -22,15 +22,15 @@ async function loadFooter() {
 
     if (logo) {
       logo.src = new URL(
-        "/logos/better-bit-orlando-logo-trn-bg.png",
-        frontendUrl,
+        "logos/better-bit-orlando-logo-trn-bg.png",
+        new URL("../", frontendUrl),
       ).href;
     }
     // set the home link to the correct index.html path
     const homeLink = container.querySelector("#footer-home-link");
 
     if (homeLink) {
-      homeLink.href = new URL("index.html", frontendUrl).href;
+      homeLink.href = new URL("pages/index.html", frontendUrl).href;
     }
 
     const footerPages = {

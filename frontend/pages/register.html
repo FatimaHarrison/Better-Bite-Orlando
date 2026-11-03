@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0">
+
+    <title> Create Account | Better Bite Orlando </title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+    <link rel="preconnect" 
+        href="https://fonts.gstatic.com" crossorigin>
+    <link 
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Bootstrap and global theme --> 
+    <link rel="stylesheet" href="../css/bootstrap-custom.min.css">
+    <link rel="stylesheet" href="../css/theme.css"> 
+
+    <!-- shared componenets -->
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
+    <!-- authentication styles -->
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/register.css">
+</head>
+
+<body>
+
+    <!-- shared nav bar -->
+     <div id="site-navbar"></div>
+
+     <!-- registration page -->
+      <main Class="login-page register-page">
+
+        <!-- Left section -->
+         <section class="login-intro">
+
+            <h1> Join Better Bite Orlando! </h1>
+
+            <p>
+                Create an account to save your favorite places, 
+                recipes, and get personalized recommendations.
+            </p>
+
+            <div class="login-benefits">
+                <span class="benefit-icon green">
+                    <i class=""bi bi-leaf"
+                    aria-hidden="true"></i>
+                </span>
+
+                <span>Find healthy food spots nearby </span>
+            </div>
+
+            <div class="benefit">
+                <span class="benefit-icon orange">
+                    <i class="bi bi-heart-fill"
+                    aria-hidden="true"></i>
+                </span>
+                <span> Save your davorite places and recipes </span>
+            </div>
+
+            <div class="beenfit">
+                <span class="benefit-icon purple">
+                    <i class="bi bi-people-fill 
+                    aria-hidden="true"></i>
+                </span>
+                <span>Join a healher, stronger community</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- right section -->
+     <section class="login-card register card">
+
+        <h2>Create Your Account </h2>
+
+        <p class="login-subtitle">
+            It's free and only takes a minute.
+        </p>
+
+        <form id="register-form">
+
+            <!-- first and last name -->
+             <div class="register-name-row">
+
+                <div clas="form-group">
+                    <label for="first-name"> First name </label>
+
+                <div class="input-container">
+                    <input 
+                    type="text"
+                    id="first-name"
+                    name="firstName"
+                    placeholder="Enter your first name"
+                    autocomplete="given-name"
+                    required>
+                </div>
+            </div>
+        
+        <div clas="form-group">
+                    <label for="last-name">Last name </label>
+
+                <div class="input-container">
+                    <input 
+                    type="text"
+                    id="last-name"
+                    name="lastName"
+                    placeholder="Enter your last name"
+                    autocomplete="family-name"
+                    required>
+                </div>
+            </div>
+        </div>
+
+        <!-- email -->
+     <div clas="form-group">
+                    <label for="register-email">Email Address</label>
+
+                <div class="input-container">
+                    <i class="bi bi-envelope"
+                    aria-hidden="true"></i>
+
+                    <input 
+                    type="email"
+                    id="register-email"
+                    name="email"
+                    placeholder="example@mail.com"
+                    autocomplete="email"
+                    required>
+                </div>
+            </div>
+
+        <!-- password -->
+
+        <div clas="form-group">
+                    <label for="register-password">Passwod</label>
+
+                <div class="input-container">
+                    <i class="bi bi-lock-fill"
+                    aria-hidden="true"></i>
+
+                    <input 
+                    type="password"
+                    id="register-password"
+                    name="password"
+                    placeholder="Enter Password"
+                    autocomplete="new-password"
+                    minlength="12"
+                    maxlength="72"
+                    required>
+                </div>
+        <p class="password-hint">
+            Use 12-72 characters with uppercase, lowercase, and a symbol.
+        </p>
+    </div>
+   <!-- confirm  password -->
+            <div clas="form-group">
+                    <label for="confirm-email">Confirm Password</label>
+
+                <div class="input-container">
+                    <i class="bi bi-lock-fill"
+                    aria-hidden="true"></i>
+
+                    <input 
+                    type="password"
+                    id="confirm-password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    autocomplete="new-password"
+                    required>
+                </div>
+            </div>
+
+            <!-- Terms and Privacy -->
+                <div class="register-conset">
+                <input 
+                    type="checkbox"
+                    id="agree-terms"
+                    name="agreeTerms"
+                    required>
+
+                    <label for="agree-terms">
+                        I agree to
+                        <a href="terms.html"> Terms of Services </a>
+                        and
+                        <a href="privacy.html">Privacy Policy</a>
+                    </label>
+                </div>
+
+        <!--Submit -->
+        <button type="submit" class="login-btn">
+            Create Account
+            <i class="bi bi-arrow-right"
+            aria-hidden="true"></i>
+        </button>
+
+        <p id="register-status"
+        role="status"
+        aria-live="polite"></p>   
+        </form>
+
+        <!-- back to login-->
+         <p class="register-link">
+            Already have an account?
+            <a href="login.html">Sign In</a>
+         </p>
+
+     </section>
+
+    </main>
+
+<!-- Shared footer -->
+<div id="footer-container"></div>
+
+<!-- boostrat JS -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+ <!-- shared components -->
+  <script src="../js/navbar.js"></script>
+  <script src="../js/footer.js"></script>
+
+  <!-- registraton JS-->
+   <script src="../js/register.js"></script>
+  
+
+</body>

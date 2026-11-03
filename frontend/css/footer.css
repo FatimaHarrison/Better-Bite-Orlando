@@ -1,0 +1,15 @@
+/* Better Bite Orlando Footer styles */
+.site-footer { background-color: var(--bs-surface); padding-block: 2rem; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+.site-footer .site-logo { display: block; width: 112px; height: auto; }
+.footer-links { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem 1.5rem; }
+.footer-links a { color: var(--bbo-green); font-family: var(--bs-body-font-family); font-size: 1rem; text-decoration: none; }
+.footer-links a:hover {text-decoration: underline; text-underline-offset: 5px; }
+.footer-links a:focus-visible {text-decoration: underline; text-underline-offset: 5px; outline: 2px solid var(--bbo-green); outline-offset: 4px; }
+.footer-tagline { color: var(--bbo-green); font-size:1.1rem; font-weight: 700; margin: 0; }
+
+
+@media (max-width: 991.98px) {
+  .footer-inner { flex-direction: column; justify-content: center; text-align: center; }
+  .footer-links { justify-content: center; }
+}

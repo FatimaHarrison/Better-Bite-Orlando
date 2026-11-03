@@ -1,11 +1,5 @@
 /* ==  navigation bar == */
 
-:root{
-    --navbar-green: #3D622C;
-    --navbar-hover: #559439;
-    --navbar-background: #FFFFFF;
-}
-
 /* main header */
 .site-header {
     width: 100%;
@@ -83,8 +77,8 @@
     justify-content: center;
 
     margin-left: 22px;
-    color: #FFFFFF;
-    background-color: var(--bbo-primary);
+    color: var(--bbo-white, #FFFFFF);
+    background-color: var(--bbo-primary, #3D622C);
 
     clip-path: polygon(
         50% 0%,
@@ -101,14 +95,14 @@
 /* white person icon */
 .site-header .account-link i {
     font-size: 19px;
-    color: #FFFFFF;
+    color:var(--bbo-white, #FFFFFF);
     background: transparent
 }
 
 /* profile icon hover effect */
 .site-header .account-link:hover,
 .site-header .account-link:focus-visible {
-    background-color: var(--navbar-hover);
+    background-color: var(--navbar-hover, #559439);
 }
 
 .site-header .account-link:hover i {
