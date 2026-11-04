@@ -170,3 +170,47 @@ export function normalizeFoodPantry(resource = {}) {
 		organizations: organizations,
 	};
 }
+
+export function normalizeFarmersMarket(market = {}) {
+	const properties = market.properties ?? market;
+
+	const latitude =
+		properties.location_y ??
+		properties.latitude ??
+		properties.lat ??
+		properties.geometry?.lat ??
+		null;
+
+	const longitude =
+		properties.location_x ??
+		properties.longitude ??
+		properties.lon ??
+		properties.geometry?.lon ??
+		null;
+
+	return {
+		id:
+			properties.id ??
+			properties.Listing_id ??
+			properties.listing_id ??
+			properties.market_id ??
+			null,
+		name:
+			properties.Listing_name ??
+			properties.listing_name ??
+			properties.name ??
+			null,
+		address:
+			properties.Location_address ??
+			properties.location_address ??
+			properties.address ??
+			null,
+		website:
+			properties.Media_website ??
+			properties.media_website ??
+			properties.website ??
+			null,
+		latitude: latitude === null ? null : Number(latitude),
+		longitude: longitude === null ? null : Number(longitude),
+	};
+}

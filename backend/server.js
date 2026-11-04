@@ -4,9 +4,10 @@ import express from "express";
 import cors from "cors";
 
 //Route Imports
-import mealsRoutes from "./routes/mealsRoutes.js";
+import mealRoutes from "./routes/mealRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import recipeRoutes from "./routes/recipeRoutes.js";
+import placeRoutes from "./routes/placeRoutes.js";
 
 const app = express();
 
@@ -33,9 +34,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // API Routes
-app.use("/meals", mealsRoutes);
+app.use("/meals", mealRoutes);
 app.use("/auth", authRoutes);
 app.use("/recipes", recipeRoutes);
+app.use("/places", placeRoutes);
 
 app.listen(port, host, () => {
 	console.log(`API listening at http://${host}:${port}`);
