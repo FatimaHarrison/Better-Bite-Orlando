@@ -20,3 +20,5 @@ router.get("/food-pantries", getFoodPantries);
 
 // GET /restaurants
 router.get("/restaurants", getRestaurants);
+
+export default router;
