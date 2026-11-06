@@ -1,20 +1,281 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Find Groceries | Better Bite Orlando</title>
 
-    <title>Search Results | Better Bite Orlando </title>
+  <!-- Bootstrap 5 -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
 
-    <link rel="stylesheet" href="search-results.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/search-results.css">
 </head>
 
 <body>
-   
-<h1> Search Results </h1>
 
-    <script src='../js/search-results.js'></script>
-    </body>
+  <!-- Navigation -->
+  <header class="container py-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
+    <a href="index.html" class="brand">🍊 Better Bite</a>
 
-    </html>
+    <nav class="d-flex flex-wrap gap-3">
+      <a href="index.html">Home</a>
+      <a href="search-results.html">Find Food</a>
+      <a href="compare-options.html">Compare</a>
+      <a href="favorites.html">Favorites</a>
+      <a href="resources.html">Resources</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container py-4">
+
+    <h1>Find Groceries 🛒</h1>
+    <p class="text-muted mb-4">
+      Explore grocery stores and fresh food options around Orlando.
+    </p>
+
+    <!-- Search Section -->
+    <section class="search-box mb-4">
+      <label for="storeSearch" class="form-label fw-bold">
+        Search Grocery Stores
+      </label>
+
+      <div class="input-group">
+        <input
+          type="search"
+          id="storeSearch"
+          class="form-control"
+          placeholder="Search by store name or type of food"
+        >
+
+        <button
+          type="button"
+          id="searchButton"
+          class="btn btn-green"
+        >
+          Search
+        </button>
+      </div>
+    </section>
+
+    <p id="resultCount" class="text-muted" aria-live="polite"></p>
+
+    <!-- Grocery Cards -->
+    <div class="row g-4" id="groceryResults">
+
+      <!-- Publix -->
+      <div
+        class="col-md-6 col-lg-4 grocery-item"
+        data-search="publix supermarket grocery groceries produce"
+      >
+        <article class="store-card p-4">
+          <div class="store-icon">🛒</div>
+
+          <h2>Publix</h2>
+          <p class="store-type">Supermarket</p>
+
+          <p>
+            Fresh produce, meat, dairy, and everyday groceries.
+          </p>
+
+          <button
+            type="button"
+            class="btn btn-green w-100"
+            data-bs-toggle="modal"
+            data-bs-target="#publixModal"
+          >
+            View Details
+          </button>
+        </article>
+      </div>
+
+      <!-- ALDI -->
+      <div
+        class="col-md-6 col-lg-4 grocery-item"
+        data-search="aldi discount grocery groceries budget produce"
+      >
+        <article class="store-card p-4">
+          <div class="store-icon">🥦</div>
+
+          <h2>ALDI</h2>
+          <p class="store-type">Discount Grocery Store</p>
+
+          <p>
+            Budget-friendly grocery options and fresh food.
+          </p>
+
+          <button
+            type="button"
+            class="btn btn-green w-100"
+            data-bs-toggle="modal"
+            data-bs-target="#aldiModal"
+          >
+            View Details
+          </button>
+        </article>
+      </div>
+
+      <!-- Whole Foods -->
+      <div
+        class="col-md-6 col-lg-4 grocery-item"
+        data-search="whole foods market organic natural grocery produce"
+      >
+        <article class="store-card p-4">
+          <div class="store-icon">🥑</div>
+
+          <h2>Whole Foods Market</h2>
+          <p class="store-type">Natural and Organic Groceries</p>
+
+          <p>
+            Organic produce and specialty food options.
+          </p>
+
+          <button
+            type="button"
+            class="btn btn-green w-100"
+            data-bs-toggle="modal"
+            data-bs-target="#wholeFoodsModal"
+          >
+            View Details
+          </button>
+        </article>
+      </div>
+
+    </div>
+
+    <p id="noResults" class="text-muted mt-4 d-none">
+      No grocery stores match your search. Try another keyword.
+    </p>
+
+  </main>
+
+  <!-- Publix Popup -->
+  <div
+    class="modal fade"
+    id="publixModal"
+    tabindex="-1"
+    aria-labelledby="publixTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="publixTitle">
+            Publix
+          </h2>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <p><strong>Type:</strong> Supermarket</p>
+          <p><strong>Area:</strong> Orlando, Florida</p>
+          <p>
+            Publix offers fresh produce, pantry items, dairy,
+            meat, and other grocery essentials.
+          </p>
+          <p class="text-muted small">
+            Demo listing. Store locations and hours are not live.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ALDI Popup -->
+  <div
+    class="modal fade"
+    id="aldiModal"
+    tabindex="-1"
+    aria-labelledby="aldiTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="aldiTitle">
+            ALDI
+          </h2>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <p><strong>Type:</strong> Discount Grocery Store</p>
+          <p><strong>Area:</strong> Orlando, Florida</p>
+          <p>
+            ALDI offers budget-friendly grocery staples,
+            fresh produce, and everyday food options.
+          </p>
+          <p class="text-muted small">
+            Demo listing. Store locations and hours are not live.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Whole Foods Popup -->
+  <div
+    class="modal fade"
+    id="wholeFoodsModal"
+    tabindex="-1"
+    aria-labelledby="wholeFoodsTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="wholeFoodsTitle">
+            Whole Foods Market
+          </h2>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <p><strong>Type:</strong> Natural and Organic Groceries</p>
+          <p><strong>Area:</strong> Orlando, Florida</p>
+          <p>
+            Whole Foods Market offers organic produce,
+            specialty foods, and grocery essentials.
+          </p>
+          <p class="text-muted small">
+            Demo listing. Store locations and hours are not live.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Grocery Search JavaScript -->
+  <script src="../js/search-results.js"></script>
+
+</body>
+</html>
