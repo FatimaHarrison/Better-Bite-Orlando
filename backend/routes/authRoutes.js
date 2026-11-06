@@ -20,7 +20,8 @@ router.post("/register", apiKeyAuth, registerUser);
 
 // POST /login
 // Logs in a user with the provided email and password
-router.post("/login", apiKeyAuth, loginUser);
+// removed apiKeyAuth -> Kenji 
+router.post("/login",  loginUser);
 
 // POST /logout
 // Logs out the current user(clears the cookie)
