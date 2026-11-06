@@ -1,12 +1,22 @@
 /* Better Bite Orlando Footer styles */
-.site-footer { background-color: var(--bs-surface); padding-block: 2rem; }
+.site-footer { background-color: var(--bbo-primary); padding-block: 0rem; color: var(--bbo-white);}
 .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
-.site-footer .site-logo { display: block; width: 112px; height: auto; }
+.site-footer .site-logo { display: block; width: 145px; height: auto;  background-color: var(--bbo-white);}
+.site-footer .footer-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bbo-white);
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+}
 .footer-links { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem 1.5rem; }
-.footer-links a { color: var(--bbo-green); font-family: var(--bs-body-font-family); font-size: 1rem; text-decoration: none; }
+.footer-links a { color: var(--bbo-white); font-family: var(--bs-body-font-family); font-size: 1rem; text-decoration: none; }
 .footer-links a:hover {text-decoration: underline; text-underline-offset: 5px; }
-.footer-links a:focus-visible {text-decoration: underline; text-underline-offset: 5px; outline: 2px solid var(--bbo-green); outline-offset: 4px; }
-.footer-tagline { color: var(--bbo-green); font-size:1.1rem; font-weight: 700; margin: 0; }
+.footer-links a:focus-visible {color: var(--bbo-white); text-decoration: underline; text-underline-offset: 5px; outline: 2px solid var(--bbo-white); outline-offset: 3px; }
+.footer-tagline { color: var(--bbo-white); font-size:1.1rem; font-weight: 700; margin: 0; }
 
 
 @media (max-width: 991.98px) {

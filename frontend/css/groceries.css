@@ -1,0 +1,300 @@
+/* Better bite Orlando */ 
+
+/* main page */ 
+
+.groceries-page {
+    flex: 1;
+    font-family: var(--bbo-font);
+    background-color: var(--bbo-white);
+}
+
+
+/* hero section */
+
+.groceries-hero {
+    padding: 40px 0 25px;
+
+    background-color: var(--bbo-beige);
+}
+
+.groceries-intro {
+    margin-bottom: 25px;
+}
+
+.groceries-intro h1 {
+    color: var(--bbo-primary);
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.groceries-intro p {
+    color: var(--bbo-text-dark);
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+/* search bar */
+
+.grocery-search {
+    background-color: var(--bbo-white);
+
+    padding: 18px;
+
+    border-radius: 14px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.grocery-search .form-control,
+.grocery-search .form-select {
+    min-height: 45px;
+    border: 1px solid #999;
+    border-radius: 8px;
+    font-family: var(--bbo-font);
+    font-size: 14px;
+}
+
+.grocery-search .input-group-text {
+    background-color: var(--bbo-white);
+    border: 1px solid #999;
+    color: var(--bbo-primary);
+    border-radius: 8px 0 0 8px;
+}
+
+.grocery-search .input-group .form-control {
+    border-radius: 0 8px 8px 0;
+}
+
+
+
+
+.grocery-search-btn {
+    min-height: 45px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    border-radius: 8px;
+}
+
+
+/* category navigation */
+
+.grocery-categories {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.category-navigation {
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 10px;
+
+    background-color: #a6c8a7;
+
+    padding: 12px;
+
+    border-radius: 12px;
+}
+
+
+.category-btn {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 12px;
+
+    background-color: transparent;
+
+    border: none;
+    border-radius: 8px;
+
+
+    color: var(--bbo-primary);
+
+     font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+}
+
+.category-btn i {
+    font-size: 20px;
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background-color: var(--bbo-white);
+}
+
+.category-btn:focus-visible {
+    outline: 3px solid var(--bbo-primary);
+    outline-offset: 2px;
+}
+/* results section */
+
+.grocery-results {
+    margin-bottom: 35px;
+}
+
+.results-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 15px;
+
+}
+
+.results-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+
+    color: var(--bbo-text-dark);
+
+    margin: 0;
+}
+
+.results-sort {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.results-sort label {
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.results-sort .form-select {
+    width: auto;
+
+    font-size: 13px;
+}
+
+/* result container */ 
+
+#grocery-results-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.grocery-empty-message {
+    padding: 25px;
+
+    background-color: #f8f8f8;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    color: #666;
+    
+    text-align: center;
+}
+
+/* map section */ 
+
+.grocery-map {
+    min-height: 400px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background-color: #fafafa;
+
+    border: 1px solid #555;
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+.map-placeholder {
+    text-align: center;
+    color: var(--bbo-text-dark);
+}
+
+.map-placeholder i {
+    font-size: 40px;
+
+    color: var(--bbo-primary)
+}
+
+.map-placeholder h3 {
+    font-size: 18px;
+
+    font-weight: 700;
+
+    margin-top: 15px;
+}
+
+.map-placeholder p {
+    font-size: 13px;
+
+    color:#777;
+}
+
+
+/* responsive desgin */ 
+
+@media (max-width: 991.98px) {
+
+    .category-navigation {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+
+    .grocery-map {
+        min-height: 350px;
+    }
+
+}
+
+@media (max-width: 575.98px) {
+
+    .groceries-hero {
+        padding: 25px 0;
+    }
+
+    .grocery-search {
+        padding: 15px;
+    }
+
+    .category-navigation {
+        gap: 5px;
+        padding: 8px;
+    }
+
+    .category-btn {
+        font-size: 12px;
+        padding: 10px 5px;
+    }
+
+    .category-btn i {
+        font-size: 17px;
+    }
+
+    .results-header h2 {
+        font-size: 16px;
+    }
+
+    .grocery-map {
+        min-height: 300px;
+    }
+}
