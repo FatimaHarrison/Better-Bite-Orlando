@@ -5,19 +5,41 @@ import mealRepository from "../repositories/mealRepository.js";
 export const getMeals = async (req, res) => {
 	try {
 		const { category, restaurantId, dietary, search } = req.query;
+		if (restaurantId) {
+			const id = Number(restaurantId);
 
-		let meals;
+			if (!Number.isInteger(id) || id <= 0) {
+				return res.status(400).json({
+					error: "Invalid restaurant ID",
+				});
+			}
+		}
+		let meals = await mealRepository.findAll();
 
 		if (category) {
-			meals = await mealRepository.findByCategory(category);
-		} else if (restaurantId) {
-			meals = await mealRepository.findByRestaurant(restaurantId);
-		} else if (dietary) {
-			meals = await mealRepository.findByDietary(dietary);
-		} else if (search) {
-			meals = await mealRepository.findByName(search);
-		} else {
-			meals = await mealRepository.findAll();
+			meals = meals.filter(
+				(meal) => meal.category.toLowerCase() === category.toLowerCase()
+			);
+		}
+
+		if (restaurantId) {
+			meals = meals.filter(
+				(meal) => meal.restaurant?.id === Number(restaurantId)
+			);
+		}
+
+		if (dietary) {
+			meals = meals.filter((meal) =>
+				meal.dietary.some(
+					(type) => type.toLowerCase() === dietary.toLowerCase()
+				)
+			);
+		}
+
+		if (search) {
+			meals = meals.filter((meal) =>
+				meal.name.toLowerCase().includes(search.toLowerCase())
+			);
 		}
 
 		res.status(200).json(meals);
