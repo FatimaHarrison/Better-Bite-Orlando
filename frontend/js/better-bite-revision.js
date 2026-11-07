@@ -4,8 +4,9 @@
    No unverified API endpoint or API key is embedded here. */
 (() => {
   'use strict';
-  const config = window.BETTER_BITE_API || {
-  groceries: "http://127.0.0.1:3001/places/groceries"
+ const config = window.BETTER_BITE_API || {
+  groceries: "http://127.0.0.1:3001/places/groceries",
+  meals: "http://127.0.0.1:3001/recipes"
 };
   const $=(s)=>document.querySelector(s);
   const safe=(v)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -31,7 +32,44 @@
     if(!Array.isArray(list))throw new Error('Expected an array of items in API response');
     return list;
   }
-  function mealNormalize(a,i){return {id:String(a.id??a.meal_id??`api-${i}`),name:a.name??a.title??'Unnamed meal',restaurant:a.restaurant??a.restaurant_name??'Restaurant not provided',price:a.price??a.cost??null,calories:a.calories??a.nutrition?.calories??null,protein:a.protein??a.nutrition?.protein??null,carbs:a.carbs??a.nutrition?.carbs??null,fat:a.fat??a.nutrition?.fat??null,rating:a.rating??null,type:a.type??a.meal_type??'',tags:Array.isArray(a.tags)?a.tags:(Array.isArray(a.dietary)?a.dietary:[]),distance:a.distance??a.distance_miles??null,image:a.image??a.image_url??'',emoji:'🍽️',prep:a.prep??a.prep_time??null,cook:a.cook??a.cook_time??null,servings:a.servings??null,description:a.description??'',ingredients:Array.isArray(a.ingredients)?a.ingredients:[],steps:Array.isArray(a.steps)?a.steps:(Array.isArray(a.instructions)?a.instructions:[]),tips:Array.isArray(a.tips)?a.tips:[]}}
+  
+function mealNormalize(a, i) {
+  return {
+    id: String(a.id ?? a.meal_id ?? `api-${i}`),
+    name: a.name ?? a.title ?? "Unnamed meal",
+    restaurant: a.restaurant ?? a.restaurant_name ?? "Recipe",
+    price: a.price ?? a.cost ?? null,
+    calories: a.calories ?? a.nutrition?.calories ?? null,
+    protein: a.protein ?? a.nutrition?.protein ?? null,
+    carbs: a.carbs ?? a.nutrition?.carbs ?? null,
+    fat: a.fat ?? a.nutrition?.fat ?? null,
+    rating: a.rating ?? null,
+    type: a.type ?? a.meal_type ?? "",
+    tags: Array.isArray(a.tags) ? a.tags :
+      (Array.isArray(a.dietary) ? a.dietary : []),
+    distance: a.distance ?? a.distance_miles ?? null,
+    image: a.image ?? a.image_url ?? "",
+    emoji: "🍽️",
+    prep: a.prep ?? a.prep_time ?? null,
+    cook: a.cook ?? a.cook_time ?? null,
+    servings: a.servings ?? null,
+    description: a.description ?? "",
+    ingredients: Array.isArray(a.ingredients)
+      ? a.ingredients.map(item =>
+          typeof item === "string"
+            ? item
+            : item.original ?? item.name ?? ""
+        )
+      : [],
+    steps: (Array.isArray(a.steps) ? a.steps :
+      (Array.isArray(a.instructions) ? a.instructions : [])
+    ).map(item =>
+      typeof item === "string" ? item : item.step ?? ""
+    ),
+    tips: Array.isArray(a.tips) ? a.tips : []
+  };
+}
+
   function storeNormalize(a,i){return {id:String(a.id??a.place_id??`api-${i}`),name:a.name??'Unnamed store',type:String(a.type??a.category??'grocery').toLowerCase(),description:a.description??a.address??'',address:a.address??'',distance:a.distance??a.distance_miles??null,phone:a.phone??'',website:a.website??'',emoji:'🛒'}}
   function numberText(n,suffix=''){return n==null||n===''?'—':`${safe(n)}${suffix}`}
   function photo(m){return m.image?`<div class="food-image"><img loading="lazy" src="${safe(m.image)}" alt="${safe(m.name)}" onerror="this.remove();this.parentElement.textContent='🍽️'"></div>`:`<div class="food-image" role="img" aria-label="${safe(m.name)}">${safe(m.emoji||'🍽️')}</div>`}
@@ -48,7 +86,26 @@
     document.querySelectorAll('[data-compare]').forEach(b=>b.addEventListener('click',()=>compareMeal(b.dataset.compare)));
   }
   function compareMeal(id){const m=meals.find(x=>x.id===id);if(!m)return;const el=$('#compare');compared=compared.filter(x=>x.id!==id);if(compared.length>=2)compared.shift();compared.push(m);el.hidden=false;el.textContent=`Compare selected: ${compared.map(x=>`${x.name} (${numberText(x.calories)} cal; ${numberText(x.protein)}g protein)`).join(' vs ')}. Select another meal to compare.`;el.scrollIntoView({behavior:'smooth',block:'nearest'})}
-  function showDetail(id){const m=meals.find(x=>x.id===id);if(!m)return;
+  
+async function showDetail(id) {
+  let m = meals.find(x => x.id === id);
+  if (!m) return;
+
+  if (!isDemo && config.meals) {
+    try {
+      const response = await fetch(
+        `${config.meals.replace(/\/$/, "")}/user/${encodeURIComponent(id)}`
+      );
+
+      if (!response.ok) throw new Error("Recipe details unavailable");
+
+      const fullRecipe = await response.json();
+      m = mealNormalize(fullRecipe, 0);
+    } catch (error) {
+      console.warn("Using available recipe information:", error.message);
+    }
+  }
+
     $('#listing').classList.add('hidden');$('#detail').classList.add('active');
     const steps=(m.steps||[]).map(x=>`<li>${safe(typeof x==='object'?(x.text??x.description??''):x)}</li>`).join('');
     $('#detailContent').innerHTML=`<div class="detail-hero">${photo(m)}<div class="detail-intro"><h1>${safe(m.name)}</h1><p>${safe(m.description||'Recipe details supplied by the data provider.')}</p><div class="stats"><span>Prep: ${numberText(m.prep,' min')}</span><span>Cook: ${numberText(m.cook,' min')}</span><span>Servings: ${numberText(m.servings)}</span></div>${(m.tags||[]).map(t=>`<span class="tag">${safe(t)}</span>`).join('')}</div></div><div class="detail-grid"><section><h2>Ingredients</h2>${m.ingredients.length?`<ul>${m.ingredients.map(x=>`<li>${safe(typeof x==='object'?(x.name??x.text??''):x)}</li>`).join('')}</ul>`:'<p>Ingredients not provided by the API.</p>'}<div class="tipbox"><strong>Why it’s a Better Bite</strong><p>${safe((m.tags||[]).join(' · ')||'See nutritional information.')}</p></div></section><section><h2>Instructions</h2>${steps?`<ol>${steps}</ol>`:'<p>Instructions not provided by the API.</p>'}<div class="tipbox"><strong>Quick Tip</strong><p>${safe(m.tips[0]||'Review ingredient labels and portion sizes.')}</p></div></section><aside><h2>Nutrition Facts</h2><div class="nutrition"><span>${numberText(m.calories)}<small>Calories</small></span><span>${numberText(m.protein,'g')}<small>Protein</small></span><span>${numberText(m.carbs,'g')}<small>Carbs</small></span><span>${numberText(m.fat,'g')}<small>Fat</small></span></div><div class="tipbox"><strong>Better Bite Tips</strong><p>Nutrition varies with ingredients and serving size.</p></div><h2>Related Recipes</h2>${meals.filter(x=>x.id!==m.id).slice(0,2).map(x=>`<p><button class="btn btn-outline" data-related="${safe(x.id)}">${safe(x.name)}</button></p>`).join('')}</aside></div>`;
