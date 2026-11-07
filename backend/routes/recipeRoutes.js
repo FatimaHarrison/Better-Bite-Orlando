@@ -2,10 +2,6 @@ import express from "express";
 import {
 	getAllRecipes,
 	getRecipeById,
-	getRecipesByUser,
-	createRecipe,
-	updateRecipe,
-	deleteRecipe,
 } from "../controllers/recipeController.js";
 import apiKeyAuth from "../middleware/apiKeyAuth.js";
 
@@ -15,18 +11,19 @@ const router = express.Router();
 router.get("/", getAllRecipes);
 
 // GET a recipe by ID
-router.get("/user/:userId", getRecipeById);
+router.get("/user/:recipeId", getRecipeById);
 
+//all the rest marked for deletion, as they are not needed for the current implementation
 // GET recipes by user ID
-router.get("/user/:userId", getRecipesByUser);
+//router.get("/user/:userId", getRecipesByUser);
 
 // POST a new recipe
-router.post("/", apiKeyAuth, createRecipe);
+//router.post("/", apiKeyAuth, createRecipe);
 
 // PUT (update) a recipe by ID
-router.put("/:userId", apiKeyAuth, updateRecipe);
+//router.put("/:userId", apiKeyAuth, updateRecipe);
 
 // DELETE a recipe by ID
-router.delete("/user/:userId", apiKeyAuth, deleteRecipe);
+//router.delete("/user/:userId", apiKeyAuth, deleteRecipe);
 
 export default router;
