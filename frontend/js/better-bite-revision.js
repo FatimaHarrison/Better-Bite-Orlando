@@ -4,7 +4,9 @@
    No unverified API endpoint or API key is embedded here. */
 (() => {
   'use strict';
-  const config=window.BETTER_BITE_API||{};
+  const config = window.BETTER_BITE_API || {
+  groceries: "http://127.0.0.1:3001/places/groceries"
+};
   const $=(s)=>document.querySelector(s);
   const safe=(v)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const money=(n)=>Number.isFinite(Number(n))?`$${Number(n).toFixed(2)}`:'Price unavailable';
