@@ -5,8 +5,92 @@ import crypto from "node:crypto";
 import nodemailer from "nodemailer";
 
 const registerUser = async (req, res) => {
-	const { username, email, password, zipcode } = req.body;
+	const { username, email, password, zipcode } = req.body || {} ;
 
+// Validate registration information
+  // 1. Validate user information
+    if (
+        typeof username !== "string" ||
+        !username.trim() ||
+        typeof email !== "string" ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) ||
+        typeof zipcode !== "string" ||
+        !/^\d{5}$/.test(zipcode) ||
+        typeof password !== "string" ||
+        password.length < 12 ||
+        Buffer.byteLength(password, "utf8") > 72 ||
+        !/[A-Z]/.test(password) ||
+        !/[a-z]/.test(password) ||
+        !/[^A-Za-z0-9]/.test(password)
+    ) {
+        return res.status(400).json({
+            error: "Invalid registration information or password."
+        });
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+
+    try {
+        // 2. Check if user already exists
+        const userExists = await prisma.user.findUnique({
+            where: {
+                email: normalizedEmail
+            }
+        });
+
+        if (userExists) {
+            return res.status(409).json({
+                error: "An account already exists with this email."
+            });
+        }
+
+        // 3. Hash password before storing
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        // 4. Create new user in MySQL
+        const newUser = await prisma.user.create({
+            data: {
+                name: username.trim(),
+                email: normalizedEmail,
+                password: hashedPassword,
+                zipcode: Number(zipcode)
+            }
+        });
+
+        // 5. Generate authentication cookie
+        generateToken(newUser.id, res);
+
+        // 6. Respond with safe user information
+        return res.status(201).json({
+            status: "success",
+            message: "Account created successfully.",
+            data: {
+                user: {
+                    id: newUser.id,
+                    name: newUser.name,
+                    email: newUser.email,
+                    zipcode: newUser.zipcode
+                }
+            }
+        });
+
+    } catch (error) {
+        if (error.code === "P2002") {
+            return res.status(409).json({
+                error: "An account already exists with this email."
+            });
+        }
+
+        console.error("Registration failed:", error);
+
+        return res.status(500).json({
+            error: "Unable to create account."
+        });
+    }
+
+
+};
+/* 
 	const userExists = await prisma.user.findUnique({
 		where: {
 			email: email,
@@ -46,7 +130,8 @@ const registerUser = async (req, res) => {
 			token,
 		},
 	});
-};
+	*/ 
+
 
 const loginUser = async (req, res) => {
 	const { email, password } = req.body;
