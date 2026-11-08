@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
 import crypto from "node:crypto";
 import nodemailer from "nodemailer";
+import jwt from "jsonwebtoken";
 
 const registerUser = async (req, res) => {
 	const { username, email, password, zipcode } = req.body || {} ;
@@ -371,4 +372,80 @@ const resetPassword = async (req, res) => {
 	}
 };
 
-export { registerUser, loginUser, logoutUser, forgotPassword, resetPassword };
+
+const getCurrentUser = async (req, res) => {
+
+	//read authentication cookie
+	const authCookie = req.headers.cookie
+		?.split(";")
+		.map(cookie => cookie.trim())
+		.find(cookie => cookie.startsWith("cookie="));
+
+	const token = authCookie?.slice("cookie=".length);
+
+	if(!token) {
+		return res.status(401).json({
+			error: "Not signed in."
+		});
+	}
+
+	try {
+		// verify the session
+		const decoded = jwt.verify(
+			token,
+			process.env.JWT_SECRET
+		);
+
+		if(!Number.isInteger(decoded.id)) {
+			return res.status(401).json({
+				error: "Invalid session."
+			});
+		}
+
+		//retrieve the current user
+		const user = await prisma.user.findUnique({
+			where: {
+				id: decoded.id
+			},
+			select: {
+				id: true,
+				name: true,
+				email: true,
+				zipcode: true
+			}
+		});
+
+		if(!user) {
+			return res.status(401).json({
+				error:"User not found."
+			});
+		}
+
+		return res.status(200).json({
+			status: "success",
+			data: { user }
+		});
+	} catch (error) {
+		if (
+			error.name === "JsonWebTokenError" || error.name === "TokenExpiredError" ) {
+				return res.status(401).json({
+					error: "Session expired or invalid."
+				});
+			}
+
+			console.error("Session verification failed:", error);
+
+			return res.status(500).json({
+				error: "Unable to verify session."
+			});
+	}
+};
+
+export { 
+	registerUser,
+	loginUser,
+	logoutUser,
+	forgotPassword,
+	resetPassword,
+	getCurrentUser
+};

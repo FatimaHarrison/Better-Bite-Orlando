@@ -6,6 +6,7 @@ import {
 	logoutUser,
 	forgotPassword,
 	resetPassword,
+	getCurrentUser
 } from "../controllers/authController.js";
 
 import apiKeyAuth from "../middleware/apiKeyAuth.js";
@@ -59,5 +60,10 @@ router.post("/forgot-password", passwordRecoveryLimiter, forgotPassword);
 // POST /password-reset
 // Submits request to reset password
 router.post("/password-reset", passwordRecoveryLimiter, resetPassword);
+
+
+// GET /auth/me
+// Verify the current login session
+router.get("/me", getCurrentUser);
 
 export default router;

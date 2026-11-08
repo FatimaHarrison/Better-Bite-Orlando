@@ -37,6 +37,50 @@
             // insert html into the page
             navbarContainer.innerHTML = navbarHtml;
 
+            // profile icon navigation
+            const profileLink = navbarContainer.querySelector(".account-link");
+
+            if(profileLink) {
+
+                // default destination for signed out users
+                profileLink.href = "login.html";
+
+                profileLink.setAttribute(
+                    "aria-label",
+                    "Sign In"
+                );
+
+                try {
+                    const sessionResponse = await fetch(
+                        "http://127.0.0.1:3001/auth/me",
+                        {
+                            method: "GET",
+                            credentials: "include",
+                            cache: "no-store"
+                        }
+                    );
+
+                    if(sessionResponse.ok) {
+                        // user has a valid session
+                        profileLink.href = "profile.html";
+
+                        profileLink.setAttribute(
+                            "aria-label",
+                            "View My Account"
+                        );
+
+                    } else {
+                        profileLink.setAttribute(
+                            "aria-label",
+                            "Sign In"
+                        );
+                    }
+
+                } catch (error) {
+                    console.warn("Unable to check login session.")
+                }
+            }
+
             //identify current page
             const currentPage =
              window.location.pathname.split("/").pop()

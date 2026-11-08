@@ -14,7 +14,7 @@ if (loginForm) {
             'button[type="submit"]'
         );
 
-        submitButton.disable = true;
+        submitButton.disabled = true;
         loginStatus.textContent = "Signing in...";
 
         try {
@@ -44,6 +44,9 @@ if (loginForm) {
 
         loginStatus.textContent = "Login successful!";
 
+        // redirect uset to My Account
+        window.location.href = 'profile.html';
+
         // Redirect and authenticated navigation
         // will be implemented after session testing. 
 
@@ -52,7 +55,7 @@ if (loginForm) {
             loginStatus.textContent = 
                 "Unable to connect to the server.";
         } finally {
-            submitButton.disable = false;
+            submitButton.disabled = false;
         }
     });
 }

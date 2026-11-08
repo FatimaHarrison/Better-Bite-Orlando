@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Account | Better Bite Orlando </title>
+
+
+    <!-- Google Fonts -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.css">
+
+    <!-- Bootstrap and global theme -->
+    <link rel="stylesheet"
+          href="../css/bootstrap-custom.min.css">
+
+    <link rel="stylesheet"
+          href="../css/theme.css">
+
+    <!-- Shared components -->
+    <link rel="stylesheet"
+          href="../css/navbar.css">
+
+    <link rel="stylesheet"
+          href="../css/footer.css">
+
+    <!-- My Account Styles -->
+    <link rel="stylesheet"
+          href="../css/profile.css">
+</head>
+
+<body>
+
+    <!-- Nav Bar -->
+    <div id="site-navbar"></div>
+
+    <!-- Main Account Page -->
+     <main class="account-page">
+        
+        <!-- Hero Section -->
+        <section class="account-hero">
+        <div class="account-container">
+
+            <h1>My Account</h1>
+
+            <p>
+                Manage your personal information,
+                food preferences, and account security.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- Account Content--> 
+    <div class="account-container account-content">
+
+        <section class="account-shell">
+
+            <div class="account-tabs">
+
+                <!-- Tab Selection -->
+                 <input 
+                    type="radio"
+                    name="account-section"
+                    id="tab-profile"
+                    class="account-tab-radio"
+                    checked>
+
+                <input 
+                    type="radio"
+                    name="account-section"
+                    id="tab-preferences"
+                    class="account-tab-radio">
+
+                    <input 
+                    type="radio"
+                    name="account-section"
+                    id="tab-security"
+                    class="account-tab-radio">
+                
+            <!-- navigation cards -->
+             <div class="account-tab-list">
+
+                <!-- my profile -->
+                 <label
+                    for="tab-profile"
+                    class="account-tab account-tab--profile">
+                
+                    <span class="account-tab-icon">
+                        <i class="bi bi-person-circle"></i>
+                    </span>
+
+                    <span>
+                        <strong>My Profile</strong>
+                        <small>Personal Information </small>
+                    </span>
+
+                </label>
+
+                <!-- preferences -->
+
+                <label 
+                    for="tab-preferences"
+                    class="account-tab account-tab--preferences">
+                
+                    <span class="account-tab-icon">
+                        <i class="bi bi-sliders2"></i>
+                    </span>
+
+                    <span>
+                        <strong>Preferences</strong>
+                        <small>Food and notifications </small>
+                    </span>  
+                
+                </label>
+
+                <!-- Security -->
+
+                <label 
+                    for="tab-security"
+                    class="account-tab account-tab--security">
+                
+                    <span class="account-tab-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </span>
+
+                    <span>
+                        <strong>Security</strong>
+                        <small>Password and account </small>
+                    </span>  
+                
+                </label>
+
+             </div>
+
+             <!-- Content Panels -->
+             <div class="account-panels">
+
+            <!-- My Profile -->
+            <section 
+                class="account-panel"
+                id="panel-profile">
+            
+            <div class="account-panel-heading">
+
+                <div>
+                    <h2>My Profile</h2>
+
+                    <p>
+                        Keep your personal information up to date.
+                    </p>
+                </div>
+
+                <span class="account-panel-mark">
+                    <i class="bi bi-person"></i>
+                </span>
+
+            </div>
+
+            <!-- Profile form -->
+             <form class="account-form">
+
+                <!-- name -->
+                 <div class="account-field-row">
+
+                    <div class="account-field">
+
+                        <label for="profile-first-name">
+                            First Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="profile-first-name"
+                            name="firstName"
+                            placeholder="Enter your first name"
+                            autocomplete="given-name">
+
+                    </div>
+
+                    
+                    <div class="account-field">
+
+                        <label for="profile-last-name">
+                            Last Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="profile-last-name"
+                            name="lastName"
+                            placeholder="Enter your last name"
+                            autocomplete="family-name">
+
+                    </div>
+
+                 </div>
+
+
+                 <!-- Email -->
+                 <div class="account-field">
+
+                        <label for="profile-email">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="profile-email"
+                            name="email"
+                            placeholder="Email loads after API integration..."
+                            autocomplete="email"
+                            readonly>
+
+                            <small>
+                                Your email will be loaded from your account.
+                            </small>
+                            
+                    </div>
+                    
+
+                <!-- ZIP Code -->
+                 <div class="account-field">
+
+                        <label for="profile-zip">
+                            ZIP Code
+                        </label>
+
+                        <input
+                            type="text"
+                            id="profile-zip"
+                            name="zipcode"
+                            placeholder="Enter your 5-digit ZIP code"
+                            autocomplete="postal-code"
+                            inputmode="numeric"
+                            pattern="[0-9]{5}"
+                            maxlength="5">
+                            
+                    </div>
+                
+                    <!-- dietary preferences -->
+                    <fieldset class="account-field account-diet">
+
+                        <legend>Dietary Preferences</legend>
+
+                        <div class="account-chip-list">
+
+                            <label class="account-chip">
+                                <input type="checkbox"
+                                        name="diet"
+                                        value="vegetarian">
+
+                                <span>Vegetarian</span>
+                            </label>
+
+                            <label class="account-chip">
+                                <input type="checkbox"
+                                        name="diet"
+                                        value="vegan">
+
+                                <span>Vegan</span>
+                            </label>
+
+                            <label class="account-chip">
+                                <input type="checkbox"
+                                        name="diet"
+                                        value="dairy-free">
+
+                                <span>Dairy-Free</span>
+                            </label>
+
+                            
+                            <label class="account-chip">
+                                <input type="checkbox"
+                                        name="diet"
+                                        value="low-sodium">
+
+                                <span>Low-Sodium</span>
+                            </label>
+
+                            <label class="account-chip">
+                                <input type="checkbox"
+                                        name="diet"
+                                        value="gluten-free">
+
+                                <span>Gluten-Free</span>
+                            </label>
+
+                            
+                            <label class="account-chip">
+                                <input type="checkbox"
+                                        name="diet"
+                                        value="high-protein">
+
+                                <span>High Protein</span>
+                            </label>
+                            
+                        </div>
+
+                    </fieldset>
+
+                    <!-- Save -->
+                     <button
+                        type="button"
+                        class="account-button"
+                        disabled>
+                    Save Changes
+                </button>
+
+                <p class="account-demo-note">
+                    Profile saving will be enabled after backend integration...
+                </p>
+                
+                </form>
+                
+        </section>
+
+
+
+        <section
+            class="account-panel"
+            id="panel-preferences">
+        
+            <div class="account-panel-heading">
+
+                <div>
+
+                    <h2>Notification Preferences</h2>
+
+                    <p>
+                        Choose the updates you want
+                        to receive.
+                    </p>
+                    
+                </div>
+
+                <span class="account-panel-mark">
+                    <i class="bi bi-bell"></i>
+                </span>
+
+            </div>    
+
+
+            <div class="account-notification-list">
+
+                <!-- Email notification-->
+                 <label class="account-notification">
+
+                    <span class="account-notification-icon">
+                        <i class="bi bi-envelope"></i>
+                    </span>
+                    
+                    <span class="account-notification-copy">
+                        <strong>Email Notification</strong>
+                        <small>
+                                News, recipes, and community resources.
+                        </small>
+                    </span>
+
+                    <input type="checkbox"
+                        aria-label="Email notifications">
+
+                 </label>
+
+                 <!-- Recipe Recommendations -->
+                 <label class="account-notification">
+
+                    <span class="account-notification-icon">
+                        <i class="bi bi-egg-fried"></i>
+                    </span>
+                    
+                    <span class="account-notification-copy">
+                        <strong>Recipe Recommendations</strong>
+                        <small>
+                                Get personalized recipe suggestions.
+                        </small>
+                    </span>
+
+                    <input type="checkbox"
+                        aria-label="Recipe recommendations">
+
+                 </label>
+
+                 <!-- Local food events -->
+                <label class="account-notification">
+
+                    <span class="account-notification-icon">
+                        <i class="bi bi-calendar-event"></i>
+                    </span>
+                    
+                    <span class="account-notification-copy">
+                        <strong>Local Food Events</strong>
+                        <small>
+                                Farmers markets and community events.
+                        </small>
+                    </span>
+
+                    <input type="checkbox"
+                        aria-label="Local food events">
+
+                 </label>
+
+                 <!-- New Resources-->
+                <label class="account-notification">
+
+                    <span class="account-notification-icon">
+                        <i class="bi bi-book"></i>
+                    </span>
+                    
+                    <span class="account-notification-copy">
+                        <strong>New Resources</strong>
+                        <small>
+                                Nutrition guides and food assistance.
+                        </small>
+                    </span>
+
+                    <input type="checkbox"
+                        aria-label="New resources">
+
+                 </label>
+
+            </div>
+
+            <p class="account-demo-note">
+                Notification settings are currentyl a visual prototype.
+            </p>
+
+        </section>
+
+        <!-- Security -->
+
+        <section
+            class="account-panel"
+            id="panel-security">
+        
+            <div class="account-panel-heading">
+
+                <div>
+                    <h2>Account Security</h2>
+
+                    <p>
+                        Manage your password
+                        and account access.
+                    </p>
+                </div>
+
+                <span class="account-panel-mark">
+                    <i class="bi bi-shield-lock"></i>
+                </span>
+
+            </div>    
+
+
+            <!-- Password form -->
+             <form class="account-form">
+
+                <div class="account-field">
+
+                    <label for="current-password">
+                        Current Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="current-password"
+                        placeholder="Enter current password"
+                        autocomplete="current-password">
+
+                </div>
+
+                <div class="account-field">
+
+                    <label for="new-account-password">
+                        New Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="new-account-password"
+                        placeholder="Enter new password"
+                        autocomplete="new-password">
+
+                </div>
+
+                <div class="account-field">
+
+                    <label for="confirm-account-password">
+                        Confirm New password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirm-account-password"
+                        placeholder="Confirm new password"
+                        autocomplete="new-password">
+
+                </div>
+
+                <button
+                    type="button"
+                    class="account-button"
+                    disabled>
+                    Update Password
+                </button>
+            </form>
+
+                <!-- Delete Account -->
+                 <div class="account-danger-zone">
+
+                    <h3>
+                        <i class="bi bi-trash3"></i>
+                        Delete Account
+                    </h3>
+
+                    <p>
+                        Permanenty delete your account
+                        and saved information.
+                        This action cannot be undone.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="account-delete-button"
+                        disabled>
+                        Delete Account
+                    </button>
+
+                 </div>
+
+                 <p class="account-demo-note">
+                    Security actions require backend integration....
+                 </p>
+
+            </section>
+            
+         </div>
+                    
+        </div>
+    </section>
+
+    </div>
+
+     </main> 
+
+     <!-- Shared footer -->
+ <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Shared Components -->
+    <script src="../js/navbar.js"></script>
+    <script src="../js/footer.js"></script>
+
+    <!-- My Account Js-->
+    <script src="../js/profile.js"></script>
+    
+</body>
+</html>
