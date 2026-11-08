@@ -5,184 +5,549 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Favorites</title>
-<!-- Google Fonts -->
+    <meta name="description"
+        content="View your saved healthy meals, restaurants, groceries, and recipes in Orlando.">
+
+    <title>My Favorites | Better Bite Orlando</title>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-
-        <!-- Bootstrap Icon -->
-        <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <!-- Font Awesome -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <!-- CSS Stylesheet -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <!-- Favorites CSS -->
     <link rel="stylesheet" href="../css/favorites.css">
+
 </head>
 
 <body>
 
-    <!-- Navigation -->
-    <header>
+    <!-- =========================
+         HEADER / NAVIGATION
+    ========================== -->
 
-        <img
-            class="logo"
-            src="../logos/better-bit-orlando-logo-trn-bg.png"
-            alt="Better Bite Orlando logo"
-        >
+    <header class="site-header">
 
-        <nav class="navbar">
-      <a href="index.html">Home</a>
-        <a href="find-food.html">Find Food</a>
-        <a href="compare-options.html">Compare</a>
-        <a href="favorites.html">Favorites</a>
-        <a href="food-access.html">Food Access</a>
+        <a href="index.html" class="logo-link">
+            <img
+                class="logo"
+                src="../logos/better-bit-orlando-logo-trn-bg.png"
+                alt="Better Bite Orlando">
+        </a>
+
+        <nav class="navbar" aria-label="Main navigation">
+
+            <a href="index.html">Home</a>
+
+            <a href="groceries.html">Groceries</a>
+
+            <a href="restaurants.html">Healthy Restaurant</a>
+
+            <a href="recipes.html">Recipes</a>
+
+            <a href="favorites.html" aria-current="page">Favorites</a>
+
+            <a href="resources.html">Resources</a>
+
         </nav>
 
         <div class="header-actions">
 
-        <a href="#search" class="search">
-            <i class="bi bi-search"></i>
-        </a>
+            <a href="#search" class="search-icon" aria-label="Search">
+                <i class="bi bi-search"></i>
+            </a>
+
+            <a href="profile.html" class="profile-icon" aria-label="My profile">
+                <i class="bi bi-person-fill"></i>
+            </a>
 
         </div>
 
     </header>
 
 
-    <!-- Main Content -->
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
     <main>
 
-        <section class="favorites-header">
-            <h1>My Favorites</h1>
-            <p>Your saved meals and restaurants for easy access.</p>
-        </section>
+        <!-- =========================
+             FAVORITES HERO
+        ========================== -->
 
-
-        <!-- Card 1 -->
-        <section class="food-card">
+        <section class="favorites-hero">
 
             <img
-                src="../images/chicken-bowl.jpg"
-                alt="Grilled Rosemary Chicken Bowl"
-            >
+                class="hero-background"
+                src="../images/homepage-img.jpg"
+                alt=""
+                aria-hidden="true">
 
-            <div class="food-info">
+            <div class="hero-overlay"></div>
 
-                <h2>Grilled Rosemary Chicken Bowl</h2>
+            <div class="hero-content">
 
-                <p class="restaurant">Fresh Kitchen</p>
+                <h1>Your Favorites</h1>
 
-                <div class="food-details">
-                    <span class="price">$14.05</span>
-                    <span>100 calories</span>
-                    <span>52g protein</span>
-                </div>
-
-                <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <span>4.6</span>
-                </div>
+                <p>
+                    Your saved spots, groceries, and recipes in one place.
+                </p>
 
             </div>
 
-            <button class="details-btn"><a href="chickenbowl-recipe.html">
-                View Details
-            </button>
-             </a>
 
-            <div class="favorite-btn">
-                <i class="fa-solid fa-heart"></i>
-            </div>
+            <!-- CATEGORY FILTER BAR -->
 
-        </section>
+            <div class="filter-bar" aria-label="Filter favorites">
 
+                <button
+                    class="filter-btn active"
+                    type="button"
+                    data-filter="all"
+                    aria-pressed="true">
 
-        <!-- Card 2 -->
-        <section class="food-card">
+                    All
 
-            <img
-                src="../images/breakfast-tacos.jpg"
-                alt="Farm Stand Breakfast Tacos"
-            >
+                </button>
 
-            <div class="food-info">
+                <button
+                    class="filter-btn"
+                    type="button"
+                    data-filter="restaurant"
+                    aria-pressed="false">
 
-                <h2>Farm Stand Breakfast Tacos</h2>
+                    Restaurants
 
-                <p class="restaurant">First Watch</p>
+                </button>
 
-                <div class="food-details">
-                    <span class="price">$16.81</span>
-                    <span>1000 calories</span>
-                    <span>52g protein</span>
-                </div>
+                <button
+                    class="filter-btn"
+                    type="button"
+                    data-filter="groceries"
+                    aria-pressed="false">
 
-                <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <span>4.5</span>
-                </div>
+                    Groceries
 
-            </div>
+                </button>
 
-            <button class="details-btn">
-                View Details
-            </button>
+                <button
+                    class="filter-btn"
+                    type="button"
+                    data-filter="recipe"
+                    aria-pressed="false">
 
-            <div class="favorite-btn">
-                <i class="fa-solid fa-heart"></i>
+                    Recipes
+
+                </button>
+
             </div>
 
         </section>
 
 
-        <!-- Card 3 -->
-        <section class="food-card">
+        <!-- =========================
+             FAVORITES SECTION
+        ========================== -->
 
-            <img
-                src="../images/banana-smoothie.jpg"
-                alt="Banana Peanut Power Smoothie"
-            >
+        <section class="favorites-container" aria-label="Saved favorites">
 
-            <div class="food-info">
+            <!-- FAVORITES GRID -->
 
-                <h2>Banana Peanut Power Smoothie</h2>
+            <div class="favorites-grid">
 
-                <p class="restaurant">Moma's Cafe</p>
 
-                <div class="food-details">
-                    <span class="price">$8.00</span>
-                    <span>350 calories</span>
-                    <span>30g protein</span>
-                </div>
+                <!-- CARD 1: AGAVE AZUL -->
 
-                <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <span>4.4</span>
-                </div>
+                <article class="favorite-card" data-category="restaurant">
+
+                    <div class="card-image">
+
+                        <img
+                            src="../images/agave-azul.jpg"
+                            alt="Agave Azul Mexican restaurant food">
+
+                        <button
+                            class="favorite-heart active"
+                            type="button"
+                            aria-label="Remove Agave Azul from favorites"
+                            aria-pressed="true">
+
+                            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+
+                        </button>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="card-title-row">
+
+                            <h2>Agave Azul</h2>
+
+                            <span class="category-tag restaurant-tag">
+                                Restaurant
+                            </span>
+
+                        </div>
+
+                        <p class="card-description">
+                            A vibrant Mexican restaurant offering fresh flavors,
+                            from tacos to enchiladas, with a lively atmosphere.
+                        </p>
+
+                        <div class="card-footer">
+
+                            <a href="#" class="view-details">
+                                View Details →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CARD 2: CHICKPEA SALAD -->
+
+                <article class="favorite-card" data-category="recipe">
+
+                    <div class="card-image">
+
+                        <img
+                            src="../images/chickpea-salad.jpg"
+                            alt="Fresh chickpea salad">
+
+                        <button
+                            class="favorite-heart active"
+                            type="button"
+                            aria-label="Remove Chickpea Salad from favorites"
+                            aria-pressed="true">
+
+                            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+
+                        </button>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="card-title-row">
+
+                            <h2>Chickpea Salad</h2>
+
+                            <span class="category-tag recipe-tag">
+                                Recipe
+                            </span>
+
+                        </div>
+
+                        <p class="card-description">
+                            A refreshing, plant-based salad made with chickpeas,
+                            crisp vegetables, and a light lemon dressing.
+                            Great for a quick lunch.
+                        </p>
+
+                        <div class="card-footer">
+
+                            <a href="#" class="view-details">
+                                View Details →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CARD 3: PUBLIX SUPER MARKET -->
+
+                <article class="favorite-card" data-category="groceries">
+
+                    <div class="card-image">
+
+                        <img
+                            src="../images/publix.jpg"
+                            alt="Publix supermarket">
+
+                        <button
+                            class="favorite-heart active"
+                            type="button"
+                            aria-label="Remove Publix Super Market from favorites"
+                            aria-pressed="true">
+
+                            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+
+                        </button>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="card-title-row">
+
+                            <h2>Publix Super Market</h2>
+
+                            <span class="category-tag groceries-tag">
+                                Groceries
+                            </span>
+
+                        </div>
+
+                        <p class="card-description">
+                            2435 Westpointe Boulevard,<br>
+                            MetroWest, Orlando, FL 32835
+                        </p>
+
+                        <div class="card-footer">
+
+                            <a href="#" class="view-details">
+                                View Details →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CARD 4: CARRABBA'S ITALIAN GRILL -->
+
+                <article class="favorite-card" data-category="restaurant">
+
+                    <div class="card-image">
+
+                        <img
+                            src="../images/carrabas.jpg"
+                            alt="Carrabba's Italian Grill food">
+
+                        <button
+                            class="favorite-heart active"
+                            type="button"
+                            aria-label="Remove Carrabba's Italian Grill from favorites"
+                            aria-pressed="true">
+
+                            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+
+                        </button>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="card-title-row">
+
+                            <h2>Carrabba's Italian Grill</h2>
+
+                            <span class="category-tag restaurant-tag">
+                                Restaurant
+                            </span>
+
+                        </div>
+
+                        <p class="card-description">
+                            Classic Italian dishes made with fresh ingredients,
+                            from homemade pastas to wood-grilled favorites.
+                        </p>
+
+                        <div class="card-footer">
+
+                            <a href="#" class="view-details">
+                                View Details →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CARD 5: CREAMY TOMATO PASTA -->
+
+                <article class="favorite-card" data-category="recipe">
+
+                    <div class="card-image">
+
+                        <img
+                            src="../images/creamy-tomato-pasta.jpg"
+                            alt="Creamy tomato pasta">
+
+                        <button
+                            class="favorite-heart active"
+                            type="button"
+                            aria-label="Remove Creamy Tomato Pasta from favorites"
+                            aria-pressed="true">
+
+                            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+
+                        </button>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="card-title-row">
+
+                            <h2>Creamy Tomato Pasta</h2>
+
+                            <span class="category-tag recipe-tag">
+                                Recipe
+                            </span>
+
+                        </div>
+
+                        <p class="card-description">
+                            A comforting pasta dish tossed in a creamy tomato
+                            sauce with garlic and herbs. A simple, satisfying
+                            meal made with everyday ingredients.
+                        </p>
+
+                        <div class="card-footer">
+
+                            <a href="#" class="view-details">
+                                View Details →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CARD 6: GRILLED CHICKEN BOWL -->
+
+                <article class="favorite-card" data-category="recipe">
+
+                    <div class="card-image">
+
+                        <img
+                            src="../images/grilled-chicken-bowl.jpg"
+                            alt="Grilled chicken bowl with rice and vegetables">
+
+                        <button
+                            class="favorite-heart active"
+                            type="button"
+                            aria-label="Remove Grilled Chicken Bowl from favorites"
+                            aria-pressed="true">
+
+                            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+
+                        </button>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="card-title-row">
+
+                            <h2>Grilled Chicken Bowl</h2>
+
+                            <span class="category-tag recipe-tag">
+                                Recipe
+                            </span>
+
+                        </div>
+
+                        <p class="card-description">
+                            A balanced bowl with grilled chicken, grains,
+                            and fresh vegetables. A filling option with
+                            protein and colorful ingredients.
+                        </p>
+
+                        <div class="card-footer">
+
+                            <a href="#" class="view-details">
+                                View Details →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
 
             </div>
 
-            <button class="details-btn">
-                View Details
-            </button>
 
-            <div class="favorite-btn">
-                <i class="fa-solid fa-heart"></i>
-            </div>
+            <!-- EMPTY FAVORITES MESSAGE -->
+
+            <p class="empty-message" hidden>
+                You haven't saved any favorites in this category yet.
+            </p>
 
         </section>
 
     </main>
 
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-logo">
+
+            <a href="index.html">
+
+                <img
+                    src="../logos/better-bit-orlando-logo-trn-bg.png"
+                    alt="Better Bite Orlando">
+
+            </a>
+
+        </div>
+
+
+        <div class="footer-content">
+
+            <nav class="footer-links" aria-label="Footer navigation">
+
+                <a href="about.html">About Us</a>
+
+                <a href="contact.html">Help</a>
+
+                <a href="privacy.html">Privacy Policy</a>
+
+                <a href="terms.html">Term of Service</a>
+
+            </nav>
+
+
+            <div class="footer-message">
+
+                <span>
+                    Together for a healthier Orlando
+                </span>
+
+                <i class="bi bi-heart" aria-hidden="true"></i>
+
+            </div>
+
+        </div>
+
+    </footer>
+<script src="../js/favorites.js" defer></script>
 </body>
+
 </html>

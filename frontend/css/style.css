@@ -1,82 +1,973 @@
-/* Better Bite Orlando homepage — load after the compiled Bootstrap theme.
-HOMEPAGE LOOKS!  */
-:root {
 
-  
-  /* Better Bite Orlando Colors */
-  --bbo-surface: #f4ece5;
-  --bbo-green: var(--bs-primary, #38652b);
-  
-  /* Better Bite Orlando Font */
-  --bs-body-sans-family: "Inter", sans-serif;
-  --bs-body-font-family: 'Inter', sans-serif;
-  
+/* ==========================================
+   BETTER BITE ORLANDO
+   HOMEPAGE DESIGN
+========================================== */
+
+:root {
+  --bbo-green: #416b32;
+  --bbo-dark-green: #365d2c;
+  --bbo-light-green: #d9f3dc;
+  --bbo-orange: #ff8519;
+  --bbo-purple: #a51bc9;
+  --bbo-blue: #c9e2f4;
 }
-html { overflow-x: clip; }
-body { min-height: 100vh; display: flex; flex-direction: column; font-family: var(--bs-body-font-family); }
-main { flex: 1; }
-a { text-underline-offset: .2em; }
-.hero { position: relative; min-height: 350px; isolation: isolate; }
-.hero-image { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
-.hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(255,255,255,.88), rgba(255,255,255,.48) 60%, rgba(255,255,255,.15)); }
-.hero-content { position: relative; padding-top: 2.2rem; padding-bottom: 8rem; }
-.hero h1 { font-size: clamp(2rem, 4vw, 3.3rem); font-weight: 800; line-height: 1.13; color: var(--bbo-green); }
-.hero-content > p:not(.hero-tagline) { max-width: 34rem; font-weight: 600; color: #24401d; }
-.hero-tagline { position: absolute; right: 5%; top: 2rem; transform: rotate(-9deg); font-weight: 700; text-align: center; color: #24401d; }
-.finder-wrap { position: relative; z-index: 2; margin-top: -105px; }
-.food-finder { background: var(--bbo-surface); padding: clamp(1rem, 2.5vw, 2rem); border-radius: 1rem; }
-.food-finder h2 { font-size: 1.3rem; font-weight: 750; margin-bottom: 1rem; color: var(--bbo-green); }
-.food-finder h3 { font-size: .95rem; font-weight: 700; margin-bottom: .7rem; color: var(--bbo-green); }
-.meal-options { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; }
-.meal-options .btn { white-space: normal; }
-.meal-options i { margin-right: .4rem; }
-.filter-options { display: flex; flex-wrap: wrap; gap: .5rem; }
-.filter-options .btn { font-size: .875rem; }
-/* Equal-sized dietary preference buttons in a responsive two-column grid. */
-.filter-options[aria-label="Dietary preference"] {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: .5rem;
+
+* {
+  box-sizing: border-box;
 }
-.filter-options[aria-label="Dietary preference"] .btn {
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", sans-serif;
+}
+
+main {
+  flex: 1;
+}
+
+/* ==========================================
+   HOMEPAGE BACKGROUND
+========================================== */
+
+.homepage {
+  background: #c9e2f4;
+}
+
+.home-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 480px;
+  padding: 14px 0 23px;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(221, 239, 250, .85),
+    rgba(205, 228, 244, .75),
+    rgba(188, 222, 242, .88)
+  );
+}
+
+.home-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+}
+
+/* ==========================================
+   HERO HEADING
+========================================== */
+
+.hero-heading {
+  padding: 0 20px;
+  margin-bottom: 7px;
+}
+
+.hero-heading h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(22px, 2.5vw, 29px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #080808;
+  margin: 0 0 5px;
+}
+
+.hero-heading p {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 8px;
+  line-height: 1.3;
+  color: #111;
+  margin: 0;
+}
+
+/* ==========================================
+   CATEGORY CARDS
+========================================== */
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  align-items: stretch;
+}
+
+.category-card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
   min-width: 0;
-  min-height: 44px;
+  height: 227px;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 14px 15px;
+}
+
+.groceries-card {
+  background: #d9f4df;
+}
+
+.restaurants-card {
+  background: #ffddc7;
+}
+
+.recipes-card {
+  background: #e8d1ed;
+}
+
+/* ==========================================
+   CARD FOOD IMAGES
+========================================== */
+
+.card-food-image {
+  position: absolute;
+  z-index: -1;
+  right: -8px;
+  bottom: 0;
+  width: 55%;
+  height: 88%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50% 0 0 0;
+  opacity: .98;
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, .3) 15%,
+    black 45%
+  );
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* ==========================================
+   CARD HEADINGS AND ICONS
+========================================== */
+
+.card-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  min-height: 70px;
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 24px;
+}
+
+.groceries-card .card-icon {
+  background: #78c88a;
+  color: #37643b;
+}
+
+.restaurants-card .card-icon {
+  background: #ffc18e;
+  color: #ff811d;
+}
+
+.recipes-card .card-icon {
+  background: #d6b4e1;
+  color: #a51bc9;
+}
+
+.card-heading h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(17px, 2vw, 24px);
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--bbo-green);
+  margin: 0 0 4px;
+  white-space: nowrap;
+}
+
+.card-heading p {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 8px;
+  line-height: 1.25;
+  color: #496342;
+  margin: 0;
+}
+
+/* ==========================================
+   CARD LISTS
+========================================== */
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 10px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.card-list li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 9px;
+  color: #496342;
+  white-space: nowrap;
+}
+
+.card-list i {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.groceries-card .card-list i {
+  color: #78c88a;
+}
+
+.restaurants-card .card-list i {
+  color: #ffb77f;
+}
+
+.recipes-card .card-list i {
+  color: #d0a8df;
+}
+
+/* ==========================================
+   CARD BUTTONS
+========================================== */
+
+.card-button {
+  position: relative;
+  z-index: 2;
+  margin: auto auto 0 0;
+  min-width: 145px;
+  min-height: 31px;
+  padding: 8px 12px;
+  border-radius: 30px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: .35rem;
-  white-space: normal;
+  gap: 5px;
+
+  text-decoration: none;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 9px;
+  color: #fff;
+
+  transition: all .25s ease;
 }
 
-[data-filter-group][aria-pressed="true"] { outline: 3px solid var(--bs-warning, #c45113); outline-offset: 2px; box-shadow: inset 0 0 0 2px #fff; }
-.finder-action { display: flex; justify-content: flex-end; margin-top: 1.5rem; }
-.finder-action .btn { font-size: 1rem; }
-.features { padding-top: 3.5rem; padding-bottom: 3.5rem; }
-.feature-card { height: 100%; text-align: center; padding: .5rem; }
-.feature-card > i { display: grid; place-items: center; margin: 0 auto 1rem; width: 3.5rem; height: 3.5rem; border-radius: 50%; background: #e8e8e8; color: var(--bbo-green); font-size: 1.5rem; }
-.feature-card h3 { font-size: 1rem; font-weight: 700; color: var(--bbo-green); }
-.feature-card p { font-size: .9rem; color: #4b4b4b; }
+.groceries-button {
+  background: #416b32;
+}
 
+.restaurants-button {
+  background: #ff8519;
+}
+
+.recipes-button {
+  background: #a51bc9;
+}
+
+.card-button:hover {
+  color: white;
+  filter: brightness(.92);
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   THREE PATHS SECTION
+========================================== */
+
+.pathways-section {
+  position: relative;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-columns: 1.5fr .8fr .9fr 1.1fr 1.5fr;
+
+  align-items: center;
+  gap: 8px;
+
+  min-height: 110px;
+  margin-top: 17px;
+  padding: 12px 16px;
+
+  border-radius: 13px;
+  background: #d9f4df;
+  color: var(--bbo-green);
+}
+
+/* Section title */
+
+.pathways-title h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(17px, 2vw, 23px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 5px;
+}
+
+.decorative-underline {
+  display: block;
+  width: 85px;
+  height: 5px;
+  border-top: 4px solid #79c98a;
+  border-radius: 50%;
+  transform: rotate(-4deg);
+}
+
+/* Three pathway items */
+
+.pathway-item {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.pathway-icon {
+  width: 53px;
+  height: 53px;
+
+  display: grid;
+  place-items: center;
+
+  margin: 0 auto 5px;
+  border-radius: 50%;
+
+  background: #a9c9a6;
+  color: #416b32;
+
+  font-size: 24px;
+}
+
+.pathway-item h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 9px;
+  font-weight: 700;
+  white-space: nowrap;
+  margin: 0 0 2px;
+}
+
+.pathway-item h3 span {
+  display: inline-grid;
+  place-items: center;
+
+  width: 13px;
+  height: 13px;
+
+  border-radius: 50%;
+  background: #91bd91;
+  color: white;
+}
+
+.pathway-item p {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 8px;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Right message */
+
+.pathways-message {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.pathways-message h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 5px;
+}
+
+.pathways-message i {
+  color: #ff8519;
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+
+/* ==========================================
+   REFERENCE IMAGE FOOTER
+========================================== */
+
+.site-footer {
+  display: flex;
+  align-items: stretch;
+  min-height: 58px;
+  background: #416b32;
+}
+
+.footer-logo {
+  width: 112px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+.footer-logo img {
+  width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+
+.site-footer .footer-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  min-height: 58px;
+  padding: 8px 15px;
+  gap: 15px;
+}
+
+.site-footer .footer-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1;
+  gap: 20px;
+}
+
+.site-footer .footer-links a {
+  color: white;
+  font-size: 10px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.footer-message {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.footer-message i {
+  color: #ff8519;
+  font-size: 15px;
+}
+
+@media (max-width: 575.98px) {
+
+  .site-footer {
+    flex-direction: column;
+  }
+
+  .footer-logo {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .site-footer .footer-content {
+    flex-direction: column;
+    padding: 18px 10px;
+  }
+
+  .site-footer .footer-links {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .footer-message {
+    font-size: 10px;
+  }
+
+}
+
+
+/* ==========================================
+   TABLET RESPONSIVE
+========================================== */
 
 @media (max-width: 991.98px) {
-  .navbar-collapse { padding-block: 1rem; }
-  .header-search { display: inline-block; }
-  .hero-tagline { right: 2%; }
+
+  .home-hero {
+    padding-top: 20px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .category-card {
+    min-height: 245px;
+    height: auto;
+  }
+
+  .card-heading h2 {
+    font-size: 21px;
+  }
+
+  .pathways-section {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 22px 15px;
+  }
+
+  .pathways-title {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  .pathways-title .decorative-underline {
+    margin: auto;
+  }
+
+  .pathways-message {
+    grid-column: 1 / -1;
+    margin-top: 5px;
+  }
+
+  .footer-content {
+    flex-wrap: wrap;
+  }
+
 }
 
-@media (max-width: 767.98px) {
-  .hero { min-height: 300px; }
-  .hero-content { padding-top: 1.6rem; padding-bottom: 5rem; }
-  .finder-wrap { margin-top: -55px; }
-  .meal-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .finder-action .btn { width: 100%; }
-  .finder-action { display: block; }
-  .features { padding-block: 2.5rem; }
+/* ==========================================
+   MOBILE RESPONSIVE
+========================================== */
+
+@media (max-width: 575.98px) {
+
+  .home-hero {
+    padding: 25px 0 35px;
+  }
+
+  .hero-heading {
+    padding: 0 5px;
+    margin-bottom: 20px;
+  }
+
+  .hero-heading h1 {
+    font-size: 29px;
+  }
+
+  .hero-heading p {
+    font-size: 10px;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .category-card {
+    min-height: 250px;
+    padding: 17px;
+  }
+
+  .card-heading h2 {
+    font-size: 22px;
+  }
+
+  .card-heading p {
+    font-size: 9px;
+  }
+
+  .card-list {
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .card-list li {
+    font-size: 10px;
+  }
+
+  .card-food-image {
+    width: 52%;
+    height: 80%;
+  }
+
+  .card-button {
+    min-height: 34px;
+    font-size: 10px;
+  }
+
+  .pathways-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 25px 15px;
+  }
+
+  .pathways-title,
+  .pathways-message {
+    grid-column: auto;
+  }
+
+  .pathways-title h2 {
+    font-size: 23px;
+  }
+
+  .pathway-item h3 {
+    font-size: 11px;
+  }
+
+  .pathway-item p {
+    font-size: 9px;
+  }
+
+  .pathways-message h3 {
+    font-size: 15px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 10px;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .footer-social {
+    display: none;
+  }
 }
-@media (max-width: 400px) {
-  .food-finder { padding: 1rem; }
-  .meal-options { gap: .5rem; }
-  .meal-options .btn { padding: .55rem .35rem; font-size: .85rem; }
-  .filter-options .btn { font-size: .8rem; }
+
+/* ==========================================
+   EXTRA SMALL PHONES
+========================================== */
+
+@media (max-width: 360px) {
+
+  .card-heading h2 {
+    font-size: 19px;
+  }
+
+  .card-list li {
+    font-size: 9px;
+  }
+
 }
+
+
+/* ==========================================
+   BETTER BITE ORLANDO - LAYOUT FIXES
+========================================== */
+
+/* Allow the homepage to grow with its content */
+.home-hero {
+    min-height: 480px;
+    height: auto;
+    padding: 20px 0 40px;
+    overflow: visible;
+}
+
+/* Give the content proper width */
+.home-container {
+    width: calc(100% - 60px);
+    max-width: 1800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Background should cover the entire hero */
+.hero-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Heading */
+.hero-heading {
+    margin-bottom: 18px;
+    padding: 0 30px;
+}
+
+.hero-heading h1 {
+    font-size: clamp(30px, 2.5vw, 44px);
+    line-height: 1.12;
+}
+
+.hero-heading p {
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+/* ==========================================
+   CATEGORY GRID
+========================================== */
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    align-items: stretch;
+    width: 100%;
+}
+
+.category-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    min-height: 340px;
+    height: auto;
+    padding: 22px;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+/* Keep text above images */
+.card-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 70%;
+}
+
+/* ==========================================
+   FIX CARD IMAGES
+========================================== */
+
+.card-food-image {
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    bottom: 0;
+    width: 52%;
+    height: 88%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50% 0 0 0;
+    opacity: .98;
+
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(0, 0, 0, .3) 15%,
+        black 50%
+    );
+}
+
+/* ==========================================
+   FIX CARD HEADINGS
+========================================== */
+
+.card-heading {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    min-height: 90px;
+}
+
+.card-heading h2 {
+    font-size: clamp(23px, 2vw, 36px);
+    line-height: 1.08;
+    white-space: normal;
+    overflow-wrap: normal;
+}
+
+.card-heading p {
+    font-size: 12px;
+    line-height: 1.25;
+}
+
+/* ==========================================
+   FIX CARD LISTS
+========================================== */
+
+.card-list {
+    position: relative;
+    z-index: 2;
+    margin: 12px 0 18px 15px;
+    gap: 14px;
+}
+
+.card-list li {
+    font-size: 13px;
+    white-space: normal;
+    line-height: 1.3;
+}
+
+/* ==========================================
+   FIX BUTTON VISIBILITY
+========================================== */
+
+.card-button {
+    position: relative;
+    z-index: 3;
+    margin-top: auto;
+    margin-bottom: 0;
+    min-height: 40px;
+    min-width: 180px;
+    font-size: 12px;
+    padding: 10px 18px;
+}
+
+/* ==========================================
+   FIX LOWER SECTION
+========================================== */
+
+.pathways-section {
+    margin-top: 25px;
+    min-height: 140px;
+    height: auto;
+    overflow: visible;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 991.98px) {
+
+    .home-container {
+        width: calc(100% - 40px);
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .category-card {
+        min-height: 330px;
+    }
+
+    .card-content {
+        width: 75%;
+    }
+
+    .card-heading h2 {
+        font-size: 26px;
+    }
+
+    .pathways-section {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 575.98px) {
+
+    .home-hero {
+        padding: 25px 0 35px;
+    }
+
+    .home-container {
+        width: calc(100% - 30px);
+    }
+
+    .hero-heading {
+        padding: 0 5px;
+        margin-bottom: 22px;
+    }
+
+    .hero-heading h1 {
+        font-size: 30px;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .category-card {
+        min-height: 330px;
+        padding: 18px;
+    }
+
+    .card-content {
+        width: 75%;
+    }
+
+    .card-heading {
+        min-height: 80px;
+    }
+
+    .card-heading h2 {
+        font-size: 24px;
+    }
+
+    .card-heading p {
+        font-size: 10px;
+    }
+
+    .card-list {
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    .card-list li {
+        font-size: 11px;
+    }
+
+    .card-food-image {
+        width: 50%;
+        height: 75%;
+    }
+
+    .card-button {
+        min-height: 38px;
+        font-size: 11px;
+    }
+
+    .pathways-section {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 25px 15px;
+    }
+}
+

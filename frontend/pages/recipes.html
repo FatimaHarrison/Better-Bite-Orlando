@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Better Bite Orlando - Healthy Recipes</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/bootstrap-custom.min.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/recipes.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            <img src="../logos/better-bit-orlando-logo-trn-bg.png" alt="Better Bite Orlando Logo">
+        </div>
+
+        <nav>
+            <a href="../pages/index.html">Home</a>
+            <a href="../pages/groceries.html">Groceries</a>
+            <a href="../pages/restaurants.html">Healthy Restaurant</a>
+            <a href="#recipes">Recipes</a>
+            <a href="../pages/favorites.html">Favorites</a>
+            <a href="#resources">Resources</a>
+        </nav>
+
+        <div class="header-icons">
+            <span><i class="bi bi-search"></i></span>
+
+            <div class="profile">
+                <i class="bi bi-person-fill"></i>
+            </div>
+        </div>
+
+    </header>
+
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+
+        <div class="skyline"></div>
+
+        <h1>Healthy Recipes</h1>
+
+        <p>
+            Discover easy, nutritious recipes to cook at home with simple ingredients.
+        </p>
+
+    </section>
+
+
+    <!-- FILTER SECTION -->
+
+    <section class="filters">
+
+        <div class="filter-group">
+
+            <div class="filter-label">
+                How much time do you have?
+            </div>
+
+            <div class="pills">
+
+                <button class="pill" type="button" data-time="15">15 min</button>
+                <button class="pill" type="button" data-time="30">30 min</button>
+                <button class="pill" type="button" data-time="45">45 min</button>
+                <button class="pill" type="button" data-time="60">1+ hour</button>
+
+            </div>
+
+        </div>
+
+
+        <div class="filter-group diet">
+
+            <div class="filter-label">
+                Dietary Preference
+            </div>
+
+            <div class="pills">
+
+                <button class="pill" type="button" data-diet="Vegetarian">Vegetarian</button>
+                <button class="pill" type="button" data-diet="Vegan">Vegan</button>
+                <button class="pill" type="button" data-diet="Gluten-Free">Gluten-Free</button>
+                <button class="pill" type="button" data-diet="Low Carb">Low Carb</button>
+                <button class="pill" type="button" data-diet="High Protein">High Protein</button>
+
+            </div>
+
+        </div>
+
+
+        <div class="search">
+
+            <input type="text"
+                placeholder="Search recipes (e.g. chicken, quinoa, salad)"
+                aria-label="Search recipes">
+
+            <button type="button">Search</button>
+
+        </div>
+
+    </section>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <!-- RECIPE RESULTS -->
+
+        <section class="results">
+
+            <div class="results-head">
+
+                <span class="result-count">Results ( 9 )</span>
+
+                <div class="sort">
+                    Sort by
+                    <button type="button">Most Relevant</button>
+                </div>
+
+            </div>
+
+
+            <!-- RECIPE GRID -->
+
+            <div class="recipe-grid">
+
+
+                <!-- RECIPE 1 -->
+
+                <article class="recipe-card">
+
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=500"
+                        alt="Red lentil soup">
+
+                    <h3>Red Lentil Soup with Chicken and Turnips</h3>
+
+                    <div class="meta">
+                        <span class="orange">◷ 55 min</span>
+                        <span>♜ 8 servings</span>
+                        <span>🔥 1866 cal</span>
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">High Protein</span>
+                        <span class="tag orange-tag">Dairy-Free</span>
+                        <span class="details-link">View Details →</span>
+                    </div>
+
+                </article>
+
+
+                <!-- RECIPE 2 -->
+
+                <article class="recipe-card">
+
+                    <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=500"
+                        alt="Creamy tomato pasta">
+
+                    <h3>Creamy Tomato Pasta</h3>
+
+                    <div class="meta">
+                        <span class="orange">◷ 30 min</span>
+                        <span>♜ 4 servings</span>
+                        <span>🔥 420 cal</span>
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Vegetarian</span>
+                        <span class="tag orange-tag">Quick &amp; Easy</span>
+                        <span class="details-link">View Details →</span>
+                    </div>
+
+                </article>
+
+
+                <!-- RECIPE 3 -->
+
+                <article class="recipe-card">
+
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500"
+                        alt="Grilled chicken bowl">
+
+                    <h3>Grilled Chicken Bowl</h3>
+
+                    <div class="meta">
+                        <span class="orange">◷ 35 min</span>
+                        <span>♜ 4 servings</span>
+                        <span>🔥 410 cal</span>
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">High Protein</span>
+                        <span class="tag orange-tag">Gluten-Free</span>
+                        <span class="details-link">View Details →</span>
+                    </div>
+
+                </article>
+
+
+                <!-- RECIPE 4 -->
+
+                <article class="recipe-card">
+
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500"
+                        alt="Chickpea salad">
+
+                    <h3>Chickpea Salad</h3>
+
+                    <div class="meta">
+                        <span class="orange">◷ 15 min</span>
+                        <span>♜ 4 servings</span>
+                        <span>🔥 250 cal</span>
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Vegan</span>
+                        <span class="tag orange-tag">High Fiber</span>
+                        <span class="details-link">View Details →</span>
+                    </div>
+
+                </article>
+
+
+                <!-- RECIPE 5 -->
+
+                <article class="recipe-card">
+
+                    <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=500"
+                        alt="Tofu stir fry">
+
+                    <h3>Tofu Stir-Fry with Vegetables</h3>
+
+                    <div class="meta">
+                        <span class="orange">◷ 20 min</span>
+                        <span>♜ 4 servings</span>
+                        <span>🔥 300 cal</span>
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Vegan</span>
+                        <span class="tag orange-tag">High Protein</span>
+                        <span class="details-link">View Details →</span>
+                    </div>
+
+                </article>
+
+
+                <!-- RECIPE 6 -->
+
+                <article class="recipe-card">
+
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=500"
+                        alt="Lentil curry">
+
+                    <h3>Lentil Curry with Coconut Milk</h3>
+
+                    <div class="meta">
+                        <span class="orange">◷ 40 min</span>
+                        <span>♜ 6 servings</span>
+                        <span>🔥 350 cal</span>
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Vegan</span>
+                        <span class="tag orange-tag">Gluten-Free</span>
+                        <span class="details-link">View Details →</span>
+                    </div>
+
+                </article>
+
+
+                <!-- RECIPE 7 -->
+
+                <article class="recipe-card">
+
+                    <img src="https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=500"
+                        alt="Quinoa power bowl">
+
+                    <h3>Quinoa Power Bowl</h3>
+
+                    <div class="meta">
+                        <span class="orange">◷ 25 min</span>
+                        <span>♜ 4 servings</span>
+                        <span>🔥 370 cal</span>
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Vegetarian</span>
+                        <span class="tag orange-tag">High Protein</span>
+                        <span class="details-link">View Details →</span>
+                    </div>
+
+                </article>
+
+
+                <!-- RECIPE 8 -->
+
+                <article class="recipe-card">
+
+                    <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=500"
+                        alt="Vegetable lasagna">
+
+                    <h3>Vegetable Lasagna</h3>
+
+                    <div class="meta">
+                        <span class="orange">◷ 45 min</span>
+                        <span>♜ 6 servings</span>
+                        <span>🔥 420 cal</span>
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Vegetarian</span>
+                        <span class="tag orange-tag">High Fiber</span>
+                        <span class="details-link">View Details →</span>
+                    </div>
+
+                </article>
+
+
+                <!-- RECIPE 9 -->
+
+                <article class="recipe-card">
+
+                    <img src="https://images.unsplash.com/photo-1505576399274-565b52d4ac71?w=500"
+                        alt="Stuffed bell peppers">
+
+                    <h3>Stuffed Bell Peppers</h3>
+
+                    <div class="meta">
+                        <span class="orange">◷ 50 min</span>
+                        <span>♜ 4 servings</span>
+                        <span>🔥 350 cal</span>
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">Vegetarian</span>
+                        <span class="tag orange-tag">Gluten-Free</span>
+                        <span class="details-link">View Details →</span>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- RECIPE DETAILS -->
+
+        <aside class="recipe-detail">
+
+            <img class="detail-image"
+                src="https://images.unsplash.com/photo-1547592180-85f173990554?w=1000"
+                alt="Red lentil soup with chicken and turnips">
+
+            <h2 class="detail-title">
+                Red Lentil Soup with Chicken and Turnips
+            </h2>
+
+            <div class="detail-meta">
+                <span>◷ &nbsp;55 min</span>
+                <span>♜ &nbsp;8 servings</span>
+                <span>🔥 &nbsp;1866 cal</span>
+            </div>
+
+            <div class="detail-tags">
+                <span class="tag">High Protein</span>
+                <span class="tag orange-tag">Dairy-Free</span>
+                <span class="tag">Very Healthy</span>
+            </div>
+
+            <div class="detail-tabs">
+                <span>Overview</span>
+                <span>Ingredients</span>
+                <span>Nutrition</span>
+                <span>Instructions</span>
+            </div>
+
+            <div class="nutrition">
+
+                <p>
+                    A hearty and nutritious soup made with red lentils,
+                    chicken, and fresh vegetables. Perfect for a healthy
+                    and comforting meal.
+                </p>
+
+                <div class="nutrition-table">
+
+                    <div>
+                        <strong>Ingredients</strong><br>
+                        Red Lentils<br>
+                        Chicken Breast<br>
+                        Turnips<br>
+                        Carrots<br>
+                        Celery
+                    </div>
+
+                    <div>
+                        <strong>Nutrition Facts</strong><br>
+                        (Per Serving)<br>
+                        Calories &nbsp;&nbsp;1866<br>
+                        Protein &nbsp;&nbsp;11 g<br>
+                        Carbs &nbsp;&nbsp;&nbsp;59 g<br>
+                        Fat &nbsp;&nbsp;&nbsp;&nbsp;6 g
+                    </div>
+
+                    <div class="instructions">
+                        <strong>Instructions</strong><br>
+                        1. Add the red lentils, chicken breast, and vegetables into a large pot.<br>
+                        2. Add vegetable broth and bring to a boil.<br>
+                        3. Reduce heat and simmer until lentils are tender and chicken is cooked.<br>
+                        4. Remove chicken, shred it, and return to the pot.<br>
+                        5. Season with salt, pepper, and herbs to taste.<br>
+                        6. Serve warm and enjoy your nutritious homemade soup.
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button class="save" type="button">
+                ❤️ &nbsp;Save Recipe
+            </button>
+
+        </aside>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="logo">
+            <img src="../logos/better-bite-orlando-logo-trn-bg.png" alt="Better Bite Orlando Logo">
+        </div>
+
+        <div class="footer-links">
+            <span>About Us</span>
+            <span>Help</span>
+            <span>Privacy Policy</span>
+            <span>Terms of Service</span>
+            <span>
+                Together for a healthier Orlando
+                <span class="heart">♡</span>
+            </span>
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../js/recipes.js"></script>
+
+</body>
+</html>

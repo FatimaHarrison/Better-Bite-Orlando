@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Better Bite Orlando | Healthy Restaurants</title>
+
+    <link rel="stylesheet" href="/frontend/css/restaurant.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+
+       <a href="../pages/index.html" class="logo">
+    <img
+        src="../logos/better-bit-orlando-logo-trn-bg.png"
+        alt="Better Bite Orlando"
+        class="logo-image"
+    >
+</a>
+        
+        </a>
+
+        <nav class="nav-links">
+            <a href="../pages/index.html">Home</a>
+            <a href="../pages/groceries.html">Groceries</a>
+            <a href="#restaurants" class="active">Healthy Restaurant</a>
+            <a href="../pages/recipes.html">Recipes</a>
+            <a href="../pages/favorites.html">Favorites</a>
+            <a href="#footer">Resources</a>
+        </nav>
+
+        <a href="../pages/profile.html" class="profile-button" aria-label="User profile">
+            <svg viewBox="0 0 24 24" width="25" height="25" fill="white" aria-hidden="true">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 21c0-4.2 3.5-7 8-7s8 2.8 8 7z"/>
+            </svg>
+        </a>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+
+            <div class="hero-content">
+                <h1>Healthy Restaurants in Orlando</h1>
+
+                <p>
+                    Find nutritious and affordable meals at local restaurants.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- FILTER PANEL -->
+        <section class="filter-panel">
+
+            <div class="filter-group distance-group">
+
+                <label for="distance">
+                    How far are you willing to travel?
+                </label>
+
+                <select id="distance">
+                    <option value="1">1 mile</option>
+                    <option value="3">3 miles</option>
+                    <option value="5" selected>5 mile</option>
+                    <option value="10">10 miles</option>
+                </select>
+
+            </div>
+
+
+            <div class="filter-group dietary-group">
+
+                <label>Dietary Preference</label>
+
+                <div class="diet-options">
+
+                    <label>
+                        <input type="checkbox" value="vegetarian">
+                        Vegetarian
+                    </label>
+
+                    <label>
+                        <input type="checkbox" value="vegan">
+                        Vegan
+                    </label>
+
+                    <label>
+                        <input type="checkbox" value="high-protein">
+                        High Protein
+                    </label>
+
+                    <label>
+                        <input type="checkbox" value="low-carb">
+                        Low Carb
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <div class="filter-group location-group">
+
+                <label for="location">Location</label>
+
+                <div class="location-input">
+                    <span>⌖</span>
+
+                    <input
+                        id="location"
+                        type="text"
+                        placeholder="32805"
+                    >
+                </div>
+
+            </div>
+
+
+            <div class="filter-group cuisine-group">
+
+                <label for="cuisine">Cuisine</label>
+
+                <select id="cuisine">
+                    <option value="">All Cuisines</option>
+                    <option value="Mexican">Mexican</option>
+                    <option value="Italian">Italian</option>
+                    <option value="American">American</option>
+                    <option value="Asian">Asian</option>
+                </select>
+
+            </div>
+
+
+            <button id="searchBtn" class="search-button">
+                Search
+                <span>⌕</span>
+            </button>
+
+        </section>
+
+
+        <!-- RESTAURANT CONTENT -->
+        <section class="restaurant-layout" id="restaurants">
+
+
+            <!-- LEFT RESTAURANT GRID -->
+            <div class="restaurant-column">
+
+                <div class="results-heading">
+
+                    <h2>Explore Restaurants</h2>
+
+                    <span id="resultCount"></span>
+
+                </div>
+
+
+                <div id="restaurantGrid" class="restaurant-grid">
+
+                    <!-- RESTAURANTS GENERATED BY JAVASCRIPT -->
+
+                </div>
+
+
+                <p id="emptyMessage" class="empty-message" hidden>
+                    No restaurants found. Try changing your filters.
+                </p>
+
+            </div>
+
+
+            <!-- RIGHT DETAILS PANEL -->
+            <aside class="details-panel" id="detailsPanel">
+
+                <div id="detailsContent">
+
+                    <!-- RESTAURANT DETAILS GENERATED BY JAVASCRIPT -->
+
+                </div>
+
+            </aside>
+
+        </section>
+
+
+        <!-- FAVORITES SECTION -->
+        <section class="favorites-section" id="favorites">
+
+            <h2>Your Favorite Restaurants</h2>
+
+            <div id="favoriteList" class="favorite-list">
+
+                <p>You haven't saved any favorites yet.</p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer id="footer">
+
+        <div class="footer-logo-container">
+
+            <div class="footer-logo-container">
+    <a href="../pages/index.html" class="footer-logo">
+        <img
+            src="../logos/better-bit-orlando-logo-trn-bg.png"
+            alt="Better Bite Orlando"
+        >
+    </a>
+</div>
+
+            </a>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="#">About Us</a>
+
+            <a href="#">Help</a>
+
+            <a href="#">Privacy Policy</a>
+
+            <a href="#">Terms of Service</a>
+
+            <span class="footer-message">
+                Together for a healthier Orlando
+                <span class="heart">♡</span>
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="../js/restaurant.js"></script>
+
+</body>
+</html>

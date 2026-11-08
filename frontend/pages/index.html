@@ -1,133 +1,387 @@
+
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Find healthier food options in Orlando that fit your budget and lifestyle.">
+
+  <meta name="description"
+    content="Discover healthy groceries, affordable restaurants, and nutritious recipes in Orlando.">
+
   <title>Better Bite Orlando</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Compiled Better Bite Orlando Bootstrap 5.3.8 theme (includes Bootstrap). -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  
-  <!-- Bootstrap custom theme  CSS -->
-  <link rel="stylesheet" href="../css/bootstrap-custom.min.css">
-  
-  <!-- Global Theme CSS -->
-  <link rel="stylesheet" href="../css/theme.css">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
-  <!-- Shared components  CSS -->
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+  <!-- Bootstrap Theme -->
+  <link rel="stylesheet" href="../css/bootstrap-custom.min.css">
+
+  <!-- Shared Navigation CSS -->
   <link rel="stylesheet" href="../css/navbar.css">
-  <link rel="stylesheet" href="../css/footer.css">
 
   <!-- Homepage CSS -->
   <link rel="stylesheet" href="../css/style.css">
-  
 
 </head>
+
 <body>
 
-
-    
-<!-- Navigation -->
-<div id="site-navbar"></div>
+  <!-- NAVIGATION -->
+  <div id="site-navbar"></div>
 
 
+  <main class="homepage">
+
+    <!-- HERO SECTION -->
+    <section class="home-hero">
+
+      <img
+        class="hero-background"
+        src="../images/homepage-img.jpg"
+        alt=""
+      >
+
+      <div class="hero-overlay"></div>
+
+      <div class="container-xl home-container">
+
+        <!-- INTRODUCTION -->
+        <div class="hero-heading">
+
+          <h1>
+            Choose How You<br>
+            Want to Eat Healthy.
+          </h1>
+
+          <p>
+            Find food resources, discover healthy restaurant meals,
+            <br>
+            or browse recipes to cook at home all in one place
+            <br>
+            for a healthier, stronger Orlando.
+          </p>
+
+        </div>
 
 
-<main>
-  <section class="hero" aria-labelledby="hero-title">
-    <img class="hero-image" src="../images/homepage-img.jpg" alt="Orlando buildings beside a lake">
-    <div class="container-xl hero-content">
-      <h1 id="hero-title">Better Choices.<br>Healthier You.</h1>
-      <p>Find healthier food that fits your budget<br class="d-none d-sm-inline"> and lifestyle — right here in Orlando.</p>
-      <p class="hero-tagline d-none d-md-block">Healthy Food.<br>A Brighter Orlando.</p>
-    </div>
-  </section>
-  <section class="finder-wrap container-xl" aria-labelledby="finder-heading">
-    <div class="food-finder shadow-sm">
-      <h2 id="finder-heading">What are you looking for?</h2>
-      <!-- Selection is visual only until wired to the team's search logic. -->
-      <div class="meal-options d-grid" role="group" aria-label="Meal type">
-        <button class="btn btn-outline-primary" type="button" data-filter-group="meal" aria-pressed="false"><i class="bi bi-sun" aria-hidden="true"></i> Breakfast</button>
-        <button class="btn btn-outline-primary" type="button" data-filter-group="meal" aria-pressed="false"><i class="fa-solid fa-pizza-slice" aria-hidden="true"></i> Lunch</button>
-        <button class="btn btn-outline-primary" type="button" data-filter-group="meal" aria-pressed="false"><i class="bi bi-fork-knife" aria-hidden="true"></i> Dinner</button>
-        <button class="btn btn-outline-primary" type="button" data-filter-group="meal" aria-pressed="false"><i class="fa-solid fa-apple-whole" aria-hidden="true"></i> Snack</button>
+        <!-- THREE CATEGORY CARDS -->
+        <section class="category-grid" aria-label="Explore healthy food options">
+
+
+          <!-- GROCERIES CARD -->
+          <article class="category-card groceries-card">
+
+            <img
+              class="card-food-image"
+              src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&auto=format&fit=crop&q=85"
+              alt="Fresh vegetables at a grocery market"
+            >
+
+            <div class="card-content">
+
+              <div class="card-heading">
+
+                <div class="card-icon">
+                  <i class="bi bi-geo-alt"></i>
+                </div>
+
+                <div>
+                  <h2>Groceries</h2>
+
+                  <p>
+                    Locate grocery stores,<br>
+                    farmers' markets, and<br>
+                    food pantries near you.
+                  </p>
+                </div>
+
+              </div>
+
+
+              <ul class="card-list">
+
+                <li><i class="bi bi-check-circle-fill"></i> Fresh food and groceries</li>
+
+                <li><i class="bi bi-check-circle-fill"></i> Local food pantries</li>
+
+                <li><i class="bi bi-check-circle-fill"></i> Farmers' markets</li>
+
+                <li><i class="bi bi-check-circle-fill"></i> Transportation options</li>
+
+              </ul>
+
+
+              <a href="../pages/groceries.html" class="card-button groceries-button">
+                Explore Food Resources <i class="bi bi-arrow-right"></i>
+              </a>
+
+            </div>
+
+          </article>
+
+
+
+          <!-- RESTAURANTS CARD -->
+          <article class="category-card restaurants-card">
+
+            <img
+              class="card-food-image"
+              src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&auto=format&fit=crop&q=85"
+              alt="Healthy colorful restaurant meal"
+            >
+
+            <div class="card-content">
+
+              <div class="card-heading">
+
+                <div class="card-icon">
+                  <i class="bi bi-fork-knife"></i>
+                </div>
+
+                <div>
+                  <h2>Healthy Restaurants</h2>
+
+                  <p>
+                    Find affordable, nutritious<br>
+                    meals at local restaurants<br>
+                    across Orlando.
+                  </p>
+                </div>
+
+              </div>
+
+
+              <ul class="card-list">
+
+                <li><i class="bi bi-check-circle-fill"></i> Healthy menu options</li>
+
+                <li><i class="bi bi-check-circle-fill"></i> Affordable meals</li>
+
+                <li><i class="bi bi-check-circle-fill"></i> Local Orlando restaurants</li>
+
+                <li><i class="bi bi-check-circle-fill"></i> Options for every diet</li>
+
+              </ul>
+
+
+              <a href="../pages/restaurants.html" class="card-button restaurants-button">
+                Browse Healthy Meals <i class="bi bi-arrow-right"></i>
+              </a>
+
+            </div>
+
+          </article>
+
+
+
+          <!-- RECIPES CARD -->
+          <article class="category-card recipes-card">
+
+            <img
+              class="card-food-image"
+              src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop&q=85"
+              alt="Healthy food ingredients and vegetables"
+            >
+
+            <div class="card-content">
+
+              <div class="card-heading">
+
+                <div class="card-icon">
+                  <i class="bi bi-book"></i>
+                </div>
+
+                <div>
+                  <h2>Healthy Recipes</h2>
+
+                  <p>
+                    Discover easy, healthy<br>
+                    recipes to cook at home<br>
+                    with simple ingredients.
+                  </p>
+                </div>
+
+              </div>
+
+
+              <ul class="card-list">
+
+                <li><i class="bi bi-check-circle-fill"></i> Easy, step-by-step recipes</li>
+
+                <li><i class="bi bi-check-circle-fill"></i> Nutritious and affordable</li>
+
+                <li><i class="bi bi-check-circle-fill"></i> Ingredients lists and tips</li>
+
+                <li><i class="bi bi-check-circle-fill"></i> Family-friendly meals</li>
+
+              </ul>
+
+
+              <a href="../pages/recipes.html" class="card-button recipes-button">
+                Browse Recipes <i class="bi bi-arrow-right"></i>
+              </a>
+
+            </div>
+
+          </article>
+
+        </section>
+
+
+
+        <!-- THREE PATHS BANNER -->
+        <section class="pathways-section">
+
+          <div class="pathways-title">
+
+            <h2>
+              Three Paths.<br>
+              A Healthier Orlando.
+            </h2>
+
+            <span class="decorative-underline"></span>
+
+          </div>
+
+
+
+          <div class="pathway-item">
+
+            <div class="pathway-icon">
+              <i class="bi bi-cursor-fill"></i>
+            </div>
+
+            <h3>
+              <span>1</span> Choose a Path
+            </h3>
+
+            <p>
+              Find Food, Healthy Meals<br>
+              or Recipes
+            </p>
+
+          </div>
+
+
+
+          <div class="pathway-item">
+
+            <div class="pathway-icon">
+              <i class="bi bi-geo-alt"></i>
+            </div>
+
+            <h3>
+              <span>2</span> Explore Options
+            </h3>
+
+            <p>
+              Find resources, restaurants<br>
+              or recipes near you.
+            </p>
+
+          </div>
+
+
+
+          <div class="pathway-item">
+
+            <div class="pathway-icon">
+              <i class="bi bi-leaf"></i>
+            </div>
+
+            <h3>
+              <span>3</span> Eat Healthier Together
+            </h3>
+
+            <p>
+              Good food builds<br>
+              a stronger Orlando.
+            </p>
+
+          </div>
+
+
+
+          <div class="pathways-message">
+
+            <h3>
+              Healthy People<br>
+              Stronger Communities<br>
+              Brighter Futures
+              <i class="bi bi-heart"></i>
+            </h3>
+
+            <span class="decorative-underline"></span>
+
+          </div>
+
+        </section>
+
       </div>
-      <div class="row g-4 mt-1 align-items-start">
-        <div class="col-12 col-md-6 col-xl-4 filter-section">
-          <h3>What's your budget?</h3>
-          <div class="filter-options" role="group" aria-label="Budget">
-            <button class="btn btn-primary" type="button" data-filter-group="budget" aria-pressed="false">$10 or less</button>
-            <button class="btn btn-primary" type="button" data-filter-group="budget" aria-pressed="false">$15 or less</button>
-            <button class="btn btn-primary" type="button" data-filter-group="budget" aria-pressed="false">$20 or less</button>
-            <button class="btn btn-primary" type="button" data-filter-group="budget" aria-pressed="false">$30+</button>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4 filter-section">
-          <h3>How far are you willing to travel?</h3>
-          <div class="filter-options" role="group" aria-label="Travel distance">
-            <button class="btn btn-primary" type="button" data-filter-group="distance" aria-pressed="false">1 mile</button>
-            <button class="btn btn-primary" type="button" data-filter-group="distance" aria-pressed="false">3 miles</button>
-            <button class="btn btn-primary" type="button" data-filter-group="distance" aria-pressed="false">5 miles</button>
-            <button class="btn btn-primary" type="button" data-filter-group="distance" aria-pressed="false">10 miles</button>
-          </div>
-        </div>
-        <div class="col-12 col-xl-4 filter-section">
-          <h3>Do you have any dietary preferences?</h3>
-          <div class="filter-options" role="group" aria-label="Dietary preference">
-            <button class="btn btn-primary" type="button" data-filter-group="diet" aria-pressed="false"><i class="fa-solid fa-carrot" aria-hidden="true"></i> Vegetarian</button>
-            <button class="btn btn-primary" type="button" data-filter-group="diet" aria-pressed="false"><i class="fa-solid fa-leaf" aria-hidden="true"></i> Vegan</button>
-            <button class="btn btn-primary" type="button" data-filter-group="diet" aria-pressed="false"><i class="fa-solid fa-dumbbell" aria-hidden="true"></i> High Protein</button>
-            <button class="btn btn-primary" type="button" data-filter-group="diet" aria-pressed="false"><i class="fa-brands fa-pagelines" aria-hidden="true"></i> Low Carb</button>
-          </div>
-        </div>
-      </div>
-      <div class="finder-action"><button class="btn btn-primary btn-lg" type="button" id="find-options"><i class="bi bi-search" aria-hidden="true"></i> Find My Options <i class="bi bi-arrow-right-short" aria-hidden="true"></i></button></div>
-      <p class="visually-hidden" id="finder-status" role="status" aria-live="polite"></p>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- FOOTER -->
+ 
+<!-- FOOTER -->
+<footer class="site-footer">
+
+  <div class="footer-logo">
+
+    <img
+      src="../logos/better-bit-orlando-logo-trn-bg.png"
+      alt="Better Bite Orlando"
+    >
+
+  </div>
+
+  <div class="footer-content">
+
+    <div class="footer-links">
+
+      <a href="../pages/about.html">About Us</a>
+
+      <a href="../pages/contact.html">Help</a>
+
+      <a href="../pages/privacy.html">Privacy Policy</a>
+
+      <a href="../pages/terms.html">Term of Service</a>
+
     </div>
-  </section>
-  <section class="features container-xl" aria-label="Why Better Bite Orlando">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 g-4 justify-content-center">
-      <div class="col"><article class="feature-card"><i class="fa-brands fa-envira" aria-hidden="true"></i><h3>Healthy Meals</h3><p>Nutritious options for every lifestyle.</p></article></div>
-      <div class="col"><article class="feature-card"><i class="bi bi-currency-dollar" aria-hidden="true"></i><h3>Affordable Choices</h3><p>Stay on budget without compromising health.</p></article></div>
-      <div class="col"><article class="feature-card"><i class="bi bi-geo-alt" aria-hidden="true"></i><h3>Local Restaurants</h3><p>Discover nearby healthy food options.</p></article></div>
-      <div class="col"><article class="feature-card"><i class="bi bi-bus-front" aria-hidden="true"></i><h3>Transportation Info</h3><p>See how to get there with ease.</p></article></div>
-      <div class="col"><article class="feature-card"><i class="bi bi-heart" aria-hidden="true"></i><h3>Personalized For You</h3><p>Recommendations based on your preferences.</p></article></div>
+
+    <div class="footer-message">
+
+      <span>
+        Together for a healthier Orlando
+      </span>
+
+      <i class="bi bi-heart"></i>
+
     </div>
-  </section>
-</main>
 
-<!-- Footer -->
-<div id="footer-container"></div>
+  </div>
+
+</footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  document.querySelectorAll('[data-filter-group]').forEach(button => {
-    button.addEventListener('click', () => {
-      const group = button.dataset.filterGroup;
-      const wasPressed = button.getAttribute('aria-pressed') === 'true';
-      if (group !== 'diet') {
-        document.querySelectorAll('[data-filter-group="' + group + '"]').forEach(other => {
-          other.setAttribute('aria-pressed', 'false');
-        });
-      }
-      button.setAttribute('aria-pressed', String(!wasPressed));
-    });
-  });
-  document.getElementById('find-options').addEventListener('click', () => {
-    document.getElementById('finder-status').textContent = 'Search integration is not yet connected.';
-    alert('Search integration is not yet connected.');
-  });
-</script>
-<!-- shared navigation javascript -->
-<script src="../js/navbar.js"></script>
-<script src="../js/footer.js"></script>
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Existing Navigation JavaScript -->
+  <script src="../js/navbar.js"></script>
+
 </body>
 </html>
