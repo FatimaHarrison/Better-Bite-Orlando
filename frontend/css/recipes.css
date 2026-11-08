@@ -126,7 +126,6 @@ nav a:hover {
     opacity: .35;
 }
 
-/* Replace the filename with your actual skyline image */
 
 .skyline {
     position: absolute;
@@ -407,7 +406,7 @@ main {
 }
 
 .detail-image {
-    height: 94px;
+    height: 100px;
     width: 100%;
     object-fit: cover;
     flex-shrink: 0;
