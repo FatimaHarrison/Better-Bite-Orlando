@@ -1,223 +1,99 @@
-* {
-    box-sizing: border-box;
-}
 
 body {
-    margin: 0;
-    background-color: #f4f4f4;
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
+  background: #fff;
+  color: #333;
 }
 
-/* Navigation bar*/
-
-
-header {
-    background-color: #e8d8c8;
-    padding: 20px 30px;
-
-    max-width: 1200px;
-    margin: 0 auto;
+.brand {
+  color: #3d622c;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
 }
 
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+header nav a {
+  color: #555;
+  text-decoration: none;
 }
 
-.logo img {
-    width: 130px;
-    height: auto;
-    display:block;
+header nav a:hover {
+  color: #4f8a3d;
 }
 
-.nav-links {
-    display: flex;
-    gap: 45px;
+h1, h2 {
+  color: #3d622c;
+  font-weight: bold;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: #355f2e;
+h1 {
+  font-size: 34px;
 }
 
-/* search result layout */
-
-.search-page {
-    display: flex;
-
-    max-width: 1200px;
-    margin: 0 auto;
-
-    background-color: white;
+.search-box {
+  padding: 25px;
+  background: #e4f3e3;
+  border-radius: 15px;
 }
 
-.filter-panel {
-    width: 300px;
-    padding: 25px;
-
-    background-color: #f3f3f3;
-    border-right: 1px solid #cccccc;
+.form-control:focus {
+  border-color: #4f8a3d;
+  box-shadow: 0 0 0 3px rgba(79, 138, 61, .15);
 }
 
-.result-area {
-    flex: 1;
-    padding: 25px;
+.store-card {
+  height: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  transition: transform .2s;
 }
 
-.filter-group {
-    margin-bottom: 24px;
+.store-card:hover {
+  transform: translateY(-4px);
 }
 
-.filter-group h3 {
-    margin-bottom: 12px;
-    font-size: 16px;
+.store-card h2 {
+  font-size: 23px;
 }
 
-.filter-group label {
-    display: block;
-    margin-bottom: 12px;
-    font-size: 14px;
+.store-card p {
+  color: #666;
 }
 
-.filter-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.store-icon {
+  font-size: 45px;
+  margin-bottom: 15px;
 }
 
-.filter-header h2 {
-    margin: 0;
+.btn-green {
+  background-color: #4f8a3d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
 }
 
-.filter-header button {
-    background:none;
-    border: none;
-    cursor: pointer;
+.btn-green:hover {
+  background-color: #3d622c;
+  color: white;
 }
 
-
-.nutrition-options,
-.protein-options {
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 20px;
+.modal-header {
+  background: #dcf3df;
 }
 
-.nutrition-options label,
-.protein-options label {
-    margin-bottom: 0;
+.modal-title {
+  color: #3d622c;
 }
 
-.apply-filters {
-    display: block;
+@media (max-width: 600px) {
+  h1 {
+    font-size: 28px;
+  }
 
-    margin-top: 20px;
-    margin-left: auto;
-
-    padding: 10px 14px;
-
-    background-color: #4b7b2b;
-    color: white;
- 
-    border: none;
-    border-radius: 8px;
-
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.apply-filters:hover {
-    background-color: #355f2e;
-}
-
-.meal-card {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-
-    padding: 25px;
-    margin-top: 20px;
-
-    background-color: #f7f7f7;
-}
-
-.meal-image {
-    width: 170px;
-    height: 140px;
-
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.meal-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    display: block;
-}
-
-
-
-
-.meal-info {
-    flex: 1;
-}
-
-.meal-info h2 {
-    margin: 0;
-    font-size: 20px;
-}
-
-.restaurant-name {
-    margin: 4px 0;
-}
-
-.price {
-    margin: 4px 0;
-    color: #355f2e;
-    font-weight: bold;
-}
-
-.meal-stats {
-    display: flex;
-    gap: 35px;
-    margin-top: 10px;
-}
-
-.meal-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.meal-actions button {
-    padding: 12px 25px;
-
-    background-color: #e4ebe1;
-    color: #355f2e;
-
-    border: none;
-    border-radius: 8px;
-
-    font-weight:100;
-    cursor: pointer;
-}
-
-.recommendation {
-    margin-top: 10px;
-    padding: 10px 15px;
-
-    background-color: #e4ebe1;
-    border-radius: 8px;
-}
-
-.recommendation strong {
-    color: #355f2e;
-}
-
-.recommendation p {
-    margin: 5px 0 0;
-    color: #355f2e;
-    font-size: 13px;
+  .search-box {
+    padding: 18px;
+  }
 }
