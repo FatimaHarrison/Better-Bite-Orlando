@@ -39,7 +39,7 @@
      <div id="site-navbar"></div>
 
      <!-- registration page -->
-      <main Class="login-page register-page">
+      <main class="login-page register-page">
 
         <!-- Left section -->
          <section class="login-intro">
@@ -65,7 +65,7 @@
                         <i class="bi bi-heart-fill"
                         aria-hidden="true"></i>
                     </span>
-                    <span> Save your davorite places and recipes </span>
+                    <span> Save your favorite places and recipes </span>
                 </div>
 
                 <div class="benefit">
@@ -73,13 +73,18 @@
                         <i class="bi bi-people-fill" 
                         aria-hidden="true"></i>
                     </span>
-                    <span>Join a healher, stronger community</span>
+                    <span>Join a healthier, stronger community</span>
                 </div>
             </div>
     </section>
 
     <!-- right section -->
      <section class="login-card register-card">
+
+        <!-- Registration form view -->
+         <div id="register-form-view">
+
+
 
         <h2>Create Your Account </h2>
 
@@ -164,7 +169,7 @@
         <!-- password -->
 
         <div class="form-group">
-                    <label for="register-password">Passwod</label>
+                    <label for="register-password">passwod</label>
 
                 <div class="input-container">
                     <i class="bi bi-lock-fill"
@@ -186,7 +191,7 @@
     </div>
    <!-- confirm  password -->
             <div class="form-group">
-                    <label for="confirm-email">Confirm Password</label>
+                    <label for="confirm-password">Confirm Password</label>
 
                 <div class="input-container">
                     <i class="bi bi-lock-fill"
@@ -212,7 +217,7 @@
 
                     <label for="agree-terms">
                         I agree to
-                        <a href="terms.html"> Terms of Services </a>
+                        <a href="terms.html"> Terms of Service </a>
                         and
                         <a href="privacy.html">Privacy Policy</a>
                     </label>
@@ -236,6 +241,42 @@
             <a href="login.html">Sign In</a>
          </p>
 
+         </div>
+
+         <!-- Registration success view -->
+          <div id="register-success"
+                class="register-success"
+                role="status"
+                aria-live="polite"
+                hidden>
+
+            
+            <!-- Green check icon -->
+             <div class="register-success-icon">
+                <i class="bi bi-check-lg" aria-hidden="true"></i>
+             </div>
+
+             <h2 id="register-success-title" tabindex="-1">
+                Account Created!
+             </h2>
+
+             <p class="register-success-message">
+                Account using email:
+                <strong id="registered-email"></strong>
+                has been added to Better Bite Orlando!
+             </p>
+
+             <p class="register-success-thanks">
+                Thank you for registering with us.
+             </p>
+
+             <a href="login.html" class="register-success-button">
+                Go to Sign In 
+             <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+
+            </div>
+
      </section>
 
     </main>
@@ -255,3 +296,4 @@
   
 
 </body>
+</html> 

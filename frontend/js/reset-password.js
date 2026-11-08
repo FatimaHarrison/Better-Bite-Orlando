@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const rules = [
         {
             id: "rule-length",
-            test: value => value.length >= 12 && value.length <= 72 
+            test: value => 
+                value.length >= 12 &&
+            new TextEncoder().encode(value).length <= 72 
         },
         {
             id: "rule-uppercase",
@@ -140,19 +142,34 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector(".reset-intro p").textContent =
                 isPreview 
                 ? "This is a preview of the password reset confirmation"
-                : "Your password has been sccessfully reset. You can sign in to your account."
+                : "Your password has been successfully reset. You can sign in to your account."
         }
 
 
 
+        // Read the reset token from the email link
+        const token = new URLSearchParams(window.location.search).get("token");
 
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        // check if a valid-looking token exists
+
+        if(!token ||!/^[a-f0-9]{64}$/.test(token)) {
+            resetStatus.textContent = "Invalid or missing reset link. Please request a new password reset email.";
+
+            resetStatus.dataset.state = "error";
+            submitButton.disabled = true;
+        }
+
+       
         // form submission
-        form.addEventListener("submit", event => {
+        form.addEventListener("submit", async event => {
 
             event.preventDefault();
 
             const value = password.value;
 
+            // validate password requirements 
             const allValid = rules.every(rule => rule.test(value));
 
             if(!allValid) {
@@ -163,6 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return ;
             }
 
+            // check password confirmation 
             if (value !== confirm.value) {
                 resetStatus.textContent =
                 "The password must match.";
@@ -171,12 +189,59 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // frontend preview only 
-       showResetSuccess(true);
 
-            // Todo: integrate backend password reset endpoint.
-            // the backend must vlaidate the reset token
-            // enforce the password policy, and upate the hash/
+            // disable button during request
+            submitButton.disabled = true;
+            resetStatus.textContent = "Updating your password..."
+
+            try {
+
+                //send new password and token to backend
+                const response = await fetch(
+                    "http://127.0.0.1:3001/auth/password-reset", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            token,
+                            password: value
+                        })
+                    }
+                );
+            
+                const result = await response.json();
+
+                // handle backend errors
+                if (!response.ok) {
+                    resetStatus.textContent = result.error || "Unable to reset your password.";
+
+                    resetStatus.dataset.state = "error";
+                    return;
+                }
+
+                // password successfully updated
+                form.reset();
+
+                // remove the token from the browser address bar
+                window.history.replaceState(
+                    null,
+                    "",
+                    window.location.pathname
+                );
+
+                // display the real success confirmation 
+                showResetSuccess(false);
+            } catch (error) {
+                console.error("Passwod reset request failed:",error);
+
+                resetStatus.textContent = "Unable to connect to the server. Please try again.";
+
+                resetStatus.dataset.state = "error";
+            } finally {
+
+                submitButton.disabled = false;
+                
+            }
         });
-
 });

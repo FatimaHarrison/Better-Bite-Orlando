@@ -22,6 +22,17 @@ const registerLimiter = rateLimit({
 	}	
 });
 
+// limit password recovery attempts 
+const passwordRecoveryLimiter = rateLimit ({
+	windowMs: 15 * 60 * 1000,
+	limit: 5,
+	standardHeaders: "draft-8",
+	legacyHeaders: false,
+	message: {
+		error: "Too many password recovery attempts. Please try again later."
+	}
+});
+
 
 const router = express.Router();
 
@@ -43,10 +54,10 @@ router.post("/logout", apiKeyAuth, logoutUser);
 
 // POST /forgot-password
 //emails reset link
-router.post("/forgot-password", apiKeyAuth, forgotPassword);
+router.post("/forgot-password", passwordRecoveryLimiter, forgotPassword);
 
 // POST /password-reset
 // Submits request to reset password
-router.post("/password-reset", apiKeyAuth, resetPassword);
+router.post("/password-reset", passwordRecoveryLimiter, resetPassword);
 
 export default router;

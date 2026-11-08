@@ -232,7 +232,7 @@ const forgotPassword = async (req, res) => {
 		});
 
 		// This frontend page submits the token and password to the API.
-		const resetUrl = new URL("/reset-password", process.env.FRONTEND_URL);
+		const resetUrl = new URL("/Better-Bite-Orlando/frontend/pages/reset-password.html", process.env.FRONTEND_URL);
 		resetUrl.searchParams.set("token", token);
 
 		try {
@@ -285,9 +285,15 @@ const resetPassword = async (req, res) => {
 	}
 
 	// bcrypt limitation
-	if (password.length < 12 || Buffer.byteLength(password, "utf8") > 72) {
+	if (
+		password.length < 12 ||
+		Buffer.byteLength(password, "utf8") > 72 ||
+		!/[A-Z]/.test(password) ||
+		!/[a-z]/.test(password) ||
+		!/[^A-Za-z0-9]/.test(password)
+	) {
 		return res.status(400).json({
-			error: "Password must be at least 12 characters and at most 72 bytes",
+			error: "Password must be at least 12 characters, no more than 72, and include uppercase, lowercase, and a symbol.",
 		});
 	}
 
@@ -297,7 +303,40 @@ const resetPassword = async (req, res) => {
 			.update(token)
 			.digest("hex");
 
-		const hashedPassword = await bcrypt.hash(password, 10);
+			// find user wuth a valid, unexpired reset token 
+			const user = await prisma.user.findFirst({
+				where: {
+					passwordResetToken: tokenHash,
+					passwordResetExpires: {
+						gt: new Date()
+					}
+				},
+				select: {
+					password: true
+				}
+			});
+
+			// check whether the reset token is valid
+			if (!user) {
+				return res.status(400).json({
+					error:"Reset token is invalid or has expired."
+				});
+			}
+
+			// compare new password with current password
+			const isSamePassword = await bcrypt.compare(
+				password,
+				user.password
+			);
+
+			//reject password reuse
+			if (isSamePassword) {
+				return res.status(400).json({
+					error:"Your new password must be different from your current password."
+				});
+			}
+
+		const hashedPassword = await bcrypt.hash(password, 12);
 
 		// Atomically update the password and consume the token.
 		// Concurrent submissions cannot reuse the same token.

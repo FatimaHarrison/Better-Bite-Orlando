@@ -68,7 +68,7 @@ if (registerForm) {
                     },
                     credentials: "include",
                     body: JSON.stringify({
-                        username: '${firstName} ${lastName}',
+                        username: `${firstName} ${lastName}`,
                         email,
                         password: value,
                         zipcode
@@ -85,10 +85,27 @@ if (registerForm) {
 
             }
 
-            status.textContent =
-            "Account created successfully! You can now sign in.";
+          // registration succesful
 
-            registerForm.reset();
+          const registeredEmail = result.data?.user?.email ?? email;
+
+          // display the registered email 
+          document.getElementById("registered-email").textContent = registeredEmail;
+
+          // hiden the registration form!
+          document.getElementById("register-form-view").hidden= true;
+
+          //display success confirmation
+          document.getElementById("register-success").hidden = false;
+
+          // apply success card styling
+          document.querySelector(".register-card").classList.add("is-success");
+
+          //clear form data
+          registerForm.reset();
+
+          // focus confirmation heading
+          document.getElementById("register-success-title").focus();
 
         } catch (error) {
             console.error("Registration error", error);

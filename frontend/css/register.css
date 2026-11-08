@@ -94,6 +94,100 @@ body {
     display: none;
 }
 
+
+/* Registration Success view */ 
+
+.register-success[hidden] {
+    display: none;
+}
+
+.register-card.is-success {
+    max-width: 570px;
+    padding: 45px 35px;
+}
+
+/* success content */ 
+
+.register-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Green check icon */
+
+.register-success-icon {
+    width: 85px;
+    height: 85px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+    background-color: #A6C8A7;
+    color: #3D622C;
+
+    font-size: 45px;
+}
+
+/* heading */ 
+
+.register-success h2 {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+/* confirmation message */
+
+.register-success-message {
+    max-width: 400px;
+    font-size: 14px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+
+.register-success-message strong {
+    color: var(--bbo-primary);
+}
+
+
+/* thank you message */
+.register-success-thanks {
+    font-size: 14px;
+    margin: 15px 0 30px;
+}
+
+/* sign in button */
+
+.register-success-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+
+    padding: 14px 30px;
+
+    background-color: var(--bbo-primary);
+    color: white;
+
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.register-success-button:hover {
+    background-color: #2E4A22;
+    color: white;
+}
+
+
 /* Responsive */
 @media (max-width: 480px) {
     .register-card {
@@ -111,5 +205,19 @@ body {
 
     .password-hint {
         margin-left: 38px;
+    }
+
+    .register-success h2 {
+        font-size: 26px;
+    }
+
+    .register-success-icon {
+        width: 75px;
+        height: 75px;
+        font-size: 40px;
+    }
+
+    .register-success-button {
+        width: 100%;
     }
 }
