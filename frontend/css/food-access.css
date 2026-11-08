@@ -1,0 +1,106 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin:0;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+
+/*Navigation bar */ 
+
+header {
+    background-color: #e8d8c8;
+    padding: 20px 30px;
+
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-links {
+    display: flex;
+    gap: 45px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #355f2e;
+}
+
+.page-intro h1 {
+    font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+}
+
+.page-intro p {
+    margin-top: 0;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 40px;
+}
+
+
+
+.access-content {
+    display: flex;
+    gap: 30px;
+    margin-top: 35px
+}
+
+.map-area {
+    flex: 2;
+    height: 360px;
+    background-color: white;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.map-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.food-desert-card {
+    flex: 1;
+    background-color: #c4cfbd;
+    border-radius: 18px;
+    padding: 25px;
+}
+
+.logo img {
+    width: 130px;
+    height: auto;
+    display: block;
+}
+
+.acess-message {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+
+    margin-top: 30px;
+    padding: 30px 45px;
+
+    background-color: #c4cfbd;
+    border-radius: 18px;
+}
+    
+.acess-message p {
+    margin: 0;
+    color: #355f2e;
+    font-size: bold;
+}
+
