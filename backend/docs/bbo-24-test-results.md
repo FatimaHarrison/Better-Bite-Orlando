@@ -367,3 +367,27 @@ The API returned HTTP 200 OK with:
 
 **Notes:**
 Confirms that authenticated requests can successfully access the protected POST /meals route. The API key itself is intentionally omitted from this test document.
+---
+
+## Test: API Rate Limiting
+
+**Command:**
+Sent repeated GET requests to `/meals` to exceed the configured request limit.
+
+**Configuration:**
+- Request limit: 100 requests
+- Time window: 15 minutes
+- Expected limit response: HTTP 429 Too Many Requests
+
+**Expected Result:**
+Requests within the allowed limit should return HTTP 200 OK. Once the request limit is exceeded, the API should reject additional requests with HTTP 429 Too Many Requests.
+
+**Actual Result:**
+Requests within the configured limit returned HTTP 200 OK. After the rate limit was reached, additional requests returned HTTP 429 with:
+
+`{"error":"Too many requests","message":"Please try again later."}`
+
+**Status:** PASS
+
+**Notes:**
+Confirms that the Express rate-limiting middleware successfully prevents excessive requests. Requests are limited to 100 per client within a 15-minute window.

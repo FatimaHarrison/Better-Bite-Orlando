@@ -8,6 +8,7 @@ import mealRoutes from "./routes/mealRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import recipeRoutes from "./routes/recipeRoutes.js";
 import placeRoutes from "./routes/placeRoutes.js";
+import apiLimiter from "./middleware/rateLimiter.js";
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.use(
 		methods: ["GET", "HEAD", "OPTIONS"],
 	}),
 );
+// Rate Limiting Middleware
+app.use(apiLimiter);
 
 const port = Number(process.env.PORT || 3001);
 const host = "127.0.0.1";
