@@ -224,27 +224,86 @@ export const findGroceries = async (req, res) => {
 		const location = String(
 			req.query.location ?? req.query.zip ?? "",
 		).trim();
+
 		const jobs = [];
-		if (types.includes("groceries"))
-			jobs.push(
-				fetchGeoapify(
+
+		if (types.includes("groceries")) {
+			jobs.push({
+				type: "groceries",
+				request: fetchGeoapify(
 					"groceries",
 					origin,
 					maxDistance,
 					req.query,
-					geoapifyKey,
+					geoapifyKey
 				),
-			);
-		if (types.includes("farmers-markets"))
-			jobs.push(fetchFarmersMarkets(origin, maxDistance, req.query));
-		if (types.includes("food-pantries"))
-			jobs.push(fetchPantries(location, req.query));
+			});
+		}
 
-		const groups = await Promise.all(jobs);
-		let results = groups.flat();
-		if (maxDistance !== null)
-			results = filterByDistance(results, origin, maxDistance);
-		return res.status(200).json(results);
+    if (types.includes("farmers-markets")) {
+      jobs.push({
+        type: "farmers-markets",
+        request: fetchFarmersMarkets(
+          origin,
+          maxDistance,
+          req.query
+        ),
+      });
+    }
+
+    if (types.includes("food-pantries")) {
+      jobs.push({
+        type: "food-pantries",
+        request: fetchPantries(location, req.query),
+      });
+    }
+
+    const settled = await Promise.allSettled(
+      jobs.map(job => job.request)
+    );
+
+    const results = [];
+    const unavailable = [];
+    let successfulProviders = 0;
+
+    settled.forEach((outcome, index) => {
+      const type = jobs[index].type;
+
+      if (outcome.status === "fulfilled") {
+        successfulProviders++;
+        results.push(...outcome.value);
+      } else {
+        unavailable.push(type);
+        console.error(
+          `${type} provider failed:`,
+          outcome.reason?.message
+        );
+      }
+    });
+
+    if (successfulProviders === 0) {
+      return res.status(502).json({
+        error: "All requested food-resource providers failed",
+        unavailableProviders: unavailable,
+      });
+    }
+
+    const filteredResults =
+      maxDistance !== null
+        ? filterByDistance(results, origin, maxDistance)
+        : results;
+
+    if (unavailable.length) {
+      res.set("X-Partial-Results", "true");
+      res.set(
+        "X-Unavailable-Providers",
+        unavailable.join(",")
+      );
+    }
+
+    return res.status(200).json(filteredResults);
+
+
 	} catch (error) {
 		console.error("Error finding groceries:", error);
 		return res

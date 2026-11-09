@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,95 +6,99 @@ datasource db {
   provider = "mysql"
 }
 
-model Meal {
-  id       Int     @id @default(autoincrement())
-  name     String
-  price    Decimal @db.Decimal(10, 2)
-  dietary  Json
-  category String
-  rating   Float
-
-  restaurantId Int
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
-
-  nutrition    Nutrition?
-  location     Location?
-  userFavMeals UserFavMeal[]
-  users        User[]
+model food_locations {
+  location_id     Int       @id @default(autoincrement())
+  source_provider String    @db.VarChar(50)
+  location_type   String    @db.VarChar(50)
+  name            String    @db.VarChar(150)
+  description     String?   @db.Text
+  address         String?   @db.VarChar(255)
+  url             String?   @db.VarChar(255)
+  organization    String?   @db.VarChar(150)
+  hours           String?   @db.Text
+  created_at      DateTime? @default(now()) @db.Timestamp(0)
 }
 
-model Restaurant {
-  id   Int    @id @default(autoincrement())
-  name String
-
-  meals Meal[]
+model healthy_restaurants {
+  restaurant_id     Int       @id @default(autoincrement())
+  source_provider   String?   @db.VarChar(50)
+  name              String    @db.VarChar(150)
+  formatted_address String?   @db.VarChar(255)
+  hours             String?   @db.Text
+  website           String?   @db.VarChar(255)
+  cuisine_type      String?   @db.VarChar(100)
+  diet_options      String?   @db.VarChar(255)
+  created_at        DateTime? @default(now()) @db.Timestamp(0)
 }
 
-model Nutrition {
-  id       Int   @id @default(autoincrement())
-  calories Int
-  protein  Float
-  carbs    Float
-  fat      Float
-
-  mealId Int  @unique
-  meal   Meal @relation(fields: [mealId], references: [id])
+model recipes {
+  recipe_id           Int       @id @default(autoincrement())
+  spoonacular_id      Int?      @unique(map: "spoonacular_id")
+  title               String    @db.VarChar(255)
+  image_url           String?   @db.VarChar(255)
+  ready_in_minutes    Int?
+  source_url          String?   @db.VarChar(255)
+  health_score        Decimal?  @db.Decimal(5, 2)
+  calories            Decimal?  @db.Decimal(8, 2)
+  fat_grams           Decimal?  @db.Decimal(8, 2)
+  saturated_fat_grams Decimal?  @db.Decimal(8, 2)
+  sugar_grams         Decimal?  @db.Decimal(8, 2)
+  instructions        String?   @db.Text
+  created_at          DateTime? @default(now()) @db.Timestamp(0)
 }
 
-model Location {
-  id            Int    @id @default(autoincrement())
-  address       String
-  lat           Float
-  lon           Float
-  distanceMiles Float
+model user_favorites {
+  favorite_id Int                      @id @default(autoincrement())
+  user_id     Int
+  item_type   user_favorites_item_type
+  item_id     Int
+  created_at  DateTime?                @default(now()) @db.Timestamp(0)
+  user        User                     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "user_favorites_ibfk_1")
 
-  mealId Int  @unique
-  meal   Meal @relation(fields: [mealId], references: [id])
+  @@index([user_id], map: "user_id")
+}
+
+model user_preferences {
+  preference_id          Int      @id @default(autoincrement())
+  user_id                Int
+  is_vegetarian          Boolean? @default(false)
+  is_vegan               Boolean? @default(false)
+  is_gluten_free         Boolean? @default(false)
+  is_dairy_free          Boolean? @default(false)
+  is_low_sodium          Boolean? @default(false)
+  is_high_protein        Boolean? @default(false)
+  email_notifications    Boolean? @default(true)
+  recipe_recommendations Boolean? @default(true)
+  new_resources          Boolean? @default(true)
+  marketing_promotions   Boolean? @default(false)
+  push_notifications     Boolean? @default(false)
+  user                   User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "user_preferences_ibfk_1")
+
+  @@index([user_id], map: "user_id")
 }
 
 model User {
-  id                   Int       @id @default(autoincrement())
-  name                 String
-  email                String    @unique
-  password             String
-  zipcode              Int
-  passwordResetToken   String?   @unique
-  passwordResetExpires DateTime?
+  id             Int    @id @default(autoincrement()) @map("user_id")
+  firstName      String @map("first_name") @db.VarChar(50)
+  lastName       String @map("last_name") @db.VarChar(50)
+  email          String @unique(map: "email") @db.VarChar(100)
+  passwordHash   String @map("password_hash") @db.VarChar(255)
+  defaultZipCode String @map("default_zip_code") @db.VarChar(10)
 
-  createdAt DateTime @default(now())
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime? @default(now()) @map("updated_at") @db.Timestamp(0)
 
-  calories Int?
-  protein  Float?
-  carbs    Float?
-  fat      Float?
+  passwordResetToken   String?   @unique @map("password_reset_token") @db.VarChar(64)
+  passwordResetExpires DateTime? @map("password_reset_expires") @db.DateTime(3)
 
-  mealId Int?
-  meal   Meal? @relation(fields: [mealId], references: [id])
+  favorites   user_favorites[]
+  preferences user_preferences[]
 
-  favoriteMeals UserFavMeal[]
-  recipes       Recipe[]
+  @@map("users")
 }
 
-model Recipe {
-  id Int @id @default(autoincrement())
-
-  username String @db.VarChar(255)
-
-  isVegan       Boolean @default(false)
-  isVegetarian  Boolean @default(false)
-  isLowCarb     Boolean @default(false)
-  isHighProtein Boolean @default(false)
-
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
-}
-
-model UserFavMeal {
-  userId Int
-  mealId Int
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  meal Meal @relation(fields: [mealId], references: [id], onDelete: Cascade)
-
-  @@id([userId, mealId])
+enum user_favorites_item_type {
+  food_location
+  restaurant
+  recipe
 }

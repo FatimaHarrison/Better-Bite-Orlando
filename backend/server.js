@@ -4,7 +4,6 @@ import express from "express";
 import cors from "cors";
 
 //Route Imports
-import mealRoutes from "./routes/mealRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import recipeRoutes from "./routes/recipeRoutes.js";
 import placeRoutes from "./routes/placeRoutes.js";
@@ -12,9 +11,13 @@ import apiLimiter from "./middleware/rateLimiter.js";
 
 const app = express();
 
+// Trust the local Nginx reverse proxy
+app.set("trust proxy", "loopback");
+
 // Frontend development origins
 const allowedOrigins = [
 	"https://dev.betterbiteorlando.com",
+        "https://test.betterbiteorlando.com",
 	"http://localhost:3000",
 	"http://localhost:5173",
 	"http://127.0.0.1:5173",
@@ -23,7 +26,8 @@ const allowedOrigins = [
 app.use(
 	cors({
 		origin: allowedOrigins,
-		methods: ["GET", "HEAD", "OPTIONS"],
+		credentials: true,
+		methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE","OPTIONS"],
 	}),
 );
 // Rate Limiting Middleware
@@ -37,7 +41,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // API Routes
-app.use("/meals", mealRoutes);
 app.use("/auth", authRoutes);
 app.use("/recipes", recipeRoutes);
 app.use("/places", placeRoutes);
