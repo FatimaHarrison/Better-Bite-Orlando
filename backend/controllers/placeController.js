@@ -9,8 +9,6 @@ const GEOAPIFY_BASE_URL = "https://api.geoapify.com/v2/places";
 const GEOAPIFY_GEOCODE_URL = "https://api.geoapify.com/v1/geocode/search";
 const USDA_BASE_URL = "https://www.usdalocalfoodportal.com/api/farmersmarket/";
 const FEEDING_AMERICA_BASE_URL = "https://feedam.org/api/resources/search";
-const ORLANDO_PLACE_ID =
-	"5197adf545425854c059db72897ec88a3c40f00101f901bb37110000000000c002089203074f726c616e646f";
 
 async function fetchJson(url, label) {
 	const response = await fetch(url);
@@ -111,22 +109,26 @@ async function fetchGeoapify(type, origin, maxDistance, query, apiKey) {
 		type === "groceries"
 			? query.category || "commercial.supermarket"
 			: null;
+
 	const categories =
 		category || "commercial.supermarket,commercial.marketplace";
+
 	const params = new URLSearchParams({
 		apiKey,
 		categories,
-		filter:
-			maxDistance !== null
-				? `circle:${origin.lon},${origin.lat},${Math.round(maxDistance * 1609.344)}`
-				: `place:${process.env.GEOAPIFY_PLACE_ID || ORLANDO_PLACE_ID}`,
+		filter: `circle:${origin.lon},${origin.lat},${Math.round(
+			(maxDistance ?? 10) * 1609.344
+		)}`,
 		limit: String(Math.min(Math.max(Number(query.limit) || 100, 1), 500)),
 	});
+
 	if (query.conditions) params.set("conditions", String(query.conditions));
+
 	const payload = await fetchJson(
 		`${GEOAPIFY_BASE_URL}?${params}`,
 		"Geoapify groceries",
 	);
+
 	return getRecords(payload)
 		.map(normalizeGrocery)
 		.map((item) => ({ ...item, type: "grocery" }));
