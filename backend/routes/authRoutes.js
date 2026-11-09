@@ -1,18 +1,37 @@
 import express from "express";
-import { registerUser } from "../controllers/authController.js";
+import {
+	registerUser,
+	loginUser,
+	logoutUser,
+	forgotPassword,
+	resetPassword,
+} from "../controllers/authController.js";
+
+import apiKeyAuth from "../middleware/apiKeyAuth.js";
 
 const router = express.Router();
 
 // GET, POST, PUT, DELETE
-// http://localhost:3000
+// http://localhost:3000/auth
 
 // POST /register
 // Registers a new user with the provided information
-router.post("/register", registerUser);
+router.post("/register", apiKeyAuth, registerUser);
 
-// Returns all meals or filters by category, restaurant, dietary type, or meal name
+// POST /login
+// Logs in a user with the provided email and password
+router.post("/login", apiKeyAuth, loginUser);
 
-// GET /meals/:id
-// Returns one meal using its ID
+// POST /logout
+// Logs out the current user(clears the cookie)
+router.post("/logout", apiKeyAuth, logoutUser);
+
+// POST /forgot-password
+//emails reset link
+router.post("/forgot-password", apiKeyAuth, forgotPassword);
+
+// POST /password-reset
+// Submits request to reset password
+router.post("/password-reset", apiKeyAuth, resetPassword);
 
 export default router;

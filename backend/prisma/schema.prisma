@@ -22,8 +22,10 @@ model Meal {
   restaurantId Int
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
 
-  nutrition Nutrition?
-  location  Location?
+  nutrition    Nutrition?
+  location     Location?
+  userFavMeals UserFavMeal[]
+  users        User[]
 }
 
 model Restaurant {
@@ -45,21 +47,59 @@ model Nutrition {
 }
 
 model Location {
-  id             Int    @id @default(autoincrement())
-  address        String
-  lat            Float
-  lon            Float
-  distance_miles Float
+  id            Int    @id @default(autoincrement())
+  address       String
+  lat           Float
+  lon           Float
+  distanceMiles Float
 
   mealId Int  @unique
   meal   Meal @relation(fields: [mealId], references: [id])
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String @unique
-  password String
+  id                   Int       @id @default(autoincrement())
+  name                 String
+  email                String    @unique
+  password             String
+  zipcode              Int
+  passwordResetToken   String?   @unique
+  passwordResetExpires DateTime?
 
   createdAt DateTime @default(now())
+
+  calories Int?
+  protein  Float?
+  carbs    Float?
+  fat      Float?
+
+  mealId Int?
+  meal   Meal? @relation(fields: [mealId], references: [id])
+
+  favoriteMeals UserFavMeal[]
+  recipes       Recipe[]
+}
+
+model Recipe {
+  id Int @id @default(autoincrement())
+
+  username String @db.VarChar(255)
+
+  isVegan       Boolean @default(false)
+  isVegetarian  Boolean @default(false)
+  isLowCarb     Boolean @default(false)
+  isHighProtein Boolean @default(false)
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model UserFavMeal {
+  userId Int
+  mealId Int
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  meal Meal @relation(fields: [mealId], references: [id], onDelete: Cascade)
+
+  @@id([userId, mealId])
 }
