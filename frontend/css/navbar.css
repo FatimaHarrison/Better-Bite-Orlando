@@ -34,37 +34,35 @@
 }
 
 /* navigation links */ 
-.site-header .nav-link {
+.site-header .navbar-nav .nav-link {
     color: var(--bbo-primary);
     font-family: var(--bbo-font);
     font-size: 12px;
     font-weight: 500;
     white-space: nowrap;
     text-decoration: none;
+
+    padding: 10px 15px;
+    border-radius: 30px;
+
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Hover Effect */
-.site-header .nav-link:hover {
+.site-header .navbar-nav .nav-link:hover {
+    background-color: #E5F2DF;
     color: var(--bbo-primary-hover);
 }
 
 /*Active Page */ 
-.site-header .nav-link.active {
+.site-header .navbar-nav .nav-link.active,
+.site-header .navbar-nav .nav-link.active:hover {
+    background-color: var(--bbo-primary);
+    color: var(--bbo-white);
     font-weight: 700;
-    color: var(--bbo-primary);
-    text-decoration: underline;
-    text-underline-offset: 6px;
+    text-decoration: none;
 }
 
-
-/* Search Icon */
-.site-header .header-search {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    padding: 8px;
-}
 
 /* Hexagonal profile icon   */
 .site-header .account-link {
@@ -102,7 +100,7 @@
 /* profile icon hover effect */
 .site-header .account-link:hover,
 .site-header .account-link:focus-visible {
-    background-color: var(--navbar-hover, #559439);
+    background-color: var(--bbo-primary-hover);
 }
 
 .site-header .account-link:hover i {

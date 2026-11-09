@@ -1,0 +1,502 @@
+/* Better Bite Orlando | Resources Page */
+
+/* Main Layout */
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.resources-page {
+    flex: 1;
+    font-family: var(--bbo-font);
+    color: var(--bbo-text-dark);
+    background-color: var(--bbo-white);
+}
+
+/* Hero Section */
+
+.resources-hero {
+    overflow: hidden;
+    background: linear-gradient(
+        110deg,
+        #d9ecfb 0%,
+        #e7f3fa 65%,
+        #ecf5eb 100%
+    );
+}
+
+.resources-hero-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    min-height: 270px;
+    padding: 35px 0;
+}
+
+.resources-hero-content {
+    flex: 1;
+    max-width: 550px;
+}
+
+.resources-hero h1 {
+    color: var(--bbo-primary);
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.resources-hero p {
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.hero-line {
+    width: 85px;
+    height: 5px;
+    background: var(--bbo-primary-hover);
+    border-radius: 10px;
+}
+
+/* Decorative Hero Artwork */
+
+.resources-hero-art {
+    position: relative;
+    width: 390px;
+    height: 210px;
+    flex-shrink: 0;
+}
+
+.hero-books {
+    position: absolute;
+    left: 35px;
+    bottom: 10px;
+    width: 270px;
+
+    display: flex;
+    flex-direction: column;
+
+    transform: rotate(-2deg);
+}
+
+.hero-books span {
+    padding: 12px 18px;
+    color: white;
+    font-family: var(--bbo-font);
+    font-size: 18px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 3px 5px 8px rgba(0,0,0,.15);
+}
+
+.hero-books span:nth-child(1) {
+    background-color: #547a38;
+    width: 90%;
+    margin-left: 10%;
+}
+
+.hero-books span:nth-child(2) {
+    background-color: #e78131;
+    width: 100%;
+}
+
+.hero-books span:nth-child(3) {
+    background-color: #8752a9;
+    width: 96%;
+    margin-left: 2%;
+}
+
+.hero-apple {
+    position: absolute;
+    left: 155px;
+    top: -8px;
+    z-index: 2;
+    font-size: 53px;
+}
+
+.hero-bowl {
+    position: absolute;
+    bottom: 0;
+    right: -10px;
+    z-index: 3;
+    font-size: 105px;
+}
+
+/* Featured Information Cards */
+
+.featured-resources {
+    padding: 28px 0 16px;
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.feature-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 230px;
+    border-radius: 23px;
+    padding: 24px;
+}
+
+.feature-green {
+    background: linear-gradient(125deg, #e4f7e4, #d4efcf);
+}
+
+.feature-orange {
+    background: linear-gradient(125deg, #ffebdb, #ffdac3);
+}
+
+.feature-purple {
+    background: linear-gradient(125deg, #f3e7fb, #e8d3f4);
+}
+
+.feature-content {
+    position: relative;
+    z-index: 2;
+    max-width: 50%;
+    min-width: 0%;
+}
+
+.feature-card h2 {
+    color: var(--bbo-primary);
+    font-family: var(--bbo-font);
+    font-size: clamp(23px, 2.3vw, 30px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 14px;
+}
+
+.feature-card p {
+    color: var(--bbo-text-dark);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.feature-food-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    width: 45%;
+    height: 85%;
+
+    object-fit: contain;
+}
+
+.feature-illustration {
+    position: absolute;
+    right: 4px;
+    bottom: 15px;
+    font-size: clamp(40px, 5vw, 75px);
+    letter-spacing: -20px;
+}
+
+/* Resource Directory */
+
+.resources-directory {
+    padding: 12px 0 28px;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: stretch;
+}
+
+/* Resource Panels */
+
+.resource-panel {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 370px;
+    padding: 22px;
+    border-radius: 24px;
+}
+
+.panel-green {
+    background: linear-gradient(135deg, #eff9e9, #dff2d5);
+}
+
+.panel-orange {
+    background: linear-gradient(135deg, #fff4e9, #ffead6);
+}
+
+.panel-purple {
+    background: linear-gradient(135deg, #f8effc, #eee0f7);
+}
+
+/* Panel Heading */
+
+.panel-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    min-height: 100px;
+    margin-bottom: 12px;
+}
+
+.panel-heading > i {
+    flex-shrink: 0;
+    font-size: 34px;
+    color: var(--bbo-primary);
+}
+
+.panel-orange .panel-heading > i {
+    color: #eb4967;
+}
+
+.panel-purple .panel-heading > i {
+    color: #d99a15;
+}
+
+.panel-heading h2 {
+    color: var(--bbo-primary);
+    font-size: clamp(20px, 2vw, 26px);
+    font-weight: 800;
+    margin: 0 0 7px;
+}
+
+.panel-heading p {
+    color: var(--bbo-text-dark);
+    font-size: 13px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Resource Items */
+
+.panel-items {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.resource-item {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 14px;
+
+    min-width: 0;
+    min-height: 76px;
+    padding: 15px;
+
+    background-color: rgba(255,255,255,.85);
+    border-radius: 16px;
+
+    color: var(--bbo-text-dark);
+    text-decoration: none;
+}
+
+/* Larger Learn & Discover Items */
+
+.panel-green .resource-item {
+    min-height: 105px;
+}
+
+.item-icon {
+    flex-shrink: 0;
+    width: 48px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.item-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.item-text h3 {
+    color: var(--bbo-primary);
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.item-text p {
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.resource-item > i {
+    flex-shrink: 0;
+    color: var(--bbo-primary);
+    font-size: 20px;
+}
+
+/* Clickable Resource Items */
+
+a.resource-item {
+    transition: transform .2s ease,
+                box-shadow .2s ease;
+}
+
+a.resource-item:hover {
+    color: var(--bbo-text-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 14px rgba(0,0,0,.08);
+}
+
+a.resource-item:focus-visible {
+    outline: 3px solid var(--bbo-primary);
+    outline-offset: 3px;
+}
+
+.coming-soon {
+    flex-shrink: 0;
+    font-size: 11px;
+    color: #667764;
+}
+
+/* Food Assistance Banner */
+
+.assistance-section {
+    padding: 0 0 30px;
+}
+
+.assistance-banner {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    padding: 25px 35px;
+    min-height: 145px;
+
+    background: linear-gradient(110deg, #e9f7e7, #eff9e9);
+    border-radius: 24px;
+}
+
+.assistance-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 85px;
+    height: 85px;
+    flex-shrink: 0;
+
+    border-radius: 50%;
+    background: #c6eab7;
+    color: var(--bbo-primary);
+    font-size: 40px;
+}
+
+.assistance-text {
+    flex: 1;
+}
+
+.assistance-text h2 {
+    color: var(--bbo-primary);
+    font-family: var(--bbo-font);
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.assistance-text p {
+    font-size: 14px;
+    margin: 0;
+}
+
+.assistance-button {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Tablet */
+
+@media (max-width: 991.98px) {
+    .resources-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resource-panel {
+        min-height: auto;
+    }
+
+    .panel-heading {
+        min-height: auto;
+    }
+
+    .feature-content {
+        max-width: 75%;
+    }
+
+    .resources-hero-art {
+        width: 290px;
+        transform: scale(.8);
+        transform-origin: center right;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 767.98px) {
+    .resources-hero-layout {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 35px 0 10px;
+    }
+
+    .resources-hero-art {
+        align-self: center;
+    }
+
+    .featured-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+        min-height: 220px;
+    }
+
+    .feature-content {
+        max-width: 62%;
+    }
+
+    .assistance-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px;
+    }
+
+    .assistance-button {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 440px) {
+
+    .feature-card {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-food-image {
+        max-width: 200px;
+        height: 140px;
+        justify-self: end;
+    }
+
+    .feature-illustration {
+        justify-self: end;
+    }
+}
