@@ -38,13 +38,14 @@ Potential external APIs currently under consideration include OpenMenu, Google P
 
 | Area | Team Members |
 |---|---|
-| Project Management / Scrum | Alondra Reyes-Pagan, Fatima Harrison |
+| Project Management | None |
 | UI/UX Design | Alondra Reyes-Pagan |
 | Healthy Eating / Orlando Food Research | Marla Peraza Ravelo |
 | Frontend Development | Gerald Allen Dinardo, Laura Savinon, Kenji Nakanishi |
 | Backend Development | Zekia Beyene, Aram Valcourt |
 | Database Development | Alaa Khan |
 | QA / Integration / Testing / Deployment | Kelly Stinson |
+| Documentation |Fatima Harrison |
 
 > Team roles represent primary responsibilities. Team members are expected to communicate, collaborate, test, and document work across the project.
 
