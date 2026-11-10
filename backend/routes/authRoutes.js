@@ -7,6 +7,7 @@ import {
   logoutUser,
   forgotPassword,
   resetPassword,
+  getCurrentUser
 } from "../controllers/authController.js";
 
 const router = express.Router();
@@ -32,5 +33,9 @@ router.post("/forgot-password", forgotPassword);
 // POST /password-reset
 // Submits request to reset password
 router.post("/password-reset", resetPassword);
+
+// GET /profile
+// Retrieve the currently authenticated user
+router.get("/profile", getCurrentUser);
 
 export default router;

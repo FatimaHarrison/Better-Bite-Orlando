@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
 import crypto from "node:crypto";
 import nodemailer from "nodemailer";
+import jwt from "jsonwebtoken";
 
 
 const registerUser = async (req, res) => {
@@ -317,4 +318,85 @@ const resetPassword = async (req, res) => {
 	}
 };
 
-export { registerUser, loginUser, logoutUser, forgotPassword, resetPassword };
+// GET /auth/profile
+// Return the currently authenticated user's information
+const getCurrentUser = async (req, res) => {
+  try {
+    // Retrieve the JWT from the authentication cookie
+    const authCookie = req.headers.cookie
+      ?.split(";")
+      .map((cookie) => cookie.trim())
+      .find((cookie) => cookie.startsWith("bbo_auth="));
+
+    const token = authCookie?.slice("bbo_auth=".length);
+
+    if (!token) {
+      return res.status(401).json({
+        error: "Not authenticated",
+      });
+    }
+
+    // Verify the existing authentication token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET, {
+      algorithms: ["HS256"],
+    });
+
+    if (!Number.isInteger(decoded.id)) {
+      return res.status(401).json({
+        error: "Invalid authentication token",
+      });
+    }
+
+    // Retrieve the user without sensitive fields
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.id },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        defaultZipCode: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(401).json({
+        error: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      data: {
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          zipcode: user.defaultZipCode,
+        },
+      },
+    });
+  } catch (error) {
+    if (error instanceof jwt.JsonWebTokenError) {
+      return res.status(401).json({
+        error: "Invalid or expired authentication token",
+      });
+    }
+
+    console.error("Get current user failed:", error);
+
+    return res.status(500).json({
+      error: "Unable to retrieve user information",
+    });
+  }
+};
+
+export {
+  registerUser,
+  loginUser,
+  logoutUser,
+  forgotPassword,
+  resetPassword,
+  getCurrentUser,
+};
