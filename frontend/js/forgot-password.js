@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       leftTitle.textContent = "Check Your Email";
 
       leftDescription.textContent =
-        "If an accont exists for this email, a password rest link will be sent.";
+        "If an accont exists for this email, a password reset link will be sent.";
 
       // display email address
       sentEmailAddress.textContent = email;
@@ -88,7 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } catch (error) {
       console.error("Password recovery request failed:", error);
-
       status.textContent = "Unable to process your request. Please try again.";
     } finally {
       // enable submit button

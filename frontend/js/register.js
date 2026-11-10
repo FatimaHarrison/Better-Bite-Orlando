@@ -17,6 +17,10 @@ if (registerForm) {
   }
 
   password.addEventListener("input", validatePasswords);
+  password.addEventListener("input", () => {
+    password.setCustomValidity("");
+  });
+
   confirmPassword.addEventListener("input", validatePasswords);
 
   registerForm.addEventListener("submit", async (event) => {
@@ -42,10 +46,16 @@ if (registerForm) {
       value.length >= 12 && new TextEncoder().encode(value).length <= 72;
 
     if (!hasUpper || !hasLower || !hasSymbol || !validLength) {
-      status.textContent =
-        "Password must be 12-72 bytes and include uppercase, lowercase, and a symbol.";
+      password.setCustomValidity(
+        "Password must be at least 12 characters, no more than 72 UTF-8 bytes, and include uppercase, lowercase, and a symbol.",
+      );
+
+      password.reportValidity();
       return;
     }
+
+    password.setCustomValidity("");
+
     if (!/^\d{5}$/.test(zipcode)) {
       status.textContent = "Enter a valid 5-digit ZIP code.";
       return;
