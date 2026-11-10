@@ -38,7 +38,7 @@ class MealRepository {
 						address: meal.location.address,
 						lat: meal.location.lat,
 						lon: meal.location.lon,
-						distance_miles: meal.location.distance_miles,
+						distanceMiles: meal.location.distance_miles,
 					}
 				: null,
 

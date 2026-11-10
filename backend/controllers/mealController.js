@@ -1,14 +1,8 @@
-import express from "express";
 import mealRepository from "../repositories/mealRepository.js";
 
-const router = express.Router();
-
-// GET, POST, PUT, DELETE
-// http://localhost:3000
-
 // GET /meals
-// Returns all meals or filters by category, restaurant, dietary type, or meal name
-router.get("", async (req, res) => {
+// Returns all meals or filters by category, restaurant, dietary type, or name.
+export const getMeals = async (req, res) => {
 	try {
 		const { category, restaurantId, dietary, search } = req.query;
 
@@ -34,11 +28,10 @@ router.get("", async (req, res) => {
 			error: "Unable to retrieve meals",
 		});
 	}
-});
+};
 
 // GET /meals/:id
-// Returns one meal using its ID
-router.get("/:id", async (req, res) => {
+export const getMealById = async (req, res) => {
 	try {
 		const id = Number(req.params.id);
 
@@ -64,6 +57,20 @@ router.get("/:id", async (req, res) => {
 			error: "Unable to retrieve meal",
 		});
 	}
-});
+};
 
-export default router;
+// POST /meals/auth-test (API-key protected by the route middleware)
+export const testApiKey = (req, res) =>
+	res.status(200).json({ message: "API key accepted" });
+
+// POST /meals (API-key protected by the route middleware)
+export const protectedMealPost = (req, res) => {
+	try {
+		return res.status(200).json({
+			message: "Protected POST meal route accessed successfully",
+		});
+	} catch (error) {
+		console.error("Error accessing protected meal route:", error);
+		return res.status(500).json({ error: "Unable to process request" });
+	}
+};

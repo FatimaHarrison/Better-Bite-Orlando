@@ -8,10 +8,10 @@
     // field the shared navbar HTML file
     const navbarUrl = new URL(
         "../components/navbar.html",
-        scriptUrl  
+        scriptUrl
     );
 
-    //load the navigation bar 
+    //load the navigation bar
     async function loadNavbar() {
 
         const navbarContainer =
@@ -26,16 +26,60 @@
 
             // fetch navbar.html
             const response = await fetch(navbarUrl);
-            
+
             if (!response.ok) {
                 throw new Error("Unable to load navbar");
             }
 
-            // read html 
+            // read html
             const navbarHtml = await response.text();
 
             // insert html into the page
             navbarContainer.innerHTML = navbarHtml;
+
+            // profile icon navigation
+            const profileLink = navbarContainer.querySelector(".account-link");
+
+            if(profileLink) {
+
+                // default destination for signed out users
+                profileLink.href = "login.html";
+
+                profileLink.setAttribute(
+                    "aria-label",
+                    "Sign In"
+                );
+
+                try {
+                    const sessionResponse = await fetch(
+                        "http://127.0.0.1:3001/auth/me",
+                        {
+                            method: "GET",
+                            credentials: "include",
+                            cache: "no-store"
+                        }
+                    );
+
+                    if(sessionResponse.ok) {
+                        // user has a valid session
+                        profileLink.href = "profile.html";
+
+                        profileLink.setAttribute(
+                            "aria-label",
+                            "View My Account"
+                        );
+
+                    } else {
+                        profileLink.setAttribute(
+                            "aria-label",
+                            "Sign In"
+                        );
+                    }
+
+                } catch (error) {
+                    console.warn("Unable to check login session.")
+                }
+            }
 
             //identify current page
             const currentPage =
@@ -43,7 +87,7 @@
              || "index.html";
 
             // highlight the current page in the navbar
-            const navLinks = 
+            const navLinks =
                 navbarContainer.querySelectorAll(
                     ".navbar-nav .nav-link"
                 );
@@ -74,7 +118,7 @@
 
             console.error("Error loading navbar:", error);
 
-            navbarContainer.textContent = 
+            navbarContainer.textContent =
             "Navigation could not be loaded";
     }
 }
