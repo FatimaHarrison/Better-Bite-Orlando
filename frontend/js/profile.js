@@ -3,11 +3,14 @@
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     // retrieve the authenticated user
-    const response = await fetch(`${window.BBO_CONFIG.API_BASE_URL}/auth/me`, {
-      method: "GET",
-      credentials: "include",
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${window.BBO_CONFIG.API_BASE_URL}/auth/profile`,
+      {
+        method: "GET",
+        credentials: "include",
+        cache: "no-store",
+      },
+    );
 
     //redirect user without a valid session
     if (response.status === 401) {

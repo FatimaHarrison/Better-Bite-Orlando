@@ -41,7 +41,7 @@
 
         try {
           const sessionResponse = await fetch(
-            `${window.BBO_CONFIG.API_BASE_URL}/auth/me`,
+            `${window.BBO_CONFIG.API_BASE_URL}/auth/profile`,
             {
               method: "GET",
               credentials: "include",
