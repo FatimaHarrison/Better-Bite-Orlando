@@ -1,0 +1,185 @@
+/*Fatima's Section */
+/*This css file is for the BBO TERMS OF SERVICE document*/
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    line-height:1.8;
+    color:#2d2d2d;
+    max-width:1200px;
+    margin:auto;
+    padding:50px 20px;
+    background:
+        linear-gradient(
+            rgba(217,233,248,.88),
+            rgba(217,233,248,.88)
+        ),
+        url("../images/BGP.png");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
+
+/* MAIN CONTENT CARD */
+.terms-wrapper{
+    background:white;
+    padding:50px;
+    border-radius:25px;
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.08);
+}
+/* HEADER */
+h1{
+    text-align:center;
+    color:#2d6a35;
+    font-size:3rem;
+    font-weight:800;
+    margin-bottom:15px;
+}
+
+.last-updated{
+    text-align:center;
+    font-style:italic;
+    color:#666;
+    margin-bottom:40px;
+}
+
+/* LOGO */
+.terms-footer-image{
+    text-align:center;
+    margin:30px 0;
+}
+
+.terms-logo{
+    width:100%;
+    max-width:450px;
+    height:auto;
+}
+
+/* TEXT */
+p{
+    margin-bottom:18px;
+}
+
+ul{
+    margin-left:25px;
+    margin-bottom:25px;
+}
+
+li{
+    margin-bottom:10px;
+}
+
+/* SECTION HEADERS */
+h2{
+    color:#2d6a35;
+    font-size:1.8rem;
+    margin-top:50px;
+    margin-bottom:20px;
+    padding-left:15px;
+    border-left:6px solid #6CC070;
+}
+
+h3{
+    color:#43723c;
+    margin-top:20px;
+    margin-bottom:12px;
+}
+
+/* TABLE OF CONTENTS */
+nav{
+    background:#eef7ea;
+    border-radius:20px;
+    padding:30px;
+    border:2px solid #dcefd6;
+    margin-bottom:30px;
+}
+
+nav ul{
+    list-style:none;
+    margin-left:0;
+}
+
+nav li{
+    margin-bottom:12px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#2d6a35;
+    font-weight:600;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#ff8c2a;
+    padding-left:5px;
+}
+
+/* LINKS */
+a{
+    color:#2d6a35;
+    text-decoration:none;
+}
+
+a:hover{
+    color:#ff8c2a;
+}
+
+/* CONTACT CARD */
+.contact{
+    background:#eef7ea;
+    border:2px solid #dcefd6;
+    border-radius:20px;
+    padding:30px;
+    margin-top:20px;
+}
+
+.contact strong{
+    color:#2d6a35;
+}
+
+/* SPECIAL SECTIONS */
+#warrants,
+#lialimit,
+#indemification,
+#privacyi{
+    scroll-margin-top:20px;
+}
+
+/* MOBILE VIEW*/
+@media (max-width:768px){
+    body{
+        padding:20px 15px;
+    }
+    .terms-wrapper{
+        padding:25px;
+    }
+   h1{
+        font-size:2.2rem;
+    }
+   h2{
+        font-size:1.4rem;
+    }
+   .terms-logo{
+        max-width:300px;
+    }
+}
+.terms-footer-image {
+    text-align: center;
+    margin-top: 40px;
+}
+.terms-logo {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+}

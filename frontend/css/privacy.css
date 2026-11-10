@@ -1,63 +1,124 @@
 /*Fatima's Section */
 /*This css file is for the BBO Privacy Policy user document*/
 
+/* BETTER BITE ORLANDO
+   PRIVACY POLICY STYLESHEET */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 40px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            color: #333;
-        }
+    font-family: 'Inter', sans-serif;
+    line-height: 1.8;
+    color: #2d2d2d;
+    background:
+        linear-gradient(
+            rgba(217, 233, 248, 0.88),
+            rgba(217, 233, 248, 0.88)
+        ),
+        url("../images/BGP.png");
 
-        h1 {
-            color: #2E8B57;
-            text-align: center;
-        }
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 50px 20px;
+}
 
-        h2 {
-            color: #2E8B57;
-            margin-top: 40px;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
-        }
+/* Main Content Card */
+body {
+    max-width: 1200px;
+    margin: auto;
+}
 
-        .last-updated {
-            text-align: center;
-            font-style: italic;
-            margin-bottom: 30px;
-        }
+/* Header Section */
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #2d6a35;
+    margin-bottom: 15px;
+}
 
-        ul {
-            margin-left: 20px;
-        }
+.last-updated {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin-bottom: 40px;
+}
 
-        .contact {
-            background-color: #f4f4f4;
-            padding: 15px;
-            border-radius: 8px;
-        }
+/* White Content Container */
+.policy-wrapper {
+    background: white;
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.08);
 
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-        }
+    border: 1px solid rgba(255,255,255,.3);
+}
 
-        nav li {
-            margin: 8px 0;
-        }
+/* Intro text */
+p {
+    margin-bottom: 18px;
+}
 
-        nav a {
-            color: #2E8B57;
-            text-decoration: none;
-        }
+/* Section Headings */
+h2 {
+    color: #2d6a35;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding-left: 16px;
+    border-left: 6px solid #6CC070;
+}
 
-        nav a:hover {
-            text-decoration: underline;
-        }
+h3 {
+    color: #43723c;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
 
-        .privacy-footer-image {
+/* Lists */
+
+ul {
+    margin-left: 25px;
+    margin-bottom: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* TABLE OF CONTENTS*/
+nav {
+    background: #eef7ea;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 20px;
+    border: 2px solid #dce
+}
+/* MOBILE VIEW */
+@media (max-width:768px){
+    body{
+        padding:20px 15px;
+    }
+    .terms-wrapper{
+        padding:25px;
+    }
+   h1{
+        font-size:2.2rem;
+    }
+   h2{
+        font-size:1.4rem;
+    }
+   .terms-logo{
+        max-width:300px;
+    }
+}
+.privacy-footer-image {
     text-align: center;
     margin-top: 40px;
 }
