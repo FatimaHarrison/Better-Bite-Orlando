@@ -1,53 +1,58 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Better Bite Orlando | Healthy Restaurants</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="/frontend/css/restaurant.css">
+    <meta
+        name="description"
+        content="Discover nutritious and affordable restaurants in Orlando."
+    >
 
+    <title>Healthy Restaurants | Better Bite Orlando</title>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Bootstrap Custom Theme -->
+    <link
+        rel="stylesheet"
+        href="../css/bootstrap-custom.min.css"
+    >
+
+    <!-- Global Theme -->
+    <link rel="stylesheet" href="../css/theme.css">
+
+    <!-- Shared Components -->
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
+    <!-- Restaurant Page -->
+    <link rel="stylesheet" href="../css/restaurants.css">
 </head>
+
 
 <body>
 
-    <!-- NAVIGATION -->
-    <header class="navbar">
-
-       <a href="../pages/index.html" class="logo">
-    <img
-        src="../logos/better-bit-orlando-logo-trn-bg.png"
-        alt="Better Bite Orlando"
-        class="logo-image"
-    >
-</a>
-        
-        </a>
-
-        <nav class="nav-links">
-            <a href="../pages/index.html">Home</a>
-            <a href="../pages/groceries.html">Groceries</a>
-            <a href="#restaurants" class="active">Healthy Restaurant</a>
-            <a href="../pages/recipes.html">Recipes</a>
-            <a href="../pages/favorites.html">Favorites</a>
-            <a href="#footer">Resources</a>
-        </nav>
-
-        <a href="../pages/profile.html" class="profile-button" aria-label="User profile">
-            <svg viewBox="0 0 24 24" width="25" height="25" fill="white" aria-hidden="true">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M4 21c0-4.2 3.5-7 8-7s8 2.8 8 7z"/>
-            </svg>
-        </a>
-
-    </header>
-
+     <!-- Shared Navigation -->
+    <div id="site-navbar"></div>
 
     <main>
 
@@ -77,7 +82,7 @@
                 <select id="distance">
                     <option value="1">1 mile</option>
                     <option value="3">3 miles</option>
-                    <option value="5" selected>5 mile</option>
+                    <option value="5" selected>5 miles</option>
                     <option value="10">10 miles</option>
                 </select>
 
@@ -125,7 +130,12 @@
                     <input
                         id="location"
                         type="text"
-                        placeholder="32805"
+                        placeholder="Enter ZIP code"
+                        value="32805"
+                        inputmode="numeric"
+                        pattern="[0-9]{5}"
+                        maxlength="5"
+                        aria-label="ZIP Code"
                     >
                 </div>
 
@@ -212,50 +222,22 @@
 
         </section>
 
+
     </main>
 
-
-    <!-- FOOTER -->
-    <footer id="footer">
-
-        <div class="footer-logo-container">
-
-            <div class="footer-logo-container">
-    <a href="../pages/index.html" class="footer-logo">
-        <img
-            src="../logos/better-bit-orlando-logo-trn-bg.png"
-            alt="Better Bite Orlando"
-        >
-    </a>
-</div>
-
-            </a>
-
-        </div>
+  <!-- Shared Footer -->
+    <div id="footer-container"></div>
 
 
-        <div class="footer-links">
+  <!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-            <a href="#">About Us</a>
+<!-- Shared Components -->
+<script src="../js/navbar.js"></script>
+<script src="../js/footer.js"></script>
 
-            <a href="#">Help</a>
-
-            <a href="#">Privacy Policy</a>
-
-            <a href="#">Terms of Service</a>
-
-            <span class="footer-message">
-                Together for a healthier Orlando
-                <span class="heart">♡</span>
-            </span>
-
-        </div>
-
-    </footer>
-
-
-    <!-- JAVASCRIPT -->
-    <script src="../js/restaurant.js"></script>
+<!-- Healthy Restaurants Functionality -->
+<script src="../js/restaurants.js"></script>
 
 </body>
 </html>

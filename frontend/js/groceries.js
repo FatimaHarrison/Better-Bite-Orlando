@@ -21,6 +21,18 @@ const categoryButtons = document.querySelectorAll(
     ".category-navigation .category-btn"
 );
 
+// Sorting dropdown
+const grocerySort = document.getElementById("grocer-sort");
+
+// store the latest result from the API
+let groceryLocations = [];
+
+// grocery map
+let groceryMap = null;
+let groceryMarkers = null;
+let locationMarkers = new Map();
+
+
 // Convert the selected category into backend API values 
 function getGroceryTypes(category) {
     if (category === "all") {
@@ -51,6 +63,18 @@ function syncCategoryNavigation(category) {
 
 // display selected grocery details
 function showGroceryDetails(location) {
+
+    // focus the selected grocery on map
+    const selectedMarker = locationMarkers.get(location);
+
+    if(selectedMarker && groceryMap) {
+        groceryMap.setView(
+            selectedMarker.getLatLng(),
+            15
+        );
+
+        selectedMarker.openPopup();
+    }
 
     const name = location.name || "Unnamed Location";
     const address = location.address || "Address unavailable";
@@ -170,7 +194,7 @@ function showGroceryDetails(location) {
     if(location.website) {
 
         try {
-        const rawwebsite = String(location.website).trim();
+        const rawWebsite = String(location.website).trim();
 
         // add https if the web has not protocol
         const websiteUrl = /^https?:\/\//i.test(rawWebsite)
@@ -191,7 +215,7 @@ function showGroceryDetails(location) {
             website.className = "btn btn-outline-primary";
             website.textContent = "Visit Website";
 
-            details.appendChild(website);
+            actions.appendChild(website);
         }
     } catch (error) {
         console.warn("Invalid grocery website URL:", error);
@@ -214,6 +238,137 @@ function showGroceryDetails(location) {
     );
 
     modal.show();
+}
+
+// sort grocery locations by distance or name 
+function sortGroceryResults(locations) {
+
+    const sortedLocations = [...locations];
+
+    if (grocerySort.value === "name") {
+
+        sortedLocations.sort((a, b) =>
+            (a.name || "").localeCompare(b.name || "")
+    );
+
+    } else {
+
+        sortedLocations.sort((a, b) => {
+
+            const distanceA =
+            a.distanceMiles != null &&
+            a.distanceMiles !== "" &&
+            Number.isFinite(Number(a.distanceMiles))
+                ? Number(a.distanceMiles)
+                : Infinity;
+
+        const distanceB =
+            b.distanceMiles != null &&
+            b.distanceMiles !== "" &&
+            Number.isFinite(Number(b.distanceMiles))
+                ? Number(b.distanceMiles)
+                : Infinity;
+        
+        return distanceA - distanceB;
+        });
+    }
+
+    return sortedLocations;
+}
+
+
+// initialize leaflet map
+function initializeGroceryMap() {
+    
+    //defacult location: Orlando, FL
+    groceryMap =L.map("grocery-map").setView(
+        [28.5383, -81.3792],
+        11
+    );
+
+    //open Street Map
+    L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom: 19,
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }
+    ).addTo(groceryMap);
+
+    // layer for grocery markets 
+    groceryMarkers = L.featureGroup().addTo(groceryMap);
+}
+
+
+// Display grocery locations on the map
+function updateGroceryMap(locations) {
+
+    if (!groceryMap || !groceryMarkers) {
+        return;
+    }
+
+    // Clear previous markers
+    groceryMarkers.clearLayers();
+    locationMarkers.clear();
+
+    locations.forEach((location) => {
+
+        const lat = Number(location.latitude);
+        const lon = Number(location.longitude);
+
+        // Skip invalid coordinates
+        if (
+            location.latitude == null ||
+            location.longitude == null ||
+            !Number.isFinite(lat) ||
+            !Number.isFinite(lon) ||
+            lat < -90 || lat > 90 ||
+            lon < -180 || lon > 180
+        ) {
+            return;
+        }
+
+        // Create marker
+        const marker = L.marker([lat, lon]);
+
+        // Create popup
+        const popup = document.createElement("div");
+
+        const name = document.createElement("strong");
+        name.textContent =
+            location.name || "Unnamed Location";
+
+        const address = document.createElement("p");
+        address.textContent =
+            location.address || "Address unavailable";
+
+        address.style.margin = "5px 0 0";
+
+        popup.append(name, address);
+
+        marker.bindPopup(popup);
+
+        // Add marker to map
+        marker.addTo(groceryMarkers);
+
+        // Save marker for card interaction
+        locationMarkers.set(location, marker);
+    });
+
+    // Zoom to display the grocery locations
+    if (groceryMarkers.getLayers().length > 0) {
+
+        groceryMap.fitBounds(
+            groceryMarkers.getBounds(),
+            {
+                padding: [30, 30],
+                maxZoom: 14
+            }
+        );
+    }
+
+    groceryMap.invalidateSize();
 }
 
 
@@ -321,6 +476,12 @@ async function searchGroceries(event) {
     groceryResults.textContent ="Searching for grocery locations...";
     groceryResultsCount.textContent = "0";
 
+    //clear previous map markers before searching
+    if(groceryMarkers) {
+        groceryMarkers.clearLayers();
+        locationMarkers.clear();
+    }
+
     try {
         const response = await fetch(
             `${GROCERY_API_URL}?${params}`
@@ -347,8 +508,18 @@ async function searchGroceries(event) {
         return;
         }
 
+
+    // save the latest API results
+    groceryLocations = data;
+    
+
      // display grocery cards
-     renderGroceryResults(data);
+     renderGroceryResults(
+        sortGroceryResults(groceryLocations)
+     );
+
+     //update map markers with latest search results
+     updateGroceryMap(groceryLocations);
 
     } catch (error) {
         console.error("Grocery search failed:", error);
@@ -361,8 +532,11 @@ async function searchGroceries(event) {
 // Initialize search form
 document.addEventListener("DOMContentLoaded", () => {
 
-    // serach form
+   // serach form
     groceryForm.addEventListener("submit", searchGroceries);
+
+     //initialzie interactive map
+    initializeGroceryMap();
 
     // dropdown category selection
     groceryCategory.addEventListener("change", () => {
@@ -391,6 +565,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // update sorting without requesting the API again 
+    grocerySort.addEventListener("change", () => {
+
+        if(groceryLocations.length === 0) {
+            return;
+        }
+
+        renderGroceryResults(
+            sortGroceryResults(groceryLocations)
+        );
+    });
+
     // sync category selection when page loads
     syncCategoryNavigation(groceryCategory.value);
+
+
 });

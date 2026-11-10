@@ -210,20 +210,33 @@
 /* map section */ 
 
 .grocery-map {
-    min-height: 400px;
+    width: 100%;
+    height: 600px;
 
-    display: flex;
+    position: relative;
 
-    align-items: center;
-    justify-content: center;
-
-    background-color: #fafafa;
+    background-color: #E9EEE5;
 
     border: 1px solid #555;
     border-radius: 12px;
 
     overflow: hidden;
+    
+    z-index: 0;
+
 }
+
+/* Map popup typography */
+.grocery-map .leaflet-popup-content {
+    font-family: var(--bbo-font);
+    font-size: 13px;
+}
+
+/* Keep map controls below Bootstrap modals */
+.grocery-map .leaflet-container {
+    z-index: 0;
+}
+
 
 .map-placeholder {
     text-align: center;
@@ -424,7 +437,7 @@
     }
 
     .grocery-map {
-        min-height: 350px;
+        height: 400px;
     }
 
 }
@@ -836,6 +849,6 @@
     }
 
     .grocery-map {
-        min-height: 300px;
+        height: 320px;
     }
 }
