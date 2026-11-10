@@ -1,0 +1,69 @@
+/*Fatima's Section */
+/*This css file is for the BBO Privacy Policy user document*/
+
+body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #333;
+        }
+
+        h1 {
+            color: #2E8B57;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2E8B57;
+            margin-top: 40px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .last-updated {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
+        .contact {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav li {
+            margin: 8px 0;
+        }
+
+        nav a {
+            color: #2E8B57;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .privacy-footer-image {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.privacy-logo {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+}
