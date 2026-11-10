@@ -56,7 +56,7 @@ if (registerForm) {
 
     try {
       const response = await fetch(
-        `${window.BBO_CONFIG.API_BASE_URL}/auth/register,
+        `${window.BBO_CONFIG.API_BASE_URL}/auth/register`,
         {
           method: "POST",
           headers: {
