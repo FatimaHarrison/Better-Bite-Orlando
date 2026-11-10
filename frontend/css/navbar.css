@@ -30,19 +30,19 @@
 .site-header .navbar-nav {
     display: flex;
     align-items: center;
-    gap: clamp(10px, 1.8vw, 28px);
+    gap: clamp(8px, 1.2vw, 20px);
 }
 
 /* navigation links */ 
 .site-header .navbar-nav .nav-link {
     color: var(--bbo-primary);
     font-family: var(--bbo-font);
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 500;
     white-space: nowrap;
     text-decoration: none;
 
-    padding: 10px 15px;
+    padding: 10px 10px;
     border-radius: 30px;
 
     transition: background-color 0.2s ease, color 0.2s ease;

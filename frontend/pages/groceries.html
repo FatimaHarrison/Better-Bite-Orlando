@@ -38,6 +38,7 @@
 
     <!-- Shared Navigation -->
     <div id="site-navbar"></div>
+<main>
 
     <!-- Hero Section -->
      <section class="groceries-hero">
@@ -92,7 +93,7 @@
                      <!-- Category -->
                       <div class="col-12 col-md-6 col-lg-3">
 
-                        <label for="grocery" class="visually-hidden">
+                        <label for="grocery-category" class="visually-hidden">
                             Category
                         </label>
 
@@ -101,21 +102,10 @@
                             class="form-select"
                             >
 
-                            <option value="all">
-                                Select a category
-                            </option>
-
-                            <option value="grocery">
-                                Grocery Stores
-                            </option>
-
-                            <option value="farmers-market">
-                                Farmers Markets
-                            </option>
-
-                            <option value="food-pantry">
-                                Food Pantries
-                            </option>
+                            <option value="all">All categories</option>
+                            <option value="groceries">Grocery Stores</option>
+                            <option value="farmers-markets">Farmers Markets</option>
+                            <option value="food-pantries">Food Pantries</option>
 
                         </select>
 
@@ -123,14 +113,14 @@
 
 
                 <!-- Availability -->
-                 <div class="col-12 col-md6 col-lg-3">
+                 <div class="col-12 col-md-6 col-lg-3">
 
                     <label for="grocery-availability" class="visually-hidden">
                         Availability
                     </label>
 
                    <select 
-                            id="grocery-category"
+                            id="grocery-availability"
                             class="form-select"
                     >
 
@@ -147,7 +137,7 @@
                  </div>
 
                  <!-- Search Button -->
-                 <div class="col-12 col-md6 col-lg-3">
+                 <div class="col-12 col-md-6 col-lg-3">
                     
                     <button 
                         type="submit"
@@ -192,7 +182,7 @@
             <button 
                 type="button"
                 class="category-btn"
-                data-category="grocery"
+                data-category="groceries"
                 aria-pressed="false"
             >
 
@@ -205,7 +195,7 @@
             <button 
                 type="button"
                 class="category-btn"
-                data-category="farmers-market"
+                data-category="farmers-markets"
                 aria-pressed="false"
             >
 
@@ -218,7 +208,7 @@
                <button 
                 type="button"
                 class="category-btn"
-                data-category="food-pantry"
+                data-category="food-pantries"
                 aria-pressed="false"
             >
 
@@ -252,7 +242,7 @@
 
                     <div class="results-sort">
 
-                        <label class="grocery-sort">
+                        <label for="grocery-sort" class="grocery-sort">
                             Sort by
                         </label>
 
@@ -312,6 +302,54 @@
 
        </section>
 
+
+       <!-- Grocery Details Modal -->
+        <div 
+            class="modal fade"
+            id="groceryDetailsModal"
+            tabindex="-1"
+            aria-labelledby="groceryDetailsModalLabel"
+            aria-hidden="true"
+        >
+
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+
+                <div class="modal-content grocery-details-modal">
+
+                    <div class="modal-header">
+
+                        <h2 
+                            class="modal-title visually-hidden"
+                            id="groceryDetailsModalLabel"
+                        >
+                            Grocery Details 
+                    </h2>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+
+                </div>
+
+                <div 
+                class="modal-body"
+            id="grocery-details-content"
+            >
+                
+            <!-- Grcoery details populated by JS -->
+        </div>
+
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+
+
     </main>
 
      <!-- Shared Footer -->
@@ -324,6 +362,9 @@
     <!-- Shared Components JS -->
     <script src="../js/navbar.js"></script>
     <script src="../js/footer.js"></script>
+
+    <!-- Groceries functionality -->
+     <script src="../js/groceries.js"></script>
 
 </body>
 </html>
