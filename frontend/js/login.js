@@ -19,7 +19,7 @@ if (loginForm) {
 
         try {
             const response = await fetch(
-                "http://127.0.0.1:3001/auth/login",
+                '${window.BBO_CONFIG.API_BASE_URL}/auth/login',
                 {
                     method: "POST",
                     headers: {

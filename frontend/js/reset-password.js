@@ -117,9 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
             validateConfirmation();
         });
 
-
         // switch to password reset confirmation screen
-
         function showResetSuccess(isPreview = false) {
 
             const step1 = document.getElementById("reset-step-1");
@@ -135,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // cleary identify frontend only demo
             previewNotice.hidden = !isPreview;
 
-            // iupdate the left section
+            // update the left section
             document.querySelector(".reset-intro h1").textContent =
                 "You are all set!";
 
@@ -189,7 +187,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-
             // disable button during request
             submitButton.disabled = true;
             resetStatus.textContent = "Updating your password..."
@@ -198,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 //send new password and token to backend
                 const response = await fetch(
-                    "http://127.0.0.1:3001/auth/password-reset", {
+                    '${window.BBO_CONFIG.API_BASE_URL}/auth/password-reset', {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -233,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // display the real success confirmation
                 showResetSuccess(false);
             } catch (error) {
-                console.error("Passwod reset request failed:",error);
+                console.error("Password reset request failed:",error);
 
                 resetStatus.textContent = "Unable to connect to the server. Please try again.";
 

@@ -49,7 +49,7 @@ if (!forgotForm || !step1 || !step2 || !status  || !submitButton) {
 
             // send request to backend
             const response = await fetch(
-                "http://127.0.0.1:3001/auth/forgot-password",
+                '${window.BBO_CONFIG.API_BASE_URL}/auth/forgot-password',
                 {
                     method: "POST",
                     headers: {

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async ()=> {
     try {
         // retrieve the authenticated user
         const response = await fetch(
-            "http://127.0.0.1:3001/auth/me",
+            '${window.BBO_CONFIG.API_BASE_URL}/auth/me',
             {
                 method: "GET",
                 credentials: "include",

@@ -1,356 +1,317 @@
-
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Discover healthy groceries, affordable restaurants, and nutritious recipes in Orlando."
+    />
 
-  <meta name="description"
-    content="Discover healthy groceries, affordable restaurants, and nutritious recipes in Orlando.">
+    <title>Better Bite Orlando</title>
 
-  <title>Better Bite Orlando</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
 
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- custom  Theme -->
+    <link rel="stylesheet" href="../css/bootstrap-custom.min.css" />
 
-  <!-- custom  Theme -->
-  <link rel="stylesheet" href="../css/bootstrap-custom.min.css">
+    <!-- Global theme -->
+    <link rel="stylesheet" href="../css/theme.css" />
 
-  <!-- Global theme -->
-<link rel="stylesheet" href="../css/theme.css">
+    <!-- Shared components  CSS -->
+    <link rel="stylesheet" href="../css/navbar.css" />
+    <!-- Homepage CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
 
+    <link rel="stylesheet" href="../css/footer.css" />
+  </head>
 
-  <!-- Shared components  CSS -->
-  <link rel="stylesheet" href="../css/navbar.css">
-  <!-- Homepage CSS -->
-  <link rel="stylesheet" href="../css/style.css">
+  <body>
+    <!-- NAVIGATION -->
+    <div id="site-navbar"></div>
 
-  <link rel="stylesheet" href="../css/footer.css">
+    <main class="homepage">
+      <!-- HERO SECTION -->
+      <section class="home-hero">
+        <img class="hero-background" src="../images/homepage-img.jpg" alt="" />
 
+        <div class="hero-overlay"></div>
 
-  
-</head>
+        <div class="container-xl home-container">
+          <!-- INTRODUCTION -->
+          <div class="hero-heading">
+            <h1>
+              Choose How You<br />
+              Want to Eat Healthy.
+            </h1>
 
-<body>
+            <p>
+              Find food resources, discover healthy restaurant meals,
+              <br />
+              or browse recipes to cook at home all in one place
+              <br />
+              for a healthier, stronger Orlando.
+            </p>
+          </div>
 
-  <!-- NAVIGATION -->
-  <div id="site-navbar"></div>
+          <!-- THREE CATEGORY CARDS -->
+          <section
+            class="category-grid"
+            aria-label="Explore healthy food options"
+          >
+            <!-- GROCERIES CARD -->
+            <article class="category-card groceries-card">
+              <img
+                class="card-food-image"
+                src="../images/groceries.png"
+                alt="Fresh vegetables at a grocery market"
+              />
 
+              <div class="card-content">
+                <div class="card-heading">
+                  <div class="card-icon">
+                    <i class="bi bi-geo-alt"></i>
+                  </div>
 
-  <main class="homepage">
+                  <div>
+                    <h2>Groceries</h2>
 
-    <!-- HERO SECTION -->
-    <section class="home-hero">
+                    <p>
+                      Locate grocery stores,<br />
+                      farmers' markets, and<br />
+                      food pantries near you.
+                    </p>
+                  </div>
+                </div>
 
-      <img
-        class="hero-background"
-        src="../images/homepage-img.jpg"
-        alt=""
-      >
+                <ul class="card-list">
+                  <li>
+                    <i class="bi bi-check-circle-fill"></i> Fresh food and
+                    groceries
+                  </li>
 
-      <div class="hero-overlay"></div>
+                  <li>
+                    <i class="bi bi-check-circle-fill"></i> Local food pantries
+                  </li>
 
-      <div class="container-xl home-container">
+                  <li>
+                    <i class="bi bi-check-circle-fill"></i> Farmers' markets
+                  </li>
 
-        <!-- INTRODUCTION -->
-        <div class="hero-heading">
+                  <li>
+                    <i class="bi bi-check-circle-fill"></i> Transportation
+                    options
+                  </li>
+                </ul>
 
-          <h1>
-            Choose How You<br>
-            Want to Eat Healthy.
-          </h1>
+                <a
+                  href="../pages/groceries.html"
+                  class="card-button groceries-button"
+                >
+                  Explore Food Resources <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </article>
 
-          <p>
-            Find food resources, discover healthy restaurant meals,
-            <br>
-            or browse recipes to cook at home all in one place
-            <br>
-            for a healthier, stronger Orlando.
-          </p>
+            <!-- RESTAURANTS CARD -->
+            <article class="category-card restaurants-card">
+              <img
+                class="card-food-image"
+                src="../images/restaurants.png"
+                alt="Healthy colorful restaurant meal"
+              />
 
+              <div class="card-content">
+                <div class="card-heading">
+                  <div class="card-icon">
+                    <i class="bi bi-fork-knife"></i>
+                  </div>
+
+                  <div>
+                    <h2>Healthy Restaurants</h2>
+
+                    <p>
+                      Find affordable, nutritious<br />
+                      meals at local restaurants<br />
+                      across Orlando.
+                    </p>
+                  </div>
+                </div>
+
+                <ul class="card-list">
+                  <li>
+                    <i class="bi bi-check-circle-fill"></i> Healthy menu options
+                  </li>
+
+                  <li>
+                    <i class="bi bi-check-circle-fill"></i> Affordable meals
+                  </li>
+
+                  <li>
+                    <i class="bi bi-check-circle-fill"></i> Local Orlando
+                    restaurants
+                  </li>
+
+                  <li>
+                    <i class="bi bi-check-circle-fill"></i> Options for every
+                    diet
+                  </li>
+                </ul>
+
+                <a
+                  href="../pages/restaurants.html"
+                  class="card-button restaurants-button"
+                >
+                  Browse Healthy Meals <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </article>
+
+            <!-- RECIPES CARD -->
+            <article class="category-card recipes-card">
+              <img
+                class="card-food-image"
+                src="../images/recipes.png"
+                alt="Healthy food ingredients and vegetables"
+              />
+
+              <div class="card-content">
+                <div class="card-heading">
+                  <div class="card-icon">
+                    <i class="bi bi-book"></i>
+                  </div>
+
+                  <div>
+                    <h2>Healthy Recipes</h2>
+
+                    <p>
+                      Discover easy, healthy<br />
+                      recipes to cook at home<br />
+                      with simple ingredients.
+                    </p>
+                  </div>
+                </div>
+
+                <ul class="card-list">
+                  <li>
+                    <i class="bi bi-check-circle-fill"></i> Easy, step-by-step
+                    recipes
+                  </li>
+
+                  <li>
+                    <i class="bi bi-check-circle-fill"></i> Nutritious and
+                    affordable
+                  </li>
+
+                  <li>
+                    <i class="bi bi-check-circle-fill"></i> Ingredients lists
+                    and tips
+                  </li>
+
+                  <li>
+                    <i class="bi bi-check-circle-fill"></i> Family-friendly
+                    meals
+                  </li>
+                </ul>
+
+                <a
+                  href="../pages/recipes.html"
+                  class="card-button recipes-button"
+                >
+                  Browse Recipes <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </article>
+          </section>
+
+          <!-- THREE PATHS BANNER -->
+          <section class="pathways-section">
+            <div class="pathways-title">
+              <h2>
+                Three Paths.<br />
+                A Healthier Orlando.
+              </h2>
+
+              <span class="decorative-underline"></span>
+            </div>
+
+            <div class="pathway-item">
+              <div class="pathway-icon">
+                <i class="bi bi-cursor-fill"></i>
+              </div>
+
+              <h3><span>1</span> Choose a Path</h3>
+
+              <p>
+                Find Food, Healthy Meals<br />
+                or Recipes
+              </p>
+            </div>
+
+            <div class="pathway-item">
+              <div class="pathway-icon">
+                <i class="bi bi-geo-alt"></i>
+              </div>
+
+              <h3><span>2</span> Explore Options</h3>
+
+              <p>
+                Find resources, restaurants<br />
+                or recipes near you.
+              </p>
+            </div>
+
+            <div class="pathway-item">
+              <div class="pathway-icon">
+                <i class="bi bi-leaf"></i>
+              </div>
+
+              <h3><span>3</span> Eat Healthier Together</h3>
+
+              <p>
+                Good food builds<br />
+                a stronger Orlando.
+              </p>
+            </div>
+
+            <div class="pathways-message">
+              <h3>
+                Healthy People<br />
+                Stronger Communities<br />
+                Brighter Futures
+                <i class="bi bi-heart"></i>
+              </h3>
+
+              <span class="decorative-underline"></span>
+            </div>
+          </section>
         </div>
-
-
-        <!-- THREE CATEGORY CARDS -->
-        <section class="category-grid" aria-label="Explore healthy food options">
-
-
-          <!-- GROCERIES CARD -->
-          <article class="category-card groceries-card">
-
-            <img
-              class="card-food-image"
-              src="../images/groceries.png"
-              alt="Fresh vegetables at a grocery market"
-            >
-
-            <div class="card-content">
-
-              <div class="card-heading">
-
-                <div class="card-icon">
-                  <i class="bi bi-geo-alt"></i>
-                </div>
-
-                <div>
-                  <h2>Groceries</h2>
-
-                  <p>
-                    Locate grocery stores,<br>
-                    farmers' markets, and<br>
-                    food pantries near you.
-                  </p>
-                </div>
-
-              </div>
-
-
-              <ul class="card-list">
-
-                <li><i class="bi bi-check-circle-fill"></i> Fresh food and groceries</li>
-
-                <li><i class="bi bi-check-circle-fill"></i> Local food pantries</li>
-
-                <li><i class="bi bi-check-circle-fill"></i> Farmers' markets</li>
-
-                <li><i class="bi bi-check-circle-fill"></i> Transportation options</li>
-
-              </ul>
-
-
-              <a href="../pages/groceries.html" class="card-button groceries-button">
-                Explore Food Resources <i class="bi bi-arrow-right"></i>
-              </a>
-
-            </div>
-
-          </article>
-
-
-
-          <!-- RESTAURANTS CARD -->
-          <article class="category-card restaurants-card">
-
-            <img
-              class="card-food-image"
-              src="../images/restaurants.png"
-              alt="Healthy colorful restaurant meal"
-            >
-
-            <div class="card-content">
-
-              <div class="card-heading">
-
-                <div class="card-icon">
-                  <i class="bi bi-fork-knife"></i>
-                </div>
-
-                <div>
-                  <h2>Healthy Restaurants</h2>
-
-                  <p>
-                    Find affordable, nutritious<br>
-                    meals at local restaurants<br>
-                    across Orlando.
-                  </p>
-                </div>
-
-              </div>
-
-
-              <ul class="card-list">
-
-                <li><i class="bi bi-check-circle-fill"></i> Healthy menu options</li>
-
-                <li><i class="bi bi-check-circle-fill"></i> Affordable meals</li>
-
-                <li><i class="bi bi-check-circle-fill"></i> Local Orlando restaurants</li>
-
-                <li><i class="bi bi-check-circle-fill"></i> Options for every diet</li>
-
-              </ul>
-
-
-              <a href="../pages/restaurants.html" class="card-button restaurants-button">
-                Browse Healthy Meals <i class="bi bi-arrow-right"></i>
-              </a>
-
-            </div>
-
-          </article>
-
-
-
-          <!-- RECIPES CARD -->
-          <article class="category-card recipes-card">
-
-            <img
-              class="card-food-image"
-              src="../images/recipes.png"
-              alt="Healthy food ingredients and vegetables"
-            >
-
-            <div class="card-content">
-
-              <div class="card-heading">
-
-                <div class="card-icon">
-                  <i class="bi bi-book"></i>
-                </div>
-
-                <div>
-                  <h2>Healthy Recipes</h2>
-
-                  <p>
-                    Discover easy, healthy<br>
-                    recipes to cook at home<br>
-                    with simple ingredients.
-                  </p>
-                </div>
-
-              </div>
-
-
-              <ul class="card-list">
-
-                <li><i class="bi bi-check-circle-fill"></i> Easy, step-by-step recipes</li>
-
-                <li><i class="bi bi-check-circle-fill"></i> Nutritious and affordable</li>
-
-                <li><i class="bi bi-check-circle-fill"></i> Ingredients lists and tips</li>
-
-                <li><i class="bi bi-check-circle-fill"></i> Family-friendly meals</li>
-
-              </ul>
-
-
-              <a href="../pages/recipes.html" class="card-button recipes-button">
-                Browse Recipes <i class="bi bi-arrow-right"></i>
-              </a>
-
-            </div>
-
-          </article>
-
-        </section>
-
-
-
-        <!-- THREE PATHS BANNER -->
-        <section class="pathways-section">
-
-          <div class="pathways-title">
-
-            <h2>
-              Three Paths.<br>
-              A Healthier Orlando.
-            </h2>
-
-            <span class="decorative-underline"></span>
-
-          </div>
-
-
-
-          <div class="pathway-item">
-
-            <div class="pathway-icon">
-              <i class="bi bi-cursor-fill"></i>
-            </div>
-
-            <h3>
-              <span>1</span> Choose a Path
-            </h3>
-
-            <p>
-              Find Food, Healthy Meals<br>
-              or Recipes
-            </p>
-
-          </div>
-
-
-
-          <div class="pathway-item">
-
-            <div class="pathway-icon">
-              <i class="bi bi-geo-alt"></i>
-            </div>
-
-            <h3>
-              <span>2</span> Explore Options
-            </h3>
-
-            <p>
-              Find resources, restaurants<br>
-              or recipes near you.
-            </p>
-
-          </div>
-
-
-
-          <div class="pathway-item">
-
-            <div class="pathway-icon">
-              <i class="bi bi-leaf"></i>
-            </div>
-
-            <h3>
-              <span>3</span> Eat Healthier Together
-            </h3>
-
-            <p>
-              Good food builds<br>
-              a stronger Orlando.
-            </p>
-
-          </div>
-
-
-
-          <div class="pathways-message">
-
-            <h3>
-              Healthy People<br>
-              Stronger Communities<br>
-              Brighter Futures
-              <i class="bi bi-heart"></i>
-            </h3>
-
-            <span class="decorative-underline"></span>
-
-          </div>
-
-        </section>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-
- <!-- Shared Footer -->
-<div id="footer-container"></div>
-
-
-  <!-- Bootstrap JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Existing Navigation JavaScript -->
-  <script src="../js/navbar.js"></script>
-  <script src="../js/footer.js"></script>
-
-</body>
+      </section>
+    </main>
+
+    <!-- Shared Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Shared Components -->
+    <script src="../js/config.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/footer.js"></script>
+  </body>
 </html>

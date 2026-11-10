@@ -60,7 +60,7 @@ if (registerForm) {
 
         try {
             const response = await fetch(
-                "http://127.0.0.1:3001/auth/register",
+                '${window.BBO_CONFIG.API_BASE_URL}/auth/register',
                 {
                     method:"POST",
                     headers: {
