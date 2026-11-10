@@ -1,119 +1,112 @@
-
 /* Better Bite Orlando - Registration */
 
 const registerForm = document.getElementById("register-form");
 
 if (registerForm) {
-    const password = document.getElementById("register-password");
-    const confirmPassword = document.getElementById("confirm-password");
-    const status = document.getElementById("register-status");
-    const submitButton = registerForm.querySelector('button[type="submit"]');
+  const password = document.getElementById("register-password");
+  const confirmPassword = document.getElementById("confirm-password");
+  const status = document.getElementById("register-status");
+  const submitButton = registerForm.querySelector('button[type="submit"]');
 
-    function validatePasswords() {
-        const matches = password.value === confirmPassword.value;
+  function validatePasswords() {
+    const matches = password.value === confirmPassword.value;
 
-        confirmPassword.setCustomValidity(
-            matches ? "" : "Passwords do not match."
-        );
+    confirmPassword.setCustomValidity(matches ? "" : "Passwords do not match.");
 
-        return matches;
+    return matches;
+  }
+
+  password.addEventListener("input", validatePasswords);
+  confirmPassword.addEventListener("input", validatePasswords);
+
+  registerForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!validatePasswords()) {
+      confirmPassword.reportValidity();
+      return;
     }
 
-    password.addEventListener("input", validatePasswords);
-    confirmPassword.addEventListener("input", validatePasswords);
+    const firstName = document.getElementById("first-name").value.trim();
+    const lastName = document.getElementById("last-name").value.trim();
+    const email = document.getElementById("register-email").value.trim();
+    const zipcode = document.getElementById("register-zipcode").value.trim();
 
-    registerForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
+    const value = password.value;
 
-        if (!validatePasswords()) {
-            confirmPassword.reportValidity();
-            return;
-        }
+    //validate password
+    const hasUpper = /[A-Z]/.test(value);
+    const hasLower = /[a-z]/.test(value);
+    const hasSymbol = /[^A-Za-z0-9]/.test(value);
+    const validLength =
+      value.length >= 12 && new TextEncoder().encode(value).length <= 72;
 
-        const firstName = document.getElementById("first-name").value.trim();
-        const lastName = document.getElementById("last-name").value.trim();
-        const email = document.getElementById("register-email").value.trim();
-        const zipcode = document.getElementById("register-zipcode").value.trim();
+    if (!hasUpper || !hasLower || !hasSymbol || !validLength) {
+      status.textContent =
+        "Password must be 12-72 bytes and include uppercase, lowercase, and a symbol.";
+      return;
+    }
+    if (!/^\d{5}$/.test(zipcode)) {
+      status.textContent = "Enter a valid 5-digit ZIP code.";
+      return;
+    }
 
-        const value = password.value;
+    submitButton.disabled = true;
+    status.textContent = "Creating your account...";
 
-        //validate password
-        const hasUpper = /[A-Z]/.test(value);
-        const hasLower = /[a-z]/.test(value);
-        const hasSymbol = /[^A-Za-z0-9]/.test(value);
-        const validLength =
-            value.length >= 12 &&
-            new TextEncoder().encode(value).length <= 72;
+    try {
+      const response = await fetch(
+        "${window.BBO_CONFIG.API_BASE_URL}/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            password: value,
+            zipcode,
+          }),
+        },
+      );
 
-        if (!hasUpper || !hasLower || !hasSymbol || !validLength) {
-            status.textContent =
-                "Password must be 12-72 bytes and include uppercase, lowercase, and a symbol.";
-            return;
-        }
-        if (!/^\d{5}$/.test(zipcode)) {
-            status.textContent = "Enter a valid 5-digit ZIP code."
-            return;
-        }
+      const result = await response.json();
 
-        submitButton.disabled = true;
-        status.textContent = "Creating your account...";
+      if (!response.ok) {
+        status.textContent = result.error || "Registration failed.";
+        return;
+      }
 
-        try {
-            const response = await fetch(
-                '${window.BBO_CONFIG.API_BASE_URL}/auth/register',
-                {
-                    method:"POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({
-                        username: `${firstName} ${lastName}`,
-                        email,
-                        password: value,
-                        zipcode
-                    })
-                }
-            );
+      // registration succesful
 
-            const result = await response.json();
+      const registeredEmail = result.data?.user?.email ?? email;
 
-            if (!response.ok) {
-                status.textContent =
-                result.error || "Registration failed.";
-            return;
+      // display the registered email
+      document.getElementById("registered-email").textContent = registeredEmail;
 
-            }
+      // hiden the registration form!
+      document.getElementById("register-form-view").hidden = true;
 
-          // registration succesful
+      //display success confirmation
+      document.getElementById("register-success").hidden = false;
 
-          const registeredEmail = result.data?.user?.email ?? email;
+      // apply success card styling
+      document.querySelector(".register-card").classList.add("is-success");
 
-          // display the registered email
-          document.getElementById("registered-email").textContent = registeredEmail;
+      //clear form data
+      registerForm.reset();
 
-          // hiden the registration form!
-          document.getElementById("register-form-view").hidden= true;
+      // focus confirmation heading
+      document.getElementById("register-success-title").focus();
+    } catch (error) {
+      console.error("Registration error", error);
 
-          //display success confirmation
-          document.getElementById("register-success").hidden = false;
-
-          // apply success card styling
-          document.querySelector(".register-card").classList.add("is-success");
-
-          //clear form data
-          registerForm.reset();
-
-          // focus confirmation heading
-          document.getElementById("register-success-title").focus();
-
-        } catch (error) {
-            console.error("Registration error", error);
-
-            status.textContent =
-            "Unable to connecto to the server";
-        } finally {
-            submitButton.disabled = false;
-        }
-    });
+      status.textContent = "Unable to connect to the server";
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
 }
