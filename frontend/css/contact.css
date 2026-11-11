@@ -1,0 +1,113 @@
+/* =====================================
+   CONTACT PAGE
+===================================== */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f8f8f8;
+}
+.contact-page {
+    background:
+        linear-gradient(
+            rgba(217,233,248,.85),
+            rgba(217,233,248,.85)
+        ),
+        url("../images/contact.png");
+
+    background-size: cover;
+    background-position: center;
+}
+.contact-container {
+    max-width: 1095px;
+    margin: auto;
+}
+.contact-container h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #000;
+    margin-bottom: 40px;
+}
+/* CONTACT CARD */
+.contact-card {
+    background: #f5f2ed;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    border: 2px solid #222;
+    blur(8px);
+    border: 2px solid #222;
+    border-radius: 20px;
+    min-height: 500px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.15);
+    }
+.contact-form-section {
+    padding: 50px;
+    border-right: 2px solid #222;
+}
+.contact-info {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+/* USER FORM */
+.form-group {
+    margin-bottom: 35px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #000;
+    background: transparent;
+    padding: 10px 0;
+    font-size: 1rem;
+    outline: none;
+}
+/* SUBMITBUTTON */
+.contact-btn {
+    margin-top: 20px;
+    border: none;
+    background: #3d6b2f;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.contact-btn:hover {
+    background: #2c5222;
+}
+/* USER INFO SECTION*/
+.info-block {
+    margin-bottom: 35px;
+}
+.info-block h3 {
+    color: #3d6b2f;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.info-block p {
+    color: #444;
+}
+/* RESPONSIVE FOR MOBLE OR TABLET */
+@media (max-width: 768px) {
+  .contact-card {
+        grid-template-columns: 1fr;
+    }
+  .contact-form-section {
+        border-right: none;
+        border-bottom: 2px solid #222;
+    }
+  .contact-container h1 {
+        font-size: 2.8rem;
+    }
+}
+/*Fatima's Section*/
