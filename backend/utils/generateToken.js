@@ -2,7 +2,11 @@ import jwt from "jsonwebtoken";
 
 export const generateToken = (userId, res) => {
 	const payload = { id: userId };
-	const secret = process.env.JWT_SECRET || "your_jwt_secret_key";
+	const secret = process.env.JWT_SECRET;
+
+	if(!secret) {
+		throw new Error("JWT_SECRET is not configured.")
+	}
 
 	const rawExpires = process.env.JWT_EXPIRES_IN || "7d";
 	const expiresIn = rawExpires.trim().split(" ")[0];

@@ -1,9 +1,9 @@
 import express from "express";
+
 import {
 	findGroceries,
 	getRestaurants,
 } from "../controllers/placeController.js";
-import apiKeyAuth from "../middleware/apiKeyAuth.js";
 
 const router = express.Router();
 

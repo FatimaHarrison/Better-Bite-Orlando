@@ -1,6 +1,6 @@
-/* Better bite Orlando */ 
+/* Better bite Orlando */
 
-/* main page */ 
+/* main page */
 
 .groceries-page {
     flex: 1;
@@ -185,7 +185,7 @@
     font-size: 13px;
 }
 
-/* result container */ 
+/* result container */
 
 #grocery-results-list {
     display: flex;
@@ -203,27 +203,40 @@
     border-radius: 10px;
 
     color: #666;
-    
+
     text-align: center;
 }
 
-/* map section */ 
+/* map section */
 
 .grocery-map {
-    min-height: 400px;
+    width: 100%;
+    height: 600px;
 
-    display: flex;
+    position: relative;
 
-    align-items: center;
-    justify-content: center;
-
-    background-color: #fafafa;
+    background-color: #E9EEE5;
 
     border: 1px solid #555;
     border-radius: 12px;
 
     overflow: hidden;
+
+    z-index: 0;
+
 }
+
+/* Map popup typography */
+.grocery-map .leaflet-popup-content {
+    font-family: var(--bbo-font);
+    font-size: 13px;
+}
+
+/* Keep map controls below Bootstrap modals */
+.grocery-map .leaflet-container {
+    z-index: 0;
+}
+
 
 .map-placeholder {
     text-align: center;
@@ -415,7 +428,7 @@
 
 
 
-/* responsive desgin */ 
+/* responsive desgin */
 
 @media (max-width: 991.98px) {
 
@@ -424,7 +437,7 @@
     }
 
     .grocery-map {
-        min-height: 350px;
+        height: 400px;
     }
 
 }
@@ -741,6 +754,92 @@
     font-size: 14px;
     font-weight: 600;
 }
+
+/* ===================================
+   GOOGLE MAPS TRANSPORTATION OPTIONS
+   =================================== */
+
+/* Details modal */
+
+.grocery-directions-container {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.grocery-directions-container h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--bbo-primary);
+    margin-bottom: 12px;
+}
+
+.grocery-directions-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.grocery-directions-buttons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px 16px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.grocery-directions-buttons a:hover {
+    transform: translateY(-2px);
+}
+
+
+/* Leaflet map popup */
+
+.grocery-map-directions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    gap: 6px;
+    margin-top: 12px;
+
+    width: max-content;
+}
+
+.grocery-map-direction-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    padding: 8px 10px;
+
+    background-color: var(--bbo-primary);
+    color: white !important;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none !important;
+    white-space: nowrap;
+
+    flex-shrink: 0;
+}
+
+.grocery-map-direction-link:hover {
+    background-color: #294d28;
+    color: white !important;
+}
+
 
 /* Mobile responsiveness */
 
@@ -812,17 +911,17 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        
+
         gap:10px;
         padding: 12px;
 
         background-color: transparent;
-        
+
         border: none;
         border-radius: 8px;
 
         color: var(--bbo-primary);
-        
+
         font-size: 12px;
         padding: 10px 5px;
     }
@@ -836,6 +935,6 @@
     }
 
     .grocery-map {
-        min-height: 300px;
+        height: 320px;
     }
 }

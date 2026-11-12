@@ -7,6 +7,8 @@ import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import recipeRoutes from "./routes/recipeRoutes.js";
 import placeRoutes from "./routes/placeRoutes.js";
+
+// Rate limiting middleware
 import apiLimiter from "./middleware/rateLimiter.js";
 
 const app = express();
@@ -26,25 +28,29 @@ const allowedOrigins = [
 	"http://localhost:5500"
 ];
 
+
+// CORS configuration
 app.use(
 	cors({
 		origin: allowedOrigins,
 		credentials: true,
 		methods: [
-			"GET", 
+			"GET",
 			"HEAD",
 			"POST",
 			"PUT",
 			"PATCH",
 			"DELETE",
-			"OPTIONS"],
-	}),
+			"OPTIONS"
+		]
+	})
 );
 
 
 // Rate Limiting Middleware
 app.use(apiLimiter);
 
+// server configuration
 const port = Number(process.env.PORT || 3001);
 const host = "127.0.0.1";
 
@@ -57,6 +63,7 @@ app.use("/auth", authRoutes);
 app.use("/recipes", recipeRoutes);
 app.use("/places", placeRoutes);
 
+// start server
 app.listen(port, host, () => {
 	console.log(`API listening at http://${host}:${port}`);
 });
