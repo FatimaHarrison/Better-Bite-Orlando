@@ -1,22 +1,28 @@
+
 import jwt from "jsonwebtoken";
 
 export const generateToken = (userId, res) => {
-	const payload = { id: userId };
-	const secret = process.env.JWT_SECRET || "your_jwt_secret_key";
+  const secret = process.env.JWT_SECRET;
 
-	const rawExpires = process.env.JWT_EXPIRES_IN || "7d";
-	const expiresIn = rawExpires.trim().split(" ")[0];
+  if (!secret) {
+    throw new Error("JWT_SECRET is not configured");
+  }
 
-	const token = jwt.sign(payload, secret, {
-		expiresIn: expiresIn,
-	});
+  const expiresIn = process.env.JWT_EXPIRES_IN || "7d";
 
-	res.cookie("cookie", token, {
-		httpOnly: true,
-		secure: process.env.NODE_ENV === "production", // Set to true in production
-		sameSite: "strict",
-		maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
-	});
+  const token = jwt.sign(
+    { id: userId },
+    secret,
+    { expiresIn }
+  );
 
-	return token;
+  res.cookie("bbo_auth", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  });
+
+  return token;
 };

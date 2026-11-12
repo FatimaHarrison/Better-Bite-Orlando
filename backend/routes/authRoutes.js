@@ -1,37 +1,36 @@
-import express from "express";
-import {
-	registerUser,
-	loginUser,
-	logoutUser,
-	forgotPassword,
-	resetPassword,
-} from "../controllers/authController.js";
 
-import apiKeyAuth from "../middleware/apiKeyAuth.js";
+import express from "express";
+
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  forgotPassword,
+  resetPassword,
+} from "../controllers/authController.js";
 
 const router = express.Router();
 
-// GET, POST, PUT, DELETE
-// http://localhost:3000/auth
+// Public authentication endpoints
 
 // POST /register
 // Registers a new user with the provided information
-router.post("/register", apiKeyAuth, registerUser);
+router.post("/register", registerUser);
 
 // POST /login
 // Logs in a user with the provided email and password
-router.post("/login", apiKeyAuth, loginUser);
+router.post("/login", loginUser);
 
 // POST /logout
 // Logs out the current user(clears the cookie)
-router.post("/logout", apiKeyAuth, logoutUser);
+router.post("/logout", logoutUser);
 
 // POST /forgot-password
-//emails reset link
-router.post("/forgot-password", apiKeyAuth, forgotPassword);
+// Emails reset link
+router.post("/forgot-password", forgotPassword);
 
 // POST /password-reset
 // Submits request to reset password
-router.post("/password-reset", apiKeyAuth, resetPassword);
+router.post("/password-reset", resetPassword);
 
 export default router;

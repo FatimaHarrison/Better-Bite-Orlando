@@ -4,98 +4,168 @@ import { generateToken } from "../utils/generateToken.js";
 import crypto from "node:crypto";
 import nodemailer from "nodemailer";
 
+
 const registerUser = async (req, res) => {
-	const { username, email, password, zipcode } = req.body;
+  try {
+    const { firstName, lastName, email, password, zipcode } = req.body || {};
 
-	const userExists = await prisma.user.findUnique({
-		where: {
-			email: email,
-		},
-	});
+    // Validate required fields
+    if (
+      typeof firstName !== "string" ||
+      !firstName.trim() ||
+      typeof lastName !== "string" ||
+      !lastName.trim() ||
+      typeof email !== "string" ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) ||
+      typeof password !== "string" ||
+      typeof zipcode !== "string" ||
+      !/^\d{5}(-\d{4})?$/.test(zipcode)
+    ) {
+      return res.status(400).json({
+        error: "Invalid or missing registration fields",
+      });
+    }
 
-	if (userExists) {
-		return res.status(400).json({
-			error: "An User already exists with this email",
-		});
-	}
+    if (
+      firstName.trim().length > 50 ||
+      lastName.trim().length > 50 ||
+      email.trim().length > 100 ||
+      password.length < 12 ||
+      Buffer.byteLength(password, "utf8") > 72
+    ) {
+      return res.status(400).json({
+        error: "Registration field length is invalid",
+      });
+    }
 
-	// Hash the password before storing it in the database
-	const hashedPassword = await bcrypt.hash(password, 10);
+    const normalizedEmail = email.trim().toLowerCase();
 
-	// Create a new user in the database with the hashed password
-	const newUser = await prisma.user.create({
-		data: {
-			name: username,
-			email,
-			password: hashedPassword,
-			zipcode,
-		},
-	});
+    const userExists = await prisma.user.findUnique({
+      where: { email: normalizedEmail },
+    });
 
-	const token = generateToken(newUser.id, res);
+    if (userExists) {
+      return res.status(409).json({
+        error: "An account already exists with this email",
+      });
+    }
 
-	res.status(201).json({
-		status: "success",
-		data: {
-			user: {
-				id: newUser.id,
-				name: username,
-				email: email,
-				zipcode: zipcode,
-			},
-			token,
-		},
-	});
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await prisma.user.create({
+      data: {
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: normalizedEmail,
+        passwordHash: hashedPassword,
+        defaultZipCode: zipcode,
+      },
+    });
+
+    const token = generateToken(newUser.id, res);
+
+    return res.status(201).json({
+      status: "success",
+      data: {
+        user: {
+          id: newUser.id,
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
+          email: newUser.email,
+          zipcode: newUser.defaultZipCode,
+        },
+        token,
+      },
+    });
+  } catch (error) {
+    if (error.code === "P2002") {
+      return res.status(409).json({
+        error: "An account already exists with this email",
+      });
+    }
+
+    console.error("Registration failed:", error.message);
+
+    return res.status(500).json({
+      error: "Unable to register user",
+    });
+  }
 };
 
+
 const loginUser = async (req, res) => {
-	const { email, password } = req.body;
+  try {
+    const { email, password } = req.body || {};
 
-	const userExists = await prisma.user.findUnique({
-		where: {
-			email: email,
-		},
-	});
+    if (
+      typeof email !== "string" ||
+      !email.trim() ||
+      typeof password !== "string"
+    ) {
+      return res.status(400).json({
+        error: "Email and password are required",
+      });
+    }
 
-	if (!userExists) {
-		return res.status(401).json({
-			error: "Invalid email or password",
-		});
-	}
+    const normalizedEmail = email.trim().toLowerCase();
 
-	const isPasswordValid = await bcrypt.compare(password, userExists.password);
+    const user = await prisma.user.findUnique({
+      where: { email: normalizedEmail },
+    });
 
-	if (!isPasswordValid) {
-		return res.status(401).json({
-			error: "Invalid email or password",
-		});
-	}
+    if (!user) {
+      return res.status(401).json({
+        error: "Invalid email or password",
+      });
+    }
 
-	//Token generation
-	const token = generateToken(userExists.id, res);
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      user.passwordHash
+    );
 
-	res.status(200).json({
-		status: "success",
-		data: {
-			user: {
-				id: userExists.id,
-				email: email,
-			},
-			token,
-		},
-	});
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        error: "Invalid email or password",
+      });
+    }
+
+    const token = generateToken(user.id, res);
+
+    return res.status(200).json({
+      status: "success",
+      data: {
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          zipcode: user.defaultZipCode,
+        },
+        token,
+      },
+    });
+  } catch (error) {
+    console.error("Login failed:", error.message);
+
+    return res.status(500).json({
+      error: "Unable to log in",
+    });
+  }
 };
 
 const logoutUser = async (req, res) => {
-	res.cookie("cookie", "", {
-		expires: new Date(0),
-		httpOnly: true,
-	});
+  res.clearCookie("bbo_auth", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/",
+  });
 
-	res.status(200).json({
-		status: "success",
-		message: "User logged out successfully",
-	});
+  return res.status(200).json({
+    status: "success",
+    message: "User logged out successfully",
+  });
 };
 
 const mailer = nodemailer.createTransport({
@@ -222,7 +292,7 @@ const resetPassword = async (req, res) => {
 				passwordResetExpires: { gt: new Date() },
 			},
 			data: {
-				password: hashedPassword,
+				passwordHash: hashedPassword,
 				passwordResetToken: null,
 				passwordResetExpires: null,
 			},
