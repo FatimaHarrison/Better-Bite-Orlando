@@ -21,7 +21,7 @@ const restaurants = [
         distance: 2.1,
         hours: "Sun-Thu: 11 AM - 10 PM",
         accessibility: "Wheelchair Accessible",
-        image: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=800",
+        image: "../images/agave-azul.jpg",
         tags: ["Vegan Options"],
         diets: ["vegetarian", "vegan"],
         description: "A vibrant Mexican restaurant offering fresh ingredients, flavorful tacos, salads, and delicious plant-based options."
@@ -37,7 +37,7 @@ const restaurants = [
         distance: 3.2,
         hours: "Mon-Thu: 11 AM - 10 PM",
         accessibility: "Wheelchair Accessible",
-        image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=800",
+        image: "../images/carrabas.jpg",
         tags: ["Heart Healthy Options"],
         diets: ["vegetarian", "high-protein"],
         description: "Enjoy Italian-inspired dishes with fresh vegetables, grilled proteins, pasta, and lighter menu selections."
@@ -53,7 +53,7 @@ const restaurants = [
         distance: 4.5,
         hours: "Daily: 7 AM - 3 AM",
         accessibility: "Wheelchair Accessible",
-        image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=1000",
+        image: "../images/backlot-bistro.jpg",
         tags: ["Vegan Options", "Vegetarian Options"],
         diets: ["vegetarian", "vegan", "high-protein", "low-carb"],
         description: "A vibrant dining spot with an American-style menu featuring pizza, burgers, sandwiches, chicken, pasta, and salads. Great options for vegan and vegetarian diners!"
@@ -69,7 +69,7 @@ const restaurants = [
         distance: 5.0,
         hours: "Mon-Thu: 9 AM - 11 PM",
         accessibility: "Wheelchair Accessible",
-        image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800",
+        image: "../images/earls.jpg",
         tags: ["Vegetarian Options"],
         diets: ["vegetarian", "vegan", "low-carb"],
         description: "A modern restaurant offering fresh salads, colorful vegetable dishes, and nutritious meals made with quality ingredients."
