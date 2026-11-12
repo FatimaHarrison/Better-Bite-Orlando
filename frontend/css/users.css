@@ -64,6 +64,11 @@ body{
     color:#456e3a;
 }
 
+.place-image{
+    text-align: center;
+    margin-top: 40px;
+}
+
 .toc{
     display:grid;
     gap:12px;
@@ -88,8 +93,8 @@ body{
 }
 
 .guide-image img{
-    width:100%;
-    max-width:800px;
+    width:45%;
+    max-width:56px;
     border-radius:18px;
     border:2px solid #ddd;
 }
