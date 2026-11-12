@@ -20,11 +20,18 @@ body {
 
 .resources-hero {
     overflow: hidden;
-    background: linear-gradient(
-        110deg,
-        #d9ecfb 0%,
-        #e7f3fa 65%,
-        #ecf5eb 100%
+
+    background:
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(168, 200, 167, 0.35),
+            transparent 45%
+    ),
+linear-gradient(
+    110deg,
+    #e0eef8 0%,
+    #edf5ee 60%,
+    #e2f0dc 100%
     );
 }
 
@@ -33,8 +40,8 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 30px;
-    min-height: 270px;
-    padding: 35px 0;
+    min-height: 210px;
+    padding: 20px 0;
 }
 
 .resources-hero-content {
@@ -44,15 +51,15 @@ body {
 
 .resources-hero h1 {
     color: var(--bbo-primary);
-    font-size: clamp(36px, 4vw, 52px);
+    font-size: clamp(26px, 2vw, 36px);
     font-weight: 800;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .resources-hero p {
-    font-size: 17px;
+    font-size: 14px;
     line-height: 1.5;
-    margin-bottom: 18px;
+    margin-bottom: 0;
 }
 
 .hero-line {
@@ -66,9 +73,21 @@ body {
 
 .resources-hero-art {
     position: relative;
+
     width: 390px;
     height: 210px;
+
     flex-shrink: 0;
+
+    /* Scale the entire illustration */
+    transform: scale(0.8);
+    transform-origin: right center;
+
+    /* Compensate for the original layout dimensions */
+    margin-left: -78px;
+    margin-top: -21px;
+    margin-bottom: -21px;
+
 }
 
 .hero-books {
@@ -441,7 +460,7 @@ a.resource-item:focus-visible {
     }
 
     .resources-hero-art {
-        width: 290px;
+        width: 390px;
         transform: scale(.8);
         transform-origin: center right;
     }
