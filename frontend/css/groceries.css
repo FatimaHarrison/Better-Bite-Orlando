@@ -13,7 +13,16 @@
 .groceries-hero {
     padding: 40px 0 25px;
 
-    background-color: var(--bbo-beige);
+    background-image:
+        linear-gradient(
+            rgba(244, 236, 229, 0.75),
+            rgba(244, 236, 229, 0.75)
+        ),
+        url("../images/grocery-hero.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .groceries-intro {

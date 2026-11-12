@@ -594,6 +594,43 @@ function renderGroceryResults(locations) {
 
 }
 
+// retrieve the signed in user's ZIP code
+async function loadUserZipCode() {
+
+    try {
+        const response = await fetch(
+        "http://127.0.0.1:3001/auth/me",
+        {
+            method: "GET",
+            credentials: "include",
+            cache: "no-store"
+        }
+    );
+
+    // guest user or expired session
+    if (!response.ok) {
+        return;
+    }
+
+    const result = await response.json();
+    const user = result.data?.user;
+
+    //Populate the ZIP code if available
+    if (user?.zipcode !=null ) {
+
+        const zipcode = String(user.zipcde).padStart(5,"0");
+
+        if (!groceryZip.value.trim()) {
+            groceryZip.value = zipcode;
+        }
+    }
+
+    } catch (error) {
+        console.warm("Unable to retrieve user ZIP code:", error);
+    }
+}
+
+
 // search for groceries using backend api
 async function searchGroceries(event) {
     event.preventDefault();
@@ -674,6 +711,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
      //initialzie interactive map
     initializeGroceryMap();
+
+    // retrieve user zip code if available
+    loadUserZipCode();
 
     // dropdown category selection
     groceryCategory.addEventListener("change", () => {

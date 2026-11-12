@@ -206,12 +206,31 @@ requestAnimationFrame(() => {
 
 
 // Retrieve healthy restaurant search results
-async function fetchRestaurants(zip, maxDistance = 10) {
+async function fetchRestaurants(zip, maxDistance = 10, conditions = [], cuisine = "" ) {
 
     const params = new URLSearchParams({
         location: zip,
         maxDistance: String(maxDistance)
     });
+
+    // add dietary preferences to the API request
+    if (conditions.length > 0 ) {
+        params.set("conditions", conditions.join(","));
+    }
+
+    // map selected cuisine to geoapify categories
+    const cuisineCategories = {
+        Mexican: "catering.restaurant.mexican",
+        Italian: "catering.restaurant.italian",
+        American: "catering.restaurant.american",
+        Asian: "catering.restaurant.asian"
+    };
+
+    // add cuisine filter to the API request
+    if (cuisineCategories[cuisine]) {
+        params.set("category", cuisineCategories[cuisine]);
+    }
+
 
     const response = await fetch(
         `${RESTAURANT_API_URL}?${params}`
@@ -241,6 +260,9 @@ const resultCount = document.getElementById("resultCount");
 const searchBtn = document.getElementById("searchBtn");
 const locationInput = document.getElementById("location");
 const distanceInput = document.getElementById("distance");
+
+// Cuisine filter
+const cuisineInput = document.getElementById("cuisine");
 const emptyMessage = document.getElementById("emptyMessage");
 
 // Display selected restaurant details
@@ -465,6 +487,23 @@ async function searchRestaurants() {
     const zip = locationInput.value.trim();
     const maxDistance = Number(distanceInput.value);
 
+    // get selected cuisine
+    const selectedCuisine = cuisineInput.value;
+
+    // get selected dietary preferences
+    const selectedDiets = Array.from(
+        document.querySelectorAll(".diet-options input:checked")
+    ).map(input => input.value);
+
+    const unsupportedDiets = selectedDiets.filter(
+        diet => !["vegetarian", "vegan", "gluten_free", "organic"].includes(diet)
+    );
+
+    if (unsupportedDiets.length > 0) {
+        alert("One or more selected dietary preferences are not supported.")
+        return;
+    }
+
     if (!/^\d{5}$/.test(zip)) {
         alert("Please enter a valid five-digit ZIP code.");
         return;
@@ -474,7 +513,12 @@ async function searchRestaurants() {
     resultCount.textContent = "";
 
     try {
-        const restaurants = await fetchRestaurants(zip, maxDistance);
+        const restaurants = await fetchRestaurants(
+        zip,
+        maxDistance,
+        selectedDiets,
+        selectedCuisine
+    );
 
         // Reset previous restaurant selection
         selectedRestaurant = null;
@@ -502,6 +546,43 @@ async function searchRestaurants() {
     }
 }
 
+// retrieve the signed in user saved zip code
+async function loadUserZipCode() {
+
+    try {
+        const reponse = await fetch (
+            "http://127.0.0.1:3001/auth/me",
+            {
+                method: "GET",
+                credentials: "include",
+                cache: "no-store"
+            }
+        );
+
+        // Guest user or expired session
+        if (!response.ok) {
+            return;
+        }
+
+        const result = await response.json();
+        const user = result.data?.user;
+
+        // populate ZIP code if availbale
+        if (user?.zipcode != null) {
+
+            const zipcode = String(user.zipcode).padStart(5, "0");
+
+            if (!locationInput.value.trim()) {
+                location.value = zipcode;
+            }
+        }
+
+    } catch (error) {
+        console.warn("Unable to retrieve user ZIP code:", error);
+    }
+
+}
+
 // Search button
 searchBtn.addEventListener("click", searchRestaurants);
 
@@ -519,7 +600,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initializeRestaurantMap();
 
-    searchRestaurants();
+    // retrieve ZIP code from user's account
+    loadUserZipCode();
+
+    // display instruction before searching restaurants
+    restaurantGrid.textContent =
+    "Select your preferences and click Search to explore nearby restaurants.";
 
     // Recalculate Leaflet dimensions after layout
     requestAnimationFrame(() => {

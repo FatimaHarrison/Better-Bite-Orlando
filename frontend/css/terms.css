@@ -1,9 +1,12 @@
 /*Fatima's Section */
 /*This css file is for the BBO TERMS OF SERVICE document*/
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* Terms and Conditions CSS */
+
+.terms-page,
+.terms-page *,
+.terms-page *::before,
+.terms-page *::after {
+    box-sizing: border-box;
 }
 
 html{
@@ -11,34 +14,52 @@ html{
 }
 
 body{
-    font-family:'Inter',sans-serif;
-    line-height:1.8;
-    color:#2d2d2d;
-    max-width:1200px;
-    margin:auto;
-    padding:50px 20px;
+    font-family: var(--bbo-font, 'Inter', sans-serif);
+    line-height: 1.5;
+    color: var(--bs-body-color);
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    margin: 0;
+    padding: 0;
+
     background:
         linear-gradient(
-            rgba(217,233,248,.88),
-            rgba(217,233,248,.88)
+            rgba(217, 233, 248, 0.88),
+            rgba(217, 233, 248, 0.88)
         ),
         url("../images/BGP.png");
 
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
+
+/* Terms and Conditions Page Container */
+
+.terms-page {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+    padding: 50px 20px;
+}
+
 
 /* MAIN CONTENT CARD */
 .terms-wrapper{
     background:white;
     padding:50px;
     border-radius:25px;
+    line-height: 1.8;
     box-shadow:
         0 15px 40px rgba(0,0,0,.08);
 }
 /* HEADER */
-h1{
+.terms-wrapper h1{
     text-align:center;
     color:#2d6a35;
     font-size:3rem;
@@ -66,21 +87,21 @@ h1{
 }
 
 /* TEXT */
-p{
+.terms-wrapper p{
     margin-bottom:18px;
 }
 
-ul{
+.terms-wrapper ul{
     margin-left:25px;
     margin-bottom:25px;
 }
 
-li{
+.terms-wrapper li{
     margin-bottom:10px;
 }
 
 /* SECTION HEADERS */
-h2{
+.terms-wrapper h2{
     color:#2d6a35;
     font-size:1.8rem;
     margin-top:50px;
@@ -89,49 +110,51 @@ h2{
     border-left:6px solid #6CC070;
 }
 
-h3{
+.terms-wrapper h3{
     color:#43723c;
     margin-top:20px;
     margin-bottom:12px;
 }
 
 /* TABLE OF CONTENTS */
-nav{
-    background:#eef7ea;
-    border-radius:20px;
-    padding:30px;
-    border:2px solid #dcefd6;
-    margin-bottom:30px;
+
+.terms-toc {
+    background: #eef7ea;
+    border-radius: 20px;
+    padding: 30px;
+    border: 2px solid #dcefd6;
+    margin-bottom: 30px;
 }
 
-nav ul{
-    list-style:none;
-    margin-left:0;
+.terms-toc ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
 }
 
-nav li{
-    margin-bottom:12px;
+.terms-toc li {
+    margin-bottom: 12px;
 }
 
-nav a{
-    text-decoration:none;
-    color:#2d6a35;
-    font-weight:600;
-    transition:.3s;
+.terms-toc a {
+    text-decoration: none;
+    color: #2d6a35;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-nav a:hover{
-    color:#ff8c2a;
-    padding-left:5px;
+.terms-toc a:hover {
+    color: #ff8c2a;
+    padding-left: 5px;
 }
 
 /* LINKS */
-a{
+.terms-wrapper a{
     color:#2d6a35;
     text-decoration:none;
 }
 
-a:hover{
+.terms-wrapper a:hover{
     color:#ff8c2a;
 }
 
@@ -148,38 +171,71 @@ a:hover{
     color:#2d6a35;
 }
 
-/* SPECIAL SECTIONS */
-#warrants,
-#lialimit,
-#indemification,
-#privacyi{
-    scroll-margin-top:20px;
+/* Section Navigation */
+
+.terms-wrapper [id] {
+    scroll-margin-top: 100px;
 }
 
-/* MOBILE VIEW*/
-@media (max-width:768px){
-    body{
-        padding:20px 15px;
-    }
-    .terms-wrapper{
-        padding:25px;
-    }
-   h1{
-        font-size:2.2rem;
-    }
-   h2{
-        font-size:1.4rem;
-    }
-   .terms-logo{
-        max-width:300px;
-    }
-}
-.terms-footer-image {
-    text-align: center;
-    margin-top: 40px;
-}
-.terms-logo {
-    max-width: 400px;
+
+/* Terms Page - Shared Navbar Background */
+
+#site-navbar {
     width: 100%;
-    height: auto;
+    background-color: var(--bs-white);
+}
+
+/* Terms Page - Shared Footer Background */
+
+#footer-container {
+    width: 100%;
+    background-color: var(--bbo-primary, #3d622c);
+}
+
+/* Footer text */
+
+#footer-container {
+    color: var(--bs-white);
+}
+
+#footer-container a {
+    color: var(--bs-white);
+}
+
+/* Shared Footer - White Logo Background */
+
+#footer-container #footer-home-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--bs-white);
+
+    padding: 15px;
+}
+
+
+/* MOBILE VIEW */
+
+@media (max-width: 768px) {
+
+    .terms-page {
+        padding: 20px 15px;
+    }
+
+    .terms-wrapper {
+        padding: 25px;
+    }
+
+    .terms-wrapper h1 {
+        font-size: 2.2rem;
+    }
+
+    .terms-wrapper h2 {
+        font-size: 1.4rem;
+    }
+
+    .terms-logo {
+        max-width: 300px;
+    }
 }
