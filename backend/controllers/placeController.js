@@ -41,33 +41,44 @@ function validCoordinate(value, min, max) {
 async function resolveOrigin(query, apiKey) {
 	const lat = validCoordinate(query.lat, -90, 90);
 	const lon = validCoordinate(query.lon, -180, 180);
+
 	if (lat !== null && lon !== null) return { lat, lon };
 
 	const location = String(query.location ?? query.zip ?? "").trim();
-	if (!location)
+
+	if (!location) {
 		throw Object.assign(
 			new Error("Provide location (address or ZIP), or lat and lon"),
 			{ status: 400 },
 		);
+	}
 
+	const isUSZip = /^\d{5}(?:-\d{4})?$/.test(location);
 	const params = new URLSearchParams({
 		text: location,
+		filter: "countrycode:us",
 		format: "json",
 		limit: "1",
 		apiKey,
 	});
+
+	if (isUSZip) params.set("type", "postcode");
+
 	const payload = await fetchJson(
 		`${GEOAPIFY_GEOCODE_URL}?${params}`,
-		"Geoapify geocoding",
+		"Geoapify forward geocoding",
 	);
+
 	const result = payload?.results?.[0];
 	const resolvedLat = validCoordinate(result?.lat, -90, 90);
 	const resolvedLon = validCoordinate(result?.lon, -180, 180);
+
 	if (resolvedLat === null || resolvedLon === null) {
 		throw Object.assign(new Error(`Could not locate: ${location}`), {
 			status: 400,
 		});
 	}
+
 	return { lat: resolvedLat, lon: resolvedLon };
 }
 
@@ -132,22 +143,39 @@ async function fetchGeoapify(type, origin, maxDistance, query, apiKey) {
 		.map((item) => ({ ...item, type: "grocery" }));
 }
 
-async function fetchFarmersMarkets(origin, maxDistance, query) {
-	const apiKey = process.env.USDA_API_KEY;
-	if (!apiKey)
-		throw Object.assign(new Error("USDA_API_KEY is not configured"), {
+async function fetchFarmersMarkets(origin, maxDistance, query = {}) {
+	const apiKey = process.env.GEOAPIFY_API_KEY;
+	if (!apiKey) {
+		throw Object.assign(new Error("GEOAPIFY_API_KEY is not configured"), {
 			status: 500,
 		});
+	}
+
+	const radiusMiles = maxDistance ?? Number(query.radius ?? 30);
+	if (!Number.isFinite(radiusMiles) || radiusMiles <= 0) {
+		throw Object.assign(
+			new Error("radius must be a positive number of miles"),
+			{
+				status: 400,
+			},
+		);
+	}
+
+	const radiusMeters = Math.round(radiusMiles * 1609.344);
 	const params = new URLSearchParams({
 		apiKey,
-		x: String(origin.lon),
-		y: String(origin.lat),
-		radius: String(maxDistance ?? Number(query.radius ?? 30)),
+		categories: "commercial.marketplace",
+		filter: `circle:${origin.lon},${origin.lat},${radiusMeters}`,
+		bias: `proximity:${origin.lon},${origin.lat}`,
+		limit: String(Math.min(Math.max(Number(query.limit) || 100, 1), 500)),
 	});
+	if (query.conditions) params.set("conditions", String(query.conditions));
+
 	const payload = await fetchJson(
-		`${USDA_BASE_URL}?${params}`,
-		"USDA farmers markets",
+		`${GEOAPIFY_BASE_URL}?${params}`,
+		"Geoapify farmers markets",
 	);
+
 	return getRecords(payload)
 		.map(normalizeFarmersMarket)
 		.map((item) => ({ ...item, type: "farmers-market" }));
@@ -181,12 +209,10 @@ export const findGroceries = async (req, res) => {
 	const allowed = new Set(["groceries", "farmers-markets", "food-pantries"]);
 	const invalid = types.filter((type) => !allowed.has(type));
 	if (invalid.length || !types.length) {
-		return res
-			.status(400)
-			.json({
-				error: "types must include groceries, farmers-markets, and/or food-pantries",
-				invalidTypes: invalid,
-			});
+		return res.status(400).json({
+			error: "types must include groceries, farmers-markets, and/or food-pantries",
+			invalidTypes: invalid,
+		});
 	}
 
 	const distanceValue = req.query.maxDistance;
@@ -207,11 +233,9 @@ export const findGroceries = async (req, res) => {
 		maxDistance !== null;
 	const geoapifyKey = process.env.GEOAPIFY_API_KEY;
 	if (needsOrigin && !geoapifyKey) {
-		return res
-			.status(500)
-			.json({
-				error: "GEOAPIFY_API_KEY is required to resolve the frontend location",
-			});
+		return res.status(500).json({
+			error: "GEOAPIFY_API_KEY is required to resolve the frontend location",
+		});
 	}
 
 	try {
@@ -247,11 +271,9 @@ export const findGroceries = async (req, res) => {
 		return res.status(200).json(results);
 	} catch (error) {
 		console.error("Error finding groceries:", error);
-		return res
-			.status(error.status || 502)
-			.json({
-				error: error.message || "Unable to find nearby food resources",
-			});
+		return res.status(error.status || 502).json({
+			error: error.message || "Unable to find nearby food resources",
+		});
 	}
 };
 
@@ -298,10 +320,8 @@ export const getRestaurants = async (req, res) => {
 		return res.status(200).json(restaurants);
 	} catch (error) {
 		console.error("Error fetching restaurants:", error);
-		return res
-			.status(error.status || 502)
-			.json({
-				error: error.message || "Unable to fetch Geoapify restaurants",
-			});
+		return res.status(error.status || 502).json({
+			error: error.message || "Unable to fetch Geoapify restaurants",
+		});
 	}
 };
