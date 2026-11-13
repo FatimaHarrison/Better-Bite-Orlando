@@ -45,6 +45,22 @@ h1 {
     margin-bottom: 40px;
 }
 
+/* Header Section */
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #2d6a35;
+    margin-bottom: 15px;
+}
+
+.last-updated {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin-bottom: 40px;
+}
+
 /* White Content Container */
 .policy-wrapper {
     background: white;

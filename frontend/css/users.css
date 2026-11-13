@@ -1,15 +1,56 @@
-body{
-    font-family:'Inter',sans-serif;
-
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.8;
+    color: #2d2d2d;
     background:
-    linear-gradient(
-      rgba(217,233,248,.90),
-      rgba(217,233,248,.90)
-    ),
-    url("../images/BGP.png");
+        linear-gradient(
+            rgba(217, 233, 248, 0.88),
+            rgba(217, 233, 248, 0.88)
+        ),
+        url("../images/BGP.png");
 
-    background-size:cover;
-    background-attachment:fixed;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 50px 20px;
+}
+
+/* Main Content Card */
+body {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Intro text */
+p {
+    margin-bottom: 18px;
+}
+
+h3 {
+    color: #43723c;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+/* Lists */
+
+ul {
+    margin-left: 25px;
+    margin-bottom: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Section Headings */
+h2 {
+    color: #2d6a35;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding-left: 16px;
+    border-left: 6px solid #6CC070;
 }
 
 .guide-page{
