@@ -7,7 +7,6 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: #FAFAF7;
     color: #333333;
-    line-height: 1.8;
 }
 
 /* Blog Header */
@@ -51,6 +50,7 @@ body {
     max-width: 850px;
     margin: 50px auto;
     padding: 0 25px;
+    line-height: 1.8;
 }
 
 /* Introduction */
@@ -155,19 +155,6 @@ body {
 
 .marketing-terms li {
     margin-bottom: 8px;
-}
-
-/* Footer */
-.blog-footer {
-    background-color: #315C3B;
-    color: #FFFFFF;
-    text-align: center;
-    padding: 30px 20px;
-    margin-top: 60px;
-}
-
-.blog-footer p {
-    margin: 5px 0;
 }
 
 

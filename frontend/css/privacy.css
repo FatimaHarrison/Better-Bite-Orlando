@@ -1,14 +1,13 @@
 /*Fatima's Section */
 /*This css file is for the BBO Privacy Policy user document*/
 
-* {
-    margin: 0;
-    padding: 0;
+.privacy-page,
+.privacy-page * {
     box-sizing: border-box;
 }
+
 body {
     font-family: 'Inter', sans-serif;
-    line-height: 1.8;
     color: #2d2d2d;
     background:
         linear-gradient(
@@ -20,17 +19,25 @@ body {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    padding: 50px 20px;
+    padding: 0;
 }
 
-/* Main Content Card */
-body {
+/* Privacy Policy Content */
+.privacy-page {
     max-width: 1200px;
-    margin: auto;
+    margin: 40px auto;
+    padding: 50px;
+
+    background-color: white;
+    border-radius: 25px;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+
+    line-height: 1.8;
 }
 
 /* Header Section */
-h1 {
+.privacy-page h1 {
     text-align: center;
     font-size: 3rem;
     font-weight: 800;
@@ -73,12 +80,12 @@ h1 {
 }
 
 /* Intro text */
-p {
+.privacy-page p {
     margin-bottom: 18px;
 }
 
 /* Section Headings */
-h2 {
+.privacy-page h2 {
     color: #2d6a35;
     font-size: 1.8rem;
     font-weight: 700;
@@ -88,7 +95,7 @@ h2 {
     border-left: 6px solid #6CC070;
 }
 
-h3 {
+.privacy-page h3 {
     color: #43723c;
     margin-top: 25px;
     margin-bottom: 10px;
@@ -96,39 +103,44 @@ h3 {
 
 /* Lists */
 
-ul {
+.privacy-page ul {
     margin-left: 25px;
     margin-bottom: 20px;
 }
 
-li {
+.privacy-page li {
     margin-bottom: 10px;
 }
 
-/* TABLE OF CONTENTS*/
-nav {
+/* Privacy Policy Table of Contents */
+.privacy-page nav {
     background: #eef7ea;
     border-radius: 20px;
     padding: 30px;
     margin-top: 20px;
-    border: 2px solid #dce
+    margin-bottom: 30px;
+
+    border: 2px solid #dcefd6;
 }
-/* MOBILE VIEW */
-@media (max-width:768px){
-    body{
-        padding:20px 15px;
+
+/* Mobile View */
+@media (max-width: 768px) {
+
+    .privacy-page {
+        margin: 20px 15px;
+        padding: 25px;
     }
-    .terms-wrapper{
-        padding:25px;
+
+    .privacy-page h1 {
+        font-size: 2.2rem;
     }
-   h1{
-        font-size:2.2rem;
+
+    .privacy-page h2 {
+        font-size: 1.4rem;
     }
-   h2{
-        font-size:1.4rem;
-    }
-   .terms-logo{
-        max-width:300px;
+
+    .privacy-logo {
+        max-width: 300px;
     }
 }
 .privacy-footer-image {
