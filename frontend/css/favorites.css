@@ -1,978 +1,930 @@
-
 /* ==========================================
    BETTER BITE ORLANDO
    FAVORITES PAGE
 ========================================== */
-
 
 /* ==========================================
    GLOBAL STYLES
 ========================================== */
 
 :root {
-    --bbo-green: #416b32;
-    --bbo-dark-green: #3d642d;
-    --bbo-light-green: #a9c9a6;
-    --bbo-orange: #ff8519;
-    --bbo-text: #263b23;
-    --bbo-white: #ffffff;
+  --bbo-green: #416b32;
+  --bbo-dark-green: #3d642d;
+  --bbo-light-green: #a9c9a6;
+  --bbo-orange: #ff8519;
+  --bbo-text: #263b23;
+  --bbo-white: #ffffff;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    overflow-x: clip;
-    scroll-behavior: smooth;
+  overflow-x: clip;
+  scroll-behavior: smooth;
 }
 
 body {
-    width: 100%;
-    min-height: 100vh;
+  width: 100%;
+  min-height: 100vh;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 
-    background: #fff;
-    color: #222;
+  background: #fff;
+  color: #222;
 }
 
 main {
-    flex: 1;
+  flex: 1;
 }
-
 
 /* ==========================================
    HEADER / NAVIGATION
 ========================================== */
 
 .site-header {
-    width: 100%;
-    height: 74px;
-    min-height: 74px;
+  width: 100%;
+  height: 74px;
+  min-height: 74px;
 
-    padding: 0 30px 0 10px;
+  padding: 0 30px 0 10px;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    background: #fff;
+  background: #fff;
 
-    position: relative;
-    z-index: 10;
+  position: relative;
+  z-index: 10;
 }
 
 .logo-link {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 .site-header .logo {
-    display: block;
+  display: block;
 
-    width: 105px;
-    height: auto;
+  width: 105px;
+  height: auto;
 }
 
 .navbar {
-    flex: 1;
+  flex: 1;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    gap: clamp(20px, 5vw, 55px);
+  gap: clamp(20px, 5vw, 55px);
 
-    margin: 0 25px 0 35px;
-    padding: 0;
+  margin: 0 25px 0 35px;
+  padding: 0;
 }
 
 .navbar a {
-    font-size: 11px;
-    font-weight: 500;
+  font-size: 11px;
+  font-weight: 500;
 
-    color: #315b29;
-    text-decoration: none;
-    white-space: nowrap;
+  color: #315b29;
+  text-decoration: none;
+  white-space: nowrap;
 
-    transition: color .2s ease;
+  transition: color 0.2s ease;
 }
 
 .navbar a:hover,
 .navbar a[aria-current="page"] {
-    color: var(--bbo-dark-green);
+  color: var(--bbo-dark-green);
 }
 
 .header-actions {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    gap: 45px;
+  gap: 45px;
 
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 .search-icon {
-    color: #315b29;
+  color: #315b29;
 
-    font-size: 14px;
-    text-decoration: none;
+  font-size: 14px;
+  text-decoration: none;
 }
 
 .search-icon:hover {
-    color: var(--bbo-orange);
+  color: var(--bbo-orange);
 }
 
 .profile-icon {
-    width: 34px;
-    height: 34px;
+  width: 34px;
+  height: 34px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    background: var(--bbo-green);
-    color: #fff;
+  background: var(--bbo-green);
+  color: #fff;
 
-    font-size: 22px;
+  font-size: 22px;
 
-    clip-path: polygon(
-        50% 0,
-        94% 24%,
-        94% 76%,
-        50% 100%,
-        6% 76%,
-        6% 24%
-    );
+  clip-path: polygon(50% 0, 94% 24%, 94% 76%, 50% 100%, 6% 76%, 6% 24%);
 
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .profile-icon:hover {
-    color: #fff;
+  color: #fff;
 }
-
 
 /* ==========================================
    FAVORITES HERO
 ========================================== */
 
 .favorites-hero {
-    width: 100%;
-    height: 128px;
+  width: 100%;
+  height: 128px;
 
-    position: relative;
-    isolation: isolate;
+  position: relative;
+  isolation: isolate;
 
-    padding: 27px 30px 0;
+  padding: 27px 30px 0;
 
-    background: #dceaf4;
+  background: #dceaf4;
 }
 
 .hero-background {
-    position: absolute;
-    inset: 0;
+  position: absolute;
+  inset: 0;
 
-    z-index: -2;
+  z-index: -2;
 
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    object-fit: cover;
-    object-position: center 48%;
+  object-fit: cover;
+  object-position: center 48%;
 }
 
 .hero-overlay {
-    position: absolute;
-    inset: 0;
+  position: absolute;
+  inset: 0;
 
-    z-index: -1;
+  z-index: -1;
 
-    background: rgba(229, 241, 247, 0.72);
+  background: rgba(229, 241, 247, 0.72);
 }
 
 .hero-content {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-content h1 {
-    font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", serif;
 
-    font-size: 23px;
-    font-weight: 700;
-    line-height: 1.2;
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.2;
 
-    color: #080808;
+  color: #080808;
 
-    margin-bottom: 3px;
+  margin-bottom: 3px;
 }
 
 .hero-content p {
-    font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", serif;
 
-    font-size: 8px;
+  font-size: 8px;
 
-    color: #222;
+  color: #222;
 
-    margin: 0;
+  margin: 0;
 }
-
 
 /* ==========================================
    GREEN CATEGORY FILTER BAR
 ========================================== */
 
 .filter-bar {
-    position: absolute;
+  position: absolute;
 
-    z-index: 2;
+  z-index: 2;
 
-    left: 3.2%;
-    right: 3.2%;
-    bottom: 4px;
+  left: 3.2%;
+  right: 3.2%;
+  bottom: 4px;
 
-    height: 53px;
+  height: 53px;
 
-    padding: 0 4%;
+  padding: 0 4%;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    gap: 17px;
+  gap: 17px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    background: var(--bbo-light-green);
+  background: var(--bbo-light-green);
 }
-
 
 /* Decorative leaves */
 
 .filter-bar::before,
 .filter-bar::after {
-    position: absolute;
+  position: absolute;
 
-    top: 0;
+  top: 0;
 
-    height: 100%;
-    width: 34px;
+  height: 100%;
+  width: 34px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    color: #d9f0d4;
+  color: #d9f0d4;
 
-    font-family: "bootstrap-icons";
-    font-size: 30px;
+  font-family: "bootstrap-icons";
+  font-size: 30px;
 
-    content: "\f47b";
+  content: "\f47b";
 
-    opacity: .85;
+  opacity: 0.85;
 
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .filter-bar::before {
-    left: 4px;
+  left: 4px;
 }
 
 .filter-bar::after {
-    right: 4px;
+  right: 4px;
 }
-
 
 /* Filter buttons */
 
 .filter-btn {
-    min-width: 85px;
-    height: 24px;
+  min-width: 85px;
+  height: 24px;
 
-    padding: 3px 15px;
+  padding: 3px 15px;
 
-    border: 1px solid var(--bbo-green);
-    border-radius: 7px;
+  border: 1px solid var(--bbo-green);
+  border-radius: 7px;
 
-    background: #fff;
-    color: #111;
+  background: #fff;
+  color: #111;
 
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 11px;
-    line-height: 1;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 11px;
+  line-height: 1;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 
 .filter-btn:hover,
 .filter-btn.active {
-    background: #fff;
-    border-color: var(--bbo-green);
-    color: #111;
+  background: #fff;
+  border-color: var(--bbo-green);
+  color: #111;
 }
 
 .filter-btn:focus-visible {
-    outline: 2px solid var(--bbo-orange);
-    outline-offset: 3px;
+  outline: 2px solid var(--bbo-orange);
+  outline-offset: 3px;
 }
-
 
 /* ==========================================
    FAVORITES CONTAINER
 ========================================== */
 
 .favorites-container {
-    width: 100%;
-    max-width: 1180px;
+  width: 100%;
+  max-width: 1180px;
 
-    margin: 0 auto;
+  margin: 0 auto;
 
-    padding: 25px 20px 12px;
+  padding: 25px 20px 12px;
 }
-
 
 /* ==========================================
    FAVORITES GRID
 ========================================== */
 
 .favorites-grid {
-    width: 100%;
+  width: 100%;
 
-    display: grid;
+  display: grid;
 
-    grid-template-columns: repeat(3, minmax(0, 215px));
+  grid-template-columns: repeat(3, minmax(0, 215px));
 
-    column-gap: 17px;
-    row-gap: 12px;
+  column-gap: 17px;
+  row-gap: 12px;
 
-    justify-content: start;
-    align-items: stretch;
+  justify-content: start;
+  align-items: stretch;
 }
-
 
 /* ==========================================
    FAVORITE CARDS
 ========================================== */
 
 .favorite-card {
-    width: 100%;
-    height: 152px;
-    min-height: 152px;
+  width: 100%;
+  height: 152px;
+  min-height: 152px;
 
-    overflow: hidden;
+  overflow: hidden;
 
-    position: relative;
+  position: relative;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    border: 1px solid #c9c9c9;
-    border-radius: 13px;
+  border: 1px solid #c9c9c9;
+  border-radius: 13px;
 
-    background: #fff;
+  background: #fff;
 
-    transition: box-shadow .2s ease;
+  transition: box-shadow 0.2s ease;
 }
 
 .favorite-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .09);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09);
 }
 
 .favorite-card[hidden] {
-    display: none !important;
+  display: none !important;
 }
-
 
 /* ==========================================
    CARD IMAGE
 ========================================== */
 
 .card-image {
-    width: 100%;
-    height: 58px;
-    min-height: 58px;
+  width: 100%;
+  height: 58px;
+  min-height: 58px;
 
-    flex-shrink: 0;
+  flex-shrink: 0;
 
-    position: relative;
+  position: relative;
 
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .card-image > img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    display: block;
+  display: block;
 
-    object-fit: cover;
-    object-position: center;
+  object-fit: cover;
+  object-position: center;
 
-    transition: transform .3s ease;
+  transition: transform 0.3s ease;
 }
 
 .favorite-card:hover .card-image > img {
-    transform: scale(1.04);
+  transform: scale(1.04);
 }
-
 
 /* ==========================================
    FAVORITE HEART BUTTON
 ========================================== */
 
 .favorite-heart {
-    position: absolute;
+  position: absolute;
 
-    top: 8px;
-    right: 7px;
+  top: 8px;
+  right: 7px;
 
-    width: 33px;
-    height: 33px;
+  width: 33px;
+  height: 33px;
 
-    display: grid;
-    place-items: center;
+  display: grid;
+  place-items: center;
 
-    border: 2px solid #fff;
-    border-radius: 50%;
+  border: 2px solid #fff;
+  border-radius: 50%;
 
-    background: #fff;
+  background: #fff;
 
-    color: #222;
+  color: #222;
 
-    font-size: 19px;
+  font-size: 19px;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 
-    transition:
-        transform .2s ease,
-        color .2s ease;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
 }
 
 .favorite-heart:hover {
-    transform: scale(1.08);
+  transform: scale(1.08);
 }
 
 .favorite-heart.active {
-    color: #222;
+  color: #222;
 }
 
 .favorite-heart:not(.active) {
-    color: #999;
+  color: #999;
 }
 
 .favorite-heart:focus-visible {
-    outline: 2px solid var(--bbo-orange);
-    outline-offset: 3px;
+  outline: 2px solid var(--bbo-orange);
+  outline-offset: 3px;
 }
-
 
 /* ==========================================
    CARD BODY
 ========================================== */
 
 .card-body {
-    flex: 1;
+  flex: 1;
 
-    min-height: 0;
+  min-height: 0;
 
-    padding: 9px 4px 7px;
+  padding: 9px 4px 7px;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-
 
 /* ==========================================
    CARD TITLE ROW
 ========================================== */
 
 .card-title-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    gap: 4px;
+  gap: 4px;
 
-    margin-bottom: 6px;
+  margin-bottom: 6px;
 
-    flex-wrap: nowrap;
+  flex-wrap: nowrap;
 }
 
 .card-title-row h2 {
-    min-width: 0;
+  min-width: 0;
 
-    margin: 0;
+  margin: 0;
 
-    font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", serif;
 
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1.15;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.15;
 
-    color: #111;
+  color: #111;
 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
 
 /* ==========================================
    CATEGORY LABELS
 ========================================== */
 
 .category-tag {
-    flex-shrink: 0;
+  flex-shrink: 0;
 
-    padding: 3px 7px;
+  padding: 3px 7px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", serif;
 
-    font-size: 8px;
-    line-height: 1;
+  font-size: 8px;
+  line-height: 1;
 
-    color: var(--bbo-text);
+  color: var(--bbo-text);
 
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .restaurant-tag,
 .recipe-tag,
 .groceries-tag {
-    background: var(--bbo-light-green);
+  background: var(--bbo-light-green);
 }
-
 
 /* ==========================================
    CARD DESCRIPTIONS
 ========================================== */
 
 .card-description {
-    font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", serif;
 
-    font-size: 9px;
-    line-height: 1.3;
+  font-size: 9px;
+  line-height: 1.3;
 
-    color: #555;
+  color: #555;
 
-    margin: 0 0 4px;
+  margin: 0 0 4px;
 }
-
 
 /* ==========================================
    VIEW DETAILS LINK
 ========================================== */
 
 .card-footer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 
-    margin-top: auto;
+  margin-top: auto;
 }
 
 .view-details {
-    font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", serif;
 
-    font-size: 7px;
+  font-size: 7px;
 
-    color: var(--bbo-green);
+  color: var(--bbo-green);
 
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .view-details:hover {
-    color: var(--bbo-orange);
+  color: var(--bbo-orange);
 }
-
 
 /* ==========================================
    EMPTY FAVORITES MESSAGE
 ========================================== */
 
 .empty-message {
-    width: 100%;
+  width: 100%;
 
-    text-align: center;
+  text-align: center;
 
-    padding: 35px 10px;
+  padding: 35px 10px;
 
-    font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, "Times New Roman", serif;
 
-    font-size: 14px;
+  font-size: 14px;
 
-    color: var(--bbo-green);
+  color: var(--bbo-green);
 }
 
 .empty-message[hidden] {
-    display: none !important;
+  display: none !important;
 }
-
 
 /* ==========================================
    FOOTER
 ========================================== */
 
 .site-footer {
-    width: 100%;
-    min-height: 62px;
+  width: 100%;
+  min-height: 62px;
 
-    display: flex;
-    align-items: stretch;
+  display: flex;
+  align-items: stretch;
 
-    background: var(--bbo-dark-green);
+  background: var(--bbo-dark-green);
 
-    margin-top: auto;
+  margin-top: auto;
 }
-
 
 /* Footer logo */
 
 .footer-logo {
-    width: 115px;
-    min-width: 115px;
+  width: 115px;
+  min-width: 115px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    padding: 5px;
+  padding: 5px;
 
-    background: #fff;
+  background: #fff;
 }
 
 .footer-logo img {
-    width: 105px;
-    height: auto;
+  width: 105px;
+  height: auto;
 
-    display: block;
+  display: block;
 }
-
 
 /* Footer content */
 
 .footer-content {
-    flex: 1;
+  flex: 1;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    gap: 20px;
+  gap: 20px;
 
-    padding: 10px 30px;
+  padding: 10px 30px;
 }
-
 
 /* Footer navigation */
 
 .footer-links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    gap: clamp(20px, 5vw, 60px);
+  gap: clamp(20px, 5vw, 60px);
 }
 
 .footer-links a {
-    color: #fff;
+  color: #fff;
 
-    font-size: 10px;
-    font-weight: 500;
+  font-size: 10px;
+  font-weight: 500;
 
-    text-decoration: none;
-    white-space: nowrap;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .footer-links a:hover {
-    color: #d9f4df;
+  color: #d9f4df;
 }
-
 
 /* Footer message */
 
 .footer-message {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    gap: 8px;
+  gap: 8px;
 
-    color: #fff;
+  color: #fff;
 
-    font-size: 10px;
+  font-size: 10px;
 
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .footer-message i {
-    color: var(--bbo-orange);
+  color: var(--bbo-orange);
 
-    font-size: 16px;
+  font-size: 16px;
 }
-
 
 /* ==========================================
    TABLET RESPONSIVE
 ========================================== */
 
 @media (max-width: 900px) {
+  .site-header {
+    padding: 0 18px;
+  }
 
-    .site-header {
-        padding: 0 18px;
-    }
+  .navbar {
+    gap: 18px;
+    margin: 0 15px;
+  }
 
-    .navbar {
-        gap: 18px;
-        margin: 0 15px;
-    }
+  .header-actions {
+    gap: 20px;
+  }
 
-    .header-actions {
-        gap: 20px;
-    }
+  .footer-content {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
-    .footer-content {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+  .footer-links {
+    gap: 20px;
+  }
 
-    .footer-links {
-        gap: 20px;
-    }
-
-    .footer-message {
-        justify-content: center;
-    }
-
+  .footer-message {
+    justify-content: center;
+  }
 }
-
 
 /* ==========================================
    SMALL TABLETS
 ========================================== */
 
 @media (max-width: 760px) {
+  .favorites-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 
-    .favorites-container {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .favorites-grid {
-        grid-template-columns: repeat(2, minmax(0, 215px));
-    }
-
+  .favorites-grid {
+    grid-template-columns: repeat(2, minmax(0, 215px));
+  }
 }
-
 
 /* ==========================================
    MOBILE RESPONSIVE
 ========================================== */
 
 @media (max-width: 650px) {
+  /* Header */
 
-    /* Header */
+  .site-header {
+    height: auto;
+    min-height: 75px;
 
-    .site-header {
-        height: auto;
-        min-height: 75px;
+    padding: 10px 15px;
 
-        padding: 10px 15px;
+    flex-wrap: wrap;
+  }
 
-        flex-wrap: wrap;
-    }
+  .site-header .logo {
+    width: 95px;
+  }
 
-    .site-header .logo {
-        width: 95px;
-    }
+  .navbar {
+    order: 3;
 
-    .navbar {
-        order: 3;
+    width: 100%;
+    flex-basis: 100%;
 
-        width: 100%;
-        flex-basis: 100%;
+    margin: 12px 0 3px;
 
-        margin: 12px 0 3px;
+    gap: 12px 20px;
 
-        gap: 12px 20px;
+    flex-wrap: wrap;
+  }
 
-        flex-wrap: wrap;
-    }
+  .navbar a {
+    font-size: 10px;
+  }
 
-    .navbar a {
-        font-size: 10px;
-    }
+  .header-actions {
+    margin-left: auto;
+  }
 
-    .header-actions {
-        margin-left: auto;
-    }
+  /* Hero */
 
+  .favorites-hero {
+    height: 160px;
 
-    /* Hero */
+    padding: 20px 18px 0;
+  }
 
-    .favorites-hero {
-        height: 160px;
+  .hero-content h1 {
+    font-size: 23px;
+  }
 
-        padding: 20px 18px 0;
-    }
+  /* Filter bar */
 
-    .hero-content h1 {
-        font-size: 23px;
-    }
+  .filter-bar {
+    left: 3%;
+    right: 3%;
 
+    bottom: 7px;
 
-    /* Filter bar */
+    height: 48px;
 
-    .filter-bar {
-        left: 3%;
-        right: 3%;
+    gap: 7px;
 
-        bottom: 7px;
+    padding: 0 25px;
+  }
 
-        height: 48px;
+  .filter-btn {
+    min-width: 0;
 
-        gap: 7px;
+    flex: 1;
 
-        padding: 0 25px;
-    }
+    padding: 4px 5px;
 
-    .filter-btn {
-        min-width: 0;
+    font-size: 10px;
+  }
 
-        flex: 1;
+  .filter-bar::before,
+  .filter-bar::after {
+    font-size: 20px;
+    width: 20px;
+  }
 
-        padding: 4px 5px;
+  /* Favorites grid */
 
-        font-size: 10px;
-    }
+  .favorites-container {
+    padding: 20px 14px;
+  }
 
-    .filter-bar::before,
-    .filter-bar::after {
-        font-size: 20px;
-        width: 20px;
-    }
+  .favorites-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
+    gap: 13px;
+  }
 
-    /* Favorites grid */
+  .favorite-card {
+    width: 100%;
 
-    .favorites-container {
-        padding: 20px 14px;
-    }
+    height: 190px;
+    min-height: 190px;
+  }
 
-    .favorites-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Card images */
 
-        gap: 13px;
-    }
+  .card-image {
+    height: 85px;
+    min-height: 85px;
+  }
 
-    .favorite-card {
-        width: 100%;
+  /* Card text */
 
-        height: 190px;
-        min-height: 190px;
-    }
+  .card-title-row {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
 
+  .card-title-row h2 {
+    font-size: 13px;
+    white-space: normal;
+  }
 
-    /* Card images */
+  .card-description {
+    font-size: 9px;
+  }
 
-    .card-image {
-        height: 85px;
-        min-height: 85px;
-    }
+  /* Footer */
 
+  .site-footer {
+    flex-direction: column;
+  }
 
-    /* Card text */
+  .footer-logo {
+    width: 100%;
+    min-width: 0;
 
-    .card-title-row {
-        align-items: flex-start;
-        flex-wrap: wrap;
-    }
+    padding: 10px;
+  }
 
-    .card-title-row h2 {
-        font-size: 13px;
-        white-space: normal;
-    }
+  .footer-logo img {
+    width: 100px;
+  }
 
-    .card-description {
-        font-size: 9px;
-    }
+  .footer-content {
+    padding: 20px 12px;
 
+    gap: 18px;
+  }
 
-    /* Footer */
+  .footer-links {
+    flex-wrap: wrap;
 
-    .site-footer {
-        flex-direction: column;
-    }
-
-    .footer-logo {
-        width: 100%;
-        min-width: 0;
-
-        padding: 10px;
-    }
-
-    .footer-logo img {
-        width: 100px;
-    }
-
-    .footer-content {
-        padding: 20px 12px;
-
-        gap: 18px;
-    }
-
-    .footer-links {
-        flex-wrap: wrap;
-
-        gap: 15px 20px;
-    }
-
+    gap: 15px 20px;
+  }
 }
-
 
 /* ==========================================
    SMALL PHONES
 ========================================== */
 
 @media (max-width: 400px) {
+  .favorites-grid {
+    grid-template-columns: 1fr;
+  }
 
-    .favorites-grid {
-        grid-template-columns: 1fr;
-    }
+  .favorite-card {
+    height: 200px;
+    min-height: 200px;
+  }
 
-    .favorite-card {
-        height: 200px;
-        min-height: 200px;
-    }
+  .card-image {
+    height: 95px;
+    min-height: 95px;
+  }
 
-    .card-image {
-        height: 95px;
-        min-height: 95px;
-    }
+  .card-title-row h2 {
+    font-size: 15px;
+  }
 
-    .card-title-row h2 {
-        font-size: 15px;
-    }
+  .card-description {
+    font-size: 10px;
+  }
 
-    .card-description {
-        font-size: 10px;
-    }
-
-    .footer-links {
-        gap: 12px;
-    }
-
+  .footer-links {
+    gap: 12px;
+  }
 }

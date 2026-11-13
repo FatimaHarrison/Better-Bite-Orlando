@@ -10,14 +10,227 @@ const detailsContent = document.getElementById("detailsContent");
 // Track selected restaurant
 let selectedRestaurant = null;
 
+// Restaurant map
+let restaurantMap = null;
+let restaurantMarkers = null;
+const restaurantLocationMarkers = new Map();
+
+// Generate Google Maps directions URL
+function getRestaurantDirectionsUrl(restaurant, mode = "driving") {
+
+    const mapsUrl = new URL(
+        "https://www.google.com/maps/dir/"
+    );
+
+    mapsUrl.searchParams.set("api", "1");
+
+    const lat = Number(restaurant.latitude);
+    const lon = Number(restaurant.longitude);
+
+    const hasCoordinates =
+        restaurant.latitude != null &&
+        restaurant.longitude != null &&
+        Number.isFinite(lat) &&
+        Number.isFinite(lon) &&
+        lat >= -90 &&
+        lat <= 90 &&
+        lon >= -180 &&
+        lon <= 180;
+
+    const destination = hasCoordinates
+        ? `${lat},${lon}`
+        : `${restaurant.name || ""}, ${restaurant.address || ""}`;
+
+    mapsUrl.searchParams.set("destination", destination);
+    mapsUrl.searchParams.set("travelmode", mode);
+
+    return mapsUrl.toString();
+}
+
+// Initialize Leaflet map
+function initializeRestaurantMap() {
+
+    restaurantMap = L.map("restaurant-map").setView(
+        [28.5383, -81.3792],
+        11
+    );
+
+    // OpenStreetMap tiles
+    L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom: 19,
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }
+    ).addTo(restaurantMap);
+
+    restaurantMarkers = L.featureGroup().addTo(restaurantMap);
+
+    // Refresh map dimensions after browser layout
+    requestAnimationFrame(() => {
+
+    restaurantMap.invalidateSize();
+
+});
+}
+
+// Display restaurant locations on map
+function updateRestaurantMap(restaurants) {
+
+    if (!restaurantMap || !restaurantMarkers) {
+        return;
+    }
+
+    restaurantMarkers.clearLayers();
+    restaurantLocationMarkers.clear();
+
+    restaurants.forEach((restaurant) => {
+
+        const lat = Number(restaurant.latitude);
+        const lon = Number(restaurant.longitude);
+
+        if (
+            restaurant.latitude == null ||
+            restaurant.longitude == null ||
+            !Number.isFinite(lat) ||
+            !Number.isFinite(lon) ||
+            lat < -90 || lat > 90 ||
+            lon < -180 || lon > 180
+        ) {
+            return;
+        }
+
+        const marker = L.marker([lat, lon]);
+
+        const popup = document.createElement("div");
+
+        const name = document.createElement("strong");
+        name.textContent =
+            restaurant.name || "Unnamed Restaurant";
+
+        const address = document.createElement("p");
+        address.textContent =
+            restaurant.address || "Address unavailable";
+
+  // Transportation directions inside map popup
+const directionsContainer = document.createElement("div");
+directionsContainer.className = "restaurant-map-directions";
+
+const transportationModes = [
+    { label: "Drive", mode: "driving", icon: "bi-car-front" },
+    { label: "Bus", mode: "transit", icon: "bi-bus-front" },
+    { label: "Walk", mode: "walking", icon: "bi-person-walking" }
+];
+
+transportationModes.forEach((transport) => {
+
+    const link = document.createElement("a");
+
+    link.href = getRestaurantDirectionsUrl(
+        restaurant,
+        transport.mode
+    );
+
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+
+    link.className = "restaurant-direction-link";
+
+    const icon = document.createElement("i");
+    icon.className = `bi ${transport.icon}`;
+
+    link.append(
+        icon,
+        document.createTextNode(transport.label)
+    );
+
+    directionsContainer.appendChild(link);
+});
+
+popup.append(
+    name,
+    address,
+    directionsContainer
+);
+
+marker.bindPopup(popup);
+
+// Select restaurant when marker is clicked
+marker.on("click", () => {
+
+    selectedRestaurant = restaurant;
+
+    // Update restaurant details
+    showRestaurantDetails(restaurant);
+
+    // Highlight corresponding restaurant card
+    restaurantGrid
+        .querySelectorAll(".restaurant-card")
+        .forEach((card) => {
+            card.classList.remove("selected");
+        });
+
+    const restaurantIndex = restaurants.indexOf(restaurant);
+
+    const cards = restaurantGrid.querySelectorAll(".restaurant-card");
+
+    if (cards[restaurantIndex]) {
+        cards[restaurantIndex].classList.add("selected");
+    }
+});
+
+marker.addTo(restaurantMarkers);
+
+        restaurantLocationMarkers.set(restaurant, marker);
+    });
+
+    if (restaurantMarkers.getLayers().length > 0) {
+
+        restaurantMap.fitBounds(
+            restaurantMarkers.getBounds(),
+            {
+                padding: [30, 30],
+                maxZoom: 14
+            }
+        );
+    }
+
+// Allow the browser to finish laying out the map
+requestAnimationFrame(() => {
+
+    restaurantMap.invalidateSize();
+
+});}
+
+
 
 // Retrieve healthy restaurant search results
-async function fetchRestaurants(zip, maxDistance = 10) {
+async function fetchRestaurants(zip, maxDistance = 10, conditions = [], cuisine = "" ) {
 
     const params = new URLSearchParams({
         location: zip,
         maxDistance: String(maxDistance)
     });
+
+    // add dietary preferences to the API request
+    if (conditions.length > 0 ) {
+        params.set("conditions", conditions.join(","));
+    }
+
+    // map selected cuisine to geoapify categories
+    const cuisineCategories = {
+        Mexican: "catering.restaurant.mexican",
+        Italian: "catering.restaurant.italian",
+        American: "catering.restaurant.american",
+        Asian: "catering.restaurant.asian"
+    };
+
+    // add cuisine filter to the API request
+    if (cuisineCategories[cuisine]) {
+        params.set("category", cuisineCategories[cuisine]);
+    }
+
 
     const response = await fetch(
         `${RESTAURANT_API_URL}?${params}`
@@ -47,12 +260,29 @@ const resultCount = document.getElementById("resultCount");
 const searchBtn = document.getElementById("searchBtn");
 const locationInput = document.getElementById("location");
 const distanceInput = document.getElementById("distance");
+
+// Cuisine filter
+const cuisineInput = document.getElementById("cuisine");
 const emptyMessage = document.getElementById("emptyMessage");
 
 // Display selected restaurant details
 function showRestaurantDetails(restaurant) {
 
     selectedRestaurant = restaurant;
+
+    // Focus selected restaurant on map
+const selectedMarker = restaurantLocationMarkers.get(restaurant);
+
+if (selectedMarker && restaurantMap) {
+
+    restaurantMap.setView(
+        selectedMarker.getLatLng(),
+        15
+    );
+
+    selectedMarker.openPopup();
+}
+
 
     const name = restaurant.name || "Unnamed Restaurant";
     const address = restaurant.address || "Address unavailable";
@@ -84,29 +314,54 @@ function showRestaurantDetails(restaurant) {
     const actions = document.createElement("div");
     actions.className = "restaurant-detail-actions";
 
-    if (address !== "Address unavailable") {
+// Transportation options
+const transportationModes = [
+    { label: "Drive", mode: "driving", icon: "bi-car-front" },
+    { label: "Bus", mode: "transit", icon: "bi-bus-front" },
+    { label: "Walk", mode: "walking", icon: "bi-person-walking" }
+];
 
-        const directions = document.createElement("a");
+const hasDestination =
+    address !== "Address unavailable" ||
+    (
+        restaurant.latitude != null &&
+        restaurant.longitude != null &&
+        Number.isFinite(Number(restaurant.latitude)) &&
+        Number.isFinite(Number(restaurant.longitude))
+    );
 
-        const mapsUrl = new URL(
-            "https://www.google.com/maps/dir/"
+if (hasDestination) {
+
+    const directionsContainer = document.createElement("div");
+    directionsContainer.className = "restaurant-detail-directions";
+
+    transportationModes.forEach((transport) => {
+
+        const link = document.createElement("a");
+
+        link.href = getRestaurantDirectionsUrl(
+            restaurant,
+            transport.mode
         );
 
-        mapsUrl.searchParams.set("api", "1");
-        mapsUrl.searchParams.set(
-            "destination",
-            `${name}, ${address}`
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+
+        link.className = "restaurant-direction-link";
+
+        const icon = document.createElement("i");
+        icon.className = `bi ${transport.icon}`;
+
+        link.append(
+            icon,
+            document.createTextNode(transport.label)
         );
 
-        directions.href = mapsUrl.toString();
-        directions.target = "_blank";
-        directions.rel = "noopener noreferrer";
-        directions.className = "btn btn-primary";
+        directionsContainer.appendChild(link);
+    });
 
-        directions.textContent = "Get Directions";
-
-        actions.appendChild(directions);
-    }
+    actions.appendChild(directionsContainer);
+}
 
     details.append(
         heading,
@@ -118,8 +373,6 @@ function showRestaurantDetails(restaurant) {
 
     detailsContent.appendChild(details);
 }
-
-
 // Display restaurant cards from API results
 function renderRestaurants(restaurants) {
 
@@ -234,6 +487,23 @@ async function searchRestaurants() {
     const zip = locationInput.value.trim();
     const maxDistance = Number(distanceInput.value);
 
+    // get selected cuisine
+    const selectedCuisine = cuisineInput.value;
+
+    // get selected dietary preferences
+    const selectedDiets = Array.from(
+        document.querySelectorAll(".diet-options input:checked")
+    ).map(input => input.value);
+
+    const unsupportedDiets = selectedDiets.filter(
+        diet => !["vegetarian", "vegan", "gluten_free", "organic"].includes(diet)
+    );
+
+    if (unsupportedDiets.length > 0) {
+        alert("One or more selected dietary preferences are not supported.")
+        return;
+    }
+
     if (!/^\d{5}$/.test(zip)) {
         alert("Please enter a valid five-digit ZIP code.");
         return;
@@ -243,11 +513,30 @@ async function searchRestaurants() {
     resultCount.textContent = "";
 
     try {
-        const restaurants = await fetchRestaurants(zip, maxDistance);
+        const restaurants = await fetchRestaurants(
+        zip,
+        maxDistance,
+        selectedDiets,
+        selectedCuisine
+    );
+
+        // Reset previous restaurant selection
+        selectedRestaurant = null;
+
+        detailsContent.replaceChildren();
+
+        const placeholder = document.createElement("p");
+        placeholder.className = "empty-details";
+        placeholder.textContent = "Select a restaurant to view its details.";
+
+        detailsContent.appendChild(placeholder);
 
         console.log("Loaded restaurants:", restaurants);
 
         renderRestaurants(restaurants);
+
+        // Update map with restaurant search results
+        updateRestaurantMap(restaurants);
 
     } catch (error) {
         console.error("Restaurant search failed:", error);
@@ -255,6 +544,43 @@ async function searchRestaurants() {
         restaurantGrid.textContent =
             `Unable to load restaurants: ${error.message}`;
     }
+}
+
+// retrieve the signed in user saved zip code
+async function loadUserZipCode() {
+
+    try {
+        const reponse = await fetch (
+            "http://127.0.0.1:3001/auth/me",
+            {
+                method: "GET",
+                credentials: "include",
+                cache: "no-store"
+            }
+        );
+
+        // Guest user or expired session
+        if (!response.ok) {
+            return;
+        }
+
+        const result = await response.json();
+        const user = result.data?.user;
+
+        // populate ZIP code if availbale
+        if (user?.zipcode != null) {
+
+            const zipcode = String(user.zipcode).padStart(5, "0");
+
+            if (!locationInput.value.trim()) {
+                location.value = zipcode;
+            }
+        }
+
+    } catch (error) {
+        console.warn("Unable to retrieve user ZIP code:", error);
+    }
+
 }
 
 // Search button
@@ -266,4 +592,24 @@ locationInput.addEventListener("keydown", (event) => {
         event.preventDefault();
         searchRestaurants();
     }
+
+});
+
+// Initialize restaurant map
+document.addEventListener("DOMContentLoaded", () => {
+
+    initializeRestaurantMap();
+
+    // retrieve ZIP code from user's account
+    loadUserZipCode();
+
+    // display instruction before searching restaurants
+    restaurantGrid.textContent =
+    "Select your preferences and click Search to explore nearby restaurants.";
+
+    // Recalculate Leaflet dimensions after layout
+    requestAnimationFrame(() => {
+        restaurantMap.invalidateSize();
+    });
+
 });

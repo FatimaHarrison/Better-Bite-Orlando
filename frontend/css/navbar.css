@@ -1,128 +1,125 @@
 /* ==  navigation bar == */
 
+/* Prevent page movement while navbar loads */
+#site-navbar {
+  min-height: 145px;
+}
+
 /* main header */
 .site-header {
-    width: 100%;
-    height: auto;
-    padding: 0;
-    display: block;
-    background-color: var(--bbo-white);
+  width: 100%;
+  height: auto;
+  padding: 0;
+  display: block;
+  background-color: var(--bbo-white);
 }
 
 /* navigation */
 .site-header .navbar {
-    display: flex;
-    width:auto;
-    min-height: 85px;
-    margin: 0;
-    padding: 10px 25px;
-    gap: 0;
+  display: flex;
+  width: auto;
+  min-height: 85px;
+  margin: 0;
+  padding: 10px 25px;
+  gap: 0;
 }
 
 /* Logo */
 .site-header .site-logo {
-    width: 115px;
-    height: auto;
-    display: block;
+  width: 115px;
+  height: auto;
+  display: block;
 }
 
 /* Center navigation */
 .site-header .navbar-nav {
-    display: flex;
-    align-items: center;
-    gap: clamp(8px, 1.2vw, 20px);
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.2vw, 20px);
 }
 
-/* navigation links */ 
+/* navigation links */
 .site-header .navbar-nav .nav-link {
-    color: var(--bbo-primary);
-    font-family: var(--bbo-font);
-    font-size: 16px;
-    font-weight: 500;
-    white-space: nowrap;
-    text-decoration: none;
+  color: var(--bbo-primary);
+  font-family: var(--bbo-font);
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
 
-    padding: 10px 10px;
-    border-radius: 30px;
+  padding: 10px 10px;
+  border-radius: 30px;
 
-    transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 /* Hover Effect */
 .site-header .navbar-nav .nav-link:hover {
-    background-color: #E5F2DF;
-    color: var(--bbo-primary-hover);
+  background-color: #e5f2df;
+  color: var(--bbo-primary-hover);
 }
 
-/*Active Page */ 
+/*Active Page */
 .site-header .navbar-nav .nav-link.active,
 .site-header .navbar-nav .nav-link.active:hover {
-    background-color: var(--bbo-primary);
-    color: var(--bbo-white);
-    font-weight: 700;
-    text-decoration: none;
+  background-color: var(--bbo-primary);
+  color: var(--bbo-white);
+  font-weight: 700;
+  text-decoration: none;
 }
-
 
 /* Hexagonal profile icon   */
 .site-header .account-link {
-    width: 36px;
-    height: 36px;
-    flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-    margin-left: 22px;
-    color: var(--bbo-white, #FFFFFF);
-    background-color: var(--bbo-primary, #3D622C);
+  margin-left: 22px;
+  color: var(--bbo-white, #ffffff);
+  background-color: var(--bbo-primary, #3d622c);
 
-    clip-path: polygon(
-        50% 0%,
-        100% 25%,
-        100% 75%,
-        50% 100%,
-        0% 75%,
-        0% 25%
-    );
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 
-    transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 /* white person icon */
 .site-header .account-link i {
-    font-size: 19px;
-    color:var(--bbo-white, #FFFFFF);
-    background: transparent
+  font-size: 19px;
+  color: var(--bbo-white, #ffffff);
+  background: transparent;
 }
 
 /* profile icon hover effect */
 .site-header .account-link:hover,
 .site-header .account-link:focus-visible {
-    background-color: var(--bbo-primary-hover);
+  background-color: var(--bbo-primary-hover);
 }
 
 .site-header .account-link:hover i {
-    background-color: transparent;
+  background-color: transparent;
 }
-
 
 /* responsive Navigation */
 @media (max-width: 991.98px) {
-
-    .site-header .navbar {
+  .site-header .navbar {
     padding: 10px 20px;
-    }
+  }
 
-    .site-header .navbar-nav {
-        align-items: flex-start;
-        gap: 10px;
-        padding-top: 15px;
-    }
+  .site-header .navbar-nav {
+    align-items: flex-start;
+    gap: 10px;
+    padding-top: 15px;
+  }
 
-    .site-header .account-link {
-        margin-left: 0;
-        margin-top: 10px;
-    }
+  .site-header .account-link {
+    margin-left: 0;
+    margin-top: 10px;
+  }
 }

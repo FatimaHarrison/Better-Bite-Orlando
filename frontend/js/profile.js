@@ -29,10 +29,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       throw new Error("User information unavailable.");
     }
 
-    // Populate profile inputs using the backend user fields
-    document.getElementById("profile-first-name").value = user.firstName ?? "";
-    document.getElementById("profile-last-name").value = user.lastName ?? "";
-    document.getElementById("profile-email").value = user.email ?? "";
+        // your database currently stores one full name
+        const nameParts = (user.name || "").trim().split(/\s+/);
+        const firstName = nameParts.shift() || "";
+        const lastName = nameParts.join(" ");
+
+        // populate profile inputs
+
+
+        document.getElementById("profile-first-name").value = firstName;
+
+        document.getElementById("profile-last-name").value = lastName;
+
+        document.getElementById("profile-email").value = user.email || "";
 
     document.getElementById("profile-zip").value =
       user.zipcode != null ? String(user.zipcode).padStart(5, "0") : "";

@@ -1,130 +1,150 @@
 /*Fatima's Section */
 /*This css file is for the BBO Privacy Policy user document*/
 
-/* BETTER BITE ORLANDO
-   PRIVACY POLICY STYLESHEET */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body {
-    font-family: 'Inter', sans-serif;
-    line-height: 1.8;
-    color: #2d2d2d;
-    background:
-        linear-gradient(
-            rgba(217, 233, 248, 0.88),
-            rgba(217, 233, 248, 0.88)
-        ),
-        url("../images/BGP.png");
-
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    padding: 50px 20px;
+.privacy-page,
+.privacy-page * {
+  box-sizing: border-box;
 }
 
-/* Main Content Card */
 body {
-    max-width: 1200px;
-    margin: auto;
+  font-family: "Inter", sans-serif;
+  color: #2d2d2d;
+  background:
+    linear-gradient(rgba(217, 233, 248, 0.88), rgba(217, 233, 248, 0.88)),
+    url("../images/bgp.png");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 0;
+}
+
+/* Privacy Policy Content */
+.privacy-page {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 50px;
+
+  background-color: white;
+  border-radius: 25px;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+
+  line-height: 1.8;
+}
+
+/* Header Section */
+.privacy-page h1 {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #2d6a35;
+  margin-bottom: 15px;
+}
+
+.last-updated {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  margin-bottom: 40px;
 }
 
 /* Header Section */
 h1 {
-    text-align: center;
-    font-size: 3rem;
-    font-weight: 800;
-    color: #2d6a35;
-    margin-bottom: 15px;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #2d6a35;
+  margin-bottom: 15px;
 }
 
 .last-updated {
-    text-align: center;
-    font-style: italic;
-    color: #666;
-    margin-bottom: 40px;
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  margin-bottom: 40px;
 }
 
 /* White Content Container */
 .policy-wrapper {
-    background: white;
-    padding: 50px;
-    border-radius: 25px;
-    box-shadow:
-        0 15px 40px rgba(0,0,0,0.08);
+  background: white;
+  padding: 50px;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
 
-    border: 1px solid rgba(255,255,255,.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Intro text */
-p {
-    margin-bottom: 18px;
+.privacy-page p {
+  margin-bottom: 18px;
 }
 
 /* Section Headings */
-h2 {
-    color: #2d6a35;
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-top: 50px;
-    margin-bottom: 20px;
-    padding-left: 16px;
-    border-left: 6px solid #6CC070;
+.privacy-page h2 {
+  color: #2d6a35;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  padding-left: 16px;
+  border-left: 6px solid #6cc070;
 }
 
-h3 {
-    color: #43723c;
-    margin-top: 25px;
-    margin-bottom: 10px;
+.privacy-page h3 {
+  color: #43723c;
+  margin-top: 25px;
+  margin-bottom: 10px;
 }
 
 /* Lists */
 
-ul {
-    margin-left: 25px;
-    margin-bottom: 20px;
+.privacy-page ul {
+  margin-left: 25px;
+  margin-bottom: 20px;
 }
 
-li {
-    margin-bottom: 10px;
+.privacy-page li {
+  margin-bottom: 10px;
 }
 
-/* TABLE OF CONTENTS*/
-nav {
-    background: #eef7ea;
-    border-radius: 20px;
-    padding: 30px;
-    margin-top: 20px;
-    border: 2px solid #dce
+/* Privacy Policy Table of Contents */
+.privacy-page nav {
+  background: #eef7ea;
+  border-radius: 20px;
+  padding: 30px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+
+  border: 2px solid #dcefd6;
 }
-/* MOBILE VIEW */
-@media (max-width:768px){
-    body{
-        padding:20px 15px;
-    }
-    .terms-wrapper{
-        padding:25px;
-    }
-   h1{
-        font-size:2.2rem;
-    }
-   h2{
-        font-size:1.4rem;
-    }
-   .terms-logo{
-        max-width:300px;
-    }
+
+/* Mobile View */
+@media (max-width: 768px) {
+  .privacy-page {
+    margin: 20px 15px;
+    padding: 25px;
+  }
+
+  .privacy-page h1 {
+    font-size: 2.2rem;
+  }
+
+  .privacy-page h2 {
+    font-size: 1.4rem;
+  }
+
+  .privacy-logo {
+    max-width: 300px;
+  }
 }
 .privacy-footer-image {
-    text-align: center;
-    margin-top: 40px;
+  text-align: center;
+  margin-top: 40px;
 }
 
 .privacy-logo {
-    max-width: 400px;
-    width: 100%;
-    height: auto;
+  max-width: 400px;
+  width: 100%;
+  height: auto;
 }

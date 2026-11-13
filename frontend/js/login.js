@@ -40,8 +40,8 @@ if (loginForm) {
 
       loginStatus.textContent = "Login successful!";
 
-      // redirect uset to My Account
-      window.location.href = "profile.html";
+        // redirect uset to My Account
+        window.location.href = 'profile.html';
 
       // Redirect and authenticated navigation
       // will be implemented after session testing.

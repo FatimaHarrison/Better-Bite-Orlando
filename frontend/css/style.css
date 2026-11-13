@@ -1,4 +1,3 @@
-
 /* ==========================================
    BETTER BITE ORLANDO
    HOMEPAGE DESIGN
@@ -65,9 +64,9 @@ main {
 
   background: linear-gradient(
     to bottom,
-    rgba(221, 239, 250, .85),
-    rgba(205, 228, 244, .75),
-    rgba(188, 222, 242, .88)
+    rgba(221, 239, 250, 0.85),
+    rgba(205, 228, 244, 0.75),
+    rgba(188, 222, 242, 0.88)
   );
 }
 
@@ -151,12 +150,12 @@ main {
   object-fit: cover;
   object-position: center;
   border-radius: 50% 0 0 0;
-  opacity: .98;
+  opacity: 0.98;
 
   mask-image: linear-gradient(
     to right,
     transparent 0%,
-    rgba(0, 0, 0, .3) 15%,
+    rgba(0, 0, 0, 0.3) 15%,
     black 45%
   );
 }
@@ -288,7 +287,7 @@ main {
   font-size: 9px;
   color: #fff;
 
-  transition: all .25s ease;
+  transition: all 0.25s ease;
 }
 
 .groceries-button {
@@ -305,7 +304,7 @@ main {
 
 .card-button:hover {
   color: white;
-  filter: brightness(.92);
+  filter: brightness(0.92);
   transform: translateY(-2px);
 }
 
@@ -318,7 +317,7 @@ main {
   overflow: hidden;
 
   display: grid;
-  grid-template-columns: 1.5fr .8fr .9fr 1.1fr 1.5fr;
+  grid-template-columns: 1.5fr 0.8fr 0.9fr 1.1fr 1.5fr;
 
   align-items: center;
   gap: 8px;
@@ -422,15 +421,11 @@ main {
   color: #ff8519;
 }
 
-
-
-
 /* ==========================================
    TABLET RESPONSIVE
 ========================================== */
 
 @media (max-width: 991.98px) {
-
   .home-hero {
     padding-top: 20px;
   }
@@ -468,9 +463,6 @@ main {
     grid-column: 1 / -1;
     margin-top: 5px;
   }
-
-
-
 }
 
 /* ==========================================
@@ -478,7 +470,6 @@ main {
 ========================================== */
 
 @media (max-width: 575.98px) {
-
   .home-hero {
     padding: 25px 0 35px;
   }
@@ -559,8 +550,6 @@ main {
   .pathways-message h3 {
     font-size: 15px;
   }
-
-  
 }
 
 /* ==========================================
@@ -568,7 +557,6 @@ main {
 ========================================== */
 
 @media (max-width: 360px) {
-
   .card-heading h2 {
     font-size: 19px;
   }
@@ -576,9 +564,7 @@ main {
   .card-list li {
     font-size: 9px;
   }
-
 }
-
 
 /* ==========================================
    BETTER BITE ORLANDO - LAYOUT FIXES
@@ -586,43 +572,43 @@ main {
 
 /* Allow the homepage to grow with its content */
 .home-hero {
-    min-height: 480px;
-    height: auto;
-    padding: 20px 0 40px;
-    overflow: visible;
+  min-height: 480px;
+  height: auto;
+  padding: 20px 0 40px;
+  overflow: visible;
 }
 
 /* Give the content proper width */
 .home-container {
-    width: calc(100% - 60px);
-    max-width: 1800px;
-    margin-left: auto;
-    margin-right: auto;
+  width: calc(100% - 60px);
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Background should cover the entire hero */
 .hero-background {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Heading */
 .hero-heading {
-    margin-bottom: 18px;
-    padding: 0 30px;
+  margin-bottom: 18px;
+  padding: 0 30px;
 }
 
 .hero-heading h1 {
-    font-size: clamp(30px, 2.5vw, 44px);
-    line-height: 1.12;
+  font-size: clamp(30px, 2.5vw, 44px);
+  line-height: 1.12;
 }
 
 .hero-heading p {
-    font-size: 13px;
-    line-height: 1.3;
+  font-size: 13px;
+  line-height: 1.3;
 }
 
 /* ==========================================
@@ -630,32 +616,32 @@ main {
 ========================================== */
 
 .category-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    align-items: stretch;
-    width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+  width: 100%;
 }
 
 .category-card {
-    position: relative;
-    display: flex;
-    min-width: 0;
-    min-height: 340px;
-    height: auto;
-    padding: 22px;
-    overflow: hidden;
-    border-radius: 30px;
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 340px;
+  height: auto;
+  padding: 22px;
+  overflow: hidden;
+  border-radius: 30px;
 }
 
 /* Keep text above images */
 .card-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 70%;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 70%;
 }
 
 /* ==========================================
@@ -663,23 +649,23 @@ main {
 ========================================== */
 
 .card-food-image {
-    position: absolute;
-    z-index: 0;
-    right: 0;
-    bottom: 0;
-    width: 52%;
-    height: 88%;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 50% 0 0 0;
-    opacity: .98;
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  bottom: 0;
+  width: 52%;
+  height: 88%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50% 0 0 0;
+  opacity: 0.98;
 
-    mask-image: linear-gradient(
-        to right,
-        transparent 0%,
-        rgba(0, 0, 0, .3) 15%,
-        black 50%
-    );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 15%,
+    black 50%
+  );
 }
 
 /* ==========================================
@@ -687,25 +673,25 @@ main {
 ========================================== */
 
 .card-heading {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    width: 100%;
-    min-height: 90px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  min-height: 90px;
 }
 
 .card-heading h2 {
-    font-size: clamp(23px, 2vw, 36px);
-    line-height: 1.08;
-    white-space: normal;
-    overflow-wrap: normal;
+  font-size: clamp(23px, 2vw, 36px);
+  line-height: 1.08;
+  white-space: normal;
+  overflow-wrap: normal;
 }
 
 .card-heading p {
-    font-size: 12px;
-    line-height: 1.25;
+  font-size: 12px;
+  line-height: 1.25;
 }
 
 /* ==========================================
@@ -713,16 +699,16 @@ main {
 ========================================== */
 
 .card-list {
-    position: relative;
-    z-index: 2;
-    margin: 12px 0 18px 15px;
-    gap: 14px;
+  position: relative;
+  z-index: 2;
+  margin: 12px 0 18px 15px;
+  gap: 14px;
 }
 
 .card-list li {
-    font-size: 13px;
-    white-space: normal;
-    line-height: 1.3;
+  font-size: 13px;
+  white-space: normal;
+  line-height: 1.3;
 }
 
 /* ==========================================
@@ -730,14 +716,14 @@ main {
 ========================================== */
 
 .card-button {
-    position: relative;
-    z-index: 3;
-    margin-top: auto;
-    margin-bottom: 0;
-    min-height: 40px;
-    min-width: 180px;
-    font-size: 12px;
-    padding: 10px 18px;
+  position: relative;
+  z-index: 3;
+  margin-top: auto;
+  margin-bottom: 0;
+  min-height: 40px;
+  min-width: 180px;
+  font-size: 12px;
+  padding: 10px 18px;
 }
 
 /* ==========================================
@@ -745,10 +731,10 @@ main {
 ========================================== */
 
 .pathways-section {
-    margin-top: 25px;
-    min-height: 140px;
-    height: auto;
-    overflow: visible;
+  margin-top: 25px;
+  min-height: 140px;
+  height: auto;
+  overflow: visible;
 }
 
 /* ==========================================
@@ -756,30 +742,29 @@ main {
 ========================================== */
 
 @media (max-width: 991.98px) {
+  .home-container {
+    width: calc(100% - 40px);
+  }
 
-    .home-container {
-        width: calc(100% - 40px);
-    }
+  .category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-    .category-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .category-card {
+    min-height: 330px;
+  }
 
-    .category-card {
-        min-height: 330px;
-    }
+  .card-content {
+    width: 75%;
+  }
 
-    .card-content {
-        width: 75%;
-    }
+  .card-heading h2 {
+    font-size: 26px;
+  }
 
-    .card-heading h2 {
-        font-size: 26px;
-    }
-
-    .pathways-section {
-        grid-template-columns: repeat(3, 1fr);
-    }
+  .pathways-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /* ==========================================
@@ -787,73 +772,71 @@ main {
 ========================================== */
 
 @media (max-width: 575.98px) {
+  .home-hero {
+    padding: 25px 0 35px;
+  }
 
-    .home-hero {
-        padding: 25px 0 35px;
-    }
+  .home-container {
+    width: calc(100% - 30px);
+  }
 
-    .home-container {
-        width: calc(100% - 30px);
-    }
+  .hero-heading {
+    padding: 0 5px;
+    margin-bottom: 22px;
+  }
 
-    .hero-heading {
-        padding: 0 5px;
-        margin-bottom: 22px;
-    }
+  .hero-heading h1 {
+    font-size: 30px;
+  }
 
-    .hero-heading h1 {
-        font-size: 30px;
-    }
+  .category-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
 
-    .category-grid {
-        grid-template-columns: 1fr;
-        gap: 18px;
-    }
+  .category-card {
+    min-height: 330px;
+    padding: 18px;
+  }
 
-    .category-card {
-        min-height: 330px;
-        padding: 18px;
-    }
+  .card-content {
+    width: 75%;
+  }
 
-    .card-content {
-        width: 75%;
-    }
+  .card-heading {
+    min-height: 80px;
+  }
 
-    .card-heading {
-        min-height: 80px;
-    }
+  .card-heading h2 {
+    font-size: 24px;
+  }
 
-    .card-heading h2 {
-        font-size: 24px;
-    }
+  .card-heading p {
+    font-size: 10px;
+  }
 
-    .card-heading p {
-        font-size: 10px;
-    }
+  .card-list {
+    gap: 12px;
+    margin-top: 12px;
+  }
 
-    .card-list {
-        gap: 12px;
-        margin-top: 12px;
-    }
+  .card-list li {
+    font-size: 11px;
+  }
 
-    .card-list li {
-        font-size: 11px;
-    }
+  .card-food-image {
+    width: 50%;
+    height: 75%;
+  }
 
-    .card-food-image {
-        width: 50%;
-        height: 75%;
-    }
+  .card-button {
+    min-height: 38px;
+    font-size: 11px;
+  }
 
-    .card-button {
-        min-height: 38px;
-        font-size: 11px;
-    }
-
-    .pathways-section {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 25px 15px;
-    }
+  .pathways-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 25px 15px;
+  }
 }
-

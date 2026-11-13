@@ -1,223 +1,218 @@
-
 /* ==================================
    Better Bite Orlando - Registration
    ================================== */
 
 body {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 /* Registration page layout */
 .register-page {
-    min-height: calc(100vh - 85px);
+  min-height: calc(100vh - 85px);
 }
 
 /* Registration card */
 .register-card {
-    max-width: 570px;
-    padding: 38px 40px;
+  max-width: 570px;
+  padding: 38px 40px;
 }
 
 /* First and Last Name */
 .register-name-row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
 }
 
 .register-name-row .form-group label {
-    padding-left: 0;
+  padding-left: 0;
 }
 
 /* Form spacing */
 .register-card .form-group {
-    margin-bottom: 18px;
+  margin-bottom: 18px;
 }
 
 /* Password guidance */
 .password-hint {
-    margin: 8px 0 0 46px;
-    color: #555555;
-    font-size: 11px;
-    line-height: 1.5;
+  margin: 8px 0 0 46px;
+  color: #555555;
+  font-size: 11px;
+  line-height: 1.5;
 }
 
 /* Terms and Privacy */
 .register-consent {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
 
-    margin: 20px 0;
-    font-size: 11px;
-    color: #333333;
+  margin: 20px 0;
+  font-size: 11px;
+  color: #333333;
 }
 
 .register-consent input {
-    margin-top: 2px;
-    accent-color: var(--bbo-primary);
+  margin-top: 2px;
+  accent-color: var(--bbo-primary);
 }
 
 .register-consent label {
-    line-height: 1.5;
+  line-height: 1.5;
 }
 
 .register-consent a {
-    color: #F97316;
-    text-decoration: none;
+  color: #f97316;
+  text-decoration: none;
 }
 
 .register-consent a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Create account button */
 .register-card .login-btn {
-    width: min(100%, 260px);
-    margin: 0 auto;
+  width: min(100%, 260px);
+  margin: 0 auto;
 }
 
 /* Bottom Sign In link */
 .register-card .register-link {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 /* Registration status */
 #register-status {
-    margin-top: 12px;
-    text-align: center;
-    font-size: 12px;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 12px;
 }
 
 #register-status:empty {
-    display: none;
+  display: none;
 }
-
 
 /* Registration Success view */
 
 .register-success[hidden] {
-    display: none;
+  display: none;
 }
 
 .register-card.is-success {
-    max-width: 570px;
-    padding: 45px 35px;
+  max-width: 570px;
+  padding: 45px 35px;
 }
 
 /* success content */
 
 .register-success {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 /* Green check icon */
 
 .register-success-icon {
-    width: 85px;
-    height: 85px;
+  width: 85px;
+  height: 85px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    margin: 0 auto 20px;
+  margin: 0 auto 20px;
 
-    border-radius: 50%;
-    background-color: #A6C8A7;
-    color: #3D622C;
+  border-radius: 50%;
+  background-color: #a6c8a7;
+  color: #3d622c;
 
-    font-size: 45px;
+  font-size: 45px;
 }
 
 /* heading */
 
 .register-success h2 {
-    font-size: 30px;
-    font-weight: 800;
-    margin-bottom: 15px;
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 15px;
 }
 
 /* confirmation message */
 
 .register-success-message {
-    max-width: 400px;
-    font-size: 14px;
-    line-height: 1.8;
-    overflow-wrap: anywhere;
+  max-width: 400px;
+  font-size: 14px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
 }
-
 
 .register-success-message strong {
-    color: var(--bbo-primary);
+  color: var(--bbo-primary);
 }
-
 
 /* thank you message */
 .register-success-thanks {
-    font-size: 14px;
-    margin: 15px 0 30px;
+  font-size: 14px;
+  margin: 15px 0 30px;
 }
 
 /* sign in button */
 
 .register-success-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap:10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 
-    padding: 14px 30px;
+  padding: 14px 30px;
 
-    background-color: var(--bbo-primary);
-    color: white;
+  background-color: var(--bbo-primary);
+  color: white;
 
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .register-success-button:hover {
-    background-color: #2E4A22;
-    color: white;
+  background-color: #2e4a22;
+  color: white;
 }
-
 
 /* Responsive */
 @media (max-width: 480px) {
-    .register-card {
-        padding: 28px 20px;
-    }
+  .register-card {
+    padding: 28px 20px;
+  }
 
-    .register-name-row {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
+  .register-name-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 
-    .register-name-row .form-group label {
-        padding-left: 0;
-    }
+  .register-name-row .form-group label {
+    padding-left: 0;
+  }
 
-    .password-hint {
-        margin-left: 38px;
-    }
+  .password-hint {
+    margin-left: 38px;
+  }
 
-    .register-success h2 {
-        font-size: 26px;
-    }
+  .register-success h2 {
+    font-size: 26px;
+  }
 
-    .register-success-icon {
-        width: 75px;
-        height: 75px;
-        font-size: 40px;
-    }
+  .register-success-icon {
+    width: 75px;
+    height: 75px;
+    font-size: 40px;
+  }
 
-    .register-success-button {
-        width: 100%;
-    }
+  .register-success-button {
+    width: 100%;
+  }
 }

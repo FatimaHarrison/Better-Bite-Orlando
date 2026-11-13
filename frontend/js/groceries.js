@@ -32,8 +32,42 @@ let groceryMap = null;
 let groceryMarkers = null;
 let locationMarkers = new Map();
 
+// Google maps transportation direction
+function getGoogleMapsDirectionsUrl(location, mode = "drivering") {
 
-// Convert the selected category into backend API values 
+    const mapsUrl = new URL(
+       "https://www.google.com/maps/dir/"
+    );
+
+    mapsUrl.searchParams.set("api", "1");
+
+    // coordinates when available
+    const lat = Number(location.latitude);
+    const lon = Number(location.longitude);
+
+    const hasCoordinates =
+        location.latitude != null &&
+        location.longitude != null &&
+        Number.isFinite(lat) &&
+        Number.isFinite(lon) &&
+        lat >= -90 &&
+        lat <= 90 &&
+        lon >= -180 &&
+        lon <= 180 ;
+
+    const destination = hasCoordinates
+        ? `${lat},${lon}`
+        : `${location.name || ""},${location.address || ""}`;
+
+        mapsUrl.searchParams.set("destination", destination);
+
+        mapsUrl.searchParams.set("travelmode", mode);
+
+        return mapsUrl.toString();
+}
+
+
+// Convert the selected category into backend API values
 function getGroceryTypes(category) {
     if (category === "all") {
         return "groceries,farmers-markets,food-pantries";
@@ -162,33 +196,83 @@ function showGroceryDetails(location) {
         const actions = document.createElement("div");
         actions.className = "grocery-modal-actions";
 
-        // directions
-        if (address !== "Address unavailable") {
+    // directions google maps transporation options
+    const hasValidAddress = address !== "Address unavailable";
 
-            const directions = document.createElement("a");
+    const hasValidCoordinates =
+    location.latitude != null &&
+    location.longitude != null &&
+    Number.isFinite(Number(location.latitude)) &&
+    Number.isFinite(Number(location.longitude)) &&
+    Number(location.latitude) >= -90 &&
+    Number(location.latitude) <= 90 &&
+    Number(location.longitude) >= -180 &&
+    Number(location.longitude) <= 180;
 
-            const mapsUrl = new URL(
-                "https://www.google.com/maps/dir/"
-            );
+if (hasValidAddress || hasValidCoordinates) {
 
-            mapsUrl.searchParams.set("api", "1");
+    const directionsContainer = document.createElement("div");
+    directionsContainer.className = "grocery-directions-container";
 
-            // automatically populate the destination
-            mapsUrl.searchParams.set(
-                "destination",
-                `${name},${address}`
-            );
+    const directionsTitle = document.createElement("h4");
+    directionsTitle.textContent = "Get Directions";
 
-            // google maps -> based on user location
-            directions.href = mapsUrl.toString();
-            directions.target = "_blank";
-            directions.rel = "noopener noreferrer";
+    const directionsButtons = document.createElement("div");
+    directionsButtons.className = "grocery-directions-buttons";
 
-            directions.className = "btn btn-primary";
-            directions.textContent = "Get Directions";
-
-            actions.appendChild(directions);
+    const transportationModes = [
+        {
+            label: "Drive",
+            mode: "driving",
+            icon: "bi-car-front"
+        },
+        {
+            label: "Bus",
+            mode: "transit",
+            icon: "bi-bus-front"
+        },
+        {
+            label: "Walk",
+            mode: "walking",
+            icon: "bi-person-walking"
         }
+    ];
+
+    transportationModes.forEach((transport) => {
+
+        const link = document.createElement("a");
+
+        link.href = getGoogleMapsDirectionsUrl(
+            location,
+            transport.mode
+        );
+
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+
+        link.className = "btn btn-outline-success";
+
+        const icon = document.createElement("i");
+        icon.className = `bi ${transport.icon} me-2`;
+
+        link.append(
+            icon,
+            document.createTextNode(transport.label)
+        );
+
+        directionsButtons.appendChild(link);
+    });
+
+    directionsContainer.append(
+        directionsTitle,
+        directionsButtons
+    );
+
+    actions.appendChild(directionsContainer);
+}
+
+
+
 
     // website if available
     if(location.website) {
@@ -345,7 +429,60 @@ function updateGroceryMap(locations) {
 
         address.style.margin = "5px 0 0";
 
-        popup.append(name, address);
+// Transportation options inside map popup
+const directionsContainer = document.createElement("div");
+
+directionsContainer.className = "grocery-map-directions";
+
+const hasDestination =
+    location.latitude != null &&
+    location.longitude != null &&
+    Number.isFinite(Number(location.latitude)) &&
+    Number.isFinite(Number(location.longitude)) &&
+    Number(location.latitude) >= -90 &&
+    Number(location.latitude) <= 90 &&
+    Number(location.longitude) >= -180 &&
+    Number(location.longitude) <= 180;
+
+if (hasDestination) {
+
+    const transportationModes = [
+        { label: "Drive", mode: "driving", icon: "bi-car-front" },
+        { label: "Bus", mode: "transit", icon: "bi-bus-front" },
+        { label: "Walk", mode: "walking", icon: "bi-person-walking" }
+    ];
+
+    transportationModes.forEach((transport) => {
+
+        const link = document.createElement("a");
+
+        link.href = getGoogleMapsDirectionsUrl(
+            location,
+            transport.mode
+        );
+
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+
+        link.className = "grocery-map-direction-link";
+
+        const icon = document.createElement("i");
+        icon.className = `bi ${transport.icon}`;
+
+        link.append(
+            icon,
+            document.createTextNode(` ${transport.label}`)
+        );
+
+        directionsContainer.appendChild(link);
+    });
+}
+
+popup.append(
+    name,
+    address,
+    directionsContainer
+);
 
         marker.bindPopup(popup);
 
@@ -457,6 +594,43 @@ function renderGroceryResults(locations) {
             
 }
 
+// retrieve the signed in user's ZIP code
+async function loadUserZipCode() {
+
+    try {
+        const response = await fetch(
+        "http://127.0.0.1:3001/auth/me",
+        {
+            method: "GET",
+            credentials: "include",
+            cache: "no-store"
+        }
+    );
+
+    // guest user or expired session
+    if (!response.ok) {
+        return;
+    }
+
+    const result = await response.json();
+    const user = result.data?.user;
+
+    //Populate the ZIP code if available
+    if (user?.zipcode !=null ) {
+
+        const zipcode = String(user.zipcde).padStart(5,"0");
+
+        if (!groceryZip.value.trim()) {
+            groceryZip.value = zipcode;
+        }
+    }
+
+    } catch (error) {
+        console.warm("Unable to retrieve user ZIP code:", error);
+    }
+}
+
+
 // search for groceries using backend api
 async function searchGroceries(event) {
     event.preventDefault();
@@ -537,6 +711,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
      //initialzie interactive map
     initializeGroceryMap();
+
+    // retrieve user zip code if available
+    loadUserZipCode();
 
     // dropdown category selection
     groceryCategory.addEventListener("change", () => {

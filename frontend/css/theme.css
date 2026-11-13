@@ -1,10 +1,9 @@
-/* Better Bite Orlando Theme 
-Design rulebook! 
+/* Better Bite Orlando Theme
+Design rulebook!
 */
 :root {
-
-    /* Primary colors */
-    --bbo-primary:#3D622C;
+  /* Primary colors */
+  --bbo-primary: #3d622c;
   --bbo-primary-hover: #559439;
 
   /* background colors */
@@ -13,8 +12,8 @@ Design rulebook!
   --bbo-surface: var(--bbo-beige);
 
   /* text colors */
-  --bbo-text: #3D622C;
-  --bbo-text-dark: #263B29;
+  --bbo-text: #3d622c;
+  --bbo-text-dark: #263b29;
   --bbo-green: var(--bbo-primary);
 
   /*Typography*/
@@ -28,25 +27,24 @@ Design rulebook!
 /* Bootstrap Button Customization */
 
 .btn-primary {
-    --bs-btn-bg: var(--bbo-primary);
-    --bs-btn-border-color: var(--bbo-primary);
- 
-    --bs-btn-hover-bg: var(--bbo-primary-hover);
-    --bs-btn-hover-border-color: var(--bbo-primary-hover);
+  --bs-btn-bg: var(--bbo-primary);
+  --bs-btn-border-color: var(--bbo-primary);
 
-    --bs-btn-active-bg: var(--bbo-primary);
-    --bs-btn-active-border-color: var(--bbo-primary);
+  --bs-btn-hover-bg: var(--bbo-primary-hover);
+  --bs-btn-hover-border-color: var(--bbo-primary-hover);
+
+  --bs-btn-active-bg: var(--bbo-primary);
+  --bs-btn-active-border-color: var(--bbo-primary);
 }
 
 .btn-outline-primary {
-    --bs-btn-color: var(--bbo-primary);
-    --bs-btn-border-color: var(--bbo-primary);
+  --bs-btn-color: var(--bbo-primary);
+  --bs-btn-border-color: var(--bbo-primary);
 
-    --bs-btn-hover-color: var(--bbo-white);
-    --bs-btn-hover-bg: var(--bbo-primary);
-    --bs-btn-hover-border-color: var(--bbo-primary);
+  --bs-btn-hover-color: var(--bbo-white);
+  --bs-btn-hover-bg: var(--bbo-primary);
+  --bs-btn-hover-border-color: var(--bbo-primary);
 
-    --bs-btn-active-bg: var(--bbo-primary);
-    --bs-btn-active-border-color: var(--bbo-primary);
+  --bs-btn-active-bg: var(--bbo-primary);
+  --bs-btn-active-border-color: var(--bbo-primary);
 }
-
