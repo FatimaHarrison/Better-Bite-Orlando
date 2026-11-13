@@ -586,6 +586,31 @@ label[for="tab-security"] {
     cursor: not-allowed;
 }
 
+/* Logout section */
+.account-logout {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #dce6d7;
+}
+
+.account-logout .account-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--bbo-primary);
+    cursor: pointer;
+}
+
+.account-logout .account-button:hover {
+    background-color: var(--bbo-primary-hover);
+}
+
+.account-logout .account-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 /* ==================================
    Responsive Layout
    ================================== */

@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", async ()=> {
     try {
         // retrieve the authenticated user
         const response = await fetch(
-            `${window.BBO_CONFIG.API_BASE_URL}/auth/me`,
-            {
+        `${window.BBO_CONFIG.API_BASE_URL}/auth/profile`,
+        {
                 method: "GET",
                 credentials: "include",
                 cache: "no-store"
@@ -31,10 +31,18 @@ document.addEventListener("DOMContentLoaded", async ()=> {
             throw new Error("User information unavailable.");
         }
 
-        // your database currently stores one full name
-        const nameParts = (user.name || "").trim().split(/\s+/);
-        const firstName = nameParts.shift() || "";
-        const lastName = nameParts.join(" ");
+        // Populate profile fields
+        document.getElementById("profile-first-name").value =
+            user.firstName ?? "";
+
+        document.getElementById("profile-last-name").value =
+            user.lastName ?? "";
+
+        document.getElementById("profile-email").value =
+            user.email ?? "";
+
+        document.getElementById("profile-zip").value =
+            user.zipcode ?? "";
 
         // populate profile inputs
 
@@ -54,5 +62,35 @@ document.addEventListener("DOMContentLoaded", async ()=> {
 
         alert("Unable to load your profile. Please try again.");
     }
+
+    // logout functionality
+    const logoutBtn = document.getElementById("logout-btn");
+    const logoutStatus = document.getElementById("logout-status");
+
+    logoutBtn?.addEventListener("click", async () => {
+        logoutBtn.disabled = true;
+        logoutStatus.textContent = "Signing out...";
+
+        try {
+            const response = await fetch(
+                `${window.BBO_CONFIG.API_BASE_URL}/auth/logout`,
+                {
+                    method: "POST",
+                    credentials: "include"
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Logout failed");
+            }
+
+            window.location.replace("login.html");
+        } catch (error) {
+            console.error(error);
+            logoutStatus.textContent =
+            "Unable to sign out. Please try again.";
+            logoutBtn.disabled = false;
+        }
+    })
 
 });
