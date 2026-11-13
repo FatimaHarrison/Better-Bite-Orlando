@@ -37,6 +37,40 @@
             // insert html into the page
             navbarContainer.innerHTML = navbarHtml;
 
+
+            //identify current page
+            const currentPage =
+             window.location.pathname.split("/").pop()
+             || "index.html";
+
+            // highlight the current page in the navbar
+            const navLinks =
+                navbarContainer.querySelectorAll(
+                    ".navbar-nav .nav-link"
+                );
+
+
+            navLinks.forEach(link => {
+
+                const linkPage = link.getAttribute("href");
+
+                if (linkPage === currentPage) {
+
+                    link.classList.add("active");
+
+                    link.setAttribute(
+                        "aria-current",
+                         "page"
+                        );
+                } else {
+
+                    link.classList.remove("active");
+                    link.removeAttribute("aria-current");
+
+                }
+
+            });
+
             // profile icon navigation
             const profileLink = navbarContainer.querySelector(".account-link");
 
@@ -81,38 +115,6 @@
                 }
             }
 
-            //identify current page
-            const currentPage =
-             window.location.pathname.split("/").pop()
-             || "index.html";
-
-            // highlight the current page in the navbar
-            const navLinks =
-                navbarContainer.querySelectorAll(
-                    ".navbar-nav .nav-link"
-                );
-
-
-            navLinks.forEach(link => {
-
-                const linkPage = link.getAttribute("href");
-
-                if (linkPage === currentPage) {
-
-                    link.classList.add("active");
-
-                    link.setAttribute(
-                        "aria-current",
-                         "page"
-                        );
-                } else {
-
-                    link.classList.remove("active");
-                    link.removeAttribute("aria-current");
-
-                }
-
-            });
 
         } catch (error) {
 

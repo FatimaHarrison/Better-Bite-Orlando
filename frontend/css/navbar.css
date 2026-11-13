@@ -1,5 +1,10 @@
 /* ==  navigation bar == */
 
+/* Prevent page movement while navbar loads */
+#site-navbar {
+    min-height: 145px;
+}
+
 /* main header */
 .site-header {
     width: 100%;
@@ -33,7 +38,7 @@
     gap: clamp(8px, 1.2vw, 20px);
 }
 
-/* navigation links */ 
+/* navigation links */
 .site-header .navbar-nav .nav-link {
     color: var(--bbo-primary);
     font-family: var(--bbo-font);
@@ -54,7 +59,7 @@
     color: var(--bbo-primary-hover);
 }
 
-/*Active Page */ 
+/*Active Page */
 .site-header .navbar-nav .nav-link.active,
 .site-header .navbar-nav .nav-link.active:hover {
     background-color: var(--bbo-primary);
