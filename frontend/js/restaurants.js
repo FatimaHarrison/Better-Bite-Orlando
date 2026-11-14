@@ -1,8 +1,8 @@
 /* Better Bite Orlando | Healthy Restaurants */
 
-// Development API
+// API
 const RESTAURANT_API_URL =
-    "https://api-dev.betterbiteorlando.com/places/restaurants";
+    `${window.BBO_CONFIG.API_BASE_URL}/places/restaurants`;
 
 // Restaurant details panel
 const detailsContent = document.getElementById("detailsContent");
@@ -546,12 +546,11 @@ async function searchRestaurants() {
     }
 }
 
-// retrieve the signed in user saved zip code
+// Retrieve the signed-in user's saved ZIP code
 async function loadUserZipCode() {
-
     try {
-        const reponse = await fetch (
-            "http://127.0.0.1:3001/auth/me",
+        const response = await fetch(
+            `${window.BBO_CONFIG.API_BASE_URL}/auth/profile`,
             {
                 method: "GET",
                 credentials: "include",
@@ -567,20 +566,18 @@ async function loadUserZipCode() {
         const result = await response.json();
         const user = result.data?.user;
 
-        // populate ZIP code if availbale
-        if (user?.zipcode != null) {
+        const savedZip = user?.defaultZipCode ?? user?.zipcode;
 
-            const zipcode = String(user.zipcode).padStart(5, "0");
+        if (savedZip != null) {
+            const zipcode = String(savedZip).padStart(5, "0");
 
             if (!locationInput.value.trim()) {
-                location.value = zipcode;
+                locationInput.value = zipcode;
             }
         }
-
     } catch (error) {
         console.warn("Unable to retrieve user ZIP code:", error);
     }
-
 }
 
 // Search button

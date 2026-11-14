@@ -1,10 +1,10 @@
-/* Better Bite Orlando | Groceries */ 
+/* Better Bite Orlando | Groceries */
 
-// backend API
-const GROCERY_API_URL = 
-    "https://api-dev.betterbiteorlando.com/places/groceries";
+// API
+const GROCERY_API_URL =
+    `${window.BBO_CONFIG.API_BASE_URL}/places/groceries`;
 
-// DOM Elements 
+// DOM Elements
 const groceryForm = document.getElementById("grocery-search-form");
 const groceryZip = document.getElementById("grocery-zip");
 const groceryCategory = document.getElementById("grocery-category");
@@ -81,7 +81,7 @@ function getGroceryTypes(category) {
 function syncCategoryNavigation(category) {
 
     categoryButtons.forEach((button) => {
-        
+
         const isActive = button.dataset.category === category;
 
         button.classList.toggle("active", isActive);
@@ -121,22 +121,22 @@ function showGroceryDetails(location) {
 
         const hours = location.openingHours || "Hours unavailable";
 
-        // category information 
+        // category information
         const categories ={
-            grocery: "Grocery Store", 
+            grocery: "Grocery Store",
             "farmers-market": "Farmers Market",
             "food-pantry": "Food Pantry"
         };
 
         const category = categories[location.type] || "Food Resource";
 
-        // update modal title 
+        // update modal title
         groceryModalTitle.textContent = name;
 
         // clear previous grocery information
         groceryDetailsContent.replaceChildren();
 
-        // store information container 
+        // store information container
         const details = document.createElement("div");
         details.className = "grocery-modal-details";
 
@@ -149,7 +149,7 @@ function showGroceryDetails(location) {
 
         image.appendChild(imageIcon);
 
-        //heading 
+        // Heading
         const heading = document.createElement("div");
         heading.className = "grocery-modal-heading";
 
@@ -161,7 +161,7 @@ function showGroceryDetails(location) {
         badge.textContent = category;
 
         heading.append(title, badge);
-             
+
          // Address
         const addressSection = document.createElement("div");
         addressSection.className = "grocery-modal-address"
@@ -287,7 +287,7 @@ if (hasValidAddress || hasValidCoordinates) {
 
         const url = new URL(websiteUrl);
 
-        // only allow sage webs 
+        // only allow sage webs
         if(["https:","http:"].includes(url.protocol)) {
 
             const website = document.createElement("a");
@@ -312,7 +312,7 @@ if (hasValidAddress || hasValidCoordinates) {
         distanceText,
         hoursSection,
         actions
-    ); 
+    );
 
     groceryDetailsContent.appendChild(details);
 
@@ -324,7 +324,7 @@ if (hasValidAddress || hasValidCoordinates) {
     modal.show();
 }
 
-// sort grocery locations by distance or name 
+// sort grocery locations by distance or name
 function sortGroceryResults(locations) {
 
     const sortedLocations = [...locations];
@@ -352,7 +352,7 @@ function sortGroceryResults(locations) {
             Number.isFinite(Number(b.distanceMiles))
                 ? Number(b.distanceMiles)
                 : Infinity;
-        
+
         return distanceA - distanceB;
         });
     }
@@ -363,14 +363,14 @@ function sortGroceryResults(locations) {
 
 // initialize leaflet map
 function initializeGroceryMap() {
-    
+
     //defacult location: Orlando, FL
     groceryMap =L.map("grocery-map").setView(
         [28.5383, -81.3792],
         11
     );
 
-    //open Street Map
+    // Open Street Map
     L.tileLayer(
         "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
@@ -380,7 +380,7 @@ function initializeGroceryMap() {
         }
     ).addTo(groceryMap);
 
-    // layer for grocery markets 
+    // layer for grocery markets
     groceryMarkers = L.featureGroup().addTo(groceryMap);
 }
 
@@ -516,7 +516,7 @@ function renderGroceryResults(locations) {
 
     locations.forEach((location) => {
 
-        //create card
+        // create card
         const card = document.createElement("button");
         card.type = "button";
         card.className = "grocery-result-card";
@@ -582,56 +582,53 @@ function renderGroceryResults(locations) {
         content.append(icon, information, arrow);
         card.appendChild(content);
 
-        //Details modal functionaloty will be added next
+        // Details modal functionaloty will be added next
         card.addEventListener("click", () => {
             showGroceryDetails(location);
         });
 
-        // card to the results 
+        // card to the results
         groceryResults.appendChild(card);
 
     });
-            
+
 }
 
-// retrieve the signed in user's ZIP code
+// Retrieve the signed-in user's saved ZIP code
 async function loadUserZipCode() {
-
     try {
         const response = await fetch(
-        "http://127.0.0.1:3001/auth/me",
-        {
-            method: "GET",
-            credentials: "include",
-            cache: "no-store"
+            `${window.BBO_CONFIG.API_BASE_URL}/auth/profile`,
+            {
+                method: "GET",
+                credentials: "include",
+                cache: "no-store"
+            }
+        );
+
+        // Guest user or expired session
+        if (!response.ok) {
+            return;
         }
-    );
 
-    // guest user or expired session
-    if (!response.ok) {
-        return;
-    }
+        const result = await response.json();
+        const user = result.data?.user;
 
-    const result = await response.json();
-    const user = result.data?.user;
+        const savedZip = user?.defaultZipCode ?? user?.zipcode;
 
-    //Populate the ZIP code if available
-    if (user?.zipcode !=null ) {
+        if (savedZip != null) {
+            const zipcode = String(savedZip).padStart(5, "0");
 
-        const zipcode = String(user.zipcde).padStart(5,"0");
-
-        if (!groceryZip.value.trim()) {
-            groceryZip.value = zipcode;
+            if (!groceryZip.value.trim()) {
+                groceryZip.value = zipcode;
+            }
         }
-    }
-
     } catch (error) {
-        console.warm("Unable to retrieve user ZIP code:", error);
+        console.warn("Unable to retrieve user ZIP code:", error);
     }
 }
 
-
-// search for groceries using backend api
+// Search for groceries using backend api
 async function searchGroceries(event) {
     event.preventDefault();
 
@@ -650,7 +647,7 @@ async function searchGroceries(event) {
     groceryResults.textContent ="Searching for grocery locations...";
     groceryResultsCount.textContent = "0";
 
-    //clear previous map markers before searching
+    // clear previous map markers before searching
     if(groceryMarkers) {
         groceryMarkers.clearLayers();
         locationMarkers.clear();
@@ -685,14 +682,14 @@ async function searchGroceries(event) {
 
     // save the latest API results
     groceryLocations = data;
-    
+
 
      // display grocery cards
      renderGroceryResults(
         sortGroceryResults(groceryLocations)
      );
 
-     //update map markers with latest search results
+     // update map markers with latest search results
      updateGroceryMap(groceryLocations);
 
     } catch (error) {
@@ -742,7 +739,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // update sorting without requesting the API again 
+    // update sorting without requesting the API again
     grocerySort.addEventListener("change", () => {
 
         if(groceryLocations.length === 0) {
