@@ -123,3 +123,8 @@
     margin-top: 10px;
   }
 }
+
+/* Keep logout hidden until authentication is confirmed */
+#navbar-logout-btn[hidden] {
+  display: none !important;
+}

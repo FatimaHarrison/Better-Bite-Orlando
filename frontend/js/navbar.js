@@ -66,6 +66,7 @@
 
             // profile icon navigation
             const profileLink = navbarContainer.querySelector(".account-link");
+	    const logoutBtn = navbarContainer.querySelector("#navbar-logout-btn");
 
       if (profileLink) {
         // default destination for signed out users
@@ -84,18 +85,46 @@
           );
 
           if (sessionResponse.ok) {
-            // user has a valid session
+            // User has a valid session
             profileLink.href = "profile.html";
-
             profileLink.setAttribute("aria-label", "View My Account");
+
+            if (logoutBtn) {
+              logoutBtn.hidden = false;
+            }
           } else {
-            profileLink.setAttribute("aria-label", "Sign In");
+              profileLink.setAttribute("aria-label", "Sign In");
           }
+
         } catch (error) {
           console.warn("Unable to check login session.");
         }
       }
 
+      // Navbar logout
+      logoutBtn?.addEventListener("click", async () => {
+      logoutBtn.disabled = true;
+
+      try {
+        const response = await fetch(
+          `${window.BBO_CONFIG.API_BASE_URL}/auth/logout`,
+          {
+            method: "POST",
+            credentials: "include"
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Logout failed");
+        }
+
+        window.location.replace("login.html");
+      } catch (error) {
+        console.error("Navbar logout failed:", error);
+        alert("Unable to sign out. Please try again.");
+        logoutBtn.disabled = false;
+      }
+    });
 
         } catch (error) {
 

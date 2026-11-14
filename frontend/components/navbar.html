@@ -51,14 +51,27 @@
           </li>
         </ul>
 
-        <!-- Profile Icon -->
-        <a
+  <!-- Account Navigation -->
+  <div class="account-nav d-flex align-items-center gap-3">
+      <a
           class="account-link"
           href="login.html"
           aria-label="Login or view profile"
-        >
+      >
           <i class="bi bi-person-fill" aria-hidden="true"></i>
-        </a>
+      </a>
+
+     <button
+          type="button"
+          id="navbar-logout-btn"
+          class="btn btn-outline-primary btn-sm"
+          hidden
+      >
+          <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+          Log Out
+      </button>
+  </div>
+
       </div>
     </div>
   </nav>
