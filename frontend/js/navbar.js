@@ -1,0 +1,143 @@
+/* shared navigation bar functionality */
+
+(() => {
+  // identify where navbar.js is located
+  const scriptUrl = document.currentScript.src;
+
+  // field the shared navbar HTML file
+  const navbarUrl = new URL("../components/navbar.html", scriptUrl);
+
+  //load the navigation bar
+  async function loadNavbar() {
+    const navbarContainer = document.getElementById("site-navbar");
+
+    if (!navbarContainer) {
+      console.error("Navbar container not found");
+      return;
+    }
+
+    try {
+      // fetch navbar.html
+      const response = await fetch(navbarUrl);
+
+      if (!response.ok) {
+        throw new Error("Unable to load navbar");
+      }
+
+      // read html
+      const navbarHtml = await response.text();
+
+      // insert html into the page
+      navbarContainer.innerHTML = navbarHtml;
+
+
+            //identify current page
+            const currentPage =
+             window.location.pathname.split("/").pop()
+             || "index.html";
+
+            // highlight the current page in the navbar
+            const navLinks =
+                navbarContainer.querySelectorAll(
+                    ".navbar-nav .nav-link"
+                );
+
+
+            navLinks.forEach(link => {
+
+                const linkPage = link.getAttribute("href");
+
+                if (linkPage === currentPage) {
+
+                    link.classList.add("active");
+
+                    link.setAttribute(
+                        "aria-current",
+                         "page"
+                        );
+                } else {
+
+                    link.classList.remove("active");
+                    link.removeAttribute("aria-current");
+
+                }
+
+            });
+
+            // profile icon navigation
+            const profileLink = navbarContainer.querySelector(".account-link");
+	    const logoutBtn = navbarContainer.querySelector("#navbar-logout-btn");
+
+      if (profileLink) {
+        // default destination for signed out users
+        profileLink.href = "login.html";
+
+        profileLink.setAttribute("aria-label", "Sign In");
+
+        try {
+          const sessionResponse = await fetch(
+            `${window.BBO_CONFIG.API_BASE_URL}/auth/profile`,
+            {
+              method: "GET",
+              credentials: "include",
+              cache: "no-store",
+            },
+          );
+
+          if (sessionResponse.ok) {
+            // User has a valid session
+            profileLink.href = "profile.html";
+            profileLink.setAttribute("aria-label", "View My Account");
+
+            if (logoutBtn) {
+              logoutBtn.hidden = false;
+            }
+          } else {
+              profileLink.setAttribute("aria-label", "Sign In");
+          }
+
+        } catch (error) {
+          console.warn("Unable to check login session.");
+        }
+      }
+
+      // Navbar logout
+      logoutBtn?.addEventListener("click", async () => {
+      logoutBtn.disabled = true;
+
+      try {
+        const response = await fetch(
+          `${window.BBO_CONFIG.API_BASE_URL}/auth/logout`,
+          {
+            method: "POST",
+            credentials: "include"
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Logout failed");
+        }
+
+        window.location.replace("login.html");
+      } catch (error) {
+        console.error("Navbar logout failed:", error);
+        alert("Unable to sign out. Please try again.");
+        logoutBtn.disabled = false;
+      }
+    });
+
+        } catch (error) {
+
+            console.error("Error loading navbar:", error);
+
+      navbarContainer.textContent = "Navigation could not be loaded";
+    }
+  }
+
+  // load when the HTML document is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadNavbar);
+  } else {
+    loadNavbar();
+  }
+})();

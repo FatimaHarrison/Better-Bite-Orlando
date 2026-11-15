@@ -2,39 +2,83 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-y: scroll;
+}
+
 body {
     margin:0;
     background-color: #f4f4f4;
-    font-family: Arial, sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 
 /*Navigation bar */ 
 
+
+
 header {
-    background-color: #e8d8c8;
-    padding: 20px 30px;
+    width: 100%;
+    height: 85px;
 
-    max-width: 1200px;
-    margin: 0 auto;
-}
+    background-color: #f4ece5;
 
-
-nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+
+    padding: 0 35px 0 25px;
 }
 
-.nav-links {
+/* Logo */
+
+header .logo {
+    width: 115px;
+    height: auto;
+    display: block;
+}
+
+/* Center navigation */
+
+.navbar {
+    flex: 1;
+
     display: flex;
-    gap: 45px;
+    align-items: center;
+    justify-content: center;
+
+    gap: 55px;
+    margin-left: 40px;
 }
 
-.nav-links a {
+.navbar a {
+    color: #3D622C;
     text-decoration: none;
-    color: #355f2e;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
 }
+
+.navbar a:hover {
+    color: #3D622C;
+}
+
+/* Search icon */
+
+.header-actions .search {
+    display: flex;
+    align-items:center;
+    justify-content:center;
+
+    color: #3D622C;
+    text-decoration:none;
+}
+
+.header-actions .search i{
+    font-size: 16px;
+    color: #3D622C;
+}
+
 
 .page-intro h1 {
     font-family: Arial, sans-serif;
@@ -80,11 +124,7 @@ main {
     padding: 25px;
 }
 
-.logo img {
-    width: 130px;
-    height: auto;
-    display: block;
-}
+
 
 .acess-message {
     display: flex;

@@ -1,0 +1,399 @@
+import {
+	normalizeGrocery,
+	normalizeFoodPantry,
+	normalizeRestaurant,
+	normalizeFarmersMarket,
+} from "../utils/normalization.js";
+
+const GEOAPIFY_BASE_URL = "https://api.geoapify.com/v2/places";
+const GEOAPIFY_GEOCODE_URL = "https://api.geoapify.com/v1/geocode/search";
+const FEEDING_AMERICA_BASE_URL = "https://feedam.org/api/resources/search";
+
+async function fetchJson(url, label) {
+	const response = await fetch(url);
+	if (!response.ok) {
+		const detail = await response.text().catch(() => "");
+		throw new Error(
+			`${label} returned HTTP ${response.status}${detail ? `: ${detail.slice(0, 300)}` : ""}`,
+		);
+	}
+	return response.json();
+}
+
+function getRecords(payload) {
+	if (Array.isArray(payload)) return payload;
+	for (const key of ["features", "results", "data", "resources", "markets"]) {
+		if (Array.isArray(payload?.[key])) return payload[key];
+	}
+	return [];
+}
+
+function validCoordinate(value, min, max) {
+	const number = Number(value);
+	return Number.isFinite(number) && number >= min && number <= max
+		? number
+		: null;
+}
+
+async function resolveOrigin(query, apiKey) {
+	const lat = validCoordinate(query.lat, -90, 90);
+	const lon = validCoordinate(query.lon, -180, 180);
+	if (lat !== null && lon !== null) return { lat, lon };
+
+	const location = String(query.location ?? query.zip ?? "").trim();
+	if (!location)
+		throw Object.assign(
+			new Error("Provide location (address or ZIP), or lat and lon"),
+			{ status: 400 },
+		);
+
+	const params = new URLSearchParams({
+		text: location,
+		format: "json",
+		limit: "1",
+		apiKey,
+	});
+	const payload = await fetchJson(
+		`${GEOAPIFY_GEOCODE_URL}?${params}`,
+		"Geoapify geocoding",
+	);
+	const result = payload?.results?.[0];
+	const resolvedLat = validCoordinate(result?.lat, -90, 90);
+	const resolvedLon = validCoordinate(result?.lon, -180, 180);
+	if (resolvedLat === null || resolvedLon === null) {
+		throw Object.assign(new Error(`Could not locate: ${location}`), {
+			status: 400,
+		});
+	}
+	return { lat: resolvedLat, lon: resolvedLon };
+}
+
+function coordsOf(item) {
+	const lat = validCoordinate(item.latitude, -90, 90);
+	const lon = validCoordinate(item.longitude, -180, 180);
+	return lat === null || lon === null ? null : { lat, lon };
+}
+
+function distanceMiles(a, b) {
+	const radians = (degrees) => (degrees * Math.PI) / 180;
+	const dLat = radians(b.lat - a.lat);
+	const dLon = radians(b.lon - a.lon);
+	const h =
+		Math.sin(dLat / 2) ** 2 +
+		Math.cos(radians(a.lat)) *
+			Math.cos(radians(b.lat)) *
+			Math.sin(dLon / 2) ** 2;
+	return 3958.7613 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+}
+
+function filterByDistance(items, origin, maxDistance) {
+	if (maxDistance === null) return items;
+	return items
+		.map((item) => {
+			const coords = coordsOf(item);
+			return coords
+				? {
+						...item,
+						distanceMiles: Number(
+							distanceMiles(origin, coords).toFixed(2),
+						),
+					}
+				: null;
+		})
+		.filter((item) => item && item.distanceMiles <= maxDistance);
+}
+
+
+async function fetchGeoapify(type, origin, maxDistance, query, apiKey, name = null) {
+	const isFarmersMarket = type === "farmers-markets";
+
+	const categories = isFarmersMarket
+		? "commercial.marketplace"
+		: query.category || "commercial.supermarket";
+
+	const radiusMiles = maxDistance ?? (isFarmersMarket ? 30 : 10);
+
+	const params = new URLSearchParams({
+		apiKey,
+		categories,
+		filter: `circle:${origin.lon},${origin.lat},${Math.round(radiusMiles * 1609.344)}`,
+		bias: `proximity:${origin.lon},${origin.lat}`,
+		limit: String(Math.min(Math.max(Number(query.limit) || 100, 1), 500)),
+	});
+
+	if (name) params.set("name", name);
+	if (query.conditions) {
+		params.set("conditions", String(query.conditions));
+	}
+
+	const payload = await fetchJson(
+		`${GEOAPIFY_BASE_URL}?${params}`,
+		`Geoapify ${type}`
+	);
+
+	const normalize = isFarmersMarket
+		? normalizeFarmersMarket
+		: normalizeGrocery;
+
+	return getRecords(payload)
+		.map(normalize)
+		.map(item => ({
+			...item,
+			type: isFarmersMarket ? "farmers-market" : "grocery"
+			}));
+}
+
+
+async function fetchFarmersMarkets(origin, maxDistance, query = {}) {
+	const apiKey = process.env.GEOAPIFY_API_KEY;
+
+	if (!apiKey) {
+		throw new Error("GEOAPIFY_API_KEY is not configured");
+	}
+
+	const terms = ["farm", "produce","flea"];
+
+	const searches = await Promise.allSettled(
+		terms.map(name =>
+			fetchGeoapify(
+				"farmers-markets",
+				origin,
+				maxDistance,
+				query,
+				apiKey,
+				name
+			)
+		)
+	);
+
+	const successful = searches
+		.filter(result => result.status === "fulfilled");
+
+	if (!successful.length) {
+		throw new Error("Geoapify farmers market searches failed");
+	}
+
+	const unique = new Map();
+
+	successful.forEach(result => {
+		result.value.forEach(market => {
+			if (market.id) {
+				unique.set(String(market.id), market);
+			}
+		});
+	});
+
+	return [...unique.values()];
+}
+
+async function fetchPantries(location, query) {
+	const search = String(location || query.location || query.zip || "").trim();
+	if (!search)
+		throw Object.assign(
+			new Error("A location is required to search food pantries"),
+			{ status: 400 },
+		);
+	const params = new URLSearchParams({ zip: search });
+	const payload = await fetchJson(
+		`${FEEDING_AMERICA_BASE_URL}?${params}`,
+		"Feeding America food pantries",
+	);
+	return getRecords(payload)
+		.map(normalizeFoodPantry)
+		.map((item) => ({ ...item, type: "food-pantry" }));
+}
+
+// GET /places/groceries?types=groceries,farmers-markets,food-pantries&location=32819&maxDistance=10
+export const findGroceries = async (req, res) => {
+	const rawTypes = req.query.types ?? req.query.type ?? "groceries";
+	const types = (
+		Array.isArray(rawTypes) ? rawTypes : String(rawTypes).split(",")
+	)
+		.map((type) => String(type).trim().toLowerCase().replaceAll("_", "-"))
+		.filter(Boolean);
+	const allowed = new Set(["groceries", "farmers-markets", "food-pantries"]);
+	const invalid = types.filter((type) => !allowed.has(type));
+	if (invalid.length || !types.length) {
+		return res
+			.status(400)
+			.json({
+				error: "types must include groceries, farmers-markets, and/or food-pantries",
+				invalidTypes: invalid,
+			});
+	}
+
+	const distanceValue = req.query.maxDistance;
+	const maxDistance =
+		distanceValue === undefined ? null : Number(distanceValue);
+	if (
+		maxDistance !== null &&
+		(!Number.isFinite(maxDistance) || maxDistance <= 0)
+	) {
+		return res
+			.status(400)
+			.json({ error: "maxDistance must be a positive number of miles" });
+	}
+
+	const needsOrigin =
+		types.includes("groceries") ||
+		types.includes("farmers-markets") ||
+		maxDistance !== null;
+	const geoapifyKey = process.env.GEOAPIFY_API_KEY;
+	if (needsOrigin && !geoapifyKey) {
+		return res
+			.status(500)
+			.json({
+				error: "GEOAPIFY_API_KEY is required to resolve the frontend location",
+			});
+	}
+
+	try {
+		const origin = needsOrigin
+			? await resolveOrigin(req.query, geoapifyKey)
+			: {
+					lat: validCoordinate(req.query.lat, -90, 90),
+					lon: validCoordinate(req.query.lon, -180, 180),
+				};
+		const location = String(
+			req.query.location ?? req.query.zip ?? "",
+		).trim();
+
+		const jobs = [];
+
+		if (types.includes("groceries")) {
+			jobs.push({
+				type: "groceries",
+				request: fetchGeoapify(
+					"groceries",
+					origin,
+					maxDistance,
+					req.query,
+					geoapifyKey
+				),
+			});
+		}
+
+    if (types.includes("farmers-markets")) {
+      jobs.push({
+        type: "farmers-markets",
+        request: fetchFarmersMarkets(
+          origin,
+          maxDistance,
+          req.query
+        ),
+      });
+    }
+
+    if (types.includes("food-pantries")) {
+      jobs.push({
+        type: "food-pantries",
+        request: fetchPantries(location, req.query),
+      });
+    }
+
+    const settled = await Promise.allSettled(
+      jobs.map(job => job.request)
+    );
+
+    const results = [];
+    const unavailable = [];
+    let successfulProviders = 0;
+
+    settled.forEach((outcome, index) => {
+      const type = jobs[index].type;
+
+      if (outcome.status === "fulfilled") {
+        successfulProviders++;
+        results.push(...outcome.value);
+      } else {
+        unavailable.push(type);
+        console.error(
+          `${type} provider failed:`,
+          outcome.reason?.message
+        );
+      }
+    });
+
+    if (successfulProviders === 0) {
+      return res.status(502).json({
+        error: "All requested food-resource providers failed",
+        unavailableProviders: unavailable,
+      });
+    }
+
+    const filteredResults =
+      maxDistance !== null
+        ? filterByDistance(results, origin, maxDistance)
+        : results;
+
+    if (unavailable.length) {
+      res.set("X-Partial-Results", "true");
+      res.set(
+        "X-Unavailable-Providers",
+        unavailable.join(",")
+      );
+    }
+
+    return res.status(200).json(filteredResults);
+
+
+	} catch (error) {
+		console.error("Error finding groceries:", error);
+		return res
+			.status(error.status || 502)
+			.json({
+				error: error.message || "Unable to find nearby food resources",
+			});
+	}
+};
+
+export const getRestaurants = async (req, res) => {
+	const apiKey = process.env.GEOAPIFY_API_KEY;
+	if (!apiKey)
+		return res
+			.status(500)
+			.json({ error: "GEOAPIFY_API_KEY is not configured" });
+
+	const maxDistance =
+		req.query.maxDistance === undefined
+			? null
+			: Number(req.query.maxDistance);
+	if (
+		maxDistance !== null &&
+		(!Number.isFinite(maxDistance) || maxDistance <= 0)
+	) {
+		return res
+			.status(400)
+			.json({ error: "maxDistance must be a positive number of miles" });
+	}
+
+	try {
+		const origin = await resolveOrigin(req.query, apiKey);
+		const params = new URLSearchParams({
+			apiKey,
+			categories: req.query.category || "catering.restaurant",
+			filter: `circle:${origin.lon},${origin.lat},${Math.round((maxDistance ?? Number(req.query.radius ?? 10)) * 1609.344)}`,
+			limit: String(
+				Math.min(Math.max(Number(req.query.limit) || 20, 1), 500),
+			),
+		});
+		if (req.query.conditions)
+			params.set("conditions", String(req.query.conditions));
+
+		const payload = await fetchJson(
+			`${GEOAPIFY_BASE_URL}?${params}`,
+			"Geoapify restaurants",
+		);
+		let restaurants = getRecords(payload).map(normalizeRestaurant);
+		if (maxDistance !== null)
+			restaurants = filterByDistance(restaurants, origin, maxDistance);
+		return res.status(200).json(restaurants);
+	} catch (error) {
+		console.error("Error fetching restaurants:", error);
+		return res
+			.status(error.status || 502)
+			.json({
+				error: error.message || "Unable to fetch Geoapify restaurants",
+			});
+	}
+};
