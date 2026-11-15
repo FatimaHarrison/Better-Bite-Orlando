@@ -15,7 +15,7 @@ The application currently includes:
 - Recipe searches with nutritional information
 - Restaurant searches
 - Grocery store searches
-- Farmers' market and flea market searches
+- Farmers' market searches
 - Food pantry searches
 - Location-based searches using ZIP codes and distance filtering
 - Responsive website navigation and layouts
