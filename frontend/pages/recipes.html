@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Find healthy recipes, ingredients and nutrition information with Better Bite Orlando."
+    />
+    <title>Healthy Recipes | Better Bite Orlando</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="../css/bootstrap-custom.min.css" />
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/navbar.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
+    <link rel="stylesheet" href="../css/recipes.css" />
+  </head>
+  <body>
+    <div id="site-navbar"></div>
+    <main class="recipes-page">
+      <section class="recipes-hero" aria-labelledby="recipes-heading">
+        <div class="container-xl">
+          <h1 id="recipes-heading">Healthy Recipes</h1>
+          <p>
+            Discover easy, nutritious recipes to cook at home with simple
+            ingredients.
+          </p>
+        </div>
+      </section>
+      <section class="recipes-filters container-xl" aria-label="Recipe filters">
+        <fieldset>
+          <legend>How much time do you have?</legend>
+          <div class="recipe-filter-options" id="time-filters">
+            <button type="button" data-time="15" aria-pressed="false">
+              15 min</button
+            ><button type="button" data-time="30" aria-pressed="false">
+              30 min</button
+            ><button type="button" data-time="45" aria-pressed="false">
+              45 min</button
+            ><button type="button" data-time="60" aria-pressed="false">
+              1+ hour
+            </button>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>What are your Dietary Preferences?</legend>
+          <div class="recipe-filter-options" id="diet-filters">
+            <button type="button" data-diet="vegetarian" aria-pressed="false">
+              Vegetarian</button
+            ><button type="button" data-diet="vegan" aria-pressed="false">
+              Vegan</button
+            ><button type="button" data-diet="gluten free" aria-pressed="false">
+              Gluten-Free</button
+            ><button type="button" data-diet="low carb" aria-pressed="false">
+              Low Carb</button
+            ><button
+              type="button"
+              data-diet="high protein"
+              aria-pressed="false"
+            >
+              High Protein
+            </button>
+          </div>
+        </fieldset>
+        <button type="button" class="clear-filters" id="clear-filters">
+          Clear filters
+        </button>
+      </section>
+      <div class="container-xl recipes-workspace">
+        <section class="recipes-results" aria-labelledby="results-heading">
+          <div class="recipes-toolbar">
+            <h2 id="results-heading">
+              Results (<span id="result-count">0</span>)
+            </h2>
+            <div class="recipes-search">
+              <label for="recipe-search" class="visually-hidden"
+                >Search recipes</label
+              ><input
+                id="recipe-search"
+                type="search"
+                placeholder="Search recipes"
+                autocomplete="off"
+              /><i class="bi bi-search" aria-hidden="true"></i>
+            </div>
+            <label class="recipes-sort" for="recipe-sort"
+              >Sort by
+              <select id="recipe-sort">
+                <option value="relevance">Most Relevant</option>
+                <option value="time">Cooking Time</option>
+                <option value="title">Name A–Z</option>
+              </select></label
+            >
+          </div>
+          <p id="recipes-status" role="status" aria-live="polite">
+            Loading recipes…
+          </p>
+          <div class="recipes-grid" id="recipes-grid"></div>
+          <button type="button" id="load-more" class="load-more" hidden>
+            Load more recipes
+          </button>
+        </section>
+        <aside
+          class="recipe-details"
+          id="recipe-details"
+          aria-label="Selected recipe"
+          hidden
+        >
+          <button
+            type="button"
+            class="detail-close"
+            id="detail-close"
+            aria-label="Close recipe details"
+          >
+            <i class="bi bi-x-lg"></i>
+          </button>
+          <img id="detail-image" alt="" src="" loading="lazy" />
+          <div class="detail-content">
+            <h2 id="detail-title"></h2>
+            <div class="detail-meta" id="detail-meta"></div>
+            <div class="detail-tags" id="detail-tags"></div>
+            <div class="detail-tabs" role="tablist" aria-label="Recipe details">
+              <button
+                type="button"
+                role="tab"
+                id="tab-overview"
+                aria-controls="detail-panel"
+                aria-selected="true"
+                data-tab="overview"
+              >
+                Overview</button
+              ><button
+                type="button"
+                role="tab"
+                id="tab-ingredients"
+                aria-controls="detail-panel"
+                aria-selected="false"
+                data-tab="ingredients"
+              >
+                Ingredients</button
+              ><button
+                type="button"
+                role="tab"
+                id="tab-nutrition"
+                aria-controls="detail-panel"
+                aria-selected="false"
+                data-tab="nutrition"
+              >
+                Nutrition
+              </button>
+            </div>
+            <div
+              id="detail-panel"
+              role="tabpanel"
+              aria-labelledby="tab-overview"
+            ></div>
+            <div class="detail-actions">
+              <button type="button" id="save-recipe" class="save-recipe">
+                <i class="bi bi-heart" aria-hidden="true"></i> Save Recipe</button
+              ><a
+                id="recipe-source"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                hidden
+                >Full instructions
+                <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i
+              ></a>
+            </div>
+            <p id="save-status" role="status" aria-live="polite"></p>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Shared Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Shared Components JS -->
+    <script src="../js/config.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/footer.js"></script>
+
+    <!-- Page JS -->
+    <script src="../js/recipes.js"></script>
+  </body>
+</html>

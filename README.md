@@ -1,52 +1,80 @@
 # Better Bite Orlando
-## Bringing better health to Orlando
 
-Better Bite Orlando is a Valencia College CEN 4910C capstone project focused on helping Orlando residents find healthier, more affordable food options.
+## About the Project
 
-The application is intended to help users search for healthy meals and food locations, apply budget and dietary filters, compare meal options using price and nutrition information, and locate nearby restaurants or grocery stores.
+Better Bite Orlando is a web application developed for Valencia College's CEN 4910C Software Development Capstone course.
 
-## Current Project Phase
+The application helps Orlando-area residents discover healthier food options, find nearby food resources, explore recipes, and manage their dietary preferences.
 
-The team is currently developing the project's web prototype while continuing work on UI/UX, frontend, backend, database, API research, QA, integration, and deployment planning.
+## Features
 
-## Planned Features
+The application currently includes:
 
-- Search for healthier meal options
-- Search for restaurants and grocery stores
-- Set a meal budget
-- Filter by dietary preferences
-- Compare meals by price, calories, and nutrition
-- View nutrition information
-- Search by distance
-- View transportation options
-- Save favorite meals or restaurants
+- User registration, login, logout, and password recovery
+- User profiles and dietary preferences
+- Recipe searches with nutritional information
+- Restaurant searches
+- Grocery store searches
+- Farmers' market searches
+- Food pantry searches
+- Location-based searches using ZIP codes and distance filtering
+- Responsive website navigation and layouts
 
-## Technology
+Some additional features remain under development or testing.
 
-Current project planning identifies the following technologies:
+## Technology Stack
 
-- **Frontend:** Responsive web/mobile interface based on UI/UX prototypes
-- **Backend:** Node.js and Express
-- **Database:** MySQL
-- **Version Control:** Git and GitHub
-- **External Data:** Restaurant, location, menu, and nutrition APIs
-- **Deployment:** Cloud-hosted environment
+### Frontend
 
-Potential external APIs currently under consideration include OpenMenu, Google Places, USDA FoodData Central, TripAdvisor, and Spoonacular. Final API selections may change as development progresses.
+- HTML5
+- CSS3
+- Bootstrap
+- JavaScript
 
-## Team Roles
+### Backend
 
-| Area | Team Members |
-|---|---|
-| Project Management / Scrum | Alondra Reyes-Pagan, Fatima Harrison |
-| UI/UX Design | Alondra Reyes-Pagan |
-| Healthy Eating / Orlando Food Research | Marla Peraza Ravelo |
-| Frontend Development | Gerald Allen Dinardo, Laura Savinon, Kenji Nakanishi |
-| Backend Development | Zekia Beyene, Aram Valcourt |
-| Database Development | Alaa Khan |
-| QA / Integration / Testing / Deployment | Kelly Stinson |
+- Node.js
+- Express.js
+- Prisma ORM
+- MySQL
 
-> Team roles represent primary responsibilities. Team members are expected to communicate, collaborate, test, and document work across the project.
+### External APIs and Services
+
+- **Geoapify:** Geocoding, restaurants, grocery stores, and marketplaces
+- **Spoonacular:** Recipes and nutritional information
+- **Feeding America:** Food pantry resources
+- **SMTP2Go:** Transactional email delivery
+
+### Infrastructure
+
+- DigitalOcean Ubuntu server
+- Nginx reverse proxy
+- Let's Encrypt HTTPS certificates
+- systemd for backend services
+- GitHub for version control
+
+## Repository Structure
+
+```text
+Better-Bite-Orlando/
+├── backend/     # Express API, controllers, routes, Prisma, and schema
+├── frontend/    # HTML, CSS, JavaScript, images, and components
+└── README.md
+```
+
+## Development Environments
+
+| Environment | Frontend | Backend |
+|---|---|---|
+| Development | https://dev.betterbiteorlando.com | https://api-dev.betterbiteorlando.com |
+| Testing | https://test.betterbiteorlando.com | Separately configured test API |
+| Production | https://betterbiteorlando.com | Production deployment planned |
+
+Environment-specific credentials and API keys are maintained outside Git.
+
+## Project Status
+
+The frontend and backend are integrated and running in the development environment. Beta testing and revisions are ongoing.
 
 ---
 
