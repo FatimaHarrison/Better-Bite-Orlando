@@ -42,9 +42,9 @@ export function normalizeRestaurant(restaurant = {}) {
 		menuUrl: properties.menu ?? properties.web ?? null,
 	};
 }
+
 // Normalizes Spoonacular recipe data into a consistent format
 // for the Better Bite Orlando frontend.
-
 export function normalizeRecipe(recipe = {}) {
 	const nutrients = recipe.nutrition?.nutrients ?? [];
 
@@ -87,15 +87,21 @@ export function normalizeRecipe(recipe = {}) {
 		},
 	};
 }
+
 // Normalizes Geoapify supermarket/grocery data into a consistent format
 // for the Better Bite Orlando frontend.
-
 export function normalizeGrocery(store = {}) {
 	const properties = store.properties ?? store;
 
 	return {
-		id: properties.place_id ?? properties.id ?? null,
-		name: properties.name ?? null,
+		id:
+			properties.place_id ??
+			properties.id ??
+			null,
+
+		name:
+			properties.name ??
+			null,
 
 		address:
 			properties.formatted ??
@@ -103,19 +109,30 @@ export function normalizeGrocery(store = {}) {
 			properties.address ??
 			null,
 
-		latitude: properties.lat ?? null,
-		longitude: properties.lon ?? null,
+		latitude:
+			properties.lat ??
+			null,
 
-		website: properties.website ?? null,
+		longitude:
+			properties.lon ??
+			null,
 
-		openingHours: properties.opening_hours ?? null,
+		website:
+			properties.website ??
+			null,
 
-		categories: properties.categories ?? [],
+		openingHours:
+			properties.opening_hours ??
+			null,
+
+		categories:
+			properties.categories ??
+			[],
 	};
 }
+
 // Normalizes Feeding America food pantry and resource data into a consistent format
 // for the Better Bite Orlando frontend.
-
 export function normalizeFoodPantry(resource = {}) {
 	const data = resource.properties ?? resource;
 
@@ -171,6 +188,8 @@ export function normalizeFoodPantry(resource = {}) {
 	};
 }
 
+// Normalizes Geoapify data into a consistent format
+// for the Better Bite Orlando frontend.
 export function normalizeFarmersMarket(market = {}) {
 	const properties = market.properties ?? market;
 
@@ -190,27 +209,40 @@ export function normalizeFarmersMarket(market = {}) {
 
 	return {
 		id:
+			properties.place_id ??
 			properties.id ??
 			properties.Listing_id ??
 			properties.listing_id ??
 			properties.market_id ??
 			null,
+
 		name:
 			properties.Listing_name ??
 			properties.listing_name ??
 			properties.name ??
 			null,
+
 		address:
 			properties.Location_address ??
 			properties.location_address ??
+			properties.formatted ??
 			properties.address ??
+			properties.address_line2 ??
 			null,
+
 		website:
 			properties.Media_website ??
 			properties.media_website ??
 			properties.website ??
 			null,
+
+                openingHours:
+                        properties.opening_hours ??
+			properties.opening_hours ??
+                        null,
+
 		latitude: latitude === null ? null : Number(latitude),
+
 		longitude: longitude === null ? null : Number(longitude),
 	};
 }

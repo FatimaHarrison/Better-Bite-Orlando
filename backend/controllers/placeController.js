@@ -7,7 +7,6 @@ import {
 
 const GEOAPIFY_BASE_URL = "https://api.geoapify.com/v2/places";
 const GEOAPIFY_GEOCODE_URL = "https://api.geoapify.com/v1/geocode/search";
-const USDA_BASE_URL = "https://www.usdalocalfoodportal.com/api/farmersmarket/";
 const FEEDING_AMERICA_BASE_URL = "https://feedam.org/api/resources/search";
 
 async function fetchJson(url, label) {
@@ -104,55 +103,87 @@ function filterByDistance(items, origin, maxDistance) {
 		.filter((item) => item && item.distanceMiles <= maxDistance);
 }
 
-async function fetchGeoapify(type, origin, maxDistance, query, apiKey) {
-	const category =
-		type === "groceries"
-			? query.category || "commercial.supermarket"
-			: null;
 
-	const categories =
-		category || "commercial.supermarket,commercial.marketplace";
+async function fetchGeoapify(type, origin, maxDistance, query, apiKey, name = null) {
+	const isFarmersMarket = type === "farmers-markets";
+
+	const categories = isFarmersMarket
+		? "commercial.marketplace"
+		: query.category || "commercial.supermarket";
+
+	const radiusMiles = maxDistance ?? (isFarmersMarket ? 30 : 10);
 
 	const params = new URLSearchParams({
 		apiKey,
 		categories,
-		filter: `circle:${origin.lon},${origin.lat},${Math.round(
-			(maxDistance ?? 10) * 1609.344
-		)}`,
+		filter: `circle:${origin.lon},${origin.lat},${Math.round(radiusMiles * 1609.344)}`,
+		bias: `proximity:${origin.lon},${origin.lat}`,
 		limit: String(Math.min(Math.max(Number(query.limit) || 100, 1), 500)),
 	});
 
-	if (query.conditions) params.set("conditions", String(query.conditions));
+	if (name) params.set("name", name);
+	if (query.conditions) {
+		params.set("conditions", String(query.conditions));
+	}
 
 	const payload = await fetchJson(
 		`${GEOAPIFY_BASE_URL}?${params}`,
-		"Geoapify groceries",
+		`Geoapify ${type}`
 	);
 
+	const normalize = isFarmersMarket
+		? normalizeFarmersMarket
+		: normalizeGrocery;
+
 	return getRecords(payload)
-		.map(normalizeGrocery)
-		.map((item) => ({ ...item, type: "grocery" }));
+		.map(normalize)
+		.map(item => ({
+			...item,
+			type: isFarmersMarket ? "farmers-market" : "grocery"
+			}));
 }
 
-async function fetchFarmersMarkets(origin, maxDistance, query) {
-	const apiKey = process.env.USDA_API_KEY;
-	if (!apiKey)
-		throw Object.assign(new Error("USDA_API_KEY is not configured"), {
-			status: 500,
-		});
-	const params = new URLSearchParams({
-		apiKey,
-		x: String(origin.lon),
-		y: String(origin.lat),
-		radius: String(maxDistance ?? Number(query.radius ?? 30)),
-	});
-	const payload = await fetchJson(
-		`${USDA_BASE_URL}?${params}`,
-		"USDA farmers markets",
+
+async function fetchFarmersMarkets(origin, maxDistance, query = {}) {
+	const apiKey = process.env.GEOAPIFY_API_KEY;
+
+	if (!apiKey) {
+		throw new Error("GEOAPIFY_API_KEY is not configured");
+	}
+
+	const terms = ["farm", "produce","flea"];
+
+	const searches = await Promise.allSettled(
+		terms.map(name =>
+			fetchGeoapify(
+				"farmers-markets",
+				origin,
+				maxDistance,
+				query,
+				apiKey,
+				name
+			)
+		)
 	);
-	return getRecords(payload)
-		.map(normalizeFarmersMarket)
-		.map((item) => ({ ...item, type: "farmers-market" }));
+
+	const successful = searches
+		.filter(result => result.status === "fulfilled");
+
+	if (!successful.length) {
+		throw new Error("Geoapify farmers market searches failed");
+	}
+
+	const unique = new Map();
+
+	successful.forEach(result => {
+		result.value.forEach(market => {
+			if (market.id) {
+				unique.set(String(market.id), market);
+			}
+		});
+	});
+
+	return [...unique.values()];
 }
 
 async function fetchPantries(location, query) {
