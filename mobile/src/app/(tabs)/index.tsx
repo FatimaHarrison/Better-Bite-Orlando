@@ -2,17 +2,19 @@ import {
   View,
   Text,
   Image,
-  ImageBackground,
   ScrollView,
   Pressable,
   Alert,
 } from "react-native";
+
+import { StatusBar } from "expo-status-bar";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../styles/homeStyles";
 
 import { useRouter } from "expo-router";
 
+import BotanicalBackground from "../../components/BotanicalBackground";
 export default function HomeScreen() {
 
   const router = useRouter();
@@ -20,19 +22,19 @@ export default function HomeScreen() {
   const categories = [
   // existing categories
     {
-      icon: "🛒",
+      icon: require("../../../assets/images/icon-groceries.png"),
       title: "Find Groceries",
-      description: "Supermarkets, farmer markets & fresh food",
+      description: "Markets & food pantries",
     },
     {
-      icon: "🥗",
+      icon: require("../../../assets/images/icon-restaurant.png"),
       title: "Healthy Restaurants",
-      description: "Discover nutritious meals around Orlando",
+      description: "Healthier meals nearby",
     },
     {
-      icon:"📖",
+      icon:require("../../../assets/images/icon-resources.png"),
       title:"Recipes",
-      description:"Explore balanced recipes",
+      description:"Cook healthy meals at home",
     },
   ];
 
@@ -40,6 +42,11 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+
+      <StatusBar style="dark" />
+
+    {/* Reusable Botanical Background */}
+     <BotanicalBackground />
 
       <ScrollView contentContainerStyle={styles.content}>
 
@@ -54,40 +61,57 @@ export default function HomeScreen() {
         accessibilityLabel="Better Bite Orlando Logo"
         />
 
-        <Text style={styles.headerTag}>
+<View style={styles.locationBadge} >
+
+        <Text style={styles.locationIcon}>
+          📍
+        </Text>
+        <Text style={styles.locationText}>
           Orlando, FL
         </Text>
+    
+</View>
+</View>
 
-      </View>
 
       
 
         {/* === HERO SECTION === */}
         <View style={styles.hero}>
 
-          <ImageBackground
-            source={require("../../../assets/images/orlando-hero.jpg")}
-            style={styles.heroBackground}
-            resizeMode="cover"
-          > 
+          <View style={styles.heroBackground}>
+
+          {/* Orlando skyline decoration */}
+          <Image
+            source={require("../../../assets/images/orlando-skyline.png")}
+            style={styles.skylineImage}
+            resizeMode="contain"
+            pointerEvents="none"
+          />
+            
 
 
             {/* Background Overlay */}
             <View style={styles.heroOverlay}> 
           
-          <Text style={styles.heroTitle}>
-            Choose How You {"\n"}Want to Eat Healthy.
-          </Text>
-          
-          <Text style={styles.heroDescription}>
-            Discover fresh groceries, healthier restaurants, 
-            and delicious recipes around Orlando.
-          </Text>
+            <View>
+              <Text style={styles.heroTitle}>
+              Welcome Back!
+              </Text>
+              
+              <Text style={styles.heroDescription}>
+                Discover healthy options near you.
+              </Text>
+            </View>
 
+            <Text style={styles.heroBottomText}>
+              Choose how you want to eat healthy.
+            </Text>
           </View>
+      </View>
 
-      </ImageBackground>
-     </View>
+      </View>
+    
 
 
 
@@ -98,7 +122,7 @@ export default function HomeScreen() {
           What are you looking for?
         </Text>
 
-
+    <View style={styles.cardsRow}>
         {categories.map((category, index) => (
 
           <Pressable
@@ -117,13 +141,9 @@ export default function HomeScreen() {
         accessibilityRole="button"
 
         onPress={() => {
-
           if (category.title === "Healthy Restaurants") {
-
             router.push("/healthy-restaurants");
-
           } else {
-
             Alert.alert(
               category.title,
               "This section is coming soon!"
@@ -136,9 +156,11 @@ export default function HomeScreen() {
 
           {/* Category Icon */}
           
-            <Text style={styles.cardIcon}>
-              {category.icon}
-            </Text>
+            <Image
+              source={category.icon}
+              style={styles.cardIcon}
+              resizeMode="contain"
+            />
 
 
             {/* Category Information */}
@@ -154,14 +176,48 @@ export default function HomeScreen() {
               </Text>
 
             <Text style={styles.cardLink}>
-              Explore Options →
+              Explore →
               </Text>
 
         </View>
 
        </Pressable>
+      
 
         ))}
+</View>
+
+
+{/* QUICK START GUIDE */}
+
+<Pressable
+  style={styles.quickStartCard}
+  accessibilityRole="button"
+  accessibilityLabel="Learn how to use Better Bite Orlando"
+  onPress={() => router.push("/resources")}
+>
+
+<View style={styles.quickStartIconContainer}>
+  <Text style={styles.quickStartIcon}>📖</Text>
+</View>
+
+<View style={styles.quickStartContent}>
+
+  <Text style={styles.quickStartTitle}>
+    New here?
+  </Text>
+
+  <Text style={styles.quickStartDescription}>
+    Learn how to use the app.
+    Explore our guides and resources.
+  </Text>
+</View>
+
+<Text style={styles.quickStartArrow}>
+  →
+</Text>
+
+</Pressable>
 
         {/* BOTTOM MESSAGE */}
 

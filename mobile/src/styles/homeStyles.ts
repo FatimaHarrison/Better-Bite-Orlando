@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../theme/colors";
 
 export const styles = StyleSheet.create({
 
@@ -6,36 +7,72 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 2,
-    marginBottom: 5,
+    paddingVertical: 10,
+    marginBottom: 10,
   },
 
   brandLogo: {
-    width: 115,
-    height: 48,
+    width: 180,
+    height: 65,
   },
 
+  // Location badge
+
+locationBadge: {
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "center",
+
+  backgroundColor: colors.surface,
+
+  paddingVertical: 12,
+  paddingHorizontal: 14,
+
+  borderRadius: 30,
+
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.08,
+  shadowRadius: 5,
+  elevation: 3,
+},
+
+locationIcon: {
+  fontSize: 18,
+  marginRight: 4,
+},
+
+locationText: {
+  fontSize: 13,
+  fontWeight: "700",
+  color: colors.primary,
+},
+
   headerTag: {
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: "700",
-    letterSpacing: 1,
     color: "#3D622C",
     backgroundColor: "#F4ECE5",
-    paddingVertical: 9,
-    paddingHorizontal: 12,
-    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 24,
   },
 
 
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background,
+
   },
 
   content: {
     padding: 20,
     paddingTop: 10,
     paddingBottom: 15,
+    zIndex: 1,
   },
 
 
@@ -49,18 +86,26 @@ export const styles = StyleSheet.create({
   // Hero section 
 
   hero: {
-    height: 165,
+    height: 220,
     borderRadius: 18,
     overflow: "hidden",
     marginTop: 8,
-    marginBottom: 16,
-    backgroundColor: "#DCEAF6",
+    marginBottom: 12,
+    backgroundColor:  "transparent",
   },
 
   heroBackground: {
     flex: 1,
     width: "100%",
   },
+  // Orlando skyline illustration
+skylineImage: {
+  position: "absolute",
+  width: "100%",
+  height: 160,
+  bottom: 45,
+  alignSelf: "center",
+},
 
   heroImage: {
     ...StyleSheet.absoluteFillObject,
@@ -70,9 +115,9 @@ export const styles = StyleSheet.create({
 
   heroOverlay: {
     flex: 1,
-    backgroundColor: "rgba(255, 255, 255, 0.75)",
-    padding: 18,
-    justifyContent: "center",
+    backgroundColor: "transparent",
+    padding: 12,
+    justifyContent: "space-between",
   },
 
   heroContent: {
@@ -83,88 +128,174 @@ export const styles = StyleSheet.create({
 
 
   heroTitle: {
-    fontSize: 22,
+    fontSize: 30,
+    textAlign: "center",
     fontWeight: "bold",
     color: "#3D622C",
-    lineHeight: 27,
+    lineHeight: 36,
+    marginBottom: 8,
   },
 
   heroDescription: {
-    fontSize: 12,
-    color: "#3D622C",
-    lineHeight: 17,
+    fontSize: 16,
+    color: "#0f190a",
+    textAlign: "center",
+    lineHeight: 22,
   },
+
+  heroBottomText: {
+  fontSize: 17,
+  fontWeight: "700",
+  color: "#3D622C",
+  backgroundColor: "rgba(244, 250, 240, 0.9)",
+  padding: 12,
+  borderRadius: 12,
+  textAlign: "center",
+},
 
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#3D622C",
-    marginBottom: 18,
+    marginBottom: 12,
   },
 
-  card: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 16,
-    padding: 14,
-    marginBottom: 10,
-    minHeight: 90,
-  },
+  // Container for the three food categories
+cardsRow: {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "stretch",
+  gap: 8,
+  marginBottom: 12,
+},
+
+card: {
+  flex: 1,
+  minWidth: 0,
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "flex-start",
+
+  borderRadius: 18,
+
+  paddingVertical: 12,
+  paddingHorizontal: 8,
+  minHeight: 155,
+},
 
   // Green for Groceries 
   groceryCard: {
-    backgroundColor: "#DDF5DF",
+    backgroundColor: colors.successLight,
     borderLeftWidth: 5,
-    borderLeftColor: "#55A868",
+    borderLeftColor: colors.success,
   },
 
   // Orange for Restaurants
   restaurantCard: {
-    backgroundColor: "#FFE1CC",
+    backgroundColor: colors.warningLight,
     borderLeftWidth: 5,
-    borderLeftColor: "#FF8A30",
+    borderLeftColor: colors.warning,
   },
 
   // Purple for Recipes
   recipeCard: {
-    backgroundColor: "#EEDBF5",
+    backgroundColor: colors.accentLight,
     borderLeftWidth: 5,
-    borderLeftColor: "#A538CF",
+    borderLeftColor: colors.accent,
   },
 
-  cardIcon: {
-    fontSize: 26,
-    marginRight: 12,
-  },
+
+cardIcon: {
+  width: 54,
+  height: 54,
+  marginBottom: 10,
+  alignSelf: "center",
+},
 
   cardContent: {
-    flex: 1,
+    width: "100%",
+    alignItems: "center",
   },
 
   cardTitle: {
-    fontSize: 15,
-    fontWeight: "bold",
+    fontSize: 13,
+    fontWeight: "700",
     color: "#3D622C",
+    textAlign: "center",
+    lineHeight: 17,
   },
 
   cardDescription: {
-    fontSize: 11,
+    fontSize: 12,
     color: "#555555",
+    textAlign: "center",
     lineHeight: 15,
-    marginTop: 4,
+    marginTop: 8,
   },
 
   cardLink: {
     fontSize: 11,
     fontWeight: "700",
     color: "#3D622C",
-    marginTop: 7,
+    textAlign: "center",
+    marginTop: 8,
   },
 
   arrow: {
     fontSize: 28,
     color: "#3D622C",
   },
+
+  // Quick Start Guide
+
+quickStartCard: {
+  flexDirection: "row",
+  alignItems: "center",
+  backgroundColor: colors.surface,
+  borderRadius: 18,
+  padding: 12,
+  marginBottom: 10,
+  borderWidth: 1,
+  borderColor: colors.border,
+},
+
+quickStartIconContainer: {
+  width: 48,
+  height: 48,
+  borderRadius: 14,
+  backgroundColor: "#E2F0DD",
+  justifyContent: "center",
+  alignItems: "center",
+  marginRight: 12,
+},
+
+quickStartIcon: {
+  fontSize: 25,
+},
+
+quickStartContent: {
+  flex: 1,
+},
+
+quickStartTitle: {
+  fontSize: 16,
+  fontWeight: "700",
+  color: colors.primary,
+  marginBottom: 4,
+},
+
+quickStartDescription: {
+  fontSize: 12,
+  color: "#555555",
+  lineHeight: 18,
+},
+
+quickStartArrow: {
+  fontSize: 22,
+  fontWeight: "700",
+  color: "#3D622C",
+  marginLeft: 10,
+},
 
  footerText: {
   textAlign: "center",
