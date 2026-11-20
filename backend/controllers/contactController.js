@@ -119,7 +119,7 @@ const contactUs = async (req, res) => {
 		const teamMailOptions = {
 			from: `"${cleanName} (via Contact Form)" <${fromAddress}>`,
 			to: teamAddress,
-			replyTo: cleanEmail,
+			replyTo: `"${cleanName}" <${cleanEmail}>`,
 			subject: `[Contact Form] ${cleanSubject}`,
 			text: `From: ${cleanName} (${cleanEmail})\nSubject: ${cleanSubject}\n\nMessage:\n${trimmedMessage}`,
 			html: `
@@ -135,6 +135,7 @@ const contactUs = async (req, res) => {
 		const autoReplyOptions = {
 			from: `"Better Bite Orlando" <${fromAddress}>`,
 			to: cleanEmail,
+			replyTo: teamAddress,
 			subject: `Thank you for reaching out: ${cleanSubject}`,
 			text: ``,
 			html: `
