@@ -394,6 +394,23 @@
   padding-right: 8px;
 }
 
+/* Website unavailable message */
+
+.grocery-website-unavailable {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin: 8px 0 0;
+    color: #666;
+    font-size: 13px;
+}
+
+.grocery-website-unavailable i {
+    color: var(--bbo-primary);
+    font-size: 15px;
+}
+
 /* Responsive adjustments */
 
 @media (max-width: 576px) {

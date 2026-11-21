@@ -274,9 +274,10 @@ if (hasValidAddress || hasValidCoordinates) {
 
 
 
-    // website if available
-    if(location.website) {
+    // Website link when available
+    let hasValidWebsite = false;
 
+    if(location.website) {
         try {
         const rawWebsite = String(location.website).trim();
 
@@ -287,24 +288,47 @@ if (hasValidAddress || hasValidCoordinates) {
 
         const url = new URL(websiteUrl);
 
-        // only allow sage webs
-        if(["https:","http:"].includes(url.protocol)) {
+        // only allow valid http and s sites
+        if(["https:","http:"].includes(url.protocol) && url.hostname.includes(".")
+        ){
+        const website = document.createElement("a");
 
-            const website = document.createElement("a");
+        website.href = url.href;
+        website.target = "_blank";
+        website.rel = "noopener noreferrer";
 
-            website.href = url.href;
-            website.target = "_blank";
-            website.rel = "noopener noreferrer";
+        website.className = "btn btn-outline-primary";
+        website.textContent = "Visit Website";
 
-            website.className = "btn btn-outline-primary";
-            website.textContent = "Visit Website";
-
-            actions.appendChild(website);
+        actions.appendChild(website);
+        hasValidWebsite = true;
         }
     } catch (error) {
         console.warn("Invalid grocery website URL:", error);
     }
 }
+
+        // show message when website info. is not available
+        if(!hasValidWebsite) {
+            const message = document.createElement("p");
+
+            message.className = "grocery-website-unavailable";
+
+            const icon = document.createElement("i");
+            icon.className = "bi bi-info-circle";
+            icon.setAttribute("aria-hidden", "true");
+
+            message.append(
+                icon,
+                document.createTextNode(
+                    "Website information is not available for this location."
+                )
+            );
+
+            actions.appendChild(message);
+        }
+
+
         details.append(
         image,
         heading,
