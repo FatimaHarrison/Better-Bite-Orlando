@@ -8,6 +8,7 @@ const GROCERY_API_URL =
 const groceryForm = document.getElementById("grocery-search-form");
 const groceryZip = document.getElementById("grocery-zip");
 const groceryCategory = document.getElementById("grocery-category");
+const groceryRadius = document.getElementById("grocery-radius");
 const groceryResults = document.getElementById("grocery-results-list");
 const groceryResultsCount = document.getElementById("results-count");
 
@@ -635,13 +636,14 @@ async function searchGroceries(event) {
     const zip = groceryZip.value.trim();
     const category = groceryCategory.value;
     const types = getGroceryTypes(category);
+    const radius= Number(groceryRadius.value);
 
     syncCategoryNavigation(category);
 
     const params = new URLSearchParams({
         location: zip,
         types: types,
-        maxDistance: "10"
+        maxDistance: String(radius)
     });
 
     groceryResults.textContent ="Searching for grocery locations...";
@@ -675,7 +677,13 @@ async function searchGroceries(event) {
         groceryResultsCount.textContent = data.length;
 
         if(data.length === 0) {
-            groceryResults.textContent = "No grocery location were found. Try another ZIP code.";
+            groceryResults.replaceChildren();
+
+            const message = document.createElement("p");
+            message.className = "grocery-empty-message";
+            message.textContent = "No location found within the selected radius. Try increasing your search radius or entering a different ZIP code.";
+
+            groceryResults.appendChild(message);
         return;
         }
 

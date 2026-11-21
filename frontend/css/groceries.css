@@ -42,11 +42,8 @@
 
 .grocery-search {
   background-color: var(--bbo-white);
-
-  padding: 18px;
-
+  padding: 14px 18px;
   border-radius: 14px;
-
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -72,18 +69,25 @@
 
 .grocery-search-btn {
   min-height: 45px;
-
+  height: 45px;
   font-size: 14px;
   font-weight: 600;
-
   border-radius: 8px;
+}
+
+/* Grocery search field labels */
+.grocery-search .form-label {
+  color: var(--bbo-primary);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
 /* category navigation */
 
 .grocery-categories {
   margin-top: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 6px;
 }
 
 .category-navigation {

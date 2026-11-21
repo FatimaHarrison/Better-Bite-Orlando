@@ -64,112 +64,10 @@
 
             </div>
 
-            <!-- Search section -->
-             <form id="grocery-search-form" class="grocery-search">
-
-                <div class="row g-3 align-items-center">
-
-                    <!-- Zip cpde -->
-                     <div class="col-12 col-md-6 col-lg-3">
-
-                        <label for="grocery-zip" class="visually-hidden">
-                            ZIP Code
-                        </label>
-
-                        <div class="input-group">
-
-                            <span class="input-group-text">
-                                <i class="bi bi-geo-alt"></i>
-                            </span>
-
-                            <input 
-                                type="text"
-                                id="grocery-zip"
-                                class="form-control"
-                                placeholder="Enter ZIP Code"
-                                inputmode="numeric"
-                                pattern="[0-9]{5}"
-                                maxlength="5"
-                                required
-                            >
-
-                            </div>
-
-                     </div>
-
-                     <!-- Category -->
-                      <div class="col-12 col-md-6 col-lg-3">
-
-                        <label for="grocery-category" class="visually-hidden">
-                            Category
-                        </label>
-
-                        <select 
-                            id="grocery-category"
-                            class="form-select"
-                            >
-
-                            <option value="all">All categories</option>
-                            <option value="groceries">Grocery Stores</option>
-                            <option value="farmers-markets">Farmers Markets</option>
-                            <option value="food-pantries">Food Pantries</option>
-
-                        </select>
-
-                    </div>
-
-
-                <!-- Availability -->
-                 <div class="col-12 col-md-6 col-lg-3">
-
-                    <label for="grocery-availability" class="visually-hidden">
-                        Availability
-                    </label>
-
-                   <select 
-                            id="grocery-availability"
-                            class="form-select"
-                    >
-
-                            <option value="all">
-                                Availability
-                            </option>
-
-                            <option value="open">
-                                Open Now
-                            </option>
-
-                        </select>
-
-                 </div>
-
-                 <!-- Search Button -->
-                 <div class="col-12 col-md-6 col-lg-3">
-                    
-                    <button 
-                        type="submit"
-                        class="btn btn-primary grocery-search-btn w-100"
-                        >
-
-                        Search 
-
-                        <i class="bi bi-search ms-2"></i>
-
-                    </button>
-
-                </div>
-            
-            </div>    
-
-        </form>
-
-        </div>
-
-     </section>
 
 
      <!-- Category Navigation -->
-      <section class="grocery-categories container-xl">
+      <section class="grocery-categories">
 
         <div class="category-navigation" role="group" aria-label="Grocery categories">
 
@@ -228,6 +126,87 @@
         </div>
 
       </section>
+
+            <!-- Search section -->
+             <form id="grocery-search-form" class="grocery-search">
+
+                <select id="grocery-category" hidden>
+                    <option value="all">All categories</option>
+                    <option value="groceries">Grocery Stores</option>
+                    <option value="farmers-markets">Farmers Markets</option>
+                    <option value="food-pantries">Food Pantries</option>
+                </select>
+
+                <div class="row g-3 align-items-end">
+
+                    <!-- Zip cpde -->
+                     <div class="col-12 col-md-6 col-lg-3">
+                        <label for="grocery-zip" class="form-label">
+                            ZIP Code
+                        </label>
+
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-geo-alt"></i>
+                            </span>
+
+                            <input 
+                                type="text"
+                                id="grocery-zip"
+                                class="form-control"
+                                placeholder="Enter ZIP Code"
+                                inputmode="numeric"
+                                pattern="[0-9]{5}"
+                                maxlength="5"
+                                required
+                            >
+                            </div>
+                     </div>
+
+                     <!-- Radius -->
+                      <div class="col-12 col-md-4">
+                        <label for="grocery-radius" class="form-label">
+                            Search Radius
+                        </label>
+
+                        <select id="grocery-radius" class="form-select">
+                            <option value="1">1 mile</option>
+                            <option value="3">3 miles</option>
+                            <option value="5">5 miles</option>
+                            <option value="10" selected>10 miles</option>
+                            <option value="15">15 miles</option>
+                            <option value="20">20 miles</option>
+                        </select>
+                    </div>
+
+                   
+
+
+                 <!-- Search Button -->
+                 <div class="col-12 col-md-3">
+                    
+                    <button 
+                        type="submit"
+                        class="btn btn-primary grocery-search-btn w-100"
+                        >
+
+                        Search 
+
+                        <i class="bi bi-search ms-2"></i>
+
+                    </button>
+
+                </div>
+            
+            </div>    
+
+        </form>
+
+        </div>
+
+     </section>
+
+
 
 
 
