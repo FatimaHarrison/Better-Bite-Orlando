@@ -2,7 +2,11 @@ const form = document.getElementById("form-group");
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    e.preventDefault();
 
+    if (!validateForm()) {
+        return;
+    }
     try {
         const response = await fetch(
             `${window.BBO_CONFIG.API_BASE_URL}/contact`,
@@ -12,7 +16,7 @@ form.addEventListener("submit", async (event) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    fullName: fullName.value.trim(),
+                    name: fullname.value.trim(),
                     email: email.value.trim(),
                     subject: subject.value.trim(),
                     message: message.value.trim()
@@ -32,7 +36,7 @@ form.addEventListener("submit", async (event) => {
         else{
             showError(
                 data.message ||
-                "Unable to submit form."
+                "Unable to submit your request."
             );
         }
 
