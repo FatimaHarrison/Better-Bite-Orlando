@@ -1,4 +1,7 @@
 /*Fatima's Section*/
+html{
+    scroll-behavior:smooth;
+}
 *{
     margin:0;
     padding:0;
@@ -8,7 +11,7 @@
 /* PAGE BACKGROUND */
 body{
     font-family:'Inter',sans-serif;
-    line-eight:1.8;
+    line-height:1.8;
     color:#2d2d2d;
     margin:0;
     background:
@@ -77,6 +80,16 @@ a{
     transition:.3s ease;
 }
 
+.link{
+     color:#463499;
+    text-decoration:none;
+    transition:.3s ease;
+    font-weight: 20px;
+    font-size: medium;
+    margin-left: 30px;
+    text-decoration: underline;
+}
+
 a:hover{
     color:#ff8c2a;
 }
@@ -86,7 +99,7 @@ h2{
     color:#2e7d32;
     font-size:1.2rem;
     font-weight:700;
-
+    text-decoration: underline;
     margin-top:50px;
     margin-bottom:20px;
 
@@ -95,7 +108,7 @@ h2{
 }
 
 h3{
-    color:#34495e;
+    color:#000305;
     font-size:1.20rem;
     font-weight:600;
 
@@ -204,7 +217,7 @@ section{
 
 .privacy-logo{
      width:100%;
-    max-width:320px;
+    max-width:330px;
     height:auto;
 }
 
@@ -224,7 +237,8 @@ section{
     }
 
     h2{
-        font-size:1.5rem;
+        font-size:1.7rem;
+        margin-left: 5px;
  }
 
     h3{
