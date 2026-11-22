@@ -8,6 +8,7 @@ const GROCERY_API_URL =
 const groceryForm = document.getElementById("grocery-search-form");
 const groceryZip = document.getElementById("grocery-zip");
 const groceryCategory = document.getElementById("grocery-category");
+const groceryRadius = document.getElementById("grocery-radius");
 const groceryResults = document.getElementById("grocery-results-list");
 const groceryResultsCount = document.getElementById("results-count");
 
@@ -76,6 +77,54 @@ function getGroceryTypes(category) {
     return category;
 }
 
+function getGroceryAppearance(type) {
+    const categories = {
+        grocery: {
+            cardClass: "category-grocery",
+            icon: "bi-shop"
+    },
+    "farmers-market": {
+            cardClass: "category-farmers",
+            icon: "bi-flower1"
+    },
+    "food-pantry": {
+            cardClass: "category-pantry",
+            icon: "bi-heart"
+    }
+};
+
+return categories[type] || {
+    cardClass: "category-grocery",
+    icon: "bi-shop"
+};
+}
+
+
+        function formatGroceryAddress(name, address) {
+            if(!address) {
+                return "Address unavailable";
+            }
+
+            const fullAddress = String(address).trim();
+            const businessName = String(name || "").trim();
+
+            if(!businessName) {
+                return fullAddress;
+            }
+
+            const prefix = `${businessName},`;
+
+            if(
+                fullAddress.toLowerCase().startsWith(
+                    prefix.toLowerCase()
+                )
+            ) {
+                return fullAddress.slice(prefix.length).trim();
+            }
+
+            return fullAddress
+        }
+
 
 // sync category button with dropdown
 function syncCategoryNavigation(category) {
@@ -111,7 +160,10 @@ function showGroceryDetails(location) {
     }
 
     const name = location.name || "Unnamed Location";
-    const address = location.address || "Address unavailable";
+    const address = formatGroceryAddress(
+        name,
+        location.address
+    );
 
     const distance =
         location.distanceMiles != null &&
@@ -145,7 +197,11 @@ function showGroceryDetails(location) {
         image.className = "grocery-modal-image";
 
         const imageIcon = document.createElement("i");
-        imageIcon.className = "bi bi-shop";
+        
+        const appearance = getGroceryAppearance(location.type);
+        imageIcon.className = `bi ${appearance.icon}`;
+
+        details.classList.add(appearance.cardClass);
 
         image.appendChild(imageIcon);
 
@@ -184,7 +240,7 @@ function showGroceryDetails(location) {
         hoursSection.className = "grocery-modal-hours";
 
         const hoursTitle = document.createElement("h4");
-        hoursTitle.textContent = "Store Hours";
+        hoursTitle.textContent = "Operating Hours";
 
 
         const hoursText = document.createElement("p");
@@ -519,11 +575,19 @@ function renderGroceryResults(locations) {
         // create card
         const card = document.createElement("button");
         card.type = "button";
-        card.className = "grocery-result-card";
+
+        const appearance = getGroceryAppearance(location.type);
+
+        card.className = 
+            `grocery-result-card ${appearance.cardClass}`;
 
         // store information
         const name = location.name || "Unnamed Location";
-        const address = location.address || "Address unavailable";
+
+        const address = formatGroceryAddress(
+            name,
+            location.address
+        );
 
         const distance = 
             location.distanceMiles != null &&
@@ -543,7 +607,7 @@ function renderGroceryResults(locations) {
         icon.className = "grocery-card-icon";
 
         const iconElement = document.createElement("i");
-        iconElement.className = "bi bi-shop";
+        iconElement.className = `bi ${appearance.icon}`;
 
         icon.appendChild(iconElement);
 
@@ -635,13 +699,14 @@ async function searchGroceries(event) {
     const zip = groceryZip.value.trim();
     const category = groceryCategory.value;
     const types = getGroceryTypes(category);
+    const radius= Number(groceryRadius.value);
 
     syncCategoryNavigation(category);
 
     const params = new URLSearchParams({
         location: zip,
         types: types,
-        maxDistance: "10"
+        maxDistance: String(radius)
     });
 
     groceryResults.textContent ="Searching for grocery locations...";
@@ -675,9 +740,16 @@ async function searchGroceries(event) {
         groceryResultsCount.textContent = data.length;
 
         if(data.length === 0) {
-            groceryResults.textContent = "No grocery location were found. Try another ZIP code.";
+            groceryResults.replaceChildren();
+
+            const message = document.createElement("p");
+            message.className = "grocery-empty-message";
+            message.textContent = "No location found within the selected radius. Try increasing your search radius or entering a different ZIP code.";
+
+            groceryResults.appendChild(message);
         return;
         }
+
 
 
     // save the latest API results
