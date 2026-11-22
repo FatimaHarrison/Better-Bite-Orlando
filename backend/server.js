@@ -7,6 +7,7 @@ import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import recipeRoutes from "./routes/recipeRoutes.js";
 import placeRoutes from "./routes/placeRoutes.js";
+import contactRoutes from "./routes/contactRoutes.js";
 import apiLimiter from "./middleware/rateLimiter.js";
 
 const app = express();
@@ -17,7 +18,7 @@ app.set("trust proxy", "loopback");
 // Frontend development origins
 const allowedOrigins = [
 	"https://dev.betterbiteorlando.com",
-        "https://test.betterbiteorlando.com",
+	"https://test.betterbiteorlando.com",
 	"http://localhost:3000",
 	"http://localhost:5173",
 	"http://127.0.0.1:5173",
@@ -27,7 +28,7 @@ app.use(
 	cors({
 		origin: allowedOrigins,
 		credentials: true,
-		methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE","OPTIONS"],
+		methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 	}),
 );
 // Rate Limiting Middleware
@@ -44,6 +45,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/auth", authRoutes);
 app.use("/recipes", recipeRoutes);
 app.use("/places", placeRoutes);
+app.use("/contact", contactRoutes);
 
 app.listen(port, host, () => {
 	console.log(`API listening at http://${host}:${port}`);

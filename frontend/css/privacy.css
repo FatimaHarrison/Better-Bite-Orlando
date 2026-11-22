@@ -189,6 +189,77 @@ h3{
 section{
     margin-bottom:50px;
 }
+section{
+    margin-bottom:50px;
+}
+
+.notice-box{
+    background:#fff8e6;
+    border-left:5px solid #ffb347;
+    padding:20px;
+    border-radius:10px;
+    margin:25px 0;
+}
+
+.privacy-footer-image{
+    text-align:center;
+    margin-top:50px;
+    size: 100px;
+}
+
+.privacy-logo{
+    width:100%;
+    max-width:400px;
+    height:auto;
+}
+
+@media (max-width:768px){
+
+    body{
+        padding:20px 15px;
+    }
+
+    .policy-wrapper{
+        padding:25px;
+        border-radius:18px;
+    }
+
+    h1{
+        font-size:2rem;
+    }
+
+    h2{
+        font-size:1.5rem;
+ }
+
+    h3{
+        font-size:1.15rem;
+    }
+
+    p,
+    li{
+        font-size:1rem;
+    }
+
+    .privacy-summary{
+        padding:25px;
+    }
+
+    .con-nav{
+        padding:25px;
+    }
+
+    .privacy-logo{
+        max-width:280px;
+    }
+}
+
+
+@media (min-width:1400px){
+
+    .policy-wrapper{
+        padding:60px;
+    }
 
 .contact{
     background:#eef7ea;
