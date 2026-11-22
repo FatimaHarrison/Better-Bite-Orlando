@@ -97,7 +97,7 @@
 
   gap: 10px;
 
-  background-color: #a6c8a7;
+  background-color: var(--bbo-white);
 
   padding: 12px;
 
@@ -138,6 +138,30 @@
   background-color: var(--bbo-white);
 }
 
+/* Selected grocery category colors */
+
+
+.category-btn[data-category="groceries"].active {
+    background-color: #E1F1DC;
+    color: #356B35;
+}
+
+.category-btn[data-category="farmers-markets"].active {
+    background-color: #FFF0DC;
+    color: #99550D;
+}
+
+.category-btn[data-category="food-pantries"].active {
+    background-color: #F0E7F8;
+    color: #7945A6;
+}
+
+/* Default All category */
+.category-btn[data-category="all"].active {
+    background-color: var(--bbo-primary);
+    color: var(--bbo-white);
+}
+
 .category-btn:focus-visible {
   outline: 3px solid var(--bbo-primary);
   outline-offset: 2px;
@@ -145,7 +169,8 @@
 /* results section */
 
 .grocery-results {
-  margin-bottom: 35px;
+    padding-top: 25px;
+    margin-bottom: 35px;
 }
 
 .results-header {
@@ -278,32 +303,64 @@
 /* Individual grocery card */
 
 .grocery-result-card {
-  width: 100%;
-  display: block;
+    width: 100%;
+    display: block;
+    padding: 18px;
 
-  padding: 15px;
+    border: 1px solid #d9e3d6;
+    border-radius: 14px;
 
-  background-color: var(--bbo-white);
-  border: 1px solid #d5d5d5;
-  border-radius: 14px;
+    text-align: left;
+    cursor: pointer;
 
-  text-align: left;
-  cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
 
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+
+/* Grocery result category colors */
+
+/* Grocery Stores */
+.grocery-result-card.category-grocery {
+    background-color: #F1F8EF;
+    border-color: #D3E8CF;
+}
+
+/* Farmers Markets */
+.grocery-result-card.category-farmers {
+    background-color: #FFF7ED;
+    border-color: #F2DFC7;
+}
+
+/* Food Pantries */
+.grocery-result-card.category-pantry {
+    background-color: #F8F2FC;
+    border-color: #E6D9F0;
+}
+
+/* Category-specific icons */
+.category-grocery .grocery-card-icon {
+    background-color: #DDEFD8;
+    color: #356B35;
+}
+
+.category-farmers .grocery-card-icon {
+    background-color: #FFE4C2;
+    color: #B96A19;
+}
+
+.category-pantry .grocery-card-icon {
+    background-color: #EADCF5;
+    color: #7945A6;
 }
 
 /* Hover effect */
-
 .grocery-result-card:hover {
-  border-color: var(--bbo-primary);
-
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
-  transform: translateY(-2px);
+    border-color: var(--bbo-primary);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
 }
 
 /* Keyboard accessibility */
@@ -830,6 +887,40 @@
   background-color: #294d28;
   color: white !important;
 }
+
+
+/* Food Pantry details modal */
+
+.grocery-modal-details.category-pantry .grocery-modal-image {
+    background-color: #EADCF5;
+    color: #7945A6;
+}
+
+.grocery-modal-details.category-pantry .grocery-modal-badge {
+    background-color: #EADCF5;
+    color: #7945A6;
+}
+
+.grocery-modal-details.category-pantry .grocery-modal-hours {
+    background-color: #F8F2FC;
+}
+
+/* Farmers Market details modal */
+
+.grocery-modal-details.category-farmers .grocery-modal-image {
+    background-color: #FFE4C2;
+    color: #B96A19;
+}
+
+.grocery-modal-details.category-farmers .grocery-modal-badge {
+    background-color: #FFE4C2;
+    color: #99550D;
+}
+
+.grocery-modal-details.category-farmers .grocery-modal-hours {
+    background-color: #FFF7ED;
+}
+
 
 /* Mobile responsiveness */
 

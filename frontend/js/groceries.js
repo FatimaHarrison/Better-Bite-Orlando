@@ -77,6 +77,54 @@ function getGroceryTypes(category) {
     return category;
 }
 
+function getGroceryAppearance(type) {
+    const categories = {
+        grocery: {
+            cardClass: "category-grocery",
+            icon: "bi-shop"
+    },
+    "farmers-market": {
+            cardClass: "category-farmers",
+            icon: "bi-flower1"
+    },
+    "food-pantry": {
+            cardClass: "category-pantry",
+            icon: "bi-heart"
+    }
+};
+
+return categories[type] || {
+    cardClass: "category-grocery",
+    icon: "bi-shop"
+};
+}
+
+
+        function formatGroceryAddress(name, address) {
+            if(!address) {
+                return "Address unavailable";
+            }
+
+            const fullAddress = String(address).trim();
+            const businessName = String(name || "").trim();
+
+            if(!businessName) {
+                return fullAddress;
+            }
+
+            const prefix = `${businessName},`;
+
+            if(
+                fullAddress.toLowerCase().startsWith(
+                    prefix.toLowerCase()
+                )
+            ) {
+                return fullAddress.slice(prefix.length).trim();
+            }
+
+            return fullAddress
+        }
+
 
 // sync category button with dropdown
 function syncCategoryNavigation(category) {
@@ -112,7 +160,10 @@ function showGroceryDetails(location) {
     }
 
     const name = location.name || "Unnamed Location";
-    const address = location.address || "Address unavailable";
+    const address = formatGroceryAddress(
+        name,
+        location.address
+    );
 
     const distance =
         location.distanceMiles != null &&
@@ -146,7 +197,11 @@ function showGroceryDetails(location) {
         image.className = "grocery-modal-image";
 
         const imageIcon = document.createElement("i");
-        imageIcon.className = "bi bi-shop";
+        
+        const appearance = getGroceryAppearance(location.type);
+        imageIcon.className = `bi ${appearance.icon}`;
+
+        details.classList.add(appearance.cardClass);
 
         image.appendChild(imageIcon);
 
@@ -185,7 +240,7 @@ function showGroceryDetails(location) {
         hoursSection.className = "grocery-modal-hours";
 
         const hoursTitle = document.createElement("h4");
-        hoursTitle.textContent = "Store Hours";
+        hoursTitle.textContent = "Operating Hours";
 
 
         const hoursText = document.createElement("p");
@@ -520,11 +575,19 @@ function renderGroceryResults(locations) {
         // create card
         const card = document.createElement("button");
         card.type = "button";
-        card.className = "grocery-result-card";
+
+        const appearance = getGroceryAppearance(location.type);
+
+        card.className = 
+            `grocery-result-card ${appearance.cardClass}`;
 
         // store information
         const name = location.name || "Unnamed Location";
-        const address = location.address || "Address unavailable";
+
+        const address = formatGroceryAddress(
+            name,
+            location.address
+        );
 
         const distance = 
             location.distanceMiles != null &&
@@ -544,7 +607,7 @@ function renderGroceryResults(locations) {
         icon.className = "grocery-card-icon";
 
         const iconElement = document.createElement("i");
-        iconElement.className = "bi bi-shop";
+        iconElement.className = `bi ${appearance.icon}`;
 
         icon.appendChild(iconElement);
 
@@ -686,6 +749,7 @@ async function searchGroceries(event) {
             groceryResults.appendChild(message);
         return;
         }
+
 
 
     // save the latest API results
