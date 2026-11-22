@@ -23,7 +23,7 @@ async function loadFooter() {
     if (logo) {
       logo.src = new URL(
         "logos/better-bit-orlando-logo-trn-bg.png",
-        new URL("../", frontendUrl),
+        frontendUrl
       ).href;
     }
     // set the home link to the correct index.html path
