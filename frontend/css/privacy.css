@@ -1,150 +1,264 @@
-/*Fatima's Section */
-/*This css file is for the BBO Privacy Policy user document*/
-
-.privacy-page,
-.privacy-page * {
-  box-sizing: border-box;
+/*Fatima's Section*/
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-  font-family: "Inter", sans-serif;
-  color: #2d2d2d;
-  background:
-    linear-gradient(rgba(217, 233, 248, 0.88), rgba(217, 233, 248, 0.88)),
-    url("../images/bgp.png");
+/* PAGE BACKGROUND */
+body{
+    font-family:'Inter',sans-serif;
+    line-eight:1.8;
+    color:#2d2d2d;
+    margin:0;
+    background:
+        linear-gradient(
+            rgba(217,233,248,.88),
+            rgba(217,233,248,.88)
+        ),
+        url("../images/BGP.png");
 
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  padding: 0;
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
 }
 
-/* Privacy Policy Content */
-.privacy-page {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 50px;
+.policy-wrapper{
+    background:#ffffff;
+    padding:50px;
+    border-radius:24px;
 
-  background-color: white;
-  border-radius: 25px;
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.08);
 
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-
-  line-height: 1.8;
+    border:1px solid rgba(0,0,0,.05);
 }
 
-/* Header Section */
-.privacy-page h1 {
-  text-align: center;
-  font-size: 3rem;
-  font-weight: 800;
-  color: #2d6a35;
-  margin-bottom: 15px;
+
+
+h1{
+    text-align:center;
+    font-size:2.5rem;
+    font-weight:700;
+    color:#2e7d32;
+    margin-bottom:15px;
 }
 
-.last-updated {
-  text-align: center;
-  font-style: italic;
-  color: #666;
-  margin-bottom: 40px;
+.last-updated{
+    text-align:center;
+    color:#6b7280;
+    font-style:italic;
+    font-size:1rem;
+    margin-bottom:35px;
 }
 
-/* Header Section */
-h1 {
-  text-align: center;
-  font-size: 3rem;
-  font-weight: 800;
-  color: #2d6a35;
-  margin-bottom: 15px;
+
+
+p{
+    font-size:1.05rem;
+    line-height:1.8;
+    margin-bottom:18px;
 }
 
-.last-updated {
-  text-align: center;
-  font-style: italic;
-  color: #666;
-  margin-bottom: 40px;
+ul{
+    padding-left:28px;
+    margin-bottom:25px;
 }
 
-/* White Content Container */
-.policy-wrapper {
-  background: white;
-  padding: 50px;
-  border-radius: 25px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-
-  border: 1px solid rgba(255, 255, 255, 0.3);
+li{
+    font-size:1.05rem;
+    margin-bottom:10px;
+    line-height:1.8;
 }
 
-/* Intro text */
-.privacy-page p {
-  margin-bottom: 18px;
+a{
+    color:#2e7d32;
+    text-decoration:none;
+    transition:.3s ease;
 }
 
-/* Section Headings */
-.privacy-page h2 {
-  color: #2d6a35;
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-top: 50px;
-  margin-bottom: 20px;
-  padding-left: 16px;
-  border-left: 6px solid #6cc070;
+a:hover{
+    color:#ff8c2a;
 }
 
-.privacy-page h3 {
-  color: #43723c;
-  margin-top: 25px;
-  margin-bottom: 10px;
+
+h2{
+    color:#2e7d32;
+    font-size:1.2rem;
+    font-weight:700;
+
+    margin-top:50px;
+    margin-bottom:20px;
+
+    padding-bottom:10px;
+    border-bottom:2px solid #dcefd6;
 }
 
-/* Lists */
+h3{
+    color:#34495e;
+    font-size:1.20rem;
+    font-weight:600;
 
-.privacy-page ul {
-  margin-left: 25px;
-  margin-bottom: 20px;
+    margin-top:25px;
+    margin-bottom:10px;
 }
 
-.privacy-page li {
-  margin-bottom: 10px;
+.privacy-summary{
+    background:#f8fcf7;
+
+    border:1px solid #dcefd6;
+    border-radius:18px;
+
+    padding:35px;
+    margin:40px 0;
 }
 
-/* Privacy Policy Table of Contents */
-.privacy-page nav {
-  background: #eef7ea;
-  border-radius: 20px;
-  padding: 30px;
-  margin-top: 20px;
-  margin-bottom: 30px;
 
-  border: 2px solid #dcefd6;
+
+.summary-item{
+    padding:18px 0;
+    border-bottom:1px solid #e5e7eb;
 }
 
-/* Mobile View */
-@media (max-width: 768px) {
-  .privacy-page {
-    margin: 20px 15px;
-    padding: 25px;
-  }
-
-  .privacy-page h1 {
-    font-size: 2.2rem;
-  }
-
-  .privacy-page h2 {
-    font-size: 1.4rem;
-  }
-
-  .privacy-logo {
-    max-width: 300px;
-  }
-}
-.privacy-footer-image {
-  text-align: center;
-  margin-top: 40px;
+.summary-item:last-child{
+    border-bottom:none;
 }
 
-.privacy-logo {
-  max-width: 400px;
-  width: 100%;
-  height: auto;
+.summary-item h3{
+    margin-top:0;
+    margin-bottom:8px;
+    color:#2c3e50;
 }
+
+.summary-item p{
+    margin-bottom:0;
+}
+
+/*
+   TABLE OF CONTENTS
+ */
+
+.con-nav{
+    background:#eef7ea;
+
+    border:1px solid #dcefd6;
+    border-radius:18px;
+
+    padding:30px;
+    margin:40px 0;
+}
+
+.con-nav h2{
+    margin-top:0;
+    border-bottom:none;
+    padding-bottom:0;
+}
+
+.con-nav ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.con-nav li{
+    margin-bottom:14px;
+}
+
+.con-nav a{
+    font-weight:600;
+    color:#2e7d32;
+}
+
+.con-nav a:hover{
+    color:#ff8c2a;
+    padding-left:5px;
+}
+section{
+    margin-bottom:50px;
+}
+
+.contact{
+    background:#eef7ea;
+    border:2px solid #dcefd6;
+    border-radius:20px;
+    padding:30px;
+    margin-top:20px;
+}
+
+.contact strong{
+    color:#2d6a35;
+}
+
+.notice-box{
+    background:#fff8e6;
+    border-left:5px solid #ffb347;
+    padding:20px;
+    border-radius:10px;
+    margin:25px 0;
+}
+
+.privacy-footer-image{
+   text-align:center;
+    margin:30px 0;
+}
+
+.privacy-logo{
+     width:100%;
+    max-width:320px;
+    height:auto;
+}
+
+@media (max-width:768px){
+
+    body{
+        padding:20px 15px;
+    }
+
+    .policy-wrapper{
+        padding:25px;
+        border-radius:18px;
+    }
+
+    h1{
+        font-size:2rem;
+    }
+
+    h2{
+        font-size:1.5rem;
+ }
+
+    h3{
+        font-size:1.15rem;
+    }
+
+    p,
+    li{
+        font-size:1rem;
+    }
+
+    .privacy-summary{
+        padding:25px;
+    }
+
+    .con-nav{
+        padding:25px;
+    }
+
+    .privacy-logo{
+        max-width:280px;
+    }
+}
+
+
+@media (min-width:1400px){
+
+    .policy-wrapper{
+        padding:60px;
+    }
+
+    p,
+    li{
+        font-size:1.1rem;
+    }
+}
+/*Fatima's Section*/
