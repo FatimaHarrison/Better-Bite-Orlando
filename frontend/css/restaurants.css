@@ -56,21 +56,24 @@ body > #footer-container {
 ========================================== */
 
 .hero {
-  min-height: 190px;
+  min-height: 350px;
 
   display: flex;
   align-items: center;
 
   padding: 35px max(24px, calc((100% - 1320px) / 2));
 
-  background:
+background-image:
     linear-gradient(
-      90deg,
-      rgba(225, 241, 248, 0.92),
-      rgba(196, 219, 239, 0.75)
+        90deg,
+        rgba(246, 249, 241, 0.82),
+        rgba(246, 249, 241, 0.60)
     ),
-    url("https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1600")
-      center / cover;
+    url("../images/restaurant-hero.jpg");
+
+background-size: cover;
+background-position: center 70%;
+background-repeat: no-repeat;   
 }
 
 .hero-content h1 {
@@ -178,8 +181,17 @@ body > #footer-container {
   cursor: pointer;
 }
 
-.diet-options input {
-  display: none;
+/* Visually hide checkboxes while keeping keyboard accessibility */
+.diet-options input[type="checkbox"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .diet-options label:has(input:checked) {
@@ -250,15 +262,13 @@ body > #footer-container {
 .restaurant-layout {
   display: grid;
 
-  grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
 
   gap: 20px;
-
   width: calc(100% - 40px);
   max-width: 1320px;
 
   margin: 0 auto 30px;
-
   align-items: start;
 }
 
@@ -288,7 +298,9 @@ body > #footer-container {
 
 .restaurant-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  grid-template-columns: minmax(0, 1fr)
+  ;
   gap: 12px;
 
   max-height: 600px;
@@ -510,80 +522,88 @@ body > #footer-container {
   font-size: 17px;
 }
 
-/* ==========================================
-   RESTAURANT DETAILS PANEL
-========================================== */
-
-.details-panel {
-  background: white;
-
-  border: 1px solid #c9c9c9;
-  border-radius: 14px;
-
-  overflow: hidden;
-
-  min-height: 326px;
-
-  position: relative;
+/* Dietary tags container */
+.restaurant-dietary-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 7px 0 10px;
 }
 
-.detail-image {
-  display: block;
+/* Shared dietary tag appearance */
+.restaurant-dietary-tag {
+    display: inline-flex;
+    align-items: center;
+    width: max-content;
+    max-width: 100%;
 
-  width: 100%;
-  height: 109px;
+    border: 1px solid transparent;
+    border-radius: 999px;
 
-  object-fit: cover;
+    padding: 4px 9px;
+
+    font-size: 11px;
+    line-height: 1.25;
+    font-weight: 650;
+    white-space: nowrap;
 }
 
-.detail-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 4px 11px 8px;
+/* Vegetarian */
+.restaurant-dietary-tag--vegetarian {
+    color: #285a32;
+    background: #e7f3e5;
+    border-color: #c5dec1;
 }
 
-.detail-heading h2 {
-  font-family: var(--bbo-font);
-  font-size: 22px;
-  font-weight: 700;
+/* Vegan */
+.restaurant-dietary-tag--vegan {
+    color: #235344;
+    background: #dcf3e9;
+    border-color: #b8dfce;
 }
 
-.favorite-button {
-  border: none;
-  background: transparent;
-
-  color: red;
-  font-size: 20px;
-
-  cursor: pointer;
+/* Gluten-Free */
+.restaurant-dietary-tag--gluten-free {
+    color: #67358D;
+    background-color: #F0E7F8;
+    border-color: #DCC7EC;
 }
 
-.detail-address {
-  display: flex;
-  align-items: flex-start;
-
-  padding: 0 18px 9px;
-
-  font-family: var(--bbo-font);
-  font-size: 13px;
-  line-height: 1.5;
-
-  color: #555;
+/* Organic */
+.restaurant-dietary-tag--organic {
+    color: #795016;
+    background: #fff2d9;
+    border-color: #efd8a8;
 }
 
-.detail-tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-
-  padding: 0 15px 12px;
+/* Dietary information note */
+.restaurant-dietary-note {
+    margin: -5px 0 14px;
+    color: #586554;
+    font-size: 12px;
+    line-height: 1.55;
 }
 
-.detail-tags .tag {
-  font-size: 11px;
+.restaurant-dietary-note[hidden] {
+    display: none;
 }
+
+/* No matching restaurants message */
+.empty-message {
+    border: 1px solid #d9e6d3;
+    border-radius: 12px;
+
+    background: #f7fbf5;
+    color: #365b2b;
+
+    font-size: 13px;
+    line-height: 1.65;
+    text-align: left;
+
+    padding: 18px 20px;
+}
+
+
 
 /* ==========================================
    DETAILS TABS
@@ -667,8 +687,9 @@ body > #footer-container {
   display: block;
 
   width: 100%;
-  height: 350px;
-  min-height: 350px;
+
+  height: 600px;
+  min-height: 600px;
 
   position: relative;
 
@@ -776,6 +797,522 @@ body > #footer-container {
 .restaurant-map-address {
   margin: 5px 0 0;
   line-height: 1.5;
+}
+
+/* Restaurant opening hours */
+
+.restaurant-opening-hours {
+    margin: 12px 0 18px;
+}
+
+.restaurant-opening-hours h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--bbo-primary);
+    margin-bottom: 12px;
+}
+
+/* Full opening hours schedule */
+
+.restaurant-hours-list {
+    display: grid;
+    grid-template-columns: minmax(85px, 1fr) 1fr;
+
+    gap: 9px 15px;
+    align-items: baseline;
+
+    margin: 0;
+    padding: 0;
+
+    font-size: 13px;
+}
+
+.restaurant-hours-list dt {
+    font-weight: 600;
+    color: var(--bbo-text-dark);
+}
+
+.restaurant-hours-list dd {
+    margin: 0;
+    color: #536052;
+    text-align: right;
+}
+
+/* Compact hours on restaurant cards */
+
+.restaurant-card-hours {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #657064;
+}
+
+
+
+
+
+/* Match Groceries results header */
+
+.results-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.results-heading #resultCount {
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+}
+
+/* Sorting dropdown */
+
+.results-sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.results-sort label {
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.results-sort .form-select {
+    width: auto;
+    font-size: 13px;
+}
+
+/* Match Groceries initial empty state */
+
+.restaurant-empty-placeholder {
+    grid-column: 1 / -1;
+
+    padding: 25px;
+    margin: 0;
+
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    color: #666;
+    font-size: inherit;
+    font-weight: 400;
+    text-align: center;
+}
+
+/* ==========================================
+   SHARED VISUAL STYLE WITH GROCERIES
+========================================== */
+
+/* Search panel */
+.filter-panel {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1.2fr)
+        minmax(0, 1fr)
+        minmax(160px, 0.8fr);
+
+    grid-template-areas:
+        "diet diet diet diet"
+        "zip radius cuisine search";
+
+    gap: 14px 16px;
+    align-items: end;
+
+    background-color: var(--bbo-white);
+
+    padding: 18px;
+
+    border-radius: 14px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Assign existing filters to the grid */
+.dietary-group {
+    grid-area: diet;
+}
+
+.location-group {
+    grid-area: zip;
+}
+
+.distance-group {
+    grid-area: radius;
+}
+
+.cuisine-group {
+    grid-area: cuisine;
+}
+
+/* Allow fields to use available width */
+.filter-panel .filter-group {
+    width: 100%;
+    min-width: 0;
+    flex: none;
+}
+
+/* Match Grocery field labels */
+.filter-panel .filter-group > label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* Match Grocery input sizes */
+.filter-panel select,
+.filter-panel input[type="text"] {
+    min-height: 45px;
+    height: 45px;
+
+    font-size: 14px;
+
+    border: 1px solid #999;
+    border-radius: 8px;
+}
+
+/* Dietary preferences */
+.diet-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.diet-options label {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 38px;
+    padding: 8px 12px;
+
+    font-size: 13px;
+}
+
+/* Search button matches Grocery button */
+.filter-panel .search-button {
+    grid-area: search;
+
+    width: 100%;
+    height: 45px;
+    min-height: 45px;
+
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+/* ==========================================
+   RESULTS AND MAP CONSISTENCY
+========================================== */
+
+.restaurant-layout {
+    gap: 16px;
+}
+
+/* Sort label and dropdown on same line */
+.results-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.results-sort {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.results-sort label {
+    font-size: 13px;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.results-sort .form-select {
+    width: auto;
+    font-size: 13px;
+}
+
+/* Match grocery card sizing */
+.restaurant-card {
+    padding: 18px;
+
+    background-color: #F1F8EF;
+    border-color: #D3E8CF;
+}
+
+.restaurant-card-icon {
+    width: 85px;
+    height: 85px;
+}
+
+.restaurant-card-icon i {
+    font-size: 35px;
+}
+
+.restaurant-card-info h3 {
+    font-size: 16px;
+}
+
+/* Match Grocery map border */
+#restaurant-map {
+    background-color: #e9eee5;
+    border: 1px solid #555;
+}
+
+/* Match Grocery modal appearance */
+.restaurant-details-modal {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.restaurant-details-modal .modal-header {
+    padding: 18px 25px;
+}
+
+#restaurantDetailsModal #detailsContent {
+    padding: 25px;
+}
+
+/* Opening hours as a gentle green section */
+.restaurant-details-modal .restaurant-opening-hours {
+    background-color: #f5f8f2;
+    padding: 18px;
+    border-radius: 12px;
+}
+
+/* Larger dietary preference buttons */
+
+.filter-panel .dietary-group > label {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.filter-panel .diet-options {
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-panel .diet-options label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 44px;
+    padding: 10px 16px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    border-radius: 8px;
+}
+
+/* ZIP Code input matches Groceries */
+
+.filter-panel .restaurant-zip-input {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.filter-panel .restaurant-zip-input .input-group-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 45px;
+    padding: 0 13px;
+
+    background-color: var(--bbo-white);
+    color: var(--bbo-primary);
+
+    border: 1px solid #999;
+    border-right: 0;
+    border-radius: 8px 0 0 8px;
+
+    font-size: 16px;
+}
+
+.filter-panel .restaurant-zip-input input.form-control {
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+
+    height: 45px;
+    min-height: 45px;
+
+    padding: 8px 12px;
+
+    border: 1px solid #999;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Search button icon */
+.filter-panel .search-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-panel .search-button .bi-search {
+    font-size: 16px;
+}
+
+
+/* ==========================================
+   RESTAURANT DIETARY FILTER BUTTONS
+========================================== */
+
+.filter-panel .diet-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Shared appearance */
+.filter-panel .diet-options .dietary-option {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-height: 45px;
+    padding: 10px 16px;
+
+    background-color: white;
+    border: 1px solid #8da781;
+    border-radius: 8px;
+
+    color: #365b2b;
+    font-family: var(--bbo-font);
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background-color 0.2s ease,
+                border-color 0.2s ease;
+}
+
+.filter-panel .dietary-option i {
+    font-size: 17px;
+}
+
+/* All Restaurants */
+.filter-panel .dietary-all.active {
+    background-color: #365b2b;
+    border-color: #365b2b;
+    color: white;
+}
+
+/* Vegetarian selected */
+.filter-panel .dietary-vegetarian:has(input:checked) {
+    background-color: #356b35;
+    border-color: #356b35;
+    color: white;
+}
+
+/* Vegan selected */
+.filter-panel .dietary-vegan:has(input:checked) {
+    background-color: #235344;
+    border-color: #235344;
+    color: white;
+}
+
+/* Gluten-Free selected */
+.filter-panel .dietary-gluten-free:has(input:checked) {
+    background-color: #7945A6;
+    border-color: #7945A6;
+    color: white;
+}
+
+/* Organic selected */
+.filter-panel .dietary-organic:has(input:checked) {
+    background-color: #89580f;
+    border-color: #89580f;
+    color: white;
+}
+
+/* Hover and keyboard focus */
+.filter-panel .dietary-option:hover {
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10);
+}
+
+.filter-panel .dietary-option:focus-visible,
+.filter-panel .dietary-option:focus-within {
+    outline: 3px solid #87b47c;
+    outline-offset: 3px;
+}
+
+/* ==========================================
+   RESPONSIVE SEARCH PANEL
+========================================== */
+
+
+/* ==========================================
+   RESTAURANT HERO - MATCH GROCERY HEIGHT
+========================================== */
+
+@media (min-width: 992px) {
+
+    .hero {
+        min-height: 350px;
+
+        /* Keep heading near the top */
+        align-items: flex-start;
+        padding-top: 45px;
+
+        /* Show more of the restaurant image */
+        background-position: center 70%;
+    }
+
+    .filter-panel {
+        /* Pull filters over the hero background */
+        margin-top: -185px;
+    }
+
+}
+
+@media (max-width: 991.98px) {
+    .filter-panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        grid-template-areas:
+            "diet diet"
+            "zip radius"
+            "cuisine search";
+    }
+}
+
+@media (max-width: 575.98px) {
+    .filter-panel {
+        grid-template-columns: minmax(0, 1fr);
+
+        grid-template-areas:
+            "diet"
+            "zip"
+            "radius"
+            "cuisine"
+            "search";
+
+        padding: 15px;
+    }
+
+    .restaurant-card-icon {
+        width: 55px;
+        height: 55px;
+    }
+
+    #restaurantDetailsModal #detailsContent {
+        padding: 15px;
+    }
 }
 
 /* ==========================================
@@ -905,6 +1442,68 @@ body > #footer-container {
   color: #777;
 }
 
+
+/* ==========================================
+   DEF-059 - RESTAURANT MAP & DETAILS MODAL
+========================================== */
+
+/* Right map column */
+.restaurant-map-column {
+    min-width: 0;
+}
+
+/* Bootstrap restaurant modal */
+.restaurant-details-modal {
+    border: none;
+    border-radius: 14px;
+}
+
+/* Modal heading */
+.restaurant-details-modal .modal-header {
+    background-color: #f7fbf5;
+    border-bottom: 1px solid #d9e6d3;
+    padding: 18px 24px;
+}
+
+.restaurant-details-modal .modal-title {
+    color: var(--bbo-primary);
+    font-weight: 700;
+}
+
+/* Modal body */
+#restaurantDetailsModal #detailsContent {
+    padding: 22px 24px;
+}
+
+/* Allow transportation buttons to wrap on mobile */
+.restaurant-details-modal .restaurant-detail-directions {
+    flex-wrap: wrap;
+}
+
+/* View full details button inside Leaflet popup */
+.restaurant-popup-details {
+    margin-top: 12px;
+    padding: 8px 12px;
+
+    border: 1px solid var(--bbo-primary);
+    border-radius: 7px;
+
+    background-color: white;
+    color: var(--bbo-primary);
+
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.restaurant-popup-details:hover {
+    background-color: #edf4e9;
+}
+
+.restaurant-popup-details:focus-visible {
+    outline: 3px solid var(--bbo-primary);
+    outline-offset: 2px;
+}
 /* Restaurant card responsiveness */
 
 @media (max-width: 1100px) {
@@ -925,5 +1524,31 @@ body > #footer-container {
 
   .restaurant-card-icon i {
     font-size: 24px;
+  }
+}
+
+/* Tablet layout: stack results and map */
+@media (max-width: 991.98px) {
+
+  .restaurant-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #restaurant-map {
+    height: 400px;
+    min-height: 400px;
+  }
+}
+
+/* Phone layout */
+@media (max-width: 575.98px) {
+
+  #restaurant-map {
+    height: 320px;
+    min-height: 320px;
+  }
+
+  .restaurant-grid {
+    max-height: 500px;
   }
 }
