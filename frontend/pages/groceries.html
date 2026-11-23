@@ -217,7 +217,7 @@
         <div class="row g-3">
 
             <!-- left results -->
-             <div class="col-12 col-lg-5">
+             <div class="col-12 col-lg-5 order-2 order-lg-1">
 
                 <div class="results-header">
 
@@ -258,20 +258,39 @@
                     <p class="grocery-empty-message">
                         Grocery location will appear here.
                     </p>
+                </div>
+
+                    <!-- mobile grocery pagination -->
+                     <div class="grocery-pagination">
+                     <p 
+                        id="grocery-page-status"
+                        class="grocery-page-status"
+                        aria-live="polite"
+                        hidden
+                        ></p>
+
+                    <button 
+                        type="button"
+                        id="grocery-load-more"
+                        class="btn btn-outline-primary grocery-load-more"
+                        hidden
+                    >
+                    Show 15 More
+                </button>
 
                  </div>
 
              </div>
 
              <!-- right map -->
-              <div class="col-12 col-lg-7">
+              <div class="col-12 col-lg-7 order-1 order-lg-2">
 
                 <!-- interactive map! Leaflet-->
                 <div 
                     id="grocery-map"
                     class="grocery-map"
                     role="region"
-                    aria-hidden="Map of grocery locations"
+                    aria-label="Map of grocery locations"
                 ></div>
             </div>
 
@@ -324,6 +343,17 @@
     </div>
     </div>
 
+
+<!-- back to top button-->
+ <button 
+    type="button"
+    id="back-to-top"
+    class="back-to-top"
+    aria-label="Back to top"
+    title="Back to top"
+    >
+    <i class="bi bi-arrow-up" aria-hidden="true"></i>
+</button>
 
 
 
