@@ -36,6 +36,7 @@ async function loadFooter() {
     const footerPages = {
       "footer-about": "pages/about.html",
       "footer-help": "pages/help.html",
+      "footer-contact": "pages/contact.html",
       "footer-privacy": "pages/privacy.html",
       "footer-terms": "pages/terms.html",
     };
