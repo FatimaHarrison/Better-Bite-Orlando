@@ -1,217 +1,264 @@
-<!--Fatima's section-->
-<!--Contact list for user to reach out to us-->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Contact Better Bite Orlando with questions, feedback, suggestions, or requests for assistance."
+    />
+
     <title>Contact Us | Better Bite Orlando</title>
+
     <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
 
     <!-- Shared Site CSS -->
-    <link rel="stylesheet" href="../css/bootstrap-custom.min.css">
-    <link rel="stylesheet" href="../css/theme.css">
-    <link rel="stylesheet" href="../css/navbar.css">
-    <link rel="stylesheet" href="../css/footer.css">
-    <!-- Contact CSS -->
-    <link rel="stylesheet" href="../css/contact.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../css/bootstrap-custom.min.css" />
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/navbar.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
+
+    <!-- Contact Page CSS -->
+    <link rel="stylesheet" href="../css/contact.css" />
+  </head>
+
+  <body>
     <!-- NAVBAR -->
     <div id="site-navbar"></div>
-    <!--Main section of page-->
+
+    <!-- MAIN CONTENT -->
     <main class="contact-page">
-        <div class="contact-container">
-            <!--Top portion-->
-            <h1>Contact Us</h1>
-           <div class="contact-card">
-                <!-- Users' contact input section -->
-                <div class="contact-form-section">
-                    <!--User contact form information-->
-                   <form id="form-group" novalidate>
+      <div class="contact-container">
+        <!-- PAGE INTRODUCTION -->
+        <h1>Contact Us</h1>
 
-    <!-- Full Name -->
+        <p class="contact-intro">
+          Have a question, suggestion, or need assistance? We'd love to hear
+          from you.
+        </p>
 
-    <div class="form-group">
+        <div class="contact-card">
+          <!-- CONTACT FORM SECTION -->
+          <section
+            class="contact-form-section"
+            aria-labelledby="contact-form-heading"
+          >
+            <h2 id="contact-form-heading">Send us a message</h2>
 
-        <label for="fullName">
-            Full Name <span class="required">*</span>
-        </label>
+            <p class="contact-required-note">
+              Fields marked with an asterisk (*) are required.
+            </p>
 
-        <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            maxlength="60"
-            placeholder="Enter your name"
-            required>
+            <form id="form-group" novalidate>
+              <!-- FULL NAME -->
+              <div class="form-group">
+                <label for="fullName">
+                  Full Name
+                  <span class="required" aria-hidden="true">*</span>
+                </label>
 
-        <small class="error-message"></small>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  maxlength="60"
+                  autocomplete="name"
+                  placeholder="Enter your name"
+                  aria-describedby="fullName-error"
+                  required
+                />
 
-    </div>
+                <small id="fullName-error" class="error-message"></small>
+              </div>
 
-    <!-- Email -->
+              <!-- EMAIL ADDRESS -->
+              <div class="form-group">
+                <label for="email">
+                  Email
+                  <span class="required" aria-hidden="true">*</span>
+                </label>
 
-    <div class="form-group">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  maxlength="100"
+                  autocomplete="email"
+                  placeholder="Enter your email"
+                  aria-describedby="email-error"
+                  required
+                />
 
-        <label for="email">
-            Email <span class="required">*</span>
-        </label>
+                <small id="email-error" class="error-message"></small>
+              </div>
 
-        <input
-            type="email"
-            id="email"
-            name="email"
-            maxlength="100"
-            placeholder="Enter your email"
-            required>
+              <!-- SUBJECT -->
+              <div class="form-group">
+                <label for="subject">
+                  Subject
+                  <span class="required" aria-hidden="true">*</span>
+                </label>
 
-        <small class="error-message"></small>
+                <select
+                  id="subject"
+                  name="subject"
+                  aria-describedby="subject-error"
+                  required
+                >
+                  <option value="">Select a Subject</option>
 
-    </div>
+                  <option value="General Question">General Question</option>
 
-    <!-- Subject -->
+                  <option value="Feedback or Suggestion">
+                    Feedback or Suggestion
+                  </option>
 
-    <div class="form-group">
+                  <option value="Report a Problem">Report a Problem</option>
 
-        <label for="subject">
-            Subject <span class="required">*</span>
-        </label>
+                  <option value="Delete My Data">Delete My Data</option>
 
-        <select
-            id="subject"
-            name="subject"
-            required>
+                  <option value="Other">Other</option>
+                </select>
 
-            <option value="">
-                Select a Subject
-            </option>
+                <small id="subject-error" class="error-message"></small>
+              </div>
 
-            <option value="General Question">
-                General Question
-            </option>
+              <!-- MESSAGE -->
+              <div class="form-group">
+                <label for="message">
+                  Message
+                  <span class="required" aria-hidden="true">*</span>
+                </label>
 
-            <option value="Feedback or Suggestion">
-                Feedback or Suggestion
-            </option>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  maxlength="1000"
+                  placeholder="Tell us how we can help..."
+                  aria-describedby="message-character-count message-error"
+                  required
+                ></textarea>
 
-            <option value="Report a Problem">
-                Report a Problem
-            </option>
+                <small id="message-character-count" class="character-count">
+                  0 / 1000
+                </small>
 
-            <option value="Delete My Data">
-                Delete My Data
-            </option>
+                <small id="message-error" class="error-message"></small>
+              </div>
 
-            <option value="Other">
-                Other
-            </option>
+              <!-- SUCCESS MESSAGE -->
+              <div
+                id="successMessage"
+                class="success-message"
+                role="status"
+                aria-live="polite"
+                tabindex="-1"
+                hidden
+              >
+                <strong> Thank you for contacting Better Bite Orlando. </strong>
 
-        </select>
+                <p class="mb-0 mt-2">
+                  Your message has been submitted successfully.
+                </p>
+              </div>
 
-        <small class="error-message"></small>
+              <!-- ERROR MESSAGE -->
+              <div
+                id="errorMessage"
+                class="error-message-global"
+                role="alert"
+                tabindex="-1"
+                hidden
+              >
+                Please correct the highlighted fields.
+              </div>
 
-    </div>
+              <!-- SUBMIT BUTTON -->
+              <button type="submit" class="contact-btn">
+                <span>Send Message</span>
 
-    <!-- Message -->
+                <i class="bi bi-send" aria-hidden="true"></i>
+              </button>
+            </form>
+          </section>
 
-    <div class="form-group">
+          <!-- CONTACT INFORMATION SECTION -->
+          <aside
+            class="contact-info"
+            aria-label="Better Bite Orlando contact information"
+          >
+            <!-- EMAIL -->
+            <div class="info-block">
+              <h3>
+                <i class="bi bi-envelope" aria-hidden="true"></i>
+                Email Us
+              </h3>
 
-        <label for="message">
-            Message <span class="required">*</span>
-        </label>
-
-        <textarea
-            id="message"
-            name="message"
-            rows="5"
-            maxlength="1000"
-            placeholder="Tell us how we can help..."
-            required></textarea>
-
-        <small class="character-count">
-            0 / 1000
-        </small>
-
-        <small class="error-message"></small>
-
-    </div>
-
-    <!-- Success Message -->
-
-    <div id="successMessage" class="success-message">
-
-        Thank you for contacting Better Bite Orlando.
-        <br>
-        Your message has been submitted successfully.
-
-    </div>
-
-    <!-- Error Message -->
-
-    <div id="errorMessage" class="error-message-global">
-
-        Please correct the highlighted fields.
-
-    </div>
-
-    <!-- Submit Button -->
-
-    <button type="submit" class="contact-btn">
-        Contact Us
-    </button>
-
-</form>
-
-
-                </div>
-                 <!--CSS-->
-                <!-- BBO short information -->
-                <div class="contact-info">
-                    <div class="info-block">
-                        <h3>Contact📧</h3>
-                        <p>info@betterbiteorlando.com</p>
-                    </div>
-                    <div class="info-block">
-                        <h3>Based In📍</h3>
-                        <p>
-                            Orlando, Florida
-                        </p>
-                    </div>
-                    <!--Short desrciption of our mission-->
-                    <div class="info-block">
-                        <h3>Our Mission🎯</h3>
-                        <p>
-                        Helping Orlando families find healthy food,
-                        restaurants, recipes, and nutrition resources.
-                        </p>
-                          <img src="../images/Designer (3).png"
-                          alt="Better Bite Orlando Conact Us"
-                          class="contact-logo">
-                    </div>
-                </div>
+              <p>
+                <a href="mailto:info@betterbiteorlando.com">
+                  info@betterbiteorlando.com
+                </a>
+              </p>
             </div>
+
+            <!-- LOCATION -->
+            <div class="info-block">
+              <h3>
+                <i class="bi bi-geo-alt" aria-hidden="true"></i>
+                Based In
+              </h3>
+
+              <p>Orlando, Florida</p>
+            </div>
+
+            <!-- OUR MISSION -->
+            <div class="info-block">
+              <h3>
+                <i class="bi bi-bullseye" aria-hidden="true"></i>
+                Our Mission
+              </h3>
+
+              <p>
+                Helping Orlando families find healthy food, restaurants,
+                recipes, and nutrition resources.
+              </p>
+
+              <img
+                src="../images/contact-orlando.jpg"
+                alt="Oranges and a telephone overlooking the Orlando skyline"
+                class="contact-logo"
+                loading="lazy"
+              />
+            </div>
+          </aside>
         </div>
+      </div>
     </main>
-   <style>
-    main{
-        padding-bottom: 93px;
-    }
-   </style>
-    <!-- Bottom footer -->
+
+    <!-- FOOTER -->
     <div id="footer-container"></div>
+
+    <!-- SHARED JAVASCRIPT -->
+    <script src="../js/config.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/footer.js"></script>
 
-<script src="../js/contact.js"></script>
-</body>
+    <!-- CONTACT PAGE JAVASCRIPT -->
+    <script src="../js/contact.js"></script>
+  </body>
 </html>
-<!--Fatima's section-->
