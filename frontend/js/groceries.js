@@ -25,6 +25,26 @@ const categoryButtons = document.querySelectorAll(
 // Sorting dropdown
 const grocerySort = document.getElementById("grocer-sort");
 
+
+// Mobile grocery pagination
+const MOBILE_RESULTS_LIMIT = 15;
+
+const groceryLoadMore = document.getElementById(
+    "grocery-load-more"
+);
+
+const groceryPageStatus = document.getElementById(
+    "grocery-page-status"
+);
+
+const mobileGroceryQuery = window.matchMedia(
+    "(max-width: 991.98px)"
+);
+
+let visibleGroceryCount = MOBILE_RESULTS_LIMIT;
+
+
+
 // store the latest result from the API
 let groceryLocations = [];
 
@@ -682,6 +702,52 @@ function renderGroceryResults(locations) {
 
 }
 
+
+function renderVisibleGroceryResults(reset = false) {
+
+    if(reset) {
+        visibleGroceryCount = MOBILE_RESULTS_LIMIT;
+    }
+
+    const sortedLocations = sortGroceryResults(
+        groceryLocations
+    );
+
+    const isMobile = mobileGroceryQuery.matches;
+
+    const visibleLocations = isMobile
+    ? sortedLocations.slice(0, visibleGroceryCount)
+    : sortedLocations;
+
+    renderGroceryResults(visibleLocations);
+
+    const totalResults = sortedLocations.length;
+    const displayedResults = visibleLocations.length;
+
+    groceryPageStatus.hidden = !isMobile || totalResults === 0;
+
+    if(!groceryPageStatus.hidden) {
+        groceryPageStatus.textContent = 
+            `Showing ${displayedResults} of ${totalResults} locations`;
+    }
+
+    const hasMore = isMobile && displayedResults < totalResults;
+
+    groceryLoadMore.hidden = !hasMore;
+
+    if (hasMore) {
+        const remaining = totalResults - displayedResults;
+
+        const nextCount = Math.min(
+            MOBILE_RESULTS_LIMIT,
+            remaining
+        );
+
+        groceryLoadMore.textContent = 
+            `Show ${nextCount} More`;
+    }
+}
+
 // Retrieve the signed-in user's saved ZIP code
 async function loadUserZipCode() {
     try {
@@ -719,6 +785,13 @@ async function loadUserZipCode() {
 // Search for groceries using backend api
 async function searchGroceries(event) {
     event.preventDefault();
+
+    // reset previous search results and pagination
+    groceryLocations = [];
+    visibleGroceryCount = MOBILE_RESULTS_LIMIT;
+
+    groceryLoadMore.hidden = true;
+    groceryPageStatus.hidden = true;
 
     const zip = groceryZip.value.trim();
     const category = groceryCategory.value;
@@ -781,9 +854,7 @@ async function searchGroceries(event) {
 
 
      // display grocery cards
-     renderGroceryResults(
-        sortGroceryResults(groceryLocations)
-     );
+     renderVisibleGroceryResults(true);
 
      // update map markers with latest search results
      updateGroceryMap(groceryLocations);
@@ -842,13 +913,61 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        renderGroceryResults(
-            sortGroceryResults(groceryLocations)
-        );
+        renderVisibleGroceryResults(true);
     });
 
     // sync category selection when page loads
     syncCategoryNavigation(groceryCategory.value);
 
+
+    // load more grocery results 
+    groceryLoadMore.addEventListener("click", () => {
+
+        visibleGroceryCount += MOBILE_RESULTS_LIMIT;
+
+        renderVisibleGroceryResults();
+    });
+
+    // switching between desktop and mobile
+    mobileGroceryQuery.addEventListener("change", () => {
+
+        if (groceryLocations.length > 0) {
+            renderVisibleGroceryResults();
+        }
+
+    });
+
+    // back to top button
+
+    const backToTop = document.getElementById("back-to-top");
+
+    function toggleBackToTop() {
+
+        const shouldShow = window.scrollY > 400;
+
+        backToTop.classList.toggle("show", shouldShow);
+
+        backToTop.tabIndex = shouldShow ? 0 : -1;
+    }
+
+    // listen for scrolling
+    window.addEventListener("scroll", toggleBackToTop, {
+        passive: true
+    });
+
+    backToTop.addEventListener("click", () => {
+
+    const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        window.scrollTo({
+            top: 0,
+            behavior: prefersReducedMotion ? "instant" : "smooth"
+        });
+
+    });
+
+    toggleBackToTop();
 
 });
