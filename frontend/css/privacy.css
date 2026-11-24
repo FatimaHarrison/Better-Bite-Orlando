@@ -1,4 +1,7 @@
 /*Fatima's Section*/
+html{
+    scroll-behavior:smooth;
+}
 *{
     margin:0;
     padding:0;
@@ -8,7 +11,7 @@
 /* PAGE BACKGROUND */
 body{
     font-family:'Inter',sans-serif;
-    line-eight:1.8;
+    line-height:1.8;
     color:#2d2d2d;
     margin:0;
     background:
@@ -77,6 +80,16 @@ a{
     transition:.3s ease;
 }
 
+.link{
+     color:#463499;
+    text-decoration:none;
+    transition:.3s ease;
+    font-weight: 20px;
+    font-size: medium;
+    margin-left: 30px;
+    text-decoration: underline;
+}
+
 a:hover{
     color:#ff8c2a;
 }
@@ -86,7 +99,7 @@ h2{
     color:#2e7d32;
     font-size:1.2rem;
     font-weight:700;
-
+    text-decoration: underline;
     margin-top:50px;
     margin-bottom:20px;
 
@@ -95,7 +108,7 @@ h2{
 }
 
 h3{
-    color:#34495e;
+    color:#000305;
     font-size:1.20rem;
     font-weight:600;
 
@@ -134,9 +147,9 @@ h3{
     margin-bottom:0;
 }
 
-/* ==========================================
+/*
    TABLE OF CONTENTS
-   ========================================== */
+ */
 
 .con-nav{
     background:#eef7ea;
@@ -172,6 +185,9 @@ h3{
 .con-nav a:hover{
     color:#ff8c2a;
     padding-left:5px;
+}
+section{
+    margin-bottom:50px;
 }
 section{
     margin-bottom:50px;
@@ -214,6 +230,86 @@ section{
 
     h2{
         font-size:1.5rem;
+ }
+
+    h3{
+        font-size:1.15rem;
+    }
+
+    p,
+    li{
+        font-size:1rem;
+    }
+
+    .privacy-summary{
+        padding:25px;
+    }
+
+    .con-nav{
+        padding:25px;
+    }
+
+    .privacy-logo{
+        max-width:280px;
+    }
+}
+
+
+@media (min-width:1400px){
+
+    .policy-wrapper{
+        padding:60px;
+    }
+
+.contact{
+    background:#eef7ea;
+    border:2px solid #dcefd6;
+    border-radius:20px;
+    padding:30px;
+    margin-top:20px;
+}
+
+.contact strong{
+    color:#2d6a35;
+}
+
+.notice-box{
+    background:#fff8e6;
+    border-left:5px solid #ffb347;
+    padding:20px;
+    border-radius:10px;
+    margin:25px 0;
+}
+
+.privacy-footer-image{
+   text-align:center;
+    margin:30px 0;
+}
+
+.privacy-logo{
+     width:100%;
+    max-width:330px;
+    height:auto;
+}
+
+@media (max-width:768px){
+
+    body{
+        padding:20px 15px;
+    }
+
+    .policy-wrapper{
+        padding:25px;
+        border-radius:18px;
+    }
+
+    h1{
+        font-size:2rem;
+    }
+
+    h2{
+        font-size:1.7rem;
+        margin-left: 5px;
  }
 
     h3{
