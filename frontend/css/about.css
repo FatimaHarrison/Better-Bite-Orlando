@@ -1,0 +1,490 @@
+
+/* ==========================================
+   BETTER BITE ORLANDO
+   ABOUT US PAGE DESIGN
+========================================== */
+
+:root {
+    --bbo-green: #416b32;
+    --bbo-dark-green: #28502c;
+    --bbo-light-green: #eaf2e5;
+    --bbo-orange: #f39a24;
+    --bbo-light-orange: #fff3df;
+    --bbo-cream: #fffaf1;
+    --bbo-blue: #edf5fa;
+    --bbo-dark: #263528;
+    --bbo-text: #555f55;
+    --bbo-white: #ffffff;
+}
+
+
+/* ==========================================
+   GENERAL PAGE STYLING
+========================================== */
+
+.about-page {
+    font-family: 'Inter', sans-serif;
+    color: var(--bbo-dark);
+    overflow: hidden;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-page img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* ==========================================
+   HERO SECTION
+========================================== */
+
+.about-hero {
+    background: linear-gradient(
+        135deg,
+        #edf5fa 0%,
+        #f8fbf4 55%,
+        #fff3df 100%
+    );
+
+    padding: 85px 25px;
+}
+
+.about-hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 65px;
+}
+
+.about-hero-text {
+    max-width: 540px;
+}
+
+.about-label {
+    display: inline-block;
+    background: var(--bbo-light-green);
+    color: var(--bbo-green);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.about-hero h1 {
+    font-size: clamp(40px, 5vw, 65px);
+    font-weight: 800;
+    line-height: 1.12;
+    color: var(--bbo-dark-green);
+    margin-bottom: 25px;
+}
+
+.about-hero h1 span {
+    display: block;
+    color: var(--bbo-orange);
+}
+
+.about-hero-text p {
+    font-size: 19px;
+    line-height: 1.8;
+    color: var(--bbo-text);
+    max-width: 490px;
+}
+
+.about-hero-image {
+    height: 390px;
+    overflow: hidden;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(40, 80, 44, 0.15);
+}
+
+.about-hero-image img {
+    transition: transform 0.5s ease;
+}
+
+.about-hero-image:hover img {
+    transform: scale(1.04);
+}
+
+
+/* ==========================================
+   GENERAL SECTIONS
+========================================== */
+
+.about-section {
+    padding: 90px 25px;
+}
+
+.section-heading {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 55px;
+}
+
+.section-heading h2 {
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--bbo-dark-green);
+    margin: 15px 0 10px;
+}
+
+.section-subtitle {
+    font-size: 17px;
+    color: var(--bbo-text);
+    margin: 0;
+}
+
+.section-icon {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 18px;
+    margin: 0 auto;
+    font-size: 29px;
+}
+
+.section-text p {
+    font-size: 16px;
+    line-height: 1.95;
+    color: var(--bbo-text);
+    margin-bottom: 18px;
+}
+
+.section-image {
+    height: 390px;
+    overflow: hidden;
+    border-radius: 22px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.09);
+}
+
+.section-image img {
+    transition: transform 0.5s ease;
+}
+
+.section-image:hover img {
+    transform: scale(1.04);
+}
+
+
+/* ==========================================
+   OUR MISSION
+========================================== */
+
+.mission-section {
+    background: var(--bbo-light-green);
+}
+
+.mission-icon {
+    background: #d4e8c9;
+    color: var(--bbo-green);
+}
+
+.mission-content {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 55px;
+}
+
+.mission-content .section-text {
+    background: var(--bbo-white);
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(40, 80, 44, 0.06);
+}
+
+
+/* ==========================================
+   OUR PURPOSE
+========================================== */
+
+.purpose-section {
+    background: var(--bbo-cream);
+}
+
+.purpose-icon {
+    background: #ffe5bd;
+    color: #d78316;
+}
+
+.purpose-content {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: center;
+    gap: 55px;
+}
+
+.purpose-content .section-text {
+    background: var(--bbo-white);
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(100, 75, 35, 0.06);
+}
+
+.purpose-content .section-image {
+    border: 5px solid var(--bbo-white);
+}
+
+
+/* ==========================================
+   OUR STORY
+========================================== */
+
+.story-section {
+    background: var(--bbo-blue);
+}
+
+.story-icon {
+    background: #d7e9f5;
+    color: #39789b;
+}
+
+.story-content {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 55px;
+}
+
+.story-content .section-text {
+    background: var(--bbo-white);
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(30, 70, 100, 0.06);
+}
+
+.story-image {
+    height: 390px;
+    overflow: hidden;
+    border-radius: 22px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
+}
+
+.story-image img {
+    transition: transform 0.5s ease;
+}
+
+.story-image:hover img {
+    transform: scale(1.04);
+}
+
+
+/* ==========================================
+   CLOSING SECTION
+========================================== */
+
+.about-closing {
+    padding: 85px 25px;
+    background: var(--bbo-dark-green);
+}
+
+.closing-content {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: center;
+    gap: 65px;
+}
+
+.closing-image {
+    height: 350px;
+    overflow: hidden;
+    border-radius: 25px;
+    border: 5px solid rgba(255, 255, 255, 0.15);
+}
+
+.closing-image img {
+    transition: transform 0.5s ease;
+}
+
+.closing-image:hover img {
+    transform: scale(1.04);
+}
+
+.closing-text {
+    color: var(--bbo-white);
+}
+
+.closing-icon {
+    margin: 0 0 25px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffbd58;
+}
+
+.closing-text h2 {
+    font-size: clamp(32px, 4vw, 45px);
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 22px;
+}
+
+.closing-text h2 span {
+    display: block;
+    color: #ffbd58;
+}
+
+.closing-text p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 30px;
+}
+
+.about-contact-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 28px;
+    background: var(--bbo-orange);
+    color: var(--bbo-dark-green);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.about-contact-button:hover {
+    background: var(--bbo-white);
+    color: var(--bbo-dark-green);
+    transform: translateY(-3px);
+}
+
+.about-contact-button i {
+    font-size: 18px;
+}
+
+
+/* ==========================================
+   RESPONSIVE DESIGN - TABLETS
+========================================== */
+
+@media (max-width: 991px) {
+
+    .about-hero-content,
+    .mission-content,
+    .purpose-content,
+    .story-content,
+    .closing-content {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .about-hero {
+        padding: 65px 25px;
+    }
+
+    .about-hero-text {
+        max-width: 100%;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .about-hero-text p {
+        margin: 0 auto;
+    }
+
+    .about-hero-image {
+        height: 350px;
+    }
+
+    .section-image,
+    .story-image {
+        height: 350px;
+    }
+
+    .closing-image {
+        height: 320px;
+    }
+
+    .closing-text {
+        text-align: center;
+    }
+
+    .closing-icon {
+        margin: 0 auto 25px;
+    }
+
+}
+
+
+/* ==========================================
+   RESPONSIVE DESIGN - MOBILE
+========================================== */
+
+@media (max-width: 576px) {
+
+    .about-hero {
+        padding: 50px 18px;
+    }
+
+    .about-hero h1 {
+        font-size: 39px;
+    }
+
+    .about-hero-text p {
+        font-size: 16px;
+    }
+
+    .about-hero-image {
+        height: 260px;
+        border-radius: 18px;
+    }
+
+    .about-section {
+        padding: 60px 18px;
+    }
+
+    .section-heading {
+        margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+        font-size: 30px;
+    }
+
+    .section-subtitle {
+        font-size: 15px;
+    }
+
+    .section-text p {
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .mission-content .section-text,
+    .purpose-content .section-text,
+    .story-content .section-text {
+        padding: 23px;
+    }
+
+    .section-image,
+    .story-image {
+        height: 250px;
+    }
+
+    .about-closing {
+        padding: 60px 18px;
+    }
+
+    .closing-image {
+        height: 250px;
+    }
+
+    .closing-text h2 {
+        font-size: 32px;
+    }
+
+    .closing-text p {
+        font-size: 15px;
+    }
+
+}
