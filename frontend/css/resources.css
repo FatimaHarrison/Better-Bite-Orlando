@@ -22,12 +22,12 @@ body {
   overflow: hidden;
 
   background:
-    radial-gradient(
-      circle at 80% 30%,
-      rgba(168, 200, 167, 0.35),
-      transparent 45%
-    ),
-    linear-gradient(110deg, #e0eef8 0%, #edf5ee 60%, #e2f0dc 100%);
+   linear-gradient(
+        110deg,
+        #F4F1E8 0%,
+        #EDF5EE 55%,
+        #DCEBD7 100%
+    );
 }
 
 .resources-hero-layout {
@@ -52,8 +52,9 @@ body {
 }
 
 .resources-hero p {
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #334155;
   margin-bottom: 0;
 }
 
@@ -190,12 +191,26 @@ body {
   color: var(--bbo-primary);
 }
 
-.panel-orange .panel-heading > i {
-  color: #eb4967;
+/* ========================================
+   RESOURCE SECTION ICON COLORS
+======================================== */
+
+/* Learn & Discover - Green */
+.panel-green .panel-heading > i,
+.panel-green .item-icon {
+    color: #356B35;
 }
 
-.panel-purple .panel-heading > i {
-  color: #d99a15;
+/* Help & Support - Orange */
+.panel-orange .panel-heading > i,
+.panel-orange .item-icon {
+    color: #B96A19;
+}
+
+/* About & Legal - Purple */
+.panel-purple .panel-heading > i,
+.panel-purple .item-icon {
+    color: #7945A6;
 }
 
 .panel-heading h2 {
@@ -206,9 +221,9 @@ body {
 }
 
 .panel-heading p {
-  color: var(--bbo-text-dark);
-  font-size: 13px;
-  line-height: 1.4;
+  color: #334155;
+  font-size: 16px;
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -264,8 +279,8 @@ body {
 }
 
 .item-text p {
-  font-size: 12px;
-  line-height: 1.4;
+  font-size: 14px;
+  line-height: 1.5;
   margin: 0;
 }
 
@@ -299,6 +314,21 @@ a.resource-item:focus-visible {
   font-size: 11px;
   color: #667764;
 }
+
+/* Resource Card Icons */
+
+.item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+    width: 48px;
+
+    font-size: 28px;
+}
+
+
 
 /* Tablet */
 
