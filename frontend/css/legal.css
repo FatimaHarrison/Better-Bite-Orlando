@@ -1,0 +1,600 @@
+legal.css
+/* ==================================================
+   Better Bite Orlando
+   Shared Privacy Policy and Terms and Conditions CSS
+   ================================================== */
+
+.legal-page {
+  --legal-green: #3d622c;
+  --legal-green-dark: #304e23;
+  --legal-orange: #cc5500;
+  --legal-background: #f6f9f2;
+  --legal-panel: #f0f5eb;
+  --legal-border: #d9e6d3;
+  --legal-text: #344334;
+  --legal-muted: #606b60;
+
+  background: var(--legal-background);
+  color: var(--legal-text);
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  padding: 48px 24px 64px;
+}
+
+/* ==================================================
+   Main Container
+   ================================================== */
+
+.legal-page .legal-container {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  min-width: 0;
+}
+
+/* ==================================================
+   Page Header
+   ================================================== */
+
+.legal-page .legal-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.legal-page .legal-header h1 {
+  color: var(--legal-green);
+  font-family: "Inter", sans-serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+.legal-page .legal-updated {
+  color: var(--legal-muted);
+  font-size: 0.9rem;
+  margin: 0 0 16px;
+}
+
+.legal-page .legal-intro {
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--legal-text);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+/* ==================================================
+   Main Content Card
+   ================================================== */
+
+.legal-page .legal-card {
+  background: #ffffff;
+  border: 1px solid var(--legal-border);
+  border-radius: 20px;
+  padding: clamp(24px, 4vw, 48px);
+  box-shadow: 0 8px 28px rgba(48, 78, 35, 0.06);
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.legal-page .legal-card p {
+  margin: 0 0 16px;
+  line-height: 1.75;
+}
+
+.legal-page .legal-card strong {
+  font-weight: 700;
+}
+
+.legal-page .legal-introduction {
+  margin-bottom: 32px;
+}
+
+/* ==================================================
+   Links and Keyboard Accessibility
+   ================================================== */
+
+.legal-page a {
+  color: var(--legal-green);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+.legal-page a:hover {
+  color: var(--legal-orange);
+}
+
+.legal-page a:focus-visible {
+  outline: 3px solid var(--legal-green-dark);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+/* ==================================================
+   Privacy / Terms Summary
+   ================================================== */
+
+.legal-page .legal-summary {
+  margin-bottom: 32px;
+}
+
+.legal-page .legal-summary h2,
+.legal-page .legal-toc h2 {
+  font-size: 1.5rem;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--legal-green);
+  margin: 0 0 16px;
+}
+
+.legal-page .legal-summary-intro {
+  color: var(--legal-muted);
+}
+
+.legal-page .legal-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.legal-page .legal-summary-item {
+  background: var(--legal-panel);
+  border: 1px solid var(--legal-border);
+  border-radius: 12px;
+  padding: 24px;
+  min-width: 0;
+}
+
+.legal-page .legal-summary-item > i {
+  display: inline-block;
+  color: var(--legal-orange);
+  font-size: 1.75rem;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.legal-page .legal-summary-item h3 {
+  color: var(--legal-green);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 10px;
+}
+
+.legal-page .legal-summary-item p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ==================================================
+   Table of Contents
+   ================================================== */
+
+.legal-page .legal-toc {
+  background: var(--legal-panel);
+  border: 1px solid var(--legal-border);
+  border-radius: 14px;
+  padding: 28px;
+  margin: 0 0 40px;
+}
+
+.legal-page .legal-toc h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legal-page .legal-toc h2 i {
+  color: var(--legal-orange);
+}
+
+.legal-page .legal-toc ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-flow: column;
+  grid-template-rows: repeat(8, auto);
+  column-gap: 36px;
+  row-gap: 8px;
+  margin: 0;
+  padding-left: 24px;
+}
+
+.legal-page .legal-toc li {
+  color: var(--legal-green);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.5;
+  padding-left: 4px;
+  min-width: 0;
+}
+
+.legal-page .legal-toc a {
+  display: inline-block;
+  padding: 3px 0;
+  text-decoration: none;
+}
+
+.legal-page .legal-toc a:hover {
+  text-decoration: underline;
+}
+
+/* ==================================================
+   Legal Document Sections
+   ================================================== */
+
+.legal-page .legal-section {
+  padding: 30px 0;
+  border-top: 1px solid var(--legal-border);
+}
+
+.legal-page .legal-section h2 {
+  color: var(--legal-green);
+  border-left: 5px solid var(--legal-orange);
+  padding-left: 14px;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 22px;
+  scroll-margin-top: 120px;
+}
+
+.legal-page .legal-section h3 {
+  color: var(--legal-green-dark);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 24px 0 10px;
+}
+
+.legal-page .legal-section h2 + h3 {
+  margin-top: 0;
+}
+
+.legal-page .legal-section ul,
+.legal-page .legal-section ol {
+  padding-left: 26px;
+  margin: 0 0 20px;
+}
+
+.legal-page .legal-section li {
+  padding-left: 3px;
+  margin-bottom: 7px;
+  line-height: 1.65;
+}
+
+.legal-page .legal-section li::marker {
+  color: var(--legal-green);
+}
+
+.legal-page .legal-section > :last-child {
+  margin-bottom: 0;
+}
+
+/* ==================================================
+   Notices and Important Information
+   ================================================== */
+
+.legal-page .legal-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: #fff7ed;
+  border: 1px solid #f0dcc6;
+  border-left: 4px solid var(--legal-orange);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin: 22px 0;
+}
+
+.legal-page .legal-notice > i {
+  color: var(--legal-orange);
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.legal-page .legal-notice p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+/* ==================================================
+   Instructions and Procedures
+   ================================================== */
+
+.legal-page .legal-instructions {
+  background: var(--legal-panel);
+  border: 1px solid var(--legal-border);
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin: 20px 0;
+}
+
+.legal-page .legal-instructions ol {
+  margin-bottom: 0;
+}
+
+.legal-page .legal-instructions li:last-child {
+  margin-bottom: 0;
+}
+
+/* ==================================================
+   Contact Information
+   ================================================== */
+
+.legal-page .legal-contact {
+  background: var(--legal-panel);
+  border: 1px solid var(--legal-border);
+  border-radius: 14px;
+  padding: 28px;
+}
+
+.legal-page .legal-contact h3 {
+  color: var(--legal-green);
+  font-size: 1.25rem;
+  margin: 0 0 14px;
+}
+
+.legal-page .legal-contact-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.legal-page .legal-contact-detail i {
+  color: var(--legal-orange);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.legal-page .legal-contact-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+/* ==================================================
+   Contact Button
+   ================================================== */
+
+.legal-page .legal-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background: var(--legal-green);
+  border: 1px solid var(--legal-green);
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.legal-page .legal-button:hover {
+  background: var(--legal-green-dark);
+  border-color: var(--legal-green-dark);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.legal-page .legal-button:focus-visible {
+  outline: 3px solid var(--legal-orange);
+  outline-offset: 4px;
+}
+
+.legal-page .legal-secondary-link {
+  font-size: 0.95rem;
+}
+
+/* ==================================================
+   Back to Top
+   ================================================== */
+
+.legal-page .legal-bottom {
+  border-top: 1px solid var(--legal-border);
+  padding-top: 24px;
+  text-align: right;
+}
+
+.legal-page .legal-back-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.legal-page .legal-back-top:hover {
+  text-decoration: underline;
+}
+
+/* ==================================================
+   Tablet Layout
+   ================================================== */
+
+@media (max-width: 991px) {
+  .legal-page {
+    padding: 36px 20px 48px;
+  }
+
+  .legal-page .legal-card {
+    padding: 32px;
+  }
+
+  .legal-page .legal-toc ol {
+    column-gap: 24px;
+  }
+}
+
+/* ==================================================
+   Mobile Layout
+   ================================================== */
+
+@media (max-width: 767px) {
+  .legal-page {
+    padding: 28px 16px 40px;
+  }
+
+  .legal-page .legal-header {
+    margin-bottom: 24px;
+  }
+
+  .legal-page .legal-header h1 {
+    font-size: 2rem;
+  }
+
+  .legal-page .legal-intro {
+    font-size: 1rem;
+  }
+
+  .legal-page .legal-card {
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .legal-page .legal-summary-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .legal-page .legal-summary-item {
+    padding: 20px;
+  }
+
+  .legal-page .legal-toc {
+    padding: 20px;
+    margin-bottom: 28px;
+  }
+
+  .legal-page .legal-toc ol {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-flow: row;
+    gap: 8px;
+  }
+
+  .legal-page .legal-toc a {
+    padding: 6px 0;
+  }
+
+  .legal-page .legal-section {
+    padding: 24px 0;
+  }
+
+  .legal-page .legal-section h2 {
+    padding-left: 12px;
+    font-size: 1.25rem;
+    scroll-margin-top: 100px;
+  }
+
+  .legal-page .legal-contact {
+    padding: 20px;
+  }
+
+  .legal-page .legal-contact-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .legal-page .legal-button {
+    width: 100%;
+  }
+
+  .legal-page .legal-secondary-link {
+    text-align: center;
+  }
+
+  .legal-page .legal-instructions {
+    padding: 18px;
+  }
+
+  .legal-page .legal-notice {
+    padding: 16px;
+    gap: 10px;
+  }
+}
+
+/* ==================================================
+   Small Mobile Layout
+   ================================================== */
+
+@media (max-width: 375px) {
+  .legal-page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .legal-page .legal-card {
+    padding: 18px;
+  }
+
+  .legal-page .legal-contact,
+  .legal-page .legal-toc,
+  .legal-page .legal-summary-item {
+    padding: 16px;
+  }
+}
+
+/* ==================================================
+   Reduced Motion Accessibility
+   ================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .legal-page a {
+    transition: none;
+  }
+}
+
+/* ==================================================
+   Print Layout
+   ================================================== */
+
+@media print {
+  .legal-page {
+    background: #ffffff;
+    color: #000000;
+    padding: 0;
+  }
+
+  .legal-page .legal-container {
+    max-width: none;
+  }
+
+  .legal-page .legal-card {
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .legal-page .legal-summary-item,
+  .legal-page .legal-contact,
+  .legal-page .legal-toc,
+  .legal-page .legal-notice,
+  .legal-page .legal-instructions {
+    background: #ffffff;
+    break-inside: avoid;
+  }
+
+  .legal-page .legal-section h2,
+  .legal-page .legal-section h3 {
+    break-after: avoid;
+  }
+
+  .legal-page .legal-bottom {
+    display: none;
+  }
+}
