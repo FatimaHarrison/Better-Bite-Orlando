@@ -7,6 +7,12 @@ const RESTAURANT_API_URL =
 // Restaurant details panel
 const detailsContent = document.getElementById("detailsContent");
 
+const restaurantModalElement =
+    document.getElementById("restaurantDetailsModal");
+
+const restaurantModalLabel =
+    document.getElementById("restaurantDetailsModalLabel");
+
 // Track selected restaurant
 let selectedRestaurant = null;
 
@@ -110,8 +116,7 @@ function updateRestaurantMap(restaurants) {
             restaurant.name || "Unnamed Restaurant";
 
         const address = document.createElement("p");
-        address.textContent =
-            restaurant.address || "Address unavailable";
+        address.textContent = formatRestaurantAddress(restaurant);
 
   // Transportation directions inside map popup
 const directionsContainer = document.createElement("div");
@@ -148,10 +153,23 @@ transportationModes.forEach((transport) => {
     directionsContainer.appendChild(link);
 });
 
+const viewDetailsButton = document.createElement("button");
+
+viewDetailsButton.type = "button";
+viewDetailsButton.className = "restaurant-popup-details";
+viewDetailsButton.textContent = "View full details";
+
+viewDetailsButton.addEventListener("click", () => {
+    showRestaurantDetails(restaurant);
+});
+
+
 popup.append(
     name,
     address,
-    directionsContainer
+    directionsContainer,
+    viewDetailsButton
+
 );
 
 marker.bindPopup(popup);
@@ -159,10 +177,8 @@ marker.bindPopup(popup);
 // Select restaurant when marker is clicked
 marker.on("click", () => {
 
-    selectedRestaurant = restaurant;
-
     // Update restaurant details
-    showRestaurantDetails(restaurant);
+    selectedRestaurant = restaurant;
 
     // Highlight corresponding restaurant card
     restaurantGrid
@@ -173,7 +189,9 @@ marker.on("click", () => {
 
     const restaurantIndex = restaurants.indexOf(restaurant);
 
-    const cards = restaurantGrid.querySelectorAll(".restaurant-card");
+    const cards = restaurantGrid.querySelectorAll(
+        ".restaurant-card"
+    );
 
     if (cards[restaurantIndex]) {
         cards[restaurantIndex].classList.add("selected");
@@ -265,6 +283,295 @@ const distanceInput = document.getElementById("distance");
 const cuisineInput = document.getElementById("cuisine");
 const emptyMessage = document.getElementById("emptyMessage");
 
+const allRestaurantsBtn =
+    document.getElementById("allRestaurantsBtn");
+
+const dietaryCheckboxes = 
+    document.querySelectorAll(
+        ".diet-options input[type='checkbox']"
+    );
+
+function syncDietarySelection() {
+
+    const hasSelectedDiet = Array.from(dietaryCheckboxes)
+        .some(checkbox => checkbox.checked);
+
+    const isAllSelected = !hasSelectedDiet;
+    
+    allRestaurantsBtn.classList.toggle(
+        "active",
+        isAllSelected
+    );
+
+    allRestaurantsBtn.setAttribute(
+        "aria-pressed",
+        String(isAllSelected)
+    );
+}
+
+dietaryCheckboxes.forEach(checkbox => {
+
+    checkbox.addEventListener("change", () => {
+        syncDietarySelection();
+    });
+
+});
+
+
+allRestaurantsBtn.addEventListener("click", () => {
+
+    dietaryCheckboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    syncDietarySelection();
+
+});
+
+syncDietarySelection();
+
+
+const restaurantSort = document.getElementById("restaurant-sort");
+
+let latestRestaurantResults = [];
+let latestRestaurantSearchContext = null;
+
+function sortRestaurantResults(restaurants) {
+
+    const sorted = [...restaurants];
+
+    if (restaurantSort.value === "name") {
+
+        sorted.sort((a, b) => 
+        (a.name || "").localeCompare(b.name || "")
+    );
+
+    } else {
+
+        const getDistance = (restaurant) => {
+            const distance = restaurant.distanceMiles;
+
+            return distance != null &&
+                distance !== "" &&
+                Number.isFinite(Number(distance))
+                ? Number(distance)
+                : Infinity;
+        };
+
+        sorted.sort((a, b) =>
+            getDistance(a) - getDistance(b)
+    );
+    }
+
+    return sorted;
+}
+
+// Dietary classifications supported by our interface
+const RESTAURANT_DIETARY_LABELS = [
+    {
+        value: "vegetarian",
+        label: "Vegetarian",
+        className: "vegetarian"
+    },
+    {
+        value: "vegan",
+        label: "Vegan",
+        className: "vegan"
+    },
+    {
+        value: "gluten_free",
+        label: "Gluten-Free",
+        className: "gluten-free"
+    },
+        {
+        value: "organic",
+        label: "Organic",
+        className: "organic"
+    },
+];
+
+function getRestaurantDietaryLabels(restaurant) {
+
+    const categories = Array.isArray(restaurant.dietaryOptions)
+    ? restaurant.dietaryOptions
+    : [];
+
+    const listed = new Set(
+        categories
+        .filter(category => typeof category === "string")
+        .map(category => category.toLowerCase().trim())
+    );
+
+    return RESTAURANT_DIETARY_LABELS.filter(({ value }) =>
+        listed.has(value) ||
+    (value === "vegan" && listed.has("vegan.only"))
+    );
+}
+
+function createRestaurantDietaryTags(restaurant) {
+
+    const labels = getRestaurantDietaryLabels(restaurant);
+
+    if (!labels.length) return null;
+
+    const container = document.createElement("div");
+    container.className = "restaurant-dietary-tags";
+
+    container.setAttribute(
+        "aria-label",
+        "Dietary options in the place listing"
+    );
+
+    labels.forEach(({ label, className }) => {
+
+        const tag = document.createElement("span");
+
+        tag.className = 
+            `restaurant-dietary-tag restaurant-dietary-tag--${className}`;
+
+        tag.textContent = label;
+
+        container.appendChild(tag);
+    });
+
+    return container;
+}
+
+
+// remove retaurant name from the begining of the address
+function formatRestaurantAddress(restaurant) {
+
+    const name = String(restaurant.name ?? "").trim();
+    const address = String(restaurant.address ?? "").trim();
+
+    if(!address) return "Address unavailable";
+    if(!name) return address;
+
+    const prefix = `${name},`;
+
+    if(address.toLowerCase().startsWith(prefix.toLowerCase())) {
+        return address.slice(prefix.length).trim();
+
+    }
+
+    return address;
+}
+
+// convert 24 hours time to 12 hours time 
+function formatRestaurantTime(time) {
+
+    const [hour, minute] = time.split(":").map(Number);
+
+    if (
+        !Number.isInteger(hour) ||
+        !Number.isInteger(minute) ||
+        hour < 0 || hour > 23 ||
+        minute < 0 || minute > 59
+    ) {
+        return time;
+    }
+
+    const period = hour >= 12 ? "PM" : "AM";
+    const formattedHour = hour % 12 || 12;
+
+    const formattedMinute = minute === 0
+        ? ""
+        : `:${String(minute).padStart(2, "0")}`;
+
+    return `${formattedHour}${formattedMinute} ${period}`;
+}
+
+
+// convert opening hours 
+function formatRestaurantHours(openingHours) {
+
+    if (
+        typeof openingHours !== "string" ||
+        !openingHours.trim()
+    ) {
+        return [];
+    }
+
+    const dayNames = {
+        Mo: "Mon",
+        Tu: "Tue",
+        We: "Wed",
+        Th: "Thu",
+        Fr: "Fri",
+        Sa: "Sat",
+        Su: "Sun"
+    };
+
+    return openingHours
+        .split(";")
+        .map(part => part.trim())
+        .filter(Boolean)
+        .map(part => {
+
+            const match = part.match(
+                /^(.+?)\s+(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})$/
+            );
+
+            // save format in case losing information
+            if (!match) {
+                return {
+                    days: "Schedule",
+                    time: part
+                };
+            }
+
+            const days = match[1]
+            .replace(
+                /\b(Mo|Tu|We|Th|Fr|Sa|Su)\b/g,
+                day => dayNames[day]
+            )
+            .replace(/\s*-\s*/g, "–");
+
+        const start = formatRestaurantTime(match[2]);
+        const end = formatRestaurantTime(match[3]);
+
+        return {
+            days,
+            time: `${start} - ${end}`
+        };
+    });
+
+}
+
+function buildNoRestaurantsMessage({
+    zip,
+    maxDistance,
+    selectedDiets,
+    selectedCuisine
+}) {
+
+    const selectedLabels = RESTAURANT_DIETARY_LABELS
+    .filter(item => selectedDiets.includes(item.value))
+    .map(item => item.label);
+
+    const dietaryDescription = selectedLabels.length
+    ? ` tagged for ${new Intl.ListFormat("en", {
+        style: "long",
+        type: "conjunction"
+    }).format(selectedLabels)}`
+    : "";
+
+    const cuisineDescription = selectedCuisine
+    ? `${selectedCuisine} `
+    : "";
+
+    const distance =
+    `${maxDistance} ${maxDistance === 1 ? "mile" : "miles"}`;
+
+    return (
+        `No ${cuisineDescription}restaurant listings${dietaryDescription} ` +
+        `were found within ${distance} of ZIP code ${zip}. ` +
+        "Try increasing your distance or changing your preferences. " +
+        "Dietary labels depend on available listing data and may be incomplete."
+    );
+}
+
+
 // Display selected restaurant details
 function showRestaurantDetails(restaurant) {
 
@@ -280,13 +587,14 @@ if (selectedMarker && restaurantMap) {
         15
     );
 
-    selectedMarker.openPopup();
+    restaurantMap.closePopup();
 }
 
 
     const name = restaurant.name || "Unnamed Restaurant";
-    const address = restaurant.address || "Address unavailable";
-    const hours = restaurant.openingHours || "Hours unavailable";
+    restaurantModalLabel.textContent = name;
+
+    const address = formatRestaurantAddress(restaurant);
 
     const distance =
         restaurant.distanceMiles != null &&
@@ -299,8 +607,6 @@ if (selectedMarker && restaurantMap) {
     const details = document.createElement("div");
     details.className = "restaurant-details-info";
 
-    const heading = document.createElement("h2");
-    heading.textContent = name;
 
     const addressText = document.createElement("p");
     addressText.textContent = `📍 ${address}`;
@@ -308,8 +614,44 @@ if (selectedMarker && restaurantMap) {
     const distanceText = document.createElement("p");
     distanceText.textContent = `Distance: ${distance}`;
 
-    const hoursText = document.createElement("p");
-    hoursText.textContent = `🕒 ${hours}`;
+// Create full opening hours section
+const hoursSection = document.createElement("section");
+hoursSection.className = "restaurant-opening-hours";
+
+const hoursHeading = document.createElement("h3");
+hoursHeading.textContent = "Opening Hours";
+
+hoursSection.appendChild(hoursHeading);
+
+const schedules = formatRestaurantHours(
+    restaurant.openingHours
+);
+
+if (schedules.length === 0) {
+
+    const unavailable = document.createElement("p");
+    unavailable.textContent = "Hours unavailable";
+
+    hoursSection.appendChild(unavailable);
+
+} else {
+
+    const hoursList = document.createElement("dl");
+    hoursList.className = "restaurant-hours-list";
+
+    schedules.forEach(schedule => {
+
+        const day = document.createElement("dt");
+        day.textContent = schedule.days;
+
+        const time = document.createElement("dd");
+        time.textContent = schedule.time;
+
+        hoursList.append(day, time);
+    });
+
+    hoursSection.appendChild(hoursList);
+}
 
     const actions = document.createElement("div");
     actions.className = "restaurant-detail-actions";
@@ -363,25 +705,59 @@ if (hasDestination) {
     actions.appendChild(directionsContainer);
 }
 
-    details.append(
-        heading,
-        addressText,
-        distanceText,
-        hoursText,
-        actions
+
+
+// Add dietary tags when available
+const detailDietaryTags = createRestaurantDietaryTags(restaurant);
+
+if (detailDietaryTags) {
+    details.appendChild(detailDietaryTags);
+}
+
+// Add remaining restaurant details
+details.append(
+    addressText,
+    distanceText,
+    hoursSection,
+    actions
+);
+
+detailsContent.appendChild(details);
+
+const restaurantModal =
+    bootstrap.Modal.getOrCreateInstance(
+        restaurantModalElement
     );
 
-    detailsContent.appendChild(details);
+    restaurantModal.show();
+
 }
 // Display restaurant cards from API results
-function renderRestaurants(restaurants) {
+function renderRestaurants(restaurants, searchContext) {
 
     restaurantGrid.replaceChildren();
 
-    resultCount.textContent =
-        `${restaurants.length} restaurants`;
+    resultCount.textContent = restaurants.length;
 
     emptyMessage.hidden = restaurants.length !== 0;
+    
+    // Show a personalized message if there are no results
+if (restaurants.length === 0) {
+    emptyMessage.textContent =
+        buildNoRestaurantsMessage(searchContext);
+}
+
+// Show the dietary information note when relevant
+const dietaryNote = document.getElementById(
+    "restaurantDietaryNote"
+);
+
+if (dietaryNote) {
+    dietaryNote.hidden = !restaurants.some(
+        restaurant =>
+            getRestaurantDietaryLabels(restaurant).length > 0
+    );
+}
 
     restaurants.forEach((restaurant) => {
 
@@ -403,7 +779,7 @@ function renderRestaurants(restaurants) {
         icon.className = "restaurant-card-icon";
 
         const iconElement = document.createElement("i");
-        iconElement.className = "bi bi-shop";
+        iconElement.className = "bi bi-fork-knife";
 
         icon.appendChild(iconElement);
 
@@ -417,8 +793,8 @@ function renderRestaurants(restaurants) {
 
         const address = document.createElement("p");
         address.className = "restaurant-card-address";
-        address.textContent =
-            restaurant.address || "Address unavailable";
+
+        address.textContent = formatRestaurantAddress(restaurant);
 
         const distance = document.createElement("p");
         distance.className = "restaurant-card-distance";
@@ -438,15 +814,38 @@ function renderRestaurants(restaurants) {
         const clock = document.createElement("i");
         clock.className = "bi bi-clock me-1";
 
-        hours.append(
-            clock,
-            document.createTextNode(
-                restaurant.openingHours || "Hours unavailable"
-            )
+
+        const formattedHours = formatRestaurantHours(
+            restaurant.openingHours
         );
 
+        const firstSchedule = formattedHours[0];
+
+        const hoursSummary = firstSchedule
+            ? `${firstSchedule.days}: ${firstSchedule.time}` +
+            (formattedHours.length > 1 
+                ? ` · +${formattedHours.length - 1} more`
+                : "")
+            : "Hours unavailable";
+
+
+        hours.append(
+            clock,
+            document.createTextNode(` ${hoursSummary}`)
+        );
+
+        // display restaurant name 
+        information.appendChild(name);
+
+        // show dietary if available
+        const dietaryTags = createRestaurantDietaryTags(restaurant);
+
+        if(dietaryTags) {
+            information.appendChild(dietaryTags);
+        }
+
+        // remaning info
         information.append(
-            name,
             address,
             distance,
             hours
@@ -510,7 +909,19 @@ async function searchRestaurants() {
     }
 
     restaurantGrid.textContent = "Searching for restaurants...";
-    resultCount.textContent = "";
+    resultCount.textContent = "0";
+
+    // hide message while a new search 
+    emptyMessage.hidden = true;
+
+    const dietaryNote = document.getElementById(
+        "restaurantDietaryNote"
+    );
+
+    if (dietaryNote) {
+        dietaryNote.hidden = true;
+    }
+
 
     try {
         const restaurants = await fetchRestaurants(
@@ -520,23 +931,34 @@ async function searchRestaurants() {
         selectedCuisine
     );
 
-        // Reset previous restaurant selection
-        selectedRestaurant = null;
 
-        detailsContent.replaceChildren();
-
-        const placeholder = document.createElement("p");
-        placeholder.className = "empty-details";
-        placeholder.textContent = "Select a restaurant to view its details.";
-
-        detailsContent.appendChild(placeholder);
+    selectedRestaurant = null;
+    detailsContent.replaceChildren();
+    restaurantModalLabel.textContent = "Restaurant Details";
 
         console.log("Loaded restaurants:", restaurants);
 
-        renderRestaurants(restaurants);
+        latestRestaurantResults = restaurants;
 
-        // Update map with restaurant search results
-        updateRestaurantMap(restaurants);
+        latestRestaurantSearchContext = {
+            zip,
+            maxDistance,
+            selectedDiets,
+            selectedCuisine
+        };
+
+        const sortedRestaurants = sortRestaurantResults(
+            latestRestaurantResults
+        );
+
+        renderRestaurants(
+            sortedRestaurants,
+            latestRestaurantSearchContext
+        );
+
+        updateRestaurantMap(sortedRestaurants);
+
+
 
     } catch (error) {
         console.error("Restaurant search failed:", error);
@@ -583,6 +1005,24 @@ async function loadUserZipCode() {
 // Search button
 searchBtn.addEventListener("click", searchRestaurants);
 
+restaurantSort.addEventListener("change", () => {
+
+    if (!latestRestaurantSearchContext) {
+        return;
+    }
+
+    const sortedRestaurants = sortRestaurantResults(
+        latestRestaurantResults
+    );
+
+    renderRestaurants(
+        sortedRestaurants,
+        latestRestaurantSearchContext
+    );
+
+    updateRestaurantMap(sortedRestaurants);
+});
+
 // Enter key search
 locationInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
@@ -601,12 +1041,19 @@ document.addEventListener("DOMContentLoaded", () => {
     loadUserZipCode();
 
     // display instruction before searching restaurants
-    restaurantGrid.textContent =
-    "Select your preferences and click Search to explore nearby restaurants.";
+    const restaurantPlaceholder = document.createElement("p");
+
+    restaurantPlaceholder.className = "restaurant-empty-placeholder";
+
+    restaurantPlaceholder.textContent =
+    "Restaurant location will appear here.";
+
+    restaurantGrid.replaceChildren(restaurantPlaceholder);
 
     // Recalculate Leaflet dimensions after layout
     requestAnimationFrame(() => {
         restaurantMap.invalidateSize();
     });
+
 
 });

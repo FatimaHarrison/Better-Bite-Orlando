@@ -83,14 +83,16 @@
             <div class="filter-group distance-group">
 
                 <label for="distance">
-                    How far are you willing to travel?
+                    Search Radius
                 </label>
 
                 <select id="distance">
                     <option value="1">1 mile</option>
                     <option value="3">3 miles</option>
-                    <option value="5" selected>5 miles</option>
-                    <option value="10">10 miles</option>
+                    <option value="5">5 miles</option>
+                    <option value="10" >10 miles</option>
+                    <option value="15" selected >15 miles</option>
+                    <option value="20">20 miles</option>
                 </select>
 
             </div>
@@ -102,23 +104,38 @@
 
                 <div class="diet-options">
 
-                    <label>
+                    <!-- All -->
+                    <button 
+                        type="button"
+                        id="allRestaurantsBtn"
+                        class="dietary-option dietary-all active"
+                        aria-pressed="true"
+                        >
+                        <i class="bi bi-grid" aria-hidden="true"></i>
+                        All Restaurants
+                    </button>
+                    
+                    <label class="dietary-option dietary-vegetarian">
                         <input type="checkbox" value="vegetarian">
+                        <i class="bi bi-tree" aria-hidden="true"></i>
                         Vegetarian
                     </label>
-
-                    <label>
+                    
+                    <label class="dietary-option dietary-vegan">
                         <input type="checkbox" value="vegan">
+                        <i class="bi bi-flower1" aria-hidden="true"></i>
                         Vegan
                     </label>
 
-                    <label>
+                    <label class="dietary-option dietary-gluten-free">
                         <input type="checkbox" value="gluten_free">
+                        <i class="bi bi-shield-check" aria-hidden="true"></i>
                         Gluten-Free
                     </label>
 
-                    <label>
+                    <label class="dietary-option dietary-organic">
                         <input type="checkbox" value="organic">
+                        <i class="bi bi-stars" aria-hidden="true"></i>
                         Organic
                     </label>
 
@@ -129,23 +146,29 @@
 
             <div class="filter-group location-group">
 
-                <label for="location">Location</label>
+                <label for="location">ZIP Code</label>
 
-                <div class="location-input">
-                    <span>⌖</span>
+                    <div class="input-group restaurant-zip-input">
+
+                    <span class="input-group-text" aria-hidden="true">
+                        <i class="bi bi-geo-alt"></i>    
+                    </span>
 
                     <input
                         id="location"
+                        class="form-control"
                         type="text"
                         placeholder="Enter ZIP code"
                         inputmode="numeric"
                         pattern="[0-9]{5}"
                         maxlength="5"
-                        aria-label="ZIP Code"
                     >
+
                 </div>
 
             </div>
+
+
 
 
             <div class="filter-group cuisine-group">
@@ -163,9 +186,13 @@
             </div>
 
 
-            <button id="searchBtn" class="search-button">
+            <button
+                 id="searchBtn"
+                 type="button"
+                 class="search-button"
+            >
                 Search
-                <span>⌕</span>
+                <i class="bi bi-search ms-2" aria-hidden="true"></i>
             </button>
 
         </section>
@@ -178,13 +205,39 @@
             <!-- LEFT RESTAURANT GRID -->
             <div class="restaurant-column">
 
+
+
                 <div class="results-heading">
 
-                    <h2>Explore Restaurants</h2>
+                    <h2>
+                        Results (<span id="resultCount">0</span>)
+                    </h2>
 
-                    <span id="resultCount"></span>
+                    <div class="results-sort">
 
+                        <label for="restaurant-sort">
+                            Sort by
+                        </label>
+
+                        <select
+                            id="restaurant-sort"
+                            class="form-select"
+                            >
+                            <option value="distance">Distance</option>
+                            <option value="name">Name</option>
+                        </select>
+
+                    </div>
                 </div>
+
+
+
+                <p id="restaurantDietaryNote"
+                   class="restaurant-dietary-note"
+                   hidden>
+                    Dietary tags come from place listings and are not independently verified.
+                    Confirm ingredients and allergen cross-contact directly with the restaurant.
+                </p>
 
 
                 <div id="restaurantGrid" class="restaurant-grid">
@@ -202,28 +255,65 @@
 
 
             <!-- RIGHT DETAILS PANEL -->
-            <aside class="details-panel" id="detailsPanel">
+            <aside class="restaurant-map-column">
 
-                <!-- interactive restaurant app -->
-                <div
+                 <div
                     id="restaurant-map"
+                    role="region"
                     aria-label="Map showing nearby restaurants"
                 ></div>
 
-                <!-- Selected restaurants details -->
-                <div id="detailsContent">
-
-                    <p class="empty-details">
-                    Select a restaurant to view its details.
-                    </p>
-
-                </div>
 
             </aside>
+
 
         </section>
 
 
+        <!-- Restaurant Details modal -->
+        <div    
+            class="modal fade"
+            id="restaurantDetailsModal"
+            tabindex="-1"
+            aria-labelledby="restaurantDetailsModalLabel"
+            aria-hidden="true"
+        >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+
+            <div class="modal-content restaurant-details-modal">
+                
+                <!-- modal header -->
+                 <div class="modal-header">
+
+                    <h2 
+                        class="modal-title fs-5"
+                        id="restaurantDetailsModalLabel"
+                    >
+                        Restaurant Details
+                    </h2>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        ></button>
+
+
+                 </div>
+
+                 <!-- modal body-->
+                  <div 
+                    class="modal-body"
+                    id="detailsContent"
+                    >
+                 <!-- restaurant information genered by js-->
+                </div>
+
+            </div>
+
+        </div>
+     </div>
         <!-- FAVORITES SECTION -->
         <section class="favorites-section" id="favorites">
 
