@@ -139,86 +139,11 @@ body {
   font-size: 105px;
 }
 
-/* Featured Information Cards */
-
-.featured-resources {
-  padding: 28px 0 16px;
-}
-
-.featured-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.feature-card {
-  position: relative;
-  overflow: hidden;
-  min-height: 230px;
-  border-radius: 23px;
-  padding: 24px;
-}
-
-.feature-green {
-  background: linear-gradient(125deg, #e4f7e4, #d4efcf);
-}
-
-.feature-orange {
-  background: linear-gradient(125deg, #ffebdb, #ffdac3);
-}
-
-.feature-purple {
-  background: linear-gradient(125deg, #f3e7fb, #e8d3f4);
-}
-
-.feature-content {
-  position: relative;
-  z-index: 2;
-  max-width: 50%;
-  min-width: 0%;
-}
-
-.feature-card h2 {
-  color: var(--bbo-primary);
-  font-family: var(--bbo-font);
-  font-size: clamp(23px, 2.3vw, 30px);
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 14px;
-}
-
-.feature-card p {
-  color: var(--bbo-text-dark);
-  font-size: 14px;
-  line-height: 1.5;
-  margin-bottom: 0;
-}
-
-.feature-food-image {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-
-  width: 45%;
-  height: 85%;
-
-  object-fit: contain;
-}
-
-.feature-illustration {
-  position: absolute;
-  right: 4px;
-  bottom: 15px;
-  font-size: clamp(40px, 5vw, 75px);
-  letter-spacing: -20px;
-}
-
 /* Resource Directory */
 
 .resources-directory {
-  padding: 12px 0 28px;
+  padding: 32px 0 40px;
 }
-
 .resources-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -375,66 +300,6 @@ a.resource-item:focus-visible {
   color: #667764;
 }
 
-/* Food Assistance Banner */
-
-.assistance-section {
-  padding: 0 0 30px;
-}
-
-.assistance-banner {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  padding: 25px 35px;
-  min-height: 145px;
-
-  background: linear-gradient(110deg, #e9f7e7, #eff9e9);
-  border-radius: 24px;
-}
-
-.assistance-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 85px;
-  height: 85px;
-  flex-shrink: 0;
-
-  border-radius: 50%;
-  background: #c6eab7;
-  color: var(--bbo-primary);
-  font-size: 40px;
-}
-
-.assistance-text {
-  flex: 1;
-}
-
-.assistance-text h2 {
-  color: var(--bbo-primary);
-  font-family: var(--bbo-font);
-  font-size: clamp(22px, 2.4vw, 30px);
-  font-weight: 700;
-  margin-bottom: 7px;
-}
-
-.assistance-text p {
-  font-size: 14px;
-  margin: 0;
-}
-
-.assistance-button {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 22px;
-  border-radius: 30px;
-  font-weight: 600;
-  text-decoration: none;
-}
-
 /* Tablet */
 
 @media (max-width: 991.98px) {
@@ -448,10 +313,6 @@ a.resource-item:focus-visible {
 
   .panel-heading {
     min-height: auto;
-  }
-
-  .feature-content {
-    max-width: 75%;
   }
 
   .resources-hero-art {
@@ -473,43 +334,5 @@ a.resource-item:focus-visible {
 
   .resources-hero-art {
     align-self: center;
-  }
-
-  .featured-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .feature-card {
-    min-height: 220px;
-  }
-
-  .feature-content {
-    max-width: 62%;
-  }
-
-  .assistance-banner {
-    flex-direction: column;
-    text-align: center;
-    padding: 25px;
-  }
-
-  .assistance-button {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 440px) {
-  .feature-card {
-    grid-template-columns: 1fr;
-  }
-
-  .feature-food-image {
-    max-width: 200px;
-    height: 140px;
-    justify-self: end;
-  }
-
-  .feature-illustration {
-    justify-self: end;
   }
 }
