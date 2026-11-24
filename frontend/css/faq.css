@@ -1,0 +1,682 @@
+/* Better Bite Orlando | Frequently Asked Questions */
+
+/* ========================================
+   Page Layout
+======================================== */
+
+.faq-page {
+  --faq-green: #3d622c;
+  --faq-green-dark: #304e23;
+  --faq-orange: #cc5500;
+  --faq-background: #f6f9f2;
+  --faq-panel: #eef5e8;
+  --faq-border: #d9e6d3;
+  --faq-text: #344334;
+  --faq-muted: #606b60;
+
+  min-height: 75vh;
+  padding: 48px 24px 64px;
+
+  background-color: var(--faq-background);
+  color: var(--faq-text);
+
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.faq-page .faq-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   Page Header
+======================================== */
+
+.faq-page .faq-header {
+  max-width: 800px;
+  margin: 0 auto 36px;
+  text-align: center;
+}
+
+.faq-page .faq-header-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 68px;
+  height: 68px;
+  margin-bottom: 18px;
+
+  color: var(--faq-orange);
+  background-color: #fff0e5;
+
+  border-radius: 50%;
+  font-size: 34px;
+}
+
+.faq-page .faq-header h1 {
+  margin: 0 0 16px;
+
+  color: var(--faq-green);
+
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.faq-page .faq-header p {
+  max-width: 680px;
+  margin: 0 auto;
+
+  color: var(--faq-muted);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+/* ========================================
+   Category Navigation
+======================================== */
+
+.faq-page .faq-category-nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+
+  margin-bottom: 40px;
+}
+
+.faq-page .faq-category-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-width: 0;
+  min-height: 58px;
+  padding: 14px 16px;
+
+  color: var(--faq-green);
+  background: #ffffff;
+
+  border: 1px solid var(--faq-border);
+  border-radius: 12px;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.faq-page .faq-category-nav a i {
+  flex-shrink: 0;
+  font-size: 20px;
+}
+
+.faq-page .faq-category-nav a:hover {
+  background-color: var(--faq-panel);
+  border-color: var(--faq-green);
+}
+
+/* ========================================
+   FAQ Sections
+======================================== */
+
+.faq-page .faq-section {
+  margin-bottom: 36px;
+  scroll-margin-top: 120px;
+}
+
+.faq-page .faq-section > h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin: 0 0 20px;
+  padding-left: 14px;
+
+  color: var(--faq-green);
+
+  border-left: 5px solid var(--faq-orange);
+
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.faq-page .faq-section > h2 i {
+  flex-shrink: 0;
+  font-size: 23px;
+}
+
+/* ========================================
+   Accessible Accordion
+======================================== */
+
+.faq-page .faq-item {
+  min-width: 0;
+  margin-bottom: 12px;
+
+  background-color: #ffffff;
+
+  border: 1px solid var(--faq-border);
+  border-radius: 12px;
+
+  scroll-margin-top: 120px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.faq-page .faq-item:last-child {
+  margin-bottom: 0;
+}
+
+.faq-page .faq-item[open] {
+  border-color: #a9c39b;
+  box-shadow: 0 4px 12px rgba(61, 98, 44, 0.06);
+}
+
+.faq-page .faq-item summary {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  min-height: 62px;
+  padding: 18px 56px 18px 22px;
+
+  color: var(--faq-green);
+
+  border-radius: 12px;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+
+  cursor: pointer;
+  list-style: none;
+
+  transition: background-color 0.2s ease;
+}
+
+.faq-page .faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-page .faq-item summary::marker {
+  content: "";
+}
+
+.faq-page .faq-item summary::after {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+
+  width: 10px;
+  height: 10px;
+
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+
+  content: "";
+
+  transform: translateY(-70%) rotate(45deg);
+
+  transition: transform 0.2s ease;
+}
+
+.faq-page .faq-item[open] summary {
+  background-color: var(--faq-panel);
+  border-radius: 11px 11px 0 0;
+}
+
+.faq-page .faq-item[open] summary::after {
+  transform: translateY(-20%) rotate(225deg);
+}
+
+.faq-page .faq-item summary:hover {
+  background-color: var(--faq-panel);
+}
+
+/* ========================================
+   FAQ Answers
+======================================== */
+
+.faq-page .faq-answer {
+  padding: 22px;
+
+  border-top: 1px solid var(--faq-border);
+
+  color: var(--faq-text);
+  overflow-wrap: break-word;
+}
+
+.faq-page .faq-answer p {
+  margin: 0 0 16px;
+}
+
+.faq-page .faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+.faq-page .faq-answer ul,
+.faq-page .faq-answer ol {
+  margin: 0 0 18px;
+  padding-left: 25px;
+}
+
+.faq-page .faq-answer li {
+  margin-bottom: 7px;
+  padding-left: 3px;
+}
+
+.faq-page .faq-answer li:last-child {
+  margin-bottom: 0;
+}
+
+.faq-page .faq-answer strong {
+  font-weight: 700;
+}
+
+.faq-page .faq-answer a {
+  color: var(--faq-green);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.faq-page .faq-answer a:hover {
+  color: var(--faq-orange);
+}
+
+.faq-page .faq-answer .faq-link {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+
+  margin-top: 4px;
+
+  color: var(--faq-green);
+
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.faq-page .faq-answer .faq-link:hover {
+  color: var(--faq-orange);
+  text-decoration: underline;
+}
+
+/* ========================================
+   Dietary Filter Cards
+======================================== */
+
+.faq-page .faq-diet-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+
+  margin: 20px 0;
+}
+
+.faq-page .faq-diet-card {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+  padding: 20px;
+
+  background-color: var(--faq-background);
+
+  border: 1px solid var(--faq-border);
+  border-radius: 12px;
+}
+
+.faq-page .faq-diet-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin: 0 0 12px;
+
+  color: var(--faq-green);
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.faq-page .faq-diet-card h3 i {
+  flex-shrink: 0;
+  color: var(--faq-green);
+  font-size: 20px;
+}
+
+.faq-page .faq-diet-card ul {
+  flex: 1;
+}
+
+.faq-page .faq-diet-card a {
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+/* ========================================
+   Informational Notice
+======================================== */
+
+.faq-page .faq-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  margin-top: 20px;
+  padding: 16px;
+
+  background-color: #fff5eb;
+
+  border-left: 4px solid var(--faq-orange);
+  border-radius: 8px;
+}
+
+.faq-page .faq-notice i {
+  flex-shrink: 0;
+  margin-top: 2px;
+
+  color: var(--faq-orange);
+  font-size: 20px;
+}
+
+.faq-page .faq-notice p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ========================================
+   Contact Support
+======================================== */
+
+.faq-page .faq-support {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+
+  margin-top: 44px;
+  padding: 28px;
+
+  background-color: var(--faq-panel);
+
+  border: 1px solid var(--faq-border);
+  border-radius: 16px;
+}
+
+.faq-page .faq-support-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 60px;
+  height: 60px;
+
+  color: var(--faq-green);
+  background-color: #ffffff;
+
+  border-radius: 50%;
+  font-size: 28px;
+}
+
+.faq-page .faq-support-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.faq-page .faq-support h2 {
+  margin: 0 0 8px;
+
+  color: var(--faq-green);
+
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.faq-page .faq-support p {
+  margin: 0;
+
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.faq-page .faq-contact-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  flex-shrink: 0;
+
+  min-height: 46px;
+  padding: 12px 22px;
+
+  color: #ffffff;
+  background-color: var(--faq-green);
+
+  border: 1px solid var(--faq-green);
+  border-radius: 9px;
+
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition: background-color 0.2s ease;
+}
+
+.faq-page .faq-contact-button:hover {
+  color: #ffffff;
+  background-color: var(--faq-green-dark);
+}
+
+/* ========================================
+   Bottom Navigation
+======================================== */
+
+.faq-page .faq-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  margin-top: 28px;
+}
+
+.faq-page .faq-bottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  min-height: 44px;
+
+  color: var(--faq-green);
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.faq-page .faq-bottom a:hover {
+  color: var(--faq-orange);
+  text-decoration: underline;
+}
+
+/* ========================================
+   Keyboard Accessibility
+======================================== */
+
+.faq-page a:focus-visible,
+.faq-page summary:focus-visible {
+  outline: 3px solid var(--faq-green-dark);
+  outline-offset: 4px;
+}
+
+/* ========================================
+   Tablet
+======================================== */
+
+@media (max-width: 991.98px) {
+  .faq-page .faq-category-nav a {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .faq-page .faq-support {
+    flex-wrap: wrap;
+  }
+}
+
+/* ========================================
+   Mobile
+======================================== */
+
+@media (max-width: 767.98px) {
+  .faq-page {
+    padding: 28px 16px 40px;
+  }
+
+  .faq-page .faq-header {
+    margin-bottom: 24px;
+  }
+
+  .faq-page .faq-header-icon {
+    width: 58px;
+    height: 58px;
+    font-size: 28px;
+  }
+
+  .faq-page .faq-header h1 {
+    font-size: 2rem;
+  }
+
+  .faq-page .faq-header p {
+    font-size: 16px;
+  }
+
+  .faq-page .faq-category-nav {
+    grid-template-columns: 1fr;
+    gap: 8px;
+
+    margin-bottom: 30px;
+  }
+
+  .faq-page .faq-category-nav a {
+    flex-direction: row;
+    justify-content: flex-start;
+    min-height: 48px;
+  }
+
+  .faq-page .faq-section {
+    margin-bottom: 28px;
+    scroll-margin-top: 100px;
+  }
+
+  .faq-page .faq-section > h2 {
+    gap: 9px;
+    margin-bottom: 15px;
+    padding-left: 12px;
+    font-size: 1.25rem;
+  }
+
+  .faq-page .faq-section > h2 i {
+    font-size: 20px;
+  }
+
+  .faq-page .faq-item {
+    scroll-margin-top: 100px;
+  }
+
+  .faq-page .faq-item summary {
+    padding: 16px 44px 16px 16px;
+    font-size: 15px;
+  }
+
+  .faq-page .faq-item summary::after {
+    right: 18px;
+  }
+
+  .faq-page .faq-answer {
+    padding: 18px 16px;
+    font-size: 15px;
+  }
+
+  .faq-page .faq-diet-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .faq-page .faq-diet-card {
+    padding: 16px;
+  }
+
+  .faq-page .faq-support {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    margin-top: 32px;
+    padding: 24px 18px;
+
+    text-align: center;
+  }
+
+  .faq-page .faq-contact-button {
+    width: 100%;
+  }
+
+  .faq-page .faq-bottom {
+    gap: 12px;
+  }
+}
+
+/* ========================================
+   Small Mobile Screens
+======================================== */
+
+@media (max-width: 375px) {
+  .faq-page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .faq-page .faq-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .faq-page .faq-notice {
+    padding: 12px;
+  }
+}
+
+/* ========================================
+   Reduced Motion
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-page .faq-item,
+  .faq-page .faq-item summary,
+  .faq-page .faq-item summary::after,
+  .faq-page .faq-category-nav a,
+  .faq-page .faq-contact-button {
+    transition: none;
+  }
+}
