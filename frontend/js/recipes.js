@@ -1,4 +1,4 @@
-/* Better Bite Orlando recipes: vanilla JS, API-driven; no mock recipe records. */
+/* Better Bite Orlando refipes: vanilla JS, API-driven; no mock recipe records. */
 (() => {
   "use strict";
   const base = (window.BBO_CONFIG?.API_BASE_URL || "").replace(/\/$/, "");
@@ -222,6 +222,10 @@
   }
   function nutritionRows(r) {
     const nutrition = r.nutrition ?? {};
+    const servingCount = servings(r);
+const servingLabel = servingCount != null
+  ? `Recipe makes ${servingCount} servings. Nutrition values are shown as provided by the source; per-serving basis not verified.`
+  : "Serving count not available. Nutrition values are shown as provided by the source; per-serving basis not verified.";
     const nutrients = list(nutrition.nutrients);
     const rows = nutrients.length
       ? nutrients.map((n) => [n.name, `${n.amount ?? "—"} ${n.unit ?? ""}`])
@@ -249,9 +253,13 @@
               ? `${value} g`
               : value,
           ]);
-    return rows.length
-      ? `<table class="nutrition-table"><tbody>${rows.map(([k, v]) => `<tr><td>${escapeHtml(k)}</td><td>${escapeHtml(v)}</td></tr>`).join("")}</tbody></table>`
-      : "<p>Nutrition information is not available for this recipe.</p>";
+   return `<p>${servingLabel}</p>` + (
+  rows.length
+    ? `<table class="nutrition-table"><tbody>${rows
+        .map(([name, value]) => `<tr><th>${escapeHtml(name)}</th><td>${escapeHtml(String(value))}</td></tr>`)
+        .join("")}</tbody></table>`
+    : "<p>Nutrition information is not available for this recipe.</p>"
+);
   }
   // Normalized backend instructions are [{number, step}]; Spoonacular can also
   // return analyzedInstructions [{steps:[...]}] or an HTML instructions string.
