@@ -1,0 +1,252 @@
+/* Fatima's section */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+.faq-title{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.faq-title h1{
+    margin:0;
+}
+
+.assistance-icon{
+    color:#4CAF50;
+    font-size:2.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.assistance-icon i{
+    line-height:1;
+}
+body{
+    font-family:'Inter',sans-serif;
+    line-height:1.8;
+    color:#2d2d2d;
+    margin:0;
+    background:
+        linear-gradient(
+            rgba(217,233,248,.88),
+            rgba(217,233,248,.88)
+        ),
+        url("../images/BGP.png");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
+
+/* CONTENT WRAPPER */
+
+.faq-wrapper{
+    max-width:1200px;
+    margin:40px auto;
+    padding:50px;
+
+    background:#ffffff;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.08);
+}
+
+/* PAGE TITLE */
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #2d6a35;
+    margin-bottom: 15px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.last-updated{
+    text-align:center;
+
+    color:#666;
+    font-style:italic;
+
+    margin-bottom:35px;
+}
+
+/* TEXT */
+
+p{
+    margin-bottom:18px;
+}
+
+/* SECTION HEADINGS */
+
+h2 {
+    color: #2d6a35;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding-left: 16px;
+    border-left: 6px solid #6CC070;
+}
+
+h3 {
+    color: #43723c;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+h4{
+    color: #000000;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 100;
+}
+/* TABLE OF CONTENTS */
+
+/* TABLE OF CONTENTS */
+.con-nav{
+    background:#eef7ea;
+    border-radius:20px;
+    padding:30px;
+    border:2px solid #dcefd6;
+    margin-bottom:30px;
+}
+
+.con-nav ul{
+    list-style:none;
+    margin-left:0;
+}
+
+.con-nav li{
+    margin-bottom:12px;
+}
+
+.con-nav a{
+    text-decoration:none;
+    color:#2d6a35;
+    font-weight:600;
+    transition:.3s;
+}
+
+.con-nav a:hover{
+    color:#ff8c2a;
+    padding-left:5px;
+}
+
+/* FAQ ANSWER BOXES */
+
+.faq-answer{
+    background:#f9fbf7;
+
+    border-left:5px solid #6CC070;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    margin-bottom:25px;
+}
+
+/* LISTS */
+
+ul{
+    margin-left:25px;
+    margin-bottom:20px;
+
+}
+
+li{
+    margin-bottom:8px;
+}
+
+/* LINKS */
+
+a{
+    color:#584fa7;
+    font-weight:600;
+}
+
+a:hover{
+    color:#ff8c2a;
+}
+
+/* CONTACT BOX */
+
+.contact{
+    background:#eef7ea;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    border:2px solid #dcefd6;
+
+    margin-top:25px;
+}
+
+.contact strong{
+    color:#2d6a35;
+}
+
+/* OPTIONAL ACCORDION STYLE */
+
+details{
+    background:#eef7ea;
+
+    margin-bottom:15px;
+
+    border-radius:15px;
+
+    padding:18px;
+
+    border:2px solid #dcefd6;
+}
+
+summary{
+    cursor:pointer;
+
+    font-weight:700;
+
+    color:#2d6a35;
+}
+
+details p{
+    margin-top:15px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .faq-wrapper{
+        padding:25px;
+        margin:20px;
+    }
+
+    h1{
+        font-size:2.2rem;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    h2{
+        font-size:1.4rem;
+    }
+
+}
+
+i{
+    color: red;
+}
