@@ -120,7 +120,7 @@
   margin: 0 auto 55px;
 }
 
-.section-heading h2 {
+.about-page .section-heading h2 {
   font-size: 38px;
   font-weight: 800;
   color: var(--bbo-dark-green);
@@ -425,19 +425,19 @@
     padding: 60px 18px;
   }
 
-  .section-heading {
+  .about-page .section-heading {
     margin-bottom: 35px;
   }
 
-  .section-heading h2 {
+  .about-page .section-heading h2 {
     font-size: 30px;
   }
 
-  .section-subtitle {
+  .about-page .section-subtitle {
     font-size: 15px;
   }
 
-  .section-text p {
+  .about-page .section-text p {
     font-size: 15px;
     line-height: 1.8;
   }
