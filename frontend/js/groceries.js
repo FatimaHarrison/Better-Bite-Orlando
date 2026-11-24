@@ -1,8 +1,7 @@
 /* Better Bite Orlando | Groceries */
 
 // API
-const GROCERY_API_URL =
-    `${window.BBO_CONFIG.API_BASE_URL}/places/groceries`;
+const GROCERY_API_URL = `${window.BBO_CONFIG.API_BASE_URL}/places/groceries`;
 
 // DOM Elements
 const groceryForm = document.getElementById("grocery-search-form");
@@ -14,39 +13,34 @@ const groceryResultsCount = document.getElementById("results-count");
 
 // Grocery details modal
 const groceryModalElement = document.getElementById("groceryDetailsModal");
-const groceryDetailsContent = document.getElementById("grocery-details-content");
+const groceryDetailsContent = document.getElementById(
+  "grocery-details-content",
+);
 const groceryModalTitle = document.getElementById("groceryDetailsModalLabel");
 
 // category navigation buttons
 const categoryButtons = document.querySelectorAll(
-    ".category-navigation .category-btn"
+  ".category-navigation .category-btn",
 );
 
 // Sorting dropdown
 const grocerySort = document.getElementById("grocer-sort");
 
-
 // Mobile grocery pagination
 const MOBILE_RESULTS_LIMIT = 15;
 
-const groceryLoadMore = document.getElementById(
-    "grocery-load-more"
-);
+const groceryLoadMore = document.getElementById("grocery-load-more");
 
-const groceryPageStatus = document.getElementById(
-    "grocery-page-status"
-);
+const groceryPageStatus = document.getElementById("grocery-page-status");
 
-const mobileGroceryQuery = window.matchMedia(
-    "(max-width: 991.98px)"
-);
+const mobileGroceryQuery = window.matchMedia("(max-width: 991.98px)");
 
 let visibleGroceryCount = MOBILE_RESULTS_LIMIT;
 
-
-
 // store the latest result from the API
 let groceryLocations = [];
+
+let grocerySearchInProgress = false;
 
 // grocery map
 let groceryMap = null;
@@ -55,227 +49,204 @@ let locationMarkers = new Map();
 
 // Google maps transportation direction
 function getGoogleMapsDirectionsUrl(location, mode = "drivering") {
+  const mapsUrl = new URL("https://www.google.com/maps/dir/");
 
-    const mapsUrl = new URL(
-       "https://www.google.com/maps/dir/"
-    );
+  mapsUrl.searchParams.set("api", "1");
 
-    mapsUrl.searchParams.set("api", "1");
+  // coordinates when available
+  const lat = Number(location.latitude);
+  const lon = Number(location.longitude);
 
-    // coordinates when available
-    const lat = Number(location.latitude);
-    const lon = Number(location.longitude);
+  const hasCoordinates =
+    location.latitude != null &&
+    location.longitude != null &&
+    Number.isFinite(lat) &&
+    Number.isFinite(lon) &&
+    lat >= -90 &&
+    lat <= 90 &&
+    lon >= -180 &&
+    lon <= 180;
 
-    const hasCoordinates =
-        location.latitude != null &&
-        location.longitude != null &&
-        Number.isFinite(lat) &&
-        Number.isFinite(lon) &&
-        lat >= -90 &&
-        lat <= 90 &&
-        lon >= -180 &&
-        lon <= 180 ;
+  const destination = hasCoordinates
+    ? `${lat},${lon}`
+    : `${location.name || ""},${location.address || ""}`;
 
-    const destination = hasCoordinates
-        ? `${lat},${lon}`
-        : `${location.name || ""},${location.address || ""}`;
+  mapsUrl.searchParams.set("destination", destination);
 
-        mapsUrl.searchParams.set("destination", destination);
+  mapsUrl.searchParams.set("travelmode", mode);
 
-        mapsUrl.searchParams.set("travelmode", mode);
-
-        return mapsUrl.toString();
+  return mapsUrl.toString();
 }
-
 
 // Convert the selected category into backend API values
 function getGroceryTypes(category) {
-    if (category === "all") {
-        return "groceries,farmers-markets,food-pantries";
-    }
+  if (category === "all") {
+    return "groceries,farmers-markets,food-pantries";
+  }
 
-    return category;
+  return category;
 }
 
 function getGroceryAppearance(type) {
-    const categories = {
-        grocery: {
-            cardClass: "category-grocery",
-            icon: "bi-shop"
+  const categories = {
+    grocery: {
+      cardClass: "category-grocery",
+      icon: "bi-shop",
     },
     "farmers-market": {
-            cardClass: "category-farmers",
-            icon: "bi-flower1"
+      cardClass: "category-farmers",
+      icon: "bi-flower1",
     },
     "food-pantry": {
-            cardClass: "category-pantry",
-            icon: "bi-heart"
-    }
-};
+      cardClass: "category-pantry",
+      icon: "bi-heart",
+    },
+  };
 
-return categories[type] || {
-    cardClass: "category-grocery",
-    icon: "bi-shop"
-};
+  return (
+    categories[type] || {
+      cardClass: "category-grocery",
+      icon: "bi-shop",
+    }
+  );
 }
 
+function formatGroceryAddress(name, address) {
+  if (!address) {
+    return "Address unavailable";
+  }
 
-        function formatGroceryAddress(name, address) {
-            if(!address) {
-                return "Address unavailable";
-            }
+  const fullAddress = String(address).trim();
+  const businessName = String(name || "").trim();
 
-            const fullAddress = String(address).trim();
-            const businessName = String(name || "").trim();
+  if (!businessName) {
+    return fullAddress;
+  }
 
-            if(!businessName) {
-                return fullAddress;
-            }
+  const prefix = `${businessName},`;
 
-            const prefix = `${businessName},`;
+  if (fullAddress.toLowerCase().startsWith(prefix.toLowerCase())) {
+    return fullAddress.slice(prefix.length).trim();
+  }
 
-            if(
-                fullAddress.toLowerCase().startsWith(
-                    prefix.toLowerCase()
-                )
-            ) {
-                return fullAddress.slice(prefix.length).trim();
-            }
-
-            return fullAddress
-        }
-
+  return fullAddress;
+}
 
 // sync category button with dropdown
 function syncCategoryNavigation(category) {
+  categoryButtons.forEach((button) => {
+    const isActive = button.dataset.category === category;
 
-    categoryButtons.forEach((button) => {
+    button.classList.toggle("active", isActive);
 
-        const isActive = button.dataset.category === category;
-
-        button.classList.toggle("active", isActive);
-
-        button.setAttribute(
-            "aria-pressed",
-            String(isActive)
-        );
-
-    });
-
+    button.setAttribute("aria-pressed", String(isActive));
+  });
 }
 
 // display selected grocery details
 function showGroceryDetails(location) {
+  // focus the selected grocery on map
+  const selectedMarker = locationMarkers.get(location);
 
-    // focus the selected grocery on map
-    const selectedMarker = locationMarkers.get(location);
+  if (selectedMarker && groceryMap) {
+    groceryMap.setView(selectedMarker.getLatLng(), 15);
 
-    if(selectedMarker && groceryMap) {
-        groceryMap.setView(
-            selectedMarker.getLatLng(),
-            15
-        );
+    selectedMarker.openPopup();
+  }
 
-        selectedMarker.openPopup();
-    }
+  const name = location.name || "Unnamed Location";
+  const address = formatGroceryAddress(name, location.address);
 
-    const name = location.name || "Unnamed Location";
-    const address = formatGroceryAddress(
-        name,
-        location.address
-    );
+  const distance =
+    location.distanceMiles != null &&
+    Number.isFinite(Number(location.distanceMiles))
+      ? `${Number(location.distanceMiles).toFixed(1)} miles away`
+      : "Distance unavailable";
 
-    const distance =
-        location.distanceMiles != null &&
-        Number.isFinite(Number(location.distanceMiles))
-            ? `${Number(location.distanceMiles).toFixed(1)} miles away`
-            : "Distance unavailable";
+  const hours = location.openingHours || "Hours unavailable";
 
-        const hours = location.openingHours || "Hours unavailable";
+  // category information
+  const categories = {
+    grocery: "Grocery Store",
+    "farmers-market": "Farmers Market",
+    "food-pantry": "Food Pantry",
+  };
 
-        // category information
-        const categories ={
-            grocery: "Grocery Store",
-            "farmers-market": "Farmers Market",
-            "food-pantry": "Food Pantry"
-        };
+  const category = categories[location.type] || "Food Resource";
 
-        const category = categories[location.type] || "Food Resource";
+  // update modal title
+  groceryModalTitle.textContent = name;
 
-        // update modal title
-        groceryModalTitle.textContent = name;
+  // clear previous grocery information
+  groceryDetailsContent.replaceChildren();
 
-        // clear previous grocery information
-        groceryDetailsContent.replaceChildren();
+  // store information container
+  const details = document.createElement("div");
+  details.className = "grocery-modal-details";
 
-        // store information container
-        const details = document.createElement("div");
-        details.className = "grocery-modal-details";
+  //image placeholder
+  const image = document.createElement("div");
+  image.className = "grocery-modal-image";
 
-        //image placeholder
-        const image = document.createElement("div");
-        image.className = "grocery-modal-image";
+  const imageIcon = document.createElement("i");
 
-        const imageIcon = document.createElement("i");
-        
-        const appearance = getGroceryAppearance(location.type);
-        imageIcon.className = `bi ${appearance.icon}`;
+  const appearance = getGroceryAppearance(location.type);
+  imageIcon.className = `bi ${appearance.icon}`;
 
-        details.classList.add(appearance.cardClass);
+  details.classList.add(appearance.cardClass);
 
-        image.appendChild(imageIcon);
+  image.appendChild(imageIcon);
 
-        // Heading
-        const heading = document.createElement("div");
-        heading.className = "grocery-modal-heading";
+  // Heading
+  const heading = document.createElement("div");
+  heading.className = "grocery-modal-heading";
 
-        const title = document.createElement("h3");
-        title.textContent = name;
+  const title = document.createElement("h3");
+  title.textContent = name;
 
-        const badge = document.createElement("span");
-        badge.className = "grocery-modal-badge";
-        badge.textContent = category;
+  const badge = document.createElement("span");
+  badge.className = "grocery-modal-badge";
+  badge.textContent = category;
 
-        heading.append(title, badge);
+  heading.append(title, badge);
 
-         // Address
-        const addressSection = document.createElement("div");
-        addressSection.className = "grocery-modal-address"
+  // Address
+  const addressSection = document.createElement("div");
+  addressSection.className = "grocery-modal-address";
 
-        const addressIcon = document.createElement("i");
-        addressIcon.className = "bi bi-geo-alt"
+  const addressIcon = document.createElement("i");
+  addressIcon.className = "bi bi-geo-alt";
 
-        const addressText = document.createElement("p");
-        addressText.textContent = address;
+  const addressText = document.createElement("p");
+  addressText.textContent = address;
 
-        addressSection.append(addressIcon, addressText);
+  addressSection.append(addressIcon, addressText);
 
-        // Distance
-        const distanceText = document.createElement("p");
-        distanceText.className = "grocery-modal-distance"
-        distanceText.textContent = `Distance: ${distance}`;
+  // Distance
+  const distanceText = document.createElement("p");
+  distanceText.className = "grocery-modal-distance";
+  distanceText.textContent = `Distance: ${distance}`;
 
-        // Opening hours
-        const hoursSection = document.createElement("div");
-        hoursSection.className = "grocery-modal-hours";
+  // Opening hours
+  const hoursSection = document.createElement("div");
+  hoursSection.className = "grocery-modal-hours";
 
-        const hoursTitle = document.createElement("h4");
-        hoursTitle.textContent = "Operating Hours";
+  const hoursTitle = document.createElement("h4");
+  hoursTitle.textContent = "Operating Hours";
 
+  const hoursText = document.createElement("p");
+  hoursText.textContent = `🕒 ${hours}`;
 
-        const hoursText = document.createElement("p");
-        hoursText.textContent = `🕒 ${hours}`;
+  hoursSection.append(hoursTitle, hoursText);
 
-        hoursSection.append(hoursTitle, hoursText);
+  // action buttons
+  const actions = document.createElement("div");
+  actions.className = "grocery-modal-actions";
 
-        // action buttons
-        const actions = document.createElement("div");
-        actions.className = "grocery-modal-actions";
+  // directions google maps transporation options
+  const hasValidAddress = address !== "Address unavailable";
 
-    // directions google maps transporation options
-    const hasValidAddress = address !== "Address unavailable";
-
-    const hasValidCoordinates =
+  const hasValidCoordinates =
     location.latitude != null &&
     location.longitude != null &&
     Number.isFinite(Number(location.latitude)) &&
@@ -285,8 +256,7 @@ function showGroceryDetails(location) {
     Number(location.longitude) >= -180 &&
     Number(location.longitude) <= 180;
 
-if (hasValidAddress || hasValidCoordinates) {
-
+  if (hasValidAddress || hasValidCoordinates) {
     const directionsContainer = document.createElement("div");
     directionsContainer.className = "grocery-directions-container";
 
@@ -297,76 +267,65 @@ if (hasValidAddress || hasValidCoordinates) {
     directionsButtons.className = "grocery-directions-buttons";
 
     const transportationModes = [
-        {
-            label: "Drive",
-            mode: "driving",
-            icon: "bi-car-front"
-        },
-        {
-            label: "Bus",
-            mode: "transit",
-            icon: "bi-bus-front"
-        },
-        {
-            label: "Walk",
-            mode: "walking",
-            icon: "bi-person-walking"
-        }
+      {
+        label: "Drive",
+        mode: "driving",
+        icon: "bi-car-front",
+      },
+      {
+        label: "Bus",
+        mode: "transit",
+        icon: "bi-bus-front",
+      },
+      {
+        label: "Walk",
+        mode: "walking",
+        icon: "bi-person-walking",
+      },
     ];
 
     transportationModes.forEach((transport) => {
+      const link = document.createElement("a");
 
-        const link = document.createElement("a");
+      link.href = getGoogleMapsDirectionsUrl(location, transport.mode);
 
-        link.href = getGoogleMapsDirectionsUrl(
-            location,
-            transport.mode
-        );
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
 
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
+      link.className = "btn btn-outline-success";
 
-        link.className = "btn btn-outline-success";
+      const icon = document.createElement("i");
+      icon.className = `bi ${transport.icon} me-2`;
 
-        const icon = document.createElement("i");
-        icon.className = `bi ${transport.icon} me-2`;
+      link.append(icon, document.createTextNode(transport.label));
 
-        link.append(
-            icon,
-            document.createTextNode(transport.label)
-        );
-
-        directionsButtons.appendChild(link);
+      directionsButtons.appendChild(link);
     });
 
-    directionsContainer.append(
-        directionsTitle,
-        directionsButtons
-    );
+    directionsContainer.append(directionsTitle, directionsButtons);
 
     actions.appendChild(directionsContainer);
-}
+  }
 
+  // Website link when available
+  let hasValidWebsite = false;
 
+  if (location.website) {
+    try {
+      const rawWebsite = String(location.website).trim();
 
+      // add https if the web has not protocol
+      const websiteUrl = /^https?:\/\//i.test(rawWebsite)
+        ? rawWebsite
+        : `https://${rawWebsite}`;
 
-    // Website link when available
-    let hasValidWebsite = false;
+      const url = new URL(websiteUrl);
 
-    if(location.website) {
-        try {
-        const rawWebsite = String(location.website).trim();
-
-        // add https if the web has not protocol
-        const websiteUrl = /^https?:\/\//i.test(rawWebsite)
-            ? rawWebsite
-            : `https://${rawWebsite}`;
-
-        const url = new URL(websiteUrl);
-
-        // only allow valid http and s sites
-        if(["https:","http:"].includes(url.protocol) && url.hostname.includes(".")
-        ){
+      // only allow valid http and s sites
+      if (
+        ["https:", "http:"].includes(url.protocol) &&
+        url.hostname.includes(".")
+      ) {
         const website = document.createElement("a");
 
         website.href = url.href;
@@ -378,188 +337,162 @@ if (hasValidAddress || hasValidCoordinates) {
 
         actions.appendChild(website);
         hasValidWebsite = true;
-        }
+      }
     } catch (error) {
-        console.warn("Invalid grocery website URL:", error);
+      console.warn("Invalid grocery website URL:", error);
     }
-}
+  }
 
-        // show message when website info. is not available
-        if(!hasValidWebsite) {
-            const message = document.createElement("p");
+  // show message when website info. is not available
+  if (!hasValidWebsite) {
+    const message = document.createElement("p");
 
-            message.className = "grocery-website-unavailable";
+    message.className = "grocery-website-unavailable";
 
-            const icon = document.createElement("i");
-            icon.className = "bi bi-info-circle";
-            icon.setAttribute("aria-hidden", "true");
+    const icon = document.createElement("i");
+    icon.className = "bi bi-info-circle";
+    icon.setAttribute("aria-hidden", "true");
 
-            message.append(
-                icon,
-                document.createTextNode(
-                    "Website information is not available for this location."
-                )
-            );
-
-            actions.appendChild(message);
-        }
-
-
-        details.append(
-        image,
-        heading,
-        addressSection,
-        distanceText,
-        hoursSection,
-        actions
+    message.append(
+      icon,
+      document.createTextNode(
+        "Website information is not available for this location.",
+      ),
     );
 
-    groceryDetailsContent.appendChild(details);
+    actions.appendChild(message);
+  }
 
-    //open bootstrap modal
-    const modal = bootstrap.Modal.getOrCreateInstance(
-        groceryModalElement
-    );
+  details.append(
+    image,
+    heading,
+    addressSection,
+    distanceText,
+    hoursSection,
+    actions,
+  );
 
-    modal.show();
+  groceryDetailsContent.appendChild(details);
+
+  //open bootstrap modal
+  const modal = bootstrap.Modal.getOrCreateInstance(groceryModalElement);
+
+  modal.show();
 }
 
 // sort grocery locations by distance or name
 function sortGroceryResults(locations) {
+  const sortedLocations = [...locations];
 
-    const sortedLocations = [...locations];
+  if (grocerySort.value === "name") {
+    sortedLocations.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+  } else {
+    sortedLocations.sort((a, b) => {
+      const distanceA =
+        a.distanceMiles != null &&
+        a.distanceMiles !== "" &&
+        Number.isFinite(Number(a.distanceMiles))
+          ? Number(a.distanceMiles)
+          : Infinity;
 
-    if (grocerySort.value === "name") {
+      const distanceB =
+        b.distanceMiles != null &&
+        b.distanceMiles !== "" &&
+        Number.isFinite(Number(b.distanceMiles))
+          ? Number(b.distanceMiles)
+          : Infinity;
 
-        sortedLocations.sort((a, b) =>
-            (a.name || "").localeCompare(b.name || "")
-    );
+      return distanceA - distanceB;
+    });
+  }
 
-    } else {
-
-        sortedLocations.sort((a, b) => {
-
-            const distanceA =
-            a.distanceMiles != null &&
-            a.distanceMiles !== "" &&
-            Number.isFinite(Number(a.distanceMiles))
-                ? Number(a.distanceMiles)
-                : Infinity;
-
-        const distanceB =
-            b.distanceMiles != null &&
-            b.distanceMiles !== "" &&
-            Number.isFinite(Number(b.distanceMiles))
-                ? Number(b.distanceMiles)
-                : Infinity;
-
-        return distanceA - distanceB;
-        });
-    }
-
-    return sortedLocations;
+  return sortedLocations;
 }
-
 
 // initialize leaflet map
 function initializeGroceryMap() {
+  //defacult location: Orlando, FL
+  groceryMap = L.map("grocery-map").setView([28.5383, -81.3792], 11);
 
-    //defacult location: Orlando, FL
-    groceryMap =L.map("grocery-map").setView(
-        [28.5383, -81.3792],
-        11
-    );
+  // Open Street Map
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(groceryMap);
 
-    // Open Street Map
-    L.tileLayer(
-        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-            maxZoom: 19,
-            attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }
-    ).addTo(groceryMap);
-
-    // layer for grocery markets
-    groceryMarkers = L.featureGroup().addTo(groceryMap);
+  // layer for grocery markets
+  groceryMarkers = L.featureGroup().addTo(groceryMap);
 }
-
 
 // Display grocery locations on the map
 function updateGroceryMap(locations) {
+  if (!groceryMap || !groceryMarkers) {
+    return;
+  }
 
-    if (!groceryMap || !groceryMarkers) {
-        return;
+  // Clear previous markers
+  groceryMarkers.clearLayers();
+  locationMarkers.clear();
+
+  locations.forEach((location) => {
+    const lat = Number(location.latitude);
+    const lon = Number(location.longitude);
+
+    // Skip invalid coordinates
+    if (
+      location.latitude == null ||
+      location.longitude == null ||
+      !Number.isFinite(lat) ||
+      !Number.isFinite(lon) ||
+      lat < -90 ||
+      lat > 90 ||
+      lon < -180 ||
+      lon > 180
+    ) {
+      return;
     }
 
-    // Clear previous markers
-    groceryMarkers.clearLayers();
-    locationMarkers.clear();
+    // Create marker
+    const marker = L.marker([lat, lon]);
 
-    locations.forEach((location) => {
+    // Create popup
+    const popup = document.createElement("div");
 
-        const lat = Number(location.latitude);
-        const lon = Number(location.longitude);
+    const name = document.createElement("strong");
+    name.textContent = location.name || "Unnamed Location";
 
-        // Skip invalid coordinates
-        if (
-            location.latitude == null ||
-            location.longitude == null ||
-            !Number.isFinite(lat) ||
-            !Number.isFinite(lon) ||
-            lat < -90 || lat > 90 ||
-            lon < -180 || lon > 180
-        ) {
-            return;
-        }
+    const address = document.createElement("p");
+    address.textContent = location.address || "Address unavailable";
 
-        // Create marker
-        const marker = L.marker([lat, lon]);
+    address.style.margin = "5px 0 0";
 
-        // Create popup
-        const popup = document.createElement("div");
+    // Transportation options inside map popup
+    const directionsContainer = document.createElement("div");
 
-        const name = document.createElement("strong");
-        name.textContent =
-            location.name || "Unnamed Location";
+    directionsContainer.className = "grocery-map-directions";
 
-        const address = document.createElement("p");
-        address.textContent =
-            location.address || "Address unavailable";
+    const hasDestination =
+      location.latitude != null &&
+      location.longitude != null &&
+      Number.isFinite(Number(location.latitude)) &&
+      Number.isFinite(Number(location.longitude)) &&
+      Number(location.latitude) >= -90 &&
+      Number(location.latitude) <= 90 &&
+      Number(location.longitude) >= -180 &&
+      Number(location.longitude) <= 180;
 
-        address.style.margin = "5px 0 0";
-
-// Transportation options inside map popup
-const directionsContainer = document.createElement("div");
-
-directionsContainer.className = "grocery-map-directions";
-
-const hasDestination =
-    location.latitude != null &&
-    location.longitude != null &&
-    Number.isFinite(Number(location.latitude)) &&
-    Number.isFinite(Number(location.longitude)) &&
-    Number(location.latitude) >= -90 &&
-    Number(location.latitude) <= 90 &&
-    Number(location.longitude) >= -180 &&
-    Number(location.longitude) <= 180;
-
-if (hasDestination) {
-
-    const transportationModes = [
+    if (hasDestination) {
+      const transportationModes = [
         { label: "Drive", mode: "driving", icon: "bi-car-front" },
         { label: "Bus", mode: "transit", icon: "bi-bus-front" },
-        { label: "Walk", mode: "walking", icon: "bi-person-walking" }
-    ];
+        { label: "Walk", mode: "walking", icon: "bi-person-walking" },
+      ];
 
-    transportationModes.forEach((transport) => {
-
+      transportationModes.forEach((transport) => {
         const link = document.createElement("a");
 
-        link.href = getGoogleMapsDirectionsUrl(
-            location,
-            transport.mode
-        );
+        link.href = getGoogleMapsDirectionsUrl(location, transport.mode);
 
         link.target = "_blank";
         link.rel = "noopener noreferrer";
@@ -569,405 +502,389 @@ if (hasDestination) {
         const icon = document.createElement("i");
         icon.className = `bi ${transport.icon}`;
 
-        link.append(
-            icon,
-            document.createTextNode(` ${transport.label}`)
-        );
+        link.append(icon, document.createTextNode(` ${transport.label}`));
 
         directionsContainer.appendChild(link);
-    });
-}
-
-popup.append(
-    name,
-    address,
-    directionsContainer
-);
-
-        marker.bindPopup(popup);
-
-        // Add marker to map
-        marker.addTo(groceryMarkers);
-
-        // Save marker for card interaction
-        locationMarkers.set(location, marker);
-    });
-
-    // Zoom to display the grocery locations
-    if (groceryMarkers.getLayers().length > 0) {
-
-        groceryMap.fitBounds(
-            groceryMarkers.getBounds(),
-            {
-                padding: [30, 30],
-                maxZoom: 14
-            }
-        );
+      });
     }
 
-    groceryMap.invalidateSize();
-}
+    popup.append(name, address, directionsContainer);
 
+    marker.bindPopup(popup);
+
+    // Add marker to map
+    marker.addTo(groceryMarkers);
+
+    // Save marker for card interaction
+    locationMarkers.set(location, marker);
+  });
+
+  // Zoom to display the grocery locations
+  if (groceryMarkers.getLayers().length > 0) {
+    groceryMap.fitBounds(groceryMarkers.getBounds(), {
+      padding: [30, 30],
+      maxZoom: 14,
+    });
+  }
+
+  groceryMap.invalidateSize();
+}
 
 // Generate grocery Cards from API results
 function renderGroceryResults(locations) {
+  groceryResults.replaceChildren();
 
-    groceryResults.replaceChildren();
+  locations.forEach((location) => {
+    // create card
+    const card = document.createElement("button");
+    card.type = "button";
 
-    locations.forEach((location) => {
+    const appearance = getGroceryAppearance(location.type);
 
-        // create card
-        const card = document.createElement("button");
-        card.type = "button";
+    card.className = `grocery-result-card ${appearance.cardClass}`;
 
-        const appearance = getGroceryAppearance(location.type);
+    // store information
+    const name = location.name || "Unnamed Location";
 
-        card.className = 
-            `grocery-result-card ${appearance.cardClass}`;
+    const address = formatGroceryAddress(name, location.address);
 
-        // store information
-        const name = location.name || "Unnamed Location";
+    const distance =
+      location.distanceMiles != null &&
+      location.distanceMiles !== "" &&
+      Number.isFinite(Number(location.distanceMiles)) &&
+      location.distanceMiles !== null
+        ? `${Number(location.distanceMiles).toFixed(1)} miles away`
+        : "Distance unavailable";
 
-        const address = formatGroceryAddress(
-            name,
-            location.address
-        );
+    const hours = location.openingHours || "Hours unavailable";
 
-        const distance = 
-            location.distanceMiles != null &&
-            location.distanceMiles !== "" &&
-            Number.isFinite(Number(location.distanceMiles))
-            && location.distanceMiles !== null
-                ? `${Number(location.distanceMiles).toFixed(1)} miles away`
-                : "Distance unavailable";
+    // create card content
+    const content = document.createElement("div");
+    content.className = "grocery-card-content";
 
-        const hours = location.openingHours || "Hours unavailable";
+    const icon = document.createElement("div");
+    icon.className = "grocery-card-icon";
 
-        // create card content
-        const content = document.createElement("div");
-        content.className = "grocery-card-content";
+    const iconElement = document.createElement("i");
+    iconElement.className = `bi ${appearance.icon}`;
 
-        const icon = document.createElement("div");
-        icon.className = "grocery-card-icon";
+    icon.appendChild(iconElement);
 
-        const iconElement = document.createElement("i");
-        iconElement.className = `bi ${appearance.icon}`;
+    const information = document.createElement("div");
+    information.className = "grocery-card-info";
 
-        icon.appendChild(iconElement);
+    const title = document.createElement("h3");
+    title.textContent = name;
 
-        const information = document.createElement("div");
-        information.className = "grocery-card-info";
+    const distanceText = document.createElement("p");
+    distanceText.className = "grocery-card-distance";
+    distanceText.textContent = distance;
 
-        const title = document.createElement("h3");
-        title.textContent = name;
+    const addressText = document.createElement("p");
+    addressText.className = "grocery-card-address";
+    addressText.textContent = address;
 
-        const distanceText = document.createElement("p");
-        distanceText.className = "grocery-card-distance";
-        distanceText.textContent = distance;
+    const hoursText = document.createElement("p");
+    hoursText.className = "grocery-card-hours";
 
-        const addressText = document.createElement("p");
-        addressText.className = "grocery-card-address";
-        addressText.textContent = address;
+    const clockIcon = document.createElement("i");
+    clockIcon.className = "bi bi-clock me-1";
 
-        const hoursText = document.createElement("p");
-        hoursText.className = "grocery-card-hours";
+    hoursText.append(clockIcon, document.createTextNode(hours));
 
-        const clockIcon = document.createElement("i");
-        clockIcon.className = "bi bi-clock me-1";
+    information.append(title, distanceText, addressText, hoursText);
 
-        hoursText.append(clockIcon, document.createTextNode(hours));
+    const arrow = document.createElement("i");
+    arrow.className = "bi bi-chevron-right grocery-card-arrow";
 
-        information.append(
-            title,
-            distanceText,
-            addressText,
-            hoursText
-        );
+    content.append(icon, information, arrow);
+    card.appendChild(content);
 
-        const arrow = document.createElement("i");
-        arrow.className = "bi bi-chevron-right grocery-card-arrow";
-
-        content.append(icon, information, arrow);
-        card.appendChild(content);
-
-        // Details modal functionaloty will be added next
-        card.addEventListener("click", () => {
-            showGroceryDetails(location);
-        });
-
-        // card to the results
-        groceryResults.appendChild(card);
-
+    // Open grocery location details
+    card.addEventListener("click", () => {
+      showGroceryDetails(location);
     });
 
+    // card to the results
+    groceryResults.appendChild(card);
+  });
 }
 
-
 function renderVisibleGroceryResults(reset = false) {
+  if (reset) {
+    visibleGroceryCount = MOBILE_RESULTS_LIMIT;
+  }
 
-    if(reset) {
-        visibleGroceryCount = MOBILE_RESULTS_LIMIT;
-    }
+  const sortedLocations = sortGroceryResults(groceryLocations);
 
-    const sortedLocations = sortGroceryResults(
-        groceryLocations
-    );
+  const isMobile = mobileGroceryQuery.matches;
 
-    const isMobile = mobileGroceryQuery.matches;
-
-    const visibleLocations = isMobile
+  const visibleLocations = isMobile
     ? sortedLocations.slice(0, visibleGroceryCount)
     : sortedLocations;
 
-    renderGroceryResults(visibleLocations);
+  renderGroceryResults(visibleLocations);
 
-    const totalResults = sortedLocations.length;
-    const displayedResults = visibleLocations.length;
+  const totalResults = sortedLocations.length;
+  const displayedResults = visibleLocations.length;
 
-    groceryPageStatus.hidden = !isMobile || totalResults === 0;
+  groceryPageStatus.hidden = !isMobile || totalResults === 0;
 
-    if(!groceryPageStatus.hidden) {
-        groceryPageStatus.textContent = 
-            `Showing ${displayedResults} of ${totalResults} locations`;
-    }
+  if (!groceryPageStatus.hidden) {
+    groceryPageStatus.textContent = `Showing ${displayedResults} of ${totalResults} locations`;
+  }
 
-    const hasMore = isMobile && displayedResults < totalResults;
+  const hasMore = isMobile && displayedResults < totalResults;
 
-    groceryLoadMore.hidden = !hasMore;
+  groceryLoadMore.hidden = !hasMore;
 
-    if (hasMore) {
-        const remaining = totalResults - displayedResults;
+  if (hasMore) {
+    const remaining = totalResults - displayedResults;
 
-        const nextCount = Math.min(
-            MOBILE_RESULTS_LIMIT,
-            remaining
-        );
+    const nextCount = Math.min(MOBILE_RESULTS_LIMIT, remaining);
 
-        groceryLoadMore.textContent = 
-            `Show ${nextCount} More`;
-    }
+    groceryLoadMore.textContent = `Show ${nextCount} More`;
+  }
 }
 
 // Retrieve the signed-in user's saved ZIP code
 async function loadUserZipCode() {
-    try {
-        const response = await fetch(
-            `${window.BBO_CONFIG.API_BASE_URL}/auth/profile`,
-            {
-                method: "GET",
-                credentials: "include",
-                cache: "no-store"
-            }
-        );
+  try {
+    const response = await fetch(
+      `${window.BBO_CONFIG.API_BASE_URL}/auth/profile`,
+      {
+        method: "GET",
+        credentials: "include",
+        cache: "no-store",
+      },
+    );
 
-        // Guest user or expired session
-        if (!response.ok) {
-            return;
-        }
-
-        const result = await response.json();
-        const user = result.data?.user;
-
-        const savedZip = user?.defaultZipCode ?? user?.zipcode;
-
-        if (savedZip != null) {
-            const zipcode = String(savedZip).padStart(5, "0");
-
-            if (!groceryZip.value.trim()) {
-                groceryZip.value = zipcode;
-            }
-        }
-    } catch (error) {
-        console.warn("Unable to retrieve user ZIP code:", error);
+    // Guest user or expired session
+    if (!response.ok) {
+      return;
     }
+
+    const result = await response.json();
+    const user = result.data?.user;
+
+    const savedZip = user?.defaultZipCode ?? user?.zipcode;
+
+    if (savedZip != null) {
+      const zipcode = String(savedZip).padStart(5, "0");
+
+      if (!groceryZip.value.trim()) {
+        groceryZip.value = zipcode;
+      }
+    }
+  } catch (error) {
+    console.warn("Unable to retrieve user ZIP code:", error);
+  }
 }
 
 // Search for groceries using backend api
 async function searchGroceries(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    // reset previous search results and pagination
+  // Prevent overlapping searches
+  if (grocerySearchInProgress) return;
+
+  const zip = groceryZip.value.trim();
+  const category = groceryCategory.value;
+  const types = getGroceryTypes(category);
+  const radius = Number(groceryRadius.value);
+
+  // Validate ZIP code before clearing previous results
+  if (!/^\d{5}$/.test(zip)) {
+    alert("Please enter a valid 5-digit ZIP code.");
+    return;
+  }
+
+  grocerySearchInProgress = true;
+
+  // Temporarily disable search controls
+  const searchControls = [
+    ...groceryForm.querySelectorAll("button, input, select"),
+    ...categoryButtons,
+    grocerySort,
+  ];
+
+  const controlStates = searchControls.map((control) => control.disabled);
+
+  searchControls.forEach((control) => {
+    control.disabled = true;
+  });
+
+  try {
+    // Reset previous search results and pagination
     groceryLocations = [];
     visibleGroceryCount = MOBILE_RESULTS_LIMIT;
 
     groceryLoadMore.hidden = true;
     groceryPageStatus.hidden = true;
 
-    const zip = groceryZip.value.trim();
-    const category = groceryCategory.value;
-    const types = getGroceryTypes(category);
-    const radius= Number(groceryRadius.value);
-
     syncCategoryNavigation(category);
 
     const params = new URLSearchParams({
-        location: zip,
-        types: types,
-        maxDistance: String(radius)
+      location: zip,
+      types: types,
+      maxDistance: String(radius),
     });
 
-    groceryResults.textContent ="Searching for grocery locations...";
+    groceryResults.textContent = "Searching for grocery locations...";
+
     groceryResultsCount.textContent = "0";
 
-    // clear previous map markers before searching
-    if(groceryMarkers) {
-        groceryMarkers.clearLayers();
-        locationMarkers.clear();
+    // Clear previous map markers
+    updateGroceryMap([]);
+
+    const response = await fetch(`${GROCERY_API_URL}?${params}`);
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Unable to retrieve grocery locations.");
     }
 
-    try {
-        const response = await fetch(
-            `${GROCERY_API_URL}?${params}`
-        );
+    if (!Array.isArray(data)) {
+      throw new Error("Unexpected API response format.");
+    }
 
-        const data = await response.json();
+    groceryResultsCount.textContent = data.length;
 
-        if(!response.ok) {
-            throw new Error(
-                data.error || "Unable to retrieve grocery locations."
-            );
-        }
+    if (data.length === 0) {
+      groceryResults.replaceChildren();
 
-        if (!Array.isArray(data)) {
-            throw new Error("Unexpected API response format.")
-        }
+      const message = document.createElement("p");
+      message.className = "grocery-empty-message";
+      message.textContent =
+        "No locations found within the selected radius. " +
+        "Try increasing your search radius or entering a different ZIP code.";
 
-        console.log("Grocery API results:", data);
+      groceryResults.appendChild(message);
+      return;
+    }
 
-        groceryResultsCount.textContent = data.length;
-
-        if(data.length === 0) {
-            groceryResults.replaceChildren();
-
-            const message = document.createElement("p");
-            message.className = "grocery-empty-message";
-            message.textContent = "No location found within the selected radius. Try increasing your search radius or entering a different ZIP code.";
-
-            groceryResults.appendChild(message);
-        return;
-        }
-
-
-
-    // save the latest API results
+    // Save and display the latest results
     groceryLocations = data;
 
+    renderVisibleGroceryResults(true);
+    updateGroceryMap(groceryLocations);
+  } catch (error) {
+    console.error("Grocery search failed:", error);
 
-     // display grocery cards
-     renderVisibleGroceryResults(true);
+    groceryLocations = [];
+    groceryResultsCount.textContent = "0";
 
-     // update map markers with latest search results
-     updateGroceryMap(groceryLocations);
+    groceryLoadMore.hidden = true;
+    groceryPageStatus.hidden = true;
 
-    } catch (error) {
-        console.error("Grocery search failed:", error);
+    groceryResults.textContent = `Unable to load grocery locations: ${error.message}`;
 
-        groceryResults.textContent =
-            `Unable to load location: ${error.message}`;
-    }
+    updateGroceryMap([]);
+  } finally {
+    grocerySearchInProgress = false;
+
+    searchControls.forEach((control, index) => {
+      control.disabled = controlStates[index];
+    });
+  }
 }
 
 // Initialize search form
 document.addEventListener("DOMContentLoaded", () => {
+  // serach form
+  groceryForm.addEventListener("submit", searchGroceries);
 
-   // serach form
-    groceryForm.addEventListener("submit", searchGroceries);
+  //initialzie interactive map
+  initializeGroceryMap();
 
-     //initialzie interactive map
-    initializeGroceryMap();
+  // retrieve user zip code if available
+  loadUserZipCode();
 
-    // retrieve user zip code if available
-    loadUserZipCode();
+  // dropdown category selection
+  groceryCategory.addEventListener("change", () => {
+    const selectedCategory = groceryCategory.value;
 
-    // dropdown category selection
-    groceryCategory.addEventListener("change", () => {
+    syncCategoryNavigation(selectedCategory);
+  });
 
-        const selectedCategory = groceryCategory.value;
+  // category navigation buttons
+  categoryButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const selectedCategory = button.dataset.category;
 
-        syncCategoryNavigation(selectedCategory);
+      //update dropdown
+      groceryCategory.value = selectedCategory;
+
+      //update active navigation button
+      syncCategoryNavigation(selectedCategory);
+
+      //automatically search using selected category
+      groceryForm.requestSubmit();
     });
+  });
 
-    // category navigation buttons
-    categoryButtons.forEach((button) => {
-
-        button.addEventListener("click", () => {
-
-            const selectedCategory = button.dataset.category;
-
-            //update dropdown
-            groceryCategory.value = selectedCategory;
-
-            //update active navigation button
-            syncCategoryNavigation(selectedCategory);
-
-            //automatically search using selected category
-            groceryForm.requestSubmit();
-
-        });
-    });
-
-    // update sorting without requesting the API again
-    grocerySort.addEventListener("change", () => {
-
-        if(groceryLocations.length === 0) {
-            return;
-        }
-
-        renderVisibleGroceryResults(true);
-    });
-
-    // sync category selection when page loads
-    syncCategoryNavigation(groceryCategory.value);
-
-
-    // load more grocery results 
-    groceryLoadMore.addEventListener("click", () => {
-
-        visibleGroceryCount += MOBILE_RESULTS_LIMIT;
-
-        renderVisibleGroceryResults();
-    });
-
-    // switching between desktop and mobile
-    mobileGroceryQuery.addEventListener("change", () => {
-
-        if (groceryLocations.length > 0) {
-            renderVisibleGroceryResults();
-        }
-
-    });
-
-    // back to top button
-
-    const backToTop = document.getElementById("back-to-top");
-
-    function toggleBackToTop() {
-
-        const shouldShow = window.scrollY > 400;
-
-        backToTop.classList.toggle("show", shouldShow);
-
-        backToTop.tabIndex = shouldShow ? 0 : -1;
+  // update sorting without requesting the API again
+  grocerySort.addEventListener("change", () => {
+    if (groceryLocations.length === 0) {
+      return;
     }
 
-    // listen for scrolling
-    window.addEventListener("scroll", toggleBackToTop, {
-        passive: true
+    renderVisibleGroceryResults(true);
+  });
+
+  // sync category selection when page loads
+  syncCategoryNavigation(groceryCategory.value);
+
+  // load more grocery results
+  groceryLoadMore.addEventListener("click", () => {
+    visibleGroceryCount += MOBILE_RESULTS_LIMIT;
+
+    renderVisibleGroceryResults();
+  });
+
+  // Switching between desktop and mobile
+  mobileGroceryQuery.addEventListener("change", () => {
+    if (groceryLocations.length > 0) {
+      renderVisibleGroceryResults();
+    }
+
+    requestAnimationFrame(() => {
+      if (groceryMap) {
+        groceryMap.invalidateSize();
+      }
     });
+  });
 
-    backToTop.addEventListener("click", () => {
+  // back to top button
 
+  const backToTop = document.getElementById("back-to-top");
+
+  function toggleBackToTop() {
+    const shouldShow = window.scrollY > 400;
+
+    backToTop.classList.toggle("show", shouldShow);
+
+    backToTop.tabIndex = shouldShow ? 0 : -1;
+  }
+
+  // listen for scrolling
+  window.addEventListener("scroll", toggleBackToTop, {
+    passive: true,
+  });
+
+  backToTop.addEventListener("click", () => {
     const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-        ).matches;
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
-        window.scrollTo({
-            top: 0,
-            behavior: prefersReducedMotion ? "instant" : "smooth"
-        });
+    groceryZip.focus({ preventScroll: true });
 
+    window.scrollTo({
+      top: 0,
+      behavior: prefersReducedMotion ? "instant" : "smooth",
     });
+  });
 
-    toggleBackToTop();
-
+  toggleBackToTop();
 });
