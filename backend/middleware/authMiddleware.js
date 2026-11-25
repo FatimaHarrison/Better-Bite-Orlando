@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
+import prisma from "../lib/prisma.js";
 
-const requireAuth = (req, res, next) => {
+const requireAuth = async (req, res, next) => {
   try {
     const authCookie = req.headers.cookie
       ?.split(";")
@@ -19,14 +20,25 @@ const requireAuth = (req, res, next) => {
       algorithms: ["HS256"],
     });
 
-    if (!Number.isInteger(decoded.id)) {
+    if (!Number.isInteger(decoded.id) || decoded.id <= 0) {
       return res.status(401).json({
         error: "Invalid authentication token",
       });
     }
 
-    // Store the authenticated user's ID for protected controllers.
-    req.userId = decoded.id;
+    // Verify the authenticated user still exists.
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.id },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return res.status(401).json({
+        error: "User not found",
+      });
+    }
+
+    req.userId = user.id;
 
     next();
   } catch (error) {
