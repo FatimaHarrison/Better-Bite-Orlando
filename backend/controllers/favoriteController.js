@@ -93,7 +93,11 @@ export const getFavoriteById = async (req, res) => {
   try {
     const favoriteId = Number(req.params.id);
 
-    if (!Number.isInteger(favoriteId) || favoriteId <= 0) {
+    if (
+      !Number.isInteger(favoriteId) ||
+      favoriteId <= 0 ||
+      favoriteId > 2147483647
+    ) {
       return res.status(400).json({
         status: "error",
         error: "Invalid favorite ID",
@@ -364,7 +368,11 @@ export const deleteFavorite = async (req, res) => {
   try {
     const favoriteId = Number(req.params.id);
 
-    if (!Number.isInteger(favoriteId) || favoriteId <= 0) {
+    if (
+      !Number.isInteger(favoriteId) ||
+      favoriteId <= 0 ||
+      favoriteId > 2147483647
+    ) {
       return res.status(400).json({
         status: "error",
         error: "Invalid favorite ID",
