@@ -4,7 +4,7 @@
 
 This document describes the REST API implemented for Better Bite Orlando, a Valencia College Software Development Capstone project.
 
-The backend provides user authentication, recipe information, restaurant searches, and location-based food-resource searches.
+The backend provides user authentication, recipe information, restaurant searches, location-based food-resource searches, contact form email delivery, and user favorites management.
 
 External API responses are normalized into consistent objects before being returned to the frontend.
 
@@ -282,3 +282,342 @@ The API includes:
 API keys and other credentials are stored in environment configuration and must not be committed to GitHub.
 
 Authentication cookies and CORS configuration are managed by the Express backend.
+
+---
+
+## 8. Favorites
+
+The Favorites API allows authenticated users to save and manage
+grocery stores, farmers' markets, food pantries, restaurants,
+and recipes.
+
+Favorites are stored in MySQL and associated with the
+authenticated user's account.
+
+### Authentication
+
+All Favorites endpoints require a valid `bbo_auth` cookie.
+
+Frontend requests must include `credentials: "include"`.
+
+The authenticated user ID is determined by the backend.
+A user ID supplied in the request body is not used.
+
+Users can only retrieve and delete their own favorites.
+
+### Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/favorites` | Retrieve all favorites |
+| GET | `/favorites?type=grocery` | Retrieve grocery favorites |
+| GET | `/favorites?type=restaurant` | Retrieve restaurant favorites |
+| GET | `/favorites?type=recipe` | Retrieve recipe favorites |
+| GET | `/favorites/:id` | Retrieve an individual favorite |
+| POST | `/favorites` | Save a favorite |
+| DELETE | `/favorites/:id` | Remove a favorite |
+
+Favorites are returned in descending creation-date order.
+
+The `:id` parameter represents the internal Favorites database
+record ID, not the external provider's item ID.
+
+### POST /favorites
+
+Save an item to the authenticated user's favorites.
+
+#### Request Fields
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| itemType | String | Yes | grocery, restaurant, or recipe |
+| itemSubtype | String | No | Grocery resource subtype |
+| sourceProvider | String | Yes | External data provider |
+| externalItemId | String or integer | Yes | External provider's item ID |
+| itemName | String | Yes | Display name or recipe title |
+| address | String | No | Location address |
+| latitude | Number | No | Location latitude |
+| longitude | Number | No | Location longitude |
+| imageUrl | String | No | HTTP or HTTPS image URL |
+
+Supported grocery subtypes:
+
+- `grocery-store`
+- `farmers-market`
+- `food-pantry`
+
+The `itemSubtype` field should be omitted or null for
+restaurant and recipe favorites.
+
+#### Example Grocery Favorite Request
+
+```json
+{
+  "itemType": "grocery",
+  "itemSubtype": "grocery-store",
+  "sourceProvider": "geoapify",
+  "externalItemId": "store123",
+  "itemName": "Healthy Market",
+  "address": "456 Orange Ave, Orlando, FL",
+  "latitude": 28.54,
+  "longitude": -81.38
+}
+```
+
+#### Example Recipe Favorite Request
+
+```json
+{
+  "itemType": "recipe",
+  "sourceProvider": "spoonacular",
+  "externalItemId": "634476",
+  "itemName": "BBQ Chicken",
+  "imageUrl": "https://img.spoonacular.com/recipes/634476-312x231.jpg"
+}
+```
+
+#### Example Successful Response
+
+HTTP 201 Created
+
+```json
+{
+  "status": "success",
+  "data": {
+    "id": 10,
+    "itemType": "recipe",
+    "itemSubtype": null,
+    "sourceProvider": "spoonacular",
+    "externalItemId": "634476",
+    "itemName": "BBQ Chicken",
+    "address": null,
+    "latitude": null,
+    "longitude": null,
+    "imageUrl": "https://img.spoonacular.com/recipes/634476-312x231.jpg",
+    "createdAt": "2026-11-25T15:44:44.000Z"
+  }
+}
+```
+
+### GET /favorites
+
+Retrieve the authenticated user's favorites.
+
+The optional `type` query parameter filters the results by
+grocery, restaurant, or recipe.
+
+The response contains a `status` field and a `data` array
+of favorite objects.
+
+An account without favorites returns:
+
+```json
+{
+  "status": "success",
+  "data": []
+}
+```
+
+### GET /favorites/:id
+
+Retrieve an individual favorite using its internal database ID.
+
+The response contains the favorite object in the `data` field.
+
+A nonexistent favorite or a favorite owned by another user
+returns HTTP 404.
+
+### DELETE /favorites/:id
+
+Remove a favorite using its internal database ID.
+
+#### Example Successful Response
+
+HTTP 200 OK
+
+```json
+{
+  "status": "success",
+  "message": "Favorite removed"
+}
+```
+
+### Provider Mapping
+
+The following provider values are the standard conventions
+for frontend Favorites integration.
+
+| Search Result | itemType | itemSubtype | sourceProvider |
+|---|---|---|---|
+| Grocery store | grocery | grocery-store | geoapify |
+| Farmers' market | grocery | farmers-market | geoapify |
+| Food pantry | grocery | food-pantry | feeding-america |
+| Restaurant | restaurant | null | geoapify |
+| Recipe | recipe | null | spoonacular |
+
+The grocery search response uses `grocery` as its resource
+type. Map this value to `grocery-store` when saving a favorite.
+
+The recipe `source` field identifies the recipe publisher,
+not the Favorites source provider.
+
+### Search Result Field Mapping
+
+| Favorites Field | Location Search Result | Recipe Search Result |
+|---|---|---|
+| externalItemId | String(item.id) | String(item.id) |
+| itemName | item.name | item.title |
+| address | item.address | null |
+| latitude | item.latitude | null |
+| longitude | item.longitude | null |
+| imageUrl | null | item.image |
+
+External identifiers are stored and returned as strings,
+including numeric Spoonacular and Feeding America IDs.
+
+Do not enable saving for search results without a valid
+identifier or display name.
+
+### Matching Favorites to Search Results
+
+A saved favorite is uniquely identified by the combination of:
+
+- itemType
+- sourceProvider
+- externalItemId
+
+The frontend should retrieve the user's favorites and match
+search results against these three fields.
+
+```javascript
+const favorite = favorites.find(
+  (saved) =>
+    saved.itemType === itemType &&
+    saved.sourceProvider === sourceProvider &&
+    saved.externalItemId === String(item.id)
+);
+
+const isFavorite = Boolean(favorite);
+```
+
+Use `favorite.id` when removing a saved favorite.
+
+Do not use the external provider ID in the DELETE endpoint.
+
+### Frontend Request Examples
+
+#### Retrieve Favorites
+
+```javascript
+const response = await fetch(
+  `${API_BASE_URL}/favorites`,
+  { credentials: "include" }
+);
+
+if (!response.ok) {
+  throw new Error("Unable to retrieve favorites");
+}
+
+const result = await response.json();
+const favorites = result.data;
+```
+
+#### Save a Favorite
+
+```javascript
+const response = await fetch(
+  `${API_BASE_URL}/favorites`,
+  {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(favoritePayload)
+  }
+);
+
+const result = await response.json();
+
+if (!response.ok) {
+  throw new Error(result.error || "Unable to save favorite");
+}
+
+const savedFavorite = result.data;
+```
+
+#### Remove a Favorite
+
+```javascript
+const response = await fetch(
+  `${API_BASE_URL}/favorites/${favorite.id}`,
+  {
+    method: "DELETE",
+    credentials: "include"
+  }
+);
+
+if (!response.ok) {
+  throw new Error("Unable to remove favorite");
+}
+```
+
+### HTTP Status Codes
+
+| Status | Description |
+|---|---|
+| 200 | Successful retrieval or deletion |
+| 201 | Favorite successfully created |
+| 400 | Invalid request data, filter, or favorite ID |
+| 401 | Missing or invalid authentication |
+| 404 | Favorite not found or not owned by the user |
+| 409 | Favorite already exists |
+| 429 | API rate limit exceeded |
+| 500 | Internal server or database error |
+
+### Input Validation
+
+- Required text fields must contain nonempty values.
+- External IDs must be strings or safe integers.
+- Source provider names cannot exceed 50 characters.
+- External IDs and item names cannot exceed 255 characters.
+- Addresses cannot exceed 255 characters.
+- Image URLs cannot exceed 500 characters.
+- Image URLs must use HTTP or HTTPS.
+- Latitude must be between -90 and 90.
+- Longitude must be between -180 and 180.
+- Internal favorite IDs must be positive integers no greater
+  than 2147483647.
+
+### Database and Security
+
+Favorites are stored in the `user_favorites` table.
+
+A database unique constraint prevents duplicate favorites
+for the same user, item type, source provider, and external ID.
+
+Different users may save the same external item.
+
+Favorites are automatically removed when the associated
+user account is deleted.
+
+Saved favorites contain basic display information rather
+than complete external provider responses.
+
+The frontend must safely render externally supplied text
+and URLs.
+
+### Database Deployment
+
+The database migration is located at:
+
+`backend/database/migrations/001_update_user_favorites.sql`
+
+Back up the target database and verify that the legacy
+Favorites table is empty before applying this migration.
+
+If existing favorites are present, prepare a data-preserving
+migration instead.
+
+Do not execute the complete development SQL schema against
+an existing populated database.

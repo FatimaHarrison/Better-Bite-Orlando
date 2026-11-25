@@ -8,6 +8,7 @@ import authRoutes from "./routes/authRoutes.js";
 import recipeRoutes from "./routes/recipeRoutes.js";
 import placeRoutes from "./routes/placeRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
+import favoriteRoutes from "./routes/favoriteRoutes.js";
 import apiLimiter from "./middleware/rateLimiter.js";
 
 const app = express();
@@ -46,6 +47,7 @@ app.use("/auth", authRoutes);
 app.use("/recipes", recipeRoutes);
 app.use("/places", placeRoutes);
 app.use("/contact", contactRoutes);
+app.use("/favorites", favoriteRoutes);
 
 app.listen(port, host, () => {
 	console.log(`API listening at http://${host}:${port}`);
