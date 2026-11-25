@@ -4,7 +4,7 @@
 
 This document describes the REST API implemented for Better Bite Orlando, a Valencia College Software Development Capstone project.
 
-The backend provides user authentication, recipe information, restaurant searches, and location-based food-resource searches.
+The backend provides user authentication, recipe information, restaurant searches, location-based food-resource searches, contact form email delivery, and user favorites management.
 
 External API responses are normalized into consistent objects before being returned to the frontend.
 
@@ -621,4 +621,3 @@ migration instead.
 
 Do not execute the complete development SQL schema against
 an existing populated database.
-
