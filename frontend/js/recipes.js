@@ -221,6 +221,15 @@
     $("recipe-details").hidden = false;
     document.querySelector(".recipes-workspace").classList.add("has-selection");
     renderDetail();
+    if (window.matchMedia("(max-width: 768px)").matches) {
+  requestAnimationFrame(() => {
+    const details = $("recipe-details");
+    details?.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+}
     const id = recipeId(recipe);
     if (id == null) return;
     try {
