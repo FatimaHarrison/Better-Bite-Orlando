@@ -7,7 +7,10 @@ import {
   logoutUser,
   forgotPassword,
   resetPassword,
-  getCurrentUser
+  getCurrentUser,
+  updateProfile,
+  changePassword,
+  saveNotificationPreferences
 } from "../controllers/authController.js";
 
 const router = express.Router();
@@ -37,5 +40,18 @@ router.post("/password-reset", resetPassword);
 // GET /profile
 // Retrieve the currently authenticated user
 router.get("/profile", getCurrentUser);
+
+// PATCH /profile
+// Update the authenticated user information
+router.patch("/profile", updateProfile);
+
+//PATCH /auth/notifications
+// save the authenticated user notification preferences
+router.patch("/notifications", saveNotificationPreferences);
+
+//PATCH /auth/password
+// Change the authenticated user's pass
+router.patch("/password", changePassword);
+
 
 export default router;

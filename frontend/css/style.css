@@ -466,6 +466,139 @@ main {
 }
 
 /* ==========================================
+   DEF-008: HOMEPAGE INTRODUCTION
+========================================== */
+
+/* Two-column hero layout */
+
+.hero-intro-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 350px;
+  align-items: center;
+  gap: 30px;
+
+  padding: 0 30px;
+  margin-bottom: 18px;
+}
+
+/* Keep the heading aligned */
+
+.hero-intro-row .hero-heading {
+  padding: 0;
+  margin: 0;
+}
+
+/* ==========================================
+   ACCOUNT REGISTRATION CARD
+========================================== */
+
+.home-auth-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  gap: 12px;
+  margin: 0;
+  padding: 18px 20px;
+
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 18px;
+
+  box-shadow: 0 4px 18px rgba(30, 60, 40, 0.08);
+}
+
+/* Create Account button */
+
+.home-signup-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+  padding: 12px 20px;
+
+  background: #396b2d;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  border-radius: 12px;
+  text-decoration: none;
+
+  transition: background 0.2s ease;
+}
+
+.home-signup-btn:hover {
+  background: #284e20;
+  color: #ffffff;
+}
+
+.home-signup-btn:focus-visible {
+  outline: 3px solid #193d18;
+  outline-offset: 3px;
+}
+
+/* Sign In */
+
+.home-auth-cta .home-signin-prompt {
+  margin: 0;
+  padding: 0;
+  border: none;
+
+  font-size: 14px;
+  text-align: center;
+  color: #193b25;
+}
+
+.home-signin-prompt a {
+  color: #285d2b;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ==========================================
+   RESPONSIVE LAYOUT
+========================================== */
+
+@media (max-width: 850px) {
+
+  .hero-intro-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .home-auth-cta {
+    width: 100%;
+    max-width: 400px;
+  }
+
+}
+
+@media (max-width: 575.98px) {
+
+  .hero-intro-row {
+    padding: 0 5px;
+    gap: 16px;
+  }
+
+  .home-auth-cta {
+    padding: 16px;
+  }
+
+}
+
+/* Homepage layout when user is signed in */
+
+.hero-intro-row.user-signed-in {
+  grid-template-columns: 1fr;
+}
+
+
+
+/* ==========================================
    MOBILE RESPONSIVE
 ========================================== */
 

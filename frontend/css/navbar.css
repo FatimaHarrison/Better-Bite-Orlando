@@ -106,6 +106,27 @@
   background-color: transparent;
 }
 
+/* Account navigation text */
+.account-auth-links a {
+  color: var(--bbo-primary);
+  font-family: var(--bbo-font);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.account-auth-links a:hover {
+  color: var(--bbo-primary-hover);
+  text-decoration: underline;
+}
+
+.account-auth-links a:focus-visible {
+  outline: 2px solid var(--bbo-primary);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
 /* responsive Navigation */
 @media (max-width: 991.98px) {
   .site-header .navbar {

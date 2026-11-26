@@ -66,13 +66,23 @@
 
             // profile icon navigation
             const profileLink = navbarContainer.querySelector(".account-link");
-	    const logoutBtn = navbarContainer.querySelector("#navbar-logout-btn");
+	          const logoutBtn = navbarContainer.querySelector("#navbar-logout-btn");
+
+            const accountTextLink = navbarContainer.querySelector("#account-text-link");
 
       if (profileLink) {
         // default destination for signed out users
         profileLink.href = "login.html";
 
         profileLink.setAttribute("aria-label", "Sign In");
+
+        profileLink.title = "Sign In";
+
+        if (accountTextLink) {
+          accountTextLink.href = "login.html";
+          accountTextLink.text = "Sign In";
+        }
+
 
         try {
           const sessionResponse = await fetch(
@@ -85,9 +95,29 @@
           );
 
           if (sessionResponse.ok) {
+
+            // hide homepage registration options for sign in and sign up
+            const homeAuthCta = document.getElementById("home-auth-cta");
+
+            if (homeAuthCta) {
+              homeAuthCta.remove();
+
+              document
+                .querySelector(".hero-intro-row")
+                ?.classList.add("user-signed-in");
+            }
+            
             // User has a valid session
             profileLink.href = "profile.html";
             profileLink.setAttribute("aria-label", "View My Account");
+
+            profileLink.title = "My Account";
+
+            // update account label for signed in user
+            if (accountTextLink) {
+              accountTextLink.href = "profile.html";
+              accountTextLink.textContent = "My Account";
+          }
 
             if (logoutBtn) {
               logoutBtn.hidden = false;

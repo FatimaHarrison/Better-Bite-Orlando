@@ -125,10 +125,10 @@ body {
 }
 
 .login-card h2 {
-  font-size: 32px;
-  font-weight: 700;
-  color: #171717;
-  margin-bottom: 8px;
+     font-size: 32px;
+    font-weight: 700;
+    color: #23452b;
+    margin-bottom: 8px;
 }
 
 .login-subtitle {
@@ -284,6 +284,147 @@ body {
   text-decoration: underline;
 }
 
+/* ==================================
+   Login Page - Layout Improvements
+   Match Registration Page Design
+   ================================== */
+
+/* Center the login information and form */
+.login-page:not(.register-page) {
+    grid-template-columns:
+        minmax(0, 480px)
+        minmax(0, 570px);
+
+    justify-content: center;
+    align-items: center;
+
+    gap: clamp(28px, 4vw, 72px);
+}
+
+/* Left information panel */
+.login-page:not(.register-page) .login-intro {
+    width: 100%;
+    max-width: 480px;
+
+    padding: 30px;
+
+    background-color: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+
+    box-shadow: 0 8px 28px rgba(30, 55, 40, 0.08);
+}
+
+/* Welcome heading */
+.login-page:not(.register-page) .login-intro h1 {
+    color: #23452b;
+
+    font-size: clamp(28px, 2.2vw, 38px);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+/* Description */
+.login-page:not(.register-page) .login-intro > p {
+    color: #33443a;
+
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* Benefits */
+.login-page:not(.register-page) .benefit {
+    color: #263b2b;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* ==================================
+   Login Page - Align Panels at Top
+   ================================== */
+
+.login-page:not(.register-page) .login-intro {
+    align-self: start;
+    padding-top: 38px;
+}
+
+/* ==================================
+   Login Typography
+   Match Registration Page
+   ================================== */
+
+/* Left heading: Welcome back! */
+.login-page:not(.register-page) .login-intro h1 {
+    font-family: "Inter", sans-serif;
+    font-size: clamp(28px, 2.2vw, 38px);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #23452b;
+}
+
+/* Right heading: Sign In */
+.login-page:not(.register-page) .login-card h2 {
+    font-family: "Inter", sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #23452b;
+}
+
+/* Left description */
+.login-page:not(.register-page) .login-intro > p {
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* Benefit descriptions */
+.login-page:not(.register-page) .benefit {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+
+
+
+/* ==================================
+   Responsive Login Layout
+   ================================== */
+
+@media (max-width: 900px) {
+
+    .login-page:not(.register-page) {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .login-page:not(.register-page) .login-intro {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 24px;
+
+        text-align: left;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .login-page:not(.register-page) .login-intro {
+        padding: 20px;
+    }
+
+    .login-page:not(.register-page) .login-intro h1 {
+        font-size: 28px;
+    }
+
+    .login-page:not(.register-page) .benefit {
+        font-size: 13px;
+    }
+
+}
 /* ==================================
    RESPONSIVE LAYOUT
 ================================== */

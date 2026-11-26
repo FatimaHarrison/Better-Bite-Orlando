@@ -174,7 +174,7 @@
             </div>
 
             <!-- Profile form -->
-             <form class="account-form">
+             <form id="profile-form" class="account-form">
 
                 <!-- name -->
                  <div class="account-field-row">
@@ -258,73 +258,126 @@
                     <fieldset class="account-field account-diet">
 
                         <legend>Dietary Preferences</legend>
+                        <!-- General dietary preferences -->
+                        <div class="account-diet-section">
+
+                            <p class="account-diet-title">
+                                General Preferences
+                            </p>
+
 
                         <div class="account-chip-list">
 
                             <label class="account-chip">
-                                <input type="checkbox"
-                                        name="diet"
-                                        value="vegetarian">
+                                <input 
+                                    type="checkbox"
+                                    name="diet"
+                                    value="vegetarian">
 
-                                <span>Vegetarian</span>
+                                <span>
+                                    <i class="bi bi-tree" aria-hidden="true"></i>
+                                    Vegetarian</span>
                             </label>
 
                             <label class="account-chip">
-                                <input type="checkbox"
-                                        name="diet"
-                                        value="vegan">
+                                <input 
+                                    type="checkbox"
+                                    name="diet"
+                                    value="vegan">
 
-                                <span>Vegan</span>
+                                <span>
+                                    <i class="bi bi-flower1" aria-hidden="true"></i>
+                                    Vegan
+                                </span>
                             </label>
 
                             <label class="account-chip">
-                                <input type="checkbox"
-                                        name="diet"
-                                        value="dairy-free">
+                                <input
+                                    type="checkbox"
+                                    name="diet"
+                                    value="gluten-free">
 
-                                <span>Dairy-Free</span>
+                                <span>
+                                    <i class="bi bi-shield-check" aria-hidden="true"></i>
+                                    Gluten-Free</span>
                             </label>
 
-
-                            <label class="account-chip">
-                                <input type="checkbox"
-                                        name="diet"
-                                        value="low-sodium">
-
-                                <span>Low-Sodium</span>
-                            </label>
-
-                            <label class="account-chip">
-                                <input type="checkbox"
-                                        name="diet"
-                                        value="gluten-free">
-
-                                <span>Gluten-Free</span>
-                            </label>
-
-
-                            <label class="account-chip">
-                                <input type="checkbox"
-                                        name="diet"
-                                        value="high-protein">
-
-                                <span>High Protein</span>
-                            </label>
-
+                            </div>
                         </div>
+
+                        <!-- Restaurant dietary preferences -->
+                        <div class="account-diet-section">
+
+                            <p class="account-diet-title">
+                                Restaurant Preferences
+                            </p>
+
+                        <div class="account-chip-list">
+                            <label class="account-chip">
+                                <input 
+                                    type="checkbox"
+                                    name="diet"
+                                    value="organic">
+
+                                <span>
+                                    <i class="bi bi-stars" aria-hidden="true"></i>
+                                    Organic</span>
+                            </label>
+                        </div>
+            </div>
+
+            <!-- recipe dietary preferences-->
+             <div class="account-diet-section">
+
+                <p class="account-diet-title">
+                    Recipe Preferences
+                </p>
+
+                <div class="account-chip-list">
+
+                    <label class="account-chip">
+                        <input 
+                            type="checkbox"
+                            name="diet"
+                            value="low-carb">
+
+                            <span>
+                                <i class="bi bi-graph-down-arrow" aria-hidden="true"></i>
+                                Low Carb
+                            </span>
+                    </label>
+
+                    
+                    <label class="account-chip">
+                        <input 
+                            type="checkbox"
+                            name="diet"
+                            value="high-protein">
+
+                            <span>
+                                <i class="bi bi-lightning-charge" aria-hidden="true"></i>
+                                High Protein
+                            </span>
+                    </label>
+
+                </div>
+             </div>
 
                     </fieldset>
 
                     <!-- Save -->
                      <button
-                        type="button"
-                        class="account-button"
-                        disabled>
-                    Save Changes
+                        type="submit"
+                        id="profile-save-btn"
+                        class="account-button">
+                        Save Changes
                 </button>
 
-                <p class="account-demo-note">
-                    Profile saving will be coming soon!
+                <p 
+                    id="profile-save-status"
+                    class="account-demo-note"
+                    role="status"
+                    aria-live="polite">
                 </p>
 
                 </form>
@@ -344,8 +397,7 @@
                     <h2>Notification Preferences</h2>
 
                     <p>
-                        Choose the updates you want
-                        to receive.
+                        Save your notification preferences for future updates.
                     </p>
 
                 </div>
@@ -373,8 +425,11 @@
                         </small>
                     </span>
 
-                    <input type="checkbox"
-                        aria-label="Email notifications">
+                    <input 
+                        type="checkbox"
+                        id="notif-email"
+                        aria-label="Email notifications"
+                        >
 
                  </label>
 
@@ -392,8 +447,11 @@
                         </small>
                     </span>
 
-                    <input type="checkbox"
-                        aria-label="Recipe recommendations">
+                    <input 
+                        type="checkbox"
+                        id="notif-recipes"
+                        aria-label="Recipe recommendations"
+                        >
 
                  </label>
 
@@ -411,8 +469,11 @@
                         </small>
                     </span>
 
-                    <input type="checkbox"
-                        aria-label="Local food events">
+                    <input 
+                        type="checkbox"
+                        id="notif-events"
+                        aria-label="Local food events"
+                        >
 
                  </label>
 
@@ -430,17 +491,37 @@
                         </small>
                     </span>
 
-                    <input type="checkbox"
+                    <input 
+                        type="checkbox"
+                        id="notif-resources"
                         aria-label="New resources">
 
                  </label>
 
             </div>
 
-            <p class="account-demo-note">
-                Notification settings are currentyl a visual prototype.
+            <!-- DEF-013: Preferences have no save control -->
+
+            <div class="notification-save-actions">
+
+                <button
+                    type="button"
+                    id="notification-save-btn"
+                    class="account-button"
+                >
+                <i class="bi bi-check2-circle" aria-hidden="true"></i>
+                Save Preferences
+            </button>
+
+            <!-- save confirmation message -->
+             <p 
+                id="notification-save-status"
+                class="account-demo-note"
+                role="status"
+                aria-live="polite">
             </p>
 
+        </div>
         </section>
 
         <!-- Security -->
@@ -468,7 +549,7 @@
 
 
             <!-- Password form -->
-             <form class="account-form">
+             <form id="password-form" class="account-form">
 
                 <div class="account-field">
 
@@ -480,7 +561,8 @@
                         type="password"
                         id="current-password"
                         placeholder="Enter current password"
-                        autocomplete="current-password">
+                        autocomplete="current-password"
+                        required>
 
                 </div>
 
@@ -494,7 +576,8 @@
                         type="password"
                         id="new-account-password"
                         placeholder="Enter new password"
-                        autocomplete="new-password">
+                        autocomplete="new-password"
+                        required>
 
                 </div>
 
@@ -508,16 +591,24 @@
                         type="password"
                         id="confirm-account-password"
                         placeholder="Confirm new password"
-                        autocomplete="new-password">
+                        autocomplete="new-password"
+                        required>
 
                 </div>
 
                 <button
-                    type="button"
-                    class="account-button"
-                    disabled>
+                    type="submit"
+                    id="password-update-btn"
+                    class="account-button">
                     Update Password
                 </button>
+
+                <p 
+                    id="password-update-status"
+                    role="status"
+                    aria-live="polite">
+                </p>
+
             </form>
 <!-- Logout -->
 <div class="account-logout">

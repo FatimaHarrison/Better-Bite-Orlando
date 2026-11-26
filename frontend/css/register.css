@@ -183,6 +183,104 @@ body {
   color: white;
 }
 
+
+
+/* ==================================
+   DEF-010: Registration Layout Fix
+   ================================== */
+
+/* Balance the left and right sections */
+.register-page {
+    grid-template-columns:
+        minmax(0, 480px)
+        minmax(0, 570px);
+
+    justify-content: center;
+    align-items: center;
+
+    gap: clamp(28px, 4vw, 72px);
+}
+
+/* Left information panel */
+.register-page .login-intro {
+    width: 100%;
+    max-width: 480px;
+
+    padding: 30px;
+
+    background-color: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+
+    box-shadow: 0 8px 28px rgba(30, 55, 40, 0.08);
+}
+
+/* Improve title readability */
+.register-page .login-intro h1 {
+    color: #23452b;
+
+    font-size: clamp(28px, 2.2vw, 38px);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+/* Improve description readability */
+.register-page .login-intro > p {
+    color: #33443a;
+
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* Improve benefit descriptions */
+.register-page .benefit {
+    color: #263b2b;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.register-page .login-intro {
+    align-self: start;
+    padding-top: 38px;
+}
+
+
+/* Tablet and mobile layout */
+@media (max-width: 900px) {
+
+    .register-page {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .register-page .login-intro {
+        max-width: 600px;
+        margin: 0 auto;
+
+        padding: 24px;
+    }
+
+}
+
+/* Smaller phones */
+@media (max-width: 480px) {
+
+    .register-page .login-intro {
+        padding: 20px;
+    }
+
+    .register-page .login-intro h1 {
+        font-size: 28px;
+    }
+
+    .register-page .benefit {
+        font-size: 13px;
+    }
+
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .register-card {

@@ -265,6 +265,56 @@ const distanceInput = document.getElementById("distance");
 const cuisineInput = document.getElementById("cuisine");
 const emptyMessage = document.getElementById("emptyMessage");
 
+// dietary filter elements 
+const dietaryCheckboxes = document.querySelectorAll(
+    ".diet-options input[type='checkbox']"
+);
+
+const allRestaurantsBtn = document.getElementById(
+    "allRestaurantsBtn"
+);
+
+// keep all restaurants in sync with dietary filters 
+function syncDietarySelection() {
+    
+    const hasSelectedDiet = Array.from(dietaryCheckboxes).some(
+        (checkbox) => checkbox.checked
+    );
+
+    if (!allRestaurantsBtn) return;
+
+    const isAllSelected = !hasSelectedDiet;
+
+    allRestaurantsBtn.classList.toggle(
+        "active",
+        isAllSelected
+    );
+
+    allRestaurantsBtn.setAttribute(
+        "aria-pressed",
+        String(isAllSelected)
+    );
+}
+
+
+dietaryCheckboxes.forEach((checkbox) => {
+
+    checkbox.addEventListener("change", () => {
+        syncDietarySelection();
+    });
+
+});
+
+allRestaurantsBtn?.addEventListener("click", () => {
+
+    dietaryCheckboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+    });
+
+    syncDietarySelection();
+});
+
+
 // Display selected restaurant details
 function showRestaurantDetails(restaurant) {
 
@@ -575,6 +625,33 @@ async function loadUserZipCode() {
                 locationInput.value = zipcode;
             }
         }
+
+        // load saved restaurant user preferences 
+
+        const preferences = user?.dietaryPreferences;
+
+        if (!preferences) {
+            return;
+        }
+
+        // Match restaurant filters with account preferences
+        const restaurantPreferenceMap = {
+            vegetarian: "vegetarian",
+            vegan: "vegan",
+            gluten_free: "glutenFree",
+            organic: "organic",
+        };
+
+        dietaryCheckboxes.forEach((checkbox) => {
+
+            const preferenceKey = restaurantPreferenceMap[checkbox.value];
+
+            checkbox.checked = preferences[preferenceKey] === true;
+
+        });
+
+        syncDietarySelection();
+
     } catch (error) {
         console.warn("Unable to retrieve user ZIP code:", error);
     }

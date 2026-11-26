@@ -465,6 +465,11 @@
   }
   async function init() {
     bind();
+
+    // Apply saved account preferences before displaying recipes
+    await loadSavedRecipePreferences();
+
+
     try {
       state.recipes = await fetchRecipes();
       $("recipes-status").textContent = state.recipes.length
@@ -477,6 +482,69 @@
         `Unable to load recipes: ${err.message} Please try again later.`;
     }
   }
+
+  // load saved dietary preferences from user account
+  async function loadSavedRecipePreferences() {
+    try {
+      const response = await fetch(
+        `${base}/auth/profile`,
+        {
+          method: "GET",
+          credentials: "include",
+          cache: "no-store",
+        }
+      );
+
+      // guest without an account
+      if (!response.ok) {
+        return;
+      }
+
+      const result = await response.json();
+
+      const preferences = 
+        result.data?.user?.dietaryPreferences;
+
+        if (!preferences) {
+          return;
+        }
+
+        // match account preferences on filters
+        const recipePreferenceMap = {
+          vegetarian: "vegetarian",
+          vegan: "vegan",
+          glutenFree: "gluten free",
+          lowCarb: "low carb",
+          highProtein: "high protein",
+        };
+
+        state.diets.clear();
+
+        Object.entries(recipePreferenceMap).forEach(
+          ([key, value]) => {
+            if (preferences[key] === true) {
+              state.diets.add(value);
+            }
+          }
+        );
+
+        document.querySelectorAll("[data-diet]").forEach(
+          (button) => {
+            button.setAttribute(
+              "aria-pressed",
+              String(state.diets.has(button.dataset.diet))
+            );
+          }
+        );
+
+    } catch (error) {
+      console.warm(
+        "Unable to load saved recipe preferences:",
+        error
+      );
+    }
+  }
+
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", init);
   else init();

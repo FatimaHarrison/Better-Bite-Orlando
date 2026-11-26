@@ -373,7 +373,10 @@ body {
 }
 
 .account-chip span {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
   padding: 8px 14px;
 
   background-color: #e8eeea;
@@ -384,12 +387,55 @@ body {
   font-size: 12px;
 }
 
-/* Selected preference */
+/* Dietary preference icons */
+.account-chip span i {
+  font-size: 14px;
+  line-height: 1;
+}
 
-.account-chip input:checked + span {
-  background-color: var(--bbo-primary);
-  border-color: var(--bbo-primary);
-  color: #ffffff;
+/* ==================================
+   Selected Dietary Preferences
+   ================================== */
+/* Vegetarian - Green */
+.account-chip input[value="vegetarian"]:checked + span {
+  background-color: #356B35;
+  border-color: #356B35;
+  color: white;
+}
+
+/* Vegan - Teal */
+.account-chip input[value="vegan"]:checked + span {
+  background-color: #235344;
+  border-color: #235344;
+  color: white;
+}
+
+/* Gluten-Free - Purple */
+.account-chip input[value="gluten-free"]:checked + span {
+  background-color: #7945A6;
+  border-color: #7945A6;
+  color: white;
+}
+
+/* Organic - Amber */
+.account-chip input[value="organic"]:checked + span {
+  background-color: #89580F;
+  border-color: #89580F;
+  color: white;
+}
+
+/* Low Carb - Deep Blue */
+.account-chip input[value="low-carb"]:checked + span {
+  background-color: #245E78;
+  border-color: #245E78;
+  color: white;
+}
+
+/* High Protein - Burnt Orange */
+.account-chip input[value="high-protein"]:checked + span {
+  background-color: #A34D16;
+  border-color: #A34D16;
+  color: white;
 }
 
 .account-chip input:focus-visible + span {
@@ -397,6 +443,20 @@ body {
   outline-offset: 2px;
 }
 
+
+/* Dietary preference groups */
+
+.account-diet-section + .account-diet-section {
+  margin-top: 20px;
+}
+
+.account-diet-title {
+  margin: 0 0 10px;
+
+  color: #476347;
+  font-size: 12px;
+  font-weight: 700;
+}
 /* ==================================
    Save Buttons
    ================================== */
@@ -595,6 +655,123 @@ body {
 .account-logout .account-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* DEF-013: Notification preferences save area */
+
+.notification-save-actions {
+    margin-top: 32px;
+}
+
+#notification-save-status {
+    margin-top: 12px;
+    margin-bottom: 0;
+}
+* Consistent save button typography */
+#profile-save-btn,
+#notification-save-btn {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+/* Consistent save confirmation messages */
+#profile-save-status,
+#notification-save-status {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* Notification save button spacing */
+.notification-save-actions {
+    margin-top: 32px;
+}
+
+#notification-save-status {
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+/* ==================================
+   DEF-017: Security Panel Colors
+   ================================== */
+
+/* Security panel background */
+#panel-security {
+    background-color: #f8f2fb;
+    border-color: #e5d5ee;
+}
+
+/* Security heading */
+#panel-security h2 {
+    color: #78349c;
+}
+
+/* Security heading divider */
+#panel-security .account-panel-heading {
+    border-bottom-color: #e5d5ee;
+}
+
+/* Security icon */
+#panel-security .account-panel-mark {
+    background-color: #eee0f5;
+    color: #78349c;
+}
+
+/* Security input focus */
+#panel-security .account-field input:focus-visible {
+    outline-color: #78349c;
+}
+
+/* Security logout button */
+#panel-security .account-logout .account-button {
+    background-color: transparent;
+    color: #78349c;
+    border: 2px solid #78349c;
+}
+
+#panel-security .account-logout .account-button:hover {
+    background-color: #eee0f5;
+}
+
+/* ==================================
+   DEF-015: Preferences Panel Colors
+   ================================== */
+
+/* Preferences panel background */
+#panel-preferences {
+    background-color: #fff7f0;
+    border-color: #efd9c7;
+}
+
+/* Preferences heading */
+#panel-preferences h2 {
+    color: #a2531e;
+}
+
+/* Preferences heading divider */
+#panel-preferences .account-panel-heading {
+    border-bottom-color: #efd9c7;
+}
+
+/* Preferences heading icon */
+#panel-preferences .account-panel-mark {
+    background-color: #ffeadb;
+    color: #a2531e;
+}
+
+/* Notification icons */
+#panel-preferences .account-notification-icon {
+    background-color: #ffeadb;
+    color: #a2531e;
+}
+
+/* Notification switch keyboard focus */
+#panel-preferences .account-notification input:focus-visible {
+    outline-color: #a2531e;
 }
 
 /* ==================================
