@@ -34,14 +34,23 @@
     const n = Number(value);
     return Number.isFinite(n) ? n : null;
   };
-  const safeUrl = (value) => {
-    try {
-      const u = new URL(value, window.location.href);
-      return ["http:", "https:"].includes(u.protocol) ? u.href : "";
-    } catch {
-      return "";
-    }
-  };
+  
+const safeUrl = (value) => {
+  if (typeof value !== "string") return "";
+
+  const link = value.trim();
+  if (!/^https?:\/\//i.test(link)) return "";
+
+  try {
+    const url = new URL(link);
+    return ["http:", "https:"].includes(url.protocol)
+      ? url.href
+      : "";
+  } catch {
+    return "";
+  }
+};
+
   const list = (value) => (Array.isArray(value) ? value : []);
   const recipeId = (r) => r.id ?? r.recipeId ?? r.spoonacularId;
   const minutes = (r) =>
