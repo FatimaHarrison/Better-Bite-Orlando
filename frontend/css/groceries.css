@@ -1061,6 +1061,166 @@
     outline-offset: 3px;
 }
 
+/* ========================================
+   FORMATTED GROCERY OPENING HOURS
+======================================== */
+
+.grocery-modal-hours h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--bbo-primary);
+    margin-bottom: 12px;
+}
+
+.grocery-hours-list {
+    display: grid;
+    grid-template-columns: minmax(85px, max-content) 1fr;
+    gap: 9px 24px;
+    align-items: baseline;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+.grocery-hours-list dt {
+    font-weight: 600;
+    color: var(--bbo-text-dark);
+}
+
+.grocery-hours-list dd {
+    margin: 0;
+    color: #536052;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+/* Match restaurant card hours */
+.grocery-card-hours {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #657064;
+}
+
+.grocery-modal-hours {
+    margin-bottom: 18px;
+}
+
+.grocery-directions-container {
+    margin-top: 0;
+}
+
+
+/* Standardized transportation buttons */
+.grocery-directions-buttons a {
+    background-color: var(--bbo-primary);
+    border: 1px solid var(--bbo-primary);
+    color: white !important;
+
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.grocery-directions-buttons a:hover {
+    background-color: #294d28;
+    border-color: #294d28;
+    color: white !important;
+}
+
+
+/* Standardized details modal header */
+
+.grocery-details-modal .modal-header {
+    background-color: #f7fbf5;
+    border-bottom: 1px solid #d9e6d3;
+    padding: 18px 24px;
+}
+
+.grocery-details-modal .modal-title {
+    color: var(--bbo-primary);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.grocery-modal-image {
+    height: 100px;
+    margin-bottom: 15px;
+}
+
+.grocery-modal-image i {
+    font-size: 48px;
+}
+
+.grocery-modal-heading {
+    justify-content: flex-start;
+    margin-bottom: 15px;
+}
+
+
+
+/* Standardized direction buttons */
+
+.grocery-directions-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.grocery-directions-buttons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 88px;
+    height: 44px;
+    padding: 0;
+    gap: 6px;
+
+    background-color: var(--bbo-primary);
+    border: 1px solid var(--bbo-primary);
+    color: white !important;
+
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.grocery-directions-buttons a i {
+    font-size: 14px;
+}
+
+/* View full details inside grocery map popup */
+
+.grocery-popup-details {
+    margin-top: 12px;
+    padding: 8px 12px;
+
+    border: 1px solid var(--bbo-primary);
+    border-radius: 7px;
+
+    background-color: white;
+    color: var(--bbo-primary);
+
+    font-family: var(--bbo-font);
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.grocery-popup-details:hover {
+    background-color: #edf4e9;
+}
+
+.grocery-popup-details:focus-visible {
+    outline: 3px solid var(--bbo-primary);
+    outline-offset: 2px;
+}
+
+
+
 /* Mobile adjustments */
 @media (max-width: 575.98px) {
     .back-to-top {

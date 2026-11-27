@@ -1237,6 +1237,158 @@ body > #footer-container {
   outline-offset: 3px;
 }
 
+
+
+/* Match grocery address icon */
+.restaurant-modal-address {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.restaurant-modal-address i {
+    color: var(--bbo-primary);
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+/* Match grocery transportation button dimensions */
+.restaurant-detail-directions {
+    gap: 10px;
+    margin-top: 0;
+}
+
+.restaurant-detail-directions .restaurant-direction-link {
+    padding: 10px 16px;
+    border: 1px solid var(--bbo-primary);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.restaurant-directions-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--bbo-primary);
+    margin-bottom: 12px;
+}
+
+.restaurant-details-modal {
+    border-radius: 20px;
+}
+
+/* Match grocery modal distance alignment */
+.restaurant-details-info .restaurant-modal-distance {
+    color: #666666;
+    font-size: 13px;
+    margin-left: 30px;
+    margin-bottom: 25px;
+}
+
+/* ========================================
+   RESTAURANT WEBSITE BUTTON
+======================================== */
+
+.restaurant-website-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 11px 20px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Website unavailable message */
+
+.restaurant-details-info .restaurant-website-unavailable {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    width: 100%;
+    margin: 20px 0 0;
+
+    color: #666666;
+    font-size: 13px;
+}
+
+.restaurant-website-unavailable i {
+    color: var(--bbo-primary);
+    font-size: 15px;
+}
+
+.restaurant-details-modal .modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--bbo-primary);
+}
+
+.restaurant-modal-image {
+    height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #e5f2df;
+    color: var(--bbo-primary);
+
+    border-radius: 14px;
+    margin-bottom: 15px;
+}
+
+.restaurant-modal-image i {
+    font-size: 48px;
+}
+
+.restaurant-modal-badge {
+    display: inline-block;
+    padding: 7px 14px;
+    margin-bottom: 15px;
+
+    background-color: #a6c8a7;
+    color: var(--bbo-primary);
+
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* Standardized direction buttons */
+
+.restaurant-detail-directions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.restaurant-detail-directions .restaurant-direction-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 88px;
+    height: 44px;
+    padding: 0;
+    gap: 6px;
+
+    background-color: var(--bbo-primary);
+    border: 1px solid var(--bbo-primary);
+    color: white !important;
+
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.restaurant-detail-directions .restaurant-direction-link i {
+    font-size: 14px;
+}
+
 /* ==========================================
    RESPONSIVE SEARCH PANEL
 ========================================== */

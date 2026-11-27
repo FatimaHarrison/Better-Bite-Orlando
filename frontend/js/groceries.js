@@ -143,16 +143,106 @@ function syncCategoryNavigation(category) {
   });
 }
 
+  // Convert 24-hour time to 12-hour time
+function formatGroceryTime(time) {
+  const [hour, minute] = time.split(":").map(Number);
+
+  // Handle midnight at the end of the day
+if (hour === 24 && minute === 0) {
+  return "12 AM";
+}
+
+  if (
+    !Number.isInteger(hour) ||
+    !Number.isInteger(minute) ||
+    hour < 0 ||
+    hour > 23 ||
+    minute < 0 ||
+    minute > 59
+  ) {
+    return time;
+  }
+
+  const period = hour >= 12 ? "PM" : "AM";
+  const formattedHour = hour % 12 || 12;
+
+  const formattedMinute =
+    minute === 0 ? "" : `:${String(minute).padStart(2, "0")}`;
+
+  return `${formattedHour}${formattedMinute} ${period}`;
+}
+
+// Format grocery opening hours
+function formatGroceryHours(openingHours) {
+  if (
+    typeof openingHours !== "string" ||
+    !openingHours.trim() ||
+    openingHours.trim().toLowerCase() === "hours unavailable"
+  ) {
+    return [];
+  }
+
+  if (openingHours.trim() === "24/7") {
+    return [
+      {
+        days: "Every day",
+        time: "Open 24 hours",
+      },
+    ];
+  }
+
+  const dayNames = {
+    Mo: "Mon",
+    Tu: "Tue",
+    We: "Wed",
+    Th: "Thu",
+    Fr: "Fri",
+    Sa: "Sat",
+    Su: "Sun",
+  };
+
+  return openingHours
+    .split(";")
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .map((part) => {
+      const match = part.match(
+        /^(.+?)\s+(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})$/
+      );
+
+      if (!match) {
+        return {
+          days: "Schedule",
+          time: part,
+        };
+      }
+
+      const days = match[1]
+        .replace(/\b(Mo|Tu|We|Th|Fr|Sa|Su)\b/g, (day) => dayNames[day])
+        .replace(/\s*-\s*/g, "–");
+
+      const start = formatGroceryTime(match[2]);
+      const end = formatGroceryTime(match[3]);
+
+      return {
+        days,
+        time: `${start} - ${end}`,
+      };
+    });
+}
+
+
 // display selected grocery details
 function showGroceryDetails(location) {
-  // focus the selected grocery on map
+
+// focus the selected grocery on map
   const selectedMarker = locationMarkers.get(location);
 
-  if (selectedMarker && groceryMap) {
+if (selectedMarker && groceryMap) {
     groceryMap.setView(selectedMarker.getLatLng(), 15);
 
-    selectedMarker.openPopup();
-  }
+    groceryMap.closePopup();
+}
 
   const name = location.name || "Unnamed Location";
   const address = formatGroceryAddress(name, location.address);
@@ -163,8 +253,8 @@ function showGroceryDetails(location) {
       ? `${Number(location.distanceMiles).toFixed(1)} miles away`
       : "Distance unavailable";
 
-  const hours = location.openingHours || "Hours unavailable";
 
+      
   // category information
   const categories = {
     grocery: "Grocery Store",
@@ -201,14 +291,12 @@ function showGroceryDetails(location) {
   const heading = document.createElement("div");
   heading.className = "grocery-modal-heading";
 
-  const title = document.createElement("h3");
-  title.textContent = name;
-
   const badge = document.createElement("span");
   badge.className = "grocery-modal-badge";
   badge.textContent = category;
 
-  heading.append(title, badge);
+heading.appendChild(badge);
+
 
   // Address
   const addressSection = document.createElement("div");
@@ -227,17 +315,40 @@ function showGroceryDetails(location) {
   distanceText.className = "grocery-modal-distance";
   distanceText.textContent = `Distance: ${distance}`;
 
-  // Opening hours
-  const hoursSection = document.createElement("div");
-  hoursSection.className = "grocery-modal-hours";
+  
+// Opening hours
+const hoursSection = document.createElement("div");
+hoursSection.className = "grocery-modal-hours";
 
-  const hoursTitle = document.createElement("h4");
-  hoursTitle.textContent = "Operating Hours";
+const hoursTitle = document.createElement("h4");
+hoursTitle.textContent = "Opening Hours";
 
-  const hoursText = document.createElement("p");
-  hoursText.textContent = `🕒 ${hours}`;
+hoursSection.appendChild(hoursTitle);
 
-  hoursSection.append(hoursTitle, hoursText);
+const schedules = formatGroceryHours(location.openingHours);
+
+if (schedules.length === 0) {
+  const unavailable = document.createElement("p");
+  unavailable.textContent = "Hours unavailable";
+
+  hoursSection.appendChild(unavailable);
+} else {
+  const hoursList = document.createElement("dl");
+  hoursList.className = "grocery-hours-list";
+
+  schedules.forEach((schedule) => {
+    const day = document.createElement("dt");
+    day.textContent = schedule.days;
+
+    const time = document.createElement("dd");
+    time.textContent = schedule.time;
+
+    hoursList.append(day, time);
+  });
+
+  hoursSection.appendChild(hoursList);
+}
+
 
   // action buttons
   const actions = document.createElement("div");
@@ -295,7 +406,7 @@ function showGroceryDetails(location) {
       link.className = "btn btn-outline-success";
 
       const icon = document.createElement("i");
-      icon.className = `bi ${transport.icon} me-2`;
+      icon.className = `bi ${transport.icon}`;
 
       link.append(icon, document.createTextNode(transport.label));
 
@@ -463,7 +574,11 @@ function updateGroceryMap(locations) {
     name.textContent = location.name || "Unnamed Location";
 
     const address = document.createElement("p");
-    address.textContent = location.address || "Address unavailable";
+    address.textContent = formatGroceryAddress(
+    location.name,
+    location.address
+    );
+    
 
     address.style.margin = "5px 0 0";
 
@@ -508,9 +623,27 @@ function updateGroceryMap(locations) {
       });
     }
 
-    popup.append(name, address, directionsContainer);
+  // View full grocery details
+  const viewDetailsButton = document.createElement("button");
+
+  viewDetailsButton.type = "button";
+  viewDetailsButton.className = "grocery-popup-details";
+  viewDetailsButton.textContent = "View Full Details";
+
+viewDetailsButton.addEventListener("click", () => {
+    showGroceryDetails(location);
+});
+
+  popup.append(
+      name,
+      address,
+      directionsContainer,
+      viewDetailsButton
+  );
+
 
     marker.bindPopup(popup);
+
 
     // Add marker to map
     marker.addTo(groceryMarkers);
@@ -556,7 +689,19 @@ function renderGroceryResults(locations) {
         ? `${Number(location.distanceMiles).toFixed(1)} miles away`
         : "Distance unavailable";
 
-    const hours = location.openingHours || "Hours unavailable";
+
+    const formattedHours = formatGroceryHours(location.openingHours);
+
+    const firstSchedule = formattedHours[0];
+
+    const hours = firstSchedule
+    ? `${firstSchedule.days}: ${firstSchedule.time}` +
+      (formattedHours.length > 1
+        ? ` · +${formattedHours.length - 1} more`
+        : "")
+    : "Hours unavailable";
+
+
 
     // create card content
     const content = document.createElement("div");
