@@ -389,6 +389,11 @@ function formatRestaurantAddress(restaurant) {
 function formatRestaurantTime(time) {
   const [hour, minute] = time.split(":").map(Number);
 
+  // Handle midnight at the end of the day
+if (hour === 24 && minute === 0) {
+  return "12 AM";
+}
+
   if (
     !Number.isInteger(hour) ||
     !Number.isInteger(minute) ||
@@ -523,11 +528,45 @@ function showRestaurantDetails(restaurant) {
   const details = document.createElement("div");
   details.className = "restaurant-details-info";
 
-  const addressText = document.createElement("p");
-  addressText.textContent = `📍 ${address}`;
+  // Restaurant category artwork
+const image = document.createElement("div");
+image.className = "restaurant-modal-image";
 
-  const distanceText = document.createElement("p");
-  distanceText.textContent = `Distance: ${distance}`;
+const imageIcon = document.createElement("i");
+imageIcon.className = "bi bi-fork-knife";
+imageIcon.setAttribute("aria-hidden", "true");
+
+image.appendChild(imageIcon);
+
+const categoryBadge = document.createElement("span");
+categoryBadge.className = "restaurant-modal-badge";
+categoryBadge.textContent = "Restaurant";
+
+details.append(image, categoryBadge);
+
+
+
+
+const addressText = document.createElement("p");
+addressText.className = "restaurant-modal-address";
+
+const addressIcon = document.createElement("i");
+addressIcon.className = "bi bi-geo-alt";
+addressIcon.setAttribute("aria-hidden", "true");
+
+addressText.append(
+  addressIcon,
+  document.createTextNode(address)
+);
+
+
+
+const distanceText = document.createElement("p");
+distanceText.className = "restaurant-modal-distance";
+distanceText.textContent = `Distance: ${distance}`;
+
+
+
 
   // Create full opening hours section
   const hoursSection = document.createElement("section");
@@ -601,8 +640,72 @@ function showRestaurantDetails(restaurant) {
       directionsContainer.appendChild(link);
     });
 
-    actions.appendChild(directionsContainer);
+    const directionsTitle = document.createElement("h4");
+directionsTitle.className = "restaurant-directions-title";
+directionsTitle.textContent = "Get Directions";
+
+actions.append(directionsTitle, directionsContainer);
+
+
+
   }
+
+// Website link when available
+let hasValidWebsite = false;
+
+if (restaurant.website) {
+  try {
+    const rawWebsite = String(restaurant.website).trim();
+
+    // Add HTTPS if the website has no protocol
+    const websiteUrl = /^https?:\/\//i.test(rawWebsite)
+      ? rawWebsite
+      : `https://${rawWebsite}`;
+
+    const url = new URL(websiteUrl);
+
+    // Only allow valid HTTP and HTTPS websites
+    if (
+      ["https:", "http:"].includes(url.protocol) &&
+      url.hostname.includes(".")
+    ) {
+      const website = document.createElement("a");
+
+      website.href = url.href;
+      website.target = "_blank";
+      website.rel = "noopener noreferrer";
+
+      website.className = "btn btn-outline-primary restaurant-website-btn";
+      website.textContent = "Visit Website";
+
+      actions.appendChild(website);
+      hasValidWebsite = true;
+    }
+  } catch (error) {
+    console.warn("Invalid restaurant website URL:", error);
+  }
+}
+
+// Show message when website information is unavailable
+if (!hasValidWebsite) {
+  const message = document.createElement("p");
+
+  message.className = "restaurant-website-unavailable";
+
+  const icon = document.createElement("i");
+  icon.className = "bi bi-info-circle";
+  icon.setAttribute("aria-hidden", "true");
+
+  message.append(
+    icon,
+    document.createTextNode(
+      "Website information is not available for this location."
+    )
+  );
+
+  actions.appendChild(message);
+}
+
 
   // Add dietary tags when available
   const detailDietaryTags = createRestaurantDietaryTags(restaurant);
