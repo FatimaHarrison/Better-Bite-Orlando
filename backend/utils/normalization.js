@@ -61,6 +61,7 @@ export function normalizeRecipe(recipe = {}) {
 		title: recipe.title ?? null,
 		image: recipe.image ?? null,
 		readyInMinutes: recipe.readyInMinutes ?? null,
+                servings: recipe.servings ?? null,
 		source: recipe.sourceName ?? recipe.sourceUrl ?? null,
 		healthScore: recipe.healthScore ?? null,
 
