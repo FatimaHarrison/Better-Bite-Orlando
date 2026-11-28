@@ -65,6 +65,14 @@ const registerUser = async (req, res) => {
 
     const token = generateToken(newUser.id, res);
 
+
+    // DEF-011: No registration verification email received
+    try {
+      await sendWelcomeEmail(newUser);
+    } catch (error) {
+      console.error("Registration confirmation email delivery failed.");
+    }
+
     return res.status(201).json({
       status: "success",
       data: {
@@ -178,6 +186,133 @@ const mailer = nodemailer.createTransport({
 		pass: process.env.SMTP_PASSWORD,
 	},
 });
+
+
+// DEF-011: No registration verification email received
+
+const sendWelcomeEmail = async (user) => {
+
+  const signInUrl = new URL (
+    `${process.env.FRONTEND_URL.replace(/\/+$/, "")}/login.html`
+  );
+
+  await mailer.sendMail({
+    from: process.env.SMTP_FROM,
+    to: user.email,
+
+    subject: "Welcome to Better Bite Orlando",
+
+    text: `
+  Congratulations, ${user.firstName}!
+  
+  Your Better Bite Orlando has been successfully created.
+  
+  Your can now discover local grocery stores, healthy restaurants,
+  nutritious recipes, and community food resources.
+  
+  Sign in to your account:
+  ${signInUrl.toString()}
+  
+  If you did not create this account, you can ignore this email.
+  
+  The Better Bite Orlando Team
+          `,
+
+          html: `
+          <div style="
+              background-color: #F4ECE5;
+              padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            color: #333333;
+        ">
+
+            <div style="
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #FFFFFF;
+                border-radius: 16px;
+                overflow: hidden;
+            ">
+
+                <div style="
+                    background-color: #3D622C;
+                    padding: 30px;
+                    text-align: center;
+                    color: #FFFFFF;
+                ">
+                    <h1 style="margin: 0;">
+                        Better Bite Orlando
+                    </h1>
+                </div>
+
+                <div style="padding: 35px;">
+
+                    <h2 style="color: #3D622C;">
+                        Welcome to our community!
+                    </h2>
+
+                    <p>
+                        Congratulations! Your Better Bite Orlando
+                        account has been successfully created.
+                    </p>
+
+                    <p>
+                        You are now ready to explore:
+                    </p>
+
+                    <ul style="line-height: 2;">
+                        <li>Local grocery stores and farmers markets</li>
+                        <li>Healthy restaurants near you</li>
+                        <li>Delicious and nutritious recipes</li>
+                        <li>Community food assistance resources</li>
+                    </ul>
+
+                    <div style="
+                        text-align: center;
+                        margin: 30px 0;
+                    ">
+                        <a href="${signInUrl.toString()}"
+                            style="
+                                background-color: #3D622C;
+                                color: #FFFFFF;
+                                padding: 14px 28px;
+                                border-radius: 8px;
+                                text-decoration: none;
+                                font-weight: bold;
+                                display: inline-block;
+                            ">
+                            Sign In to Your Account
+                        </a>
+                    </div>
+
+                    <p>
+                        Thank you for joining Better Bite Orlando!
+                    </p>
+
+                    <p>
+                        The Better Bite Orlando Team
+                    </p>
+
+                </div>
+
+                <div style="
+                    background-color: #F4ECE5;
+                    padding: 20px;
+                    text-align: center;
+                    font-size: 12px;
+                    color: #555555;
+                ">
+                    If you did not create this account,
+                    you can ignore this email.
+                    <br><br>
+                    &copy; 2026 Better Bite Orlando
+                </div>
+
+            </div>
+        </div>
+        `,
+    });
+};
 
 const forgotPassword = async (req, res) => {
 	const email = req.body?.email;
